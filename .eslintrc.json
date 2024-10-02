@@ -22,6 +22,19 @@
   },
   "plugins": ["react", "@typescript-eslint", "react-hooks"],
   "rules": {
+    "no-console": "warn",
+    "prefer-const": "warn",
+    "arrow-body-style": ["warn", "as-needed"],
+    "padding-line-between-statements": [
+      "warn",
+      { "blankLine": "always", "prev": ["const", "let"], "next": "*" },
+      {
+        "blankLine": "any",
+        "prev": ["const", "let"],
+        "next": ["const", "let"]
+      },
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
@@ -38,7 +51,7 @@
     ],
     "max-len": [
       "warn",
-      { "code": 100, "ignoreComments": true, "ignoreUrls": true }
+      { "code": 120, "ignoreComments": true, "ignoreUrls": true }
     ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -50,6 +63,5 @@
     "import/resolver": {
       "typescript": {}
     }
-  },
-  "ignores": ["package.json"]
+  }
 }
