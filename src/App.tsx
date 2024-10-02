@@ -1,10 +1,7 @@
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-     Graxis
-    </div>
-  );
-}
+const App = () => {
+  return <div className="App">Graxis</div>;
+};
 
 export default App;
