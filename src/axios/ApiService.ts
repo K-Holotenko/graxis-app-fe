@@ -35,6 +35,7 @@ export class ApiService {
       },
       (error: AxiosError): Promise<AxiosError> => {
         if (error.response && error.response.status === 401) {
+          // TODO GRX-34 Update this condition with user logout logic
         }
         return Promise.reject(error);
       }
