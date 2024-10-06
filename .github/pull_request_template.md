@@ -1,19 +1,23 @@
 ## Title
-- Title includes the Jira ticket number
+- JIRA ticket number. [Page name or component]. Brief description of the change
 
 ## Description
-- Brief explanation of the changes and why they are necessary.
+- A brief explanation of the changes and why they are necessary.
+- If these changes can be demonstrated via media (screenshots or short demo video) please add it. It lets us detect the visual mismatching between the PR changes and the actual design at the early stages.
 
 ## Changes being made
 List the key changes made in this PR:
-- Change 1: What was added or modified?
-- Change 2: Any refactoring or major updates?
-- Change 3: Mention bug fixes, if any.
+- What was added or modified?
+- Any refactoring or major updates?
+- Mention bug fixes, if any.
 
 ## How to Test
 Describe the tests that were run to verify your changes. 
 
 ## Checklist:
-- [ ] Code has been tested locally
-- [ ] Changes are documented (if necessary)
-- [ ] All tests pass
+- [ ] Are the changes documented (if necessary)?
+- [ ] Is new functionality covered with unit tests?
+- [ ] Are utility functions stored in a separate files?
+- [ ] Are redundant comments removed?
+- [ ] Are reusable strings and numbers stored in constants or enums?
+- [ ] Are big methods/components dicomposed?
