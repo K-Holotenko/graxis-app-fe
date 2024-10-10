@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import AuthForm from './components/AuthForm/AuthForm';
+import AuthProvider from './components/AuthForm/AuthContext';
+import { firebaseApp } from './config/firebase';
 
-const App = () => {
-  return <div className="App">Graxis</div>;
+const App: React.FC = (): JSX.Element => {
+  useEffect(() => {
+    console.log('Firebase Init', firebaseApp);
+  }, []);
+
+  return (
+    <AuthProvider>
+      <div className="app">
+        <h1>Authentication App</h1>
+        <AuthForm />
+      </div>
+    </AuthProvider>
+  );
 };
 
 export default App;
