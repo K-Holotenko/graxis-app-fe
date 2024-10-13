@@ -1,0 +1,48 @@
+@import '../../constants/variables.scss';
+
+.contentWrapper {
+  width: clamp(280px, 85%, 490px);
+}
+
+.continueButton {
+  margin-bottom: 18px;
+  font-weight: $font-weight-medium;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 16px;
+  height: 44px;
+}
+
+.divider > span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.divider::before {
+  background: linear-gradient(270deg, #cdcdcd 0%, rgba(234, 234, 234, 0) 100%);
+  margin-right: 16px;
+}
+
+.divider::after {
+  margin-left: 16px;
+  background: linear-gradient(90deg, #cdcdcd 0%, rgba(234, 234, 234, 0) 100%);
+}
+
+.authText {
+  font-family: $font-family;
+  margin-top: 16px;
+  font-weight: $font-weight-medium;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .authText {
+    margin-top: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .authText {
+    margin-top: 40px;
+  }
+}
