@@ -1,6 +1,7 @@
+
 {
-  "*.{js,jsx,ts,tsx,css,scss,md}": [
-    "prettier --write",
-    "eslint --max-warnings=0 --fix"
-  ]
+  "*.js": ["eslint --fix", "prettier --write"],
+  "*.ts": ["eslint --fix", "prettier --write"],
+  "*.tsx": ["eslint --fix", "prettier --write"],
+  "*.css": ["prettier --write"]
 }
