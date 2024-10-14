@@ -11,7 +11,14 @@
     "plugin:prettier/recommended",
     "plugin:import/recommended"
   ],
-  "overrides": [],
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off"
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -24,6 +31,7 @@
   "rules": {
     "no-console": "warn",
     "prefer-const": "warn",
+    "import/named": 0,
     "arrow-body-style": ["warn", "as-needed"],
     "padding-line-between-statements": [
       "warn",
@@ -46,7 +54,7 @@
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/explicit-function-return-type": [
-      "error",
+      "warn",
       { "allowExpressions": true }
     ],
     "max-len": [
@@ -56,8 +64,12 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "import/prefer-default-export": "off",
+    "import/newline-after-import": "warn",
+    "no-duplicate-imports": "warn",
+    "react/no-array-index-key": "warn",
     "react/prop-types": "off",
-    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "react/react-in-jsx-scope": "off"
   },
   "settings": {
     "import/resolver": {

@@ -1,6 +1,6 @@
 {
-  "*.{js,jsx,ts,tsx,json,css,scss,md}": [
+  "*.{js,jsx,ts,tsx,css,scss,md}": [
     "prettier --write",
-    "eslint --no-warn-ignored --fix"
+    "eslint --max-warnings=0 --fix"
   ]
 }

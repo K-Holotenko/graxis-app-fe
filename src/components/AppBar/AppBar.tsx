@@ -1,12 +1,11 @@
-import React from 'react';
-import { Tabs } from 'antd';
-import type { TabsProps } from 'antd';
+import { Tabs, TabsProps } from 'antd';
+// import type { TabsProps } from 'antd';
 import styles from './AppBar.module.scss';
 import { auth } from '../../constants/auth/auth';
 import { EmailAuthForm } from '../EmailAuthForm/EmailAuthForm';
 import { PhoneAuthForm } from '../PhoneAuthForm/PhoneAuthForm';
 
-export const AppBar: React.FC = () => {
+export const AppBar = () => {
   const items: TabsProps['items'] = [
     {
       key: '1',
