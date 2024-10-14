@@ -5,7 +5,15 @@ interface SignUpProps {
   switchToLogin: () => void;
 }
 
-const SignUp: React.FC<SignUpProps> = ({ switchToLogin }) => {
+const signUpText = {
+  verification: 'Верифікація',
+  inputPlaceholder: 'Введіть верифікаціонний код',
+  password: 'Пароль',
+  register: 'Зареєструватися',
+  haveAccount: 'Маєш аккаунт?',
+};
+
+const SignUp = ({ switchToLogin }: SignUpProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
@@ -32,10 +40,10 @@ const SignUp: React.FC<SignUpProps> = ({ switchToLogin }) => {
     <div>
       {isVerification ? (
         <form onSubmit={handleVerify}>
-          <h2>Verification</h2>
+          <h2>{signUpText.verification}</h2>
           <input
             type="text"
-            placeholder="Enter Verification Code"
+            placeholder={signUpText.inputPlaceholder}
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
             required
@@ -54,14 +62,14 @@ const SignUp: React.FC<SignUpProps> = ({ switchToLogin }) => {
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder={signUpText.password}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Register</button>
+          <button type="submit">{signUpText.register}</button>
           <p>
-            Already have an account?{' '}
+            {signUpText.haveAccount}
             <button onClick={switchToLogin}>Login</button>
           </p>
         </form>
