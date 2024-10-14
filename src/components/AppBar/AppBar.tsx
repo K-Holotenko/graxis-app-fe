@@ -1,9 +1,8 @@
 import { Tabs, TabsProps } from 'antd';
-// import type { TabsProps } from 'antd';
-import styles from './AppBar.module.scss';
-import { auth } from '../../constants/auth/auth';
+import { auth } from '../../config/auth/auth';
 import { EmailAuthForm } from '../EmailAuthForm/EmailAuthForm';
 import { PhoneAuthForm } from '../PhoneAuthForm/PhoneAuthForm';
+import styles from './AppBar.module.scss';
 
 export const AppBar = () => {
   const items: TabsProps['items'] = [

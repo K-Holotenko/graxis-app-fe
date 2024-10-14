@@ -1,4 +1,3 @@
-import React from 'react';
 import { Form, Input } from 'antd';
 import { Rule } from 'antd/lib/form';
 import styles from './InputField.module.scss';
@@ -15,7 +14,7 @@ interface InputFieldProps {
   className?: string;
 }
 
-export const InputField: React.FC<InputFieldProps> = ({
+export const InputField = ({
   name,
   label,
   rules,
@@ -24,23 +23,20 @@ export const InputField: React.FC<InputFieldProps> = ({
   addonBefore,
   dependencies,
   hasFeedback,
-
   className,
-}) => {
-  return (
-    <Form.Item
-      name={name}
-      label={label}
-      rules={rules}
-      dependencies={dependencies}
-      hasFeedback={hasFeedback}
-    >
-      <Input
-        type={type}
-        placeholder={placeholder}
-        addonBefore={addonBefore}
-        className={`${styles.customInput} ${className}`}
-      />
-    </Form.Item>
-  );
-};
+}: InputFieldProps) => (
+  <Form.Item
+    name={name}
+    label={label}
+    rules={rules}
+    dependencies={dependencies}
+    hasFeedback={hasFeedback}
+  >
+    <Input
+      type={type}
+      placeholder={placeholder}
+      addonBefore={addonBefore}
+      className={`${styles.customInput} ${className}`}
+    />
+  </Form.Item>
+);

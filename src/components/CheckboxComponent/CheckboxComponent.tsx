@@ -1,8 +1,7 @@
-import React from 'react';
 import { Checkbox } from 'antd';
+import { auth } from '../../config/auth/auth';
 import styles from './CheckboxComponent.module.scss';
-import { auth } from '../../constants/auth/auth';
 
-export const CheckboxComponent: React.FC = () => (
+export const CheckboxComponent = () => (
   <Checkbox className={styles.checkbox}>{auth.checkboxLabel}</Checkbox>
 );

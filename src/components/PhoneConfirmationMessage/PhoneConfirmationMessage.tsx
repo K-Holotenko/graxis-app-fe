@@ -1,14 +1,11 @@
 import { ReactNode } from 'react';
-import React from 'react';
 
-interface PhoneConfirmationMessage {
+interface PhoneConfirmationMessageProps {
   children: ReactNode;
   className?: string;
 }
 
-export const PhoneConfirmationMessage: React.FC<PhoneConfirmationMessage> = ({
+export const PhoneConfirmationMessage = ({
   children,
   className,
-}) => {
-  return <p className={className}>{children}</p>;
-};
+}: PhoneConfirmationMessageProps) => <p className={className}>{children}</p>;

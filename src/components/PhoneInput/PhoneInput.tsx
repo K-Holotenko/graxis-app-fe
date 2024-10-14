@@ -1,10 +1,9 @@
-import React from 'react';
 import { Form } from 'antd';
 import { InputField } from '../InputField/InputField';
-import { auth } from '../../constants/auth/auth';
+import { auth } from '../../config/auth/auth';
 import styles from './PhoneInput.module.scss';
 
-export const PhoneInput: React.FC = () => {
+export const PhoneInput = () => {
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       {auth.prefix}
