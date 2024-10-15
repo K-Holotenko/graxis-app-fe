@@ -1,0 +1,23 @@
+@import '../../config/theme/variables.scss';
+
+.pageTitleWrap > .pageTitle {
+  font-family: $font-family;
+  font-size: 24px;
+  line-height: 1.67;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .pageTitleWrap > .pageTitle {
+    font-size: 30px;
+    line-height: 1.33;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pageTitleWrap > .pageTitle {
+    margin-bottom: 40px;
+    font-size: 32px;
+    line-height: 1.25;
+  }
+}

@@ -1,0 +1,24 @@
+@import '../../config/theme/variables.scss';
+
+.authTab > div > div > div > div > div {
+  width: 100%;
+  font-size: 12px;
+  font-weight: $font-weight-medium;
+  line-height: 1.5;
+}
+
+.authTab > div > div {
+  justify-content: space-around;
+}
+
+@media (min-width: 768px) {
+  .authTab > div > div > div > div > div {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .authTab > div > div > div > div > div {
+    font-size: 20px;
+  }
+}

@@ -65,7 +65,6 @@
     "react-hooks/exhaustive-deps": "warn",
     "import/prefer-default-export": "off",
     "import/newline-after-import": "warn",
-    "import/no-relative-parent-imports": "warn",
     "no-duplicate-imports": "warn",
     "react/no-array-index-key": "warn",
     "react/prop-types": "off",

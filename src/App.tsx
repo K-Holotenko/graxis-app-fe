@@ -1,12 +1,9 @@
-import { Index } from './pages';
+import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Test page</h1>
-    <hr />
-    <h2>Graxis</h2>
-    <Index />
-  </div>
+const App = () => (
+  <>
+    <RegistrationPage />
+  </>
 );
 
 export default App;
