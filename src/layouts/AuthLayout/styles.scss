@@ -1,0 +1,36 @@
+.auth-image-col {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  .auth-image-container {
+    height: 100%;
+
+    .auth-image {
+      height: 100vh;
+      width: auto;
+      object-fit: cover;
+      object-position: left;
+    }
+  }
+}
+
+.auth-form-col {
+  .logo {
+    margin-top: 40px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .auth-image-col {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 750px) {
+  .auth-image-col {
+    display: none;
+  }
+}

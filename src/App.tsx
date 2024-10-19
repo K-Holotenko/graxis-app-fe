@@ -1,9 +1,7 @@
-import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
+import { RouterProvider } from 'react-router-dom';
 
-const App = () => (
-  <>
-    <RegistrationPage />
-  </>
-);
+import { router } from './router';
+
+const App = () => <RouterProvider router={router} />;
 
 export default App;

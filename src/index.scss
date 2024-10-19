@@ -1,17 +1,13 @@
-@import './config/theme/variables.scss';
-
-ul {
-  list-style: none;
-}
+@import './assets/styles/variables';
+@import './assets/styles/fonts';
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: $font-family;
 }
 
 body {
-  background-color: #dddddd;
-  text-align: center;
+  background-color: #ffffff;
+  font-family: $font-family, sans-serif;
 }
