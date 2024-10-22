@@ -12,6 +12,8 @@ export const TEXT = {
 
   LOGIN: 'Увійти',
 
+  NO_ACCOUNT: 'Не має акаунту? ',
+
   OR: 'Або',
 
   PASSWORD: 'Пароль',
