@@ -31,15 +31,22 @@ export const EmailRegistrationForm = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      <EmailInputFormItem label={TEXT.EMAIL} />
+      <EmailInputFormItem
+        label={TEXT.EMAIL}
+        helperText={TEXT.HELPER_TEXT_EMAIL}
+      />
       <PasswordInputFormItem
         label={TEXT.PASSWORD}
         name="password"
         rules={[VALIDATION_CONDITION.REQUIRED]}
+        placeholder=""
+        helperText={TEXT.HELPER_TEXT_PASSWORD}
       />
       <PasswordInputFormItem
         label={TEXT.CONFIRMATION_PASSWORD}
         name="confirmationPassword"
+        placeholder=""
+        helperText={TEXT.HELPER_TEXT_PASSWORD}
         rules={[
           VALIDATION_CONDITION.REQUIRED,
           ({ getFieldValue }) => ({
