@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { EmailLoginForm } from '../../components/logic/Forms/EmailLoginForm';
 import { PhoneLoginForm } from '../../components/logic/Forms/PhoneLoginForm';
 import { PageContainer } from '../../components/ui/PageContainer';
@@ -6,7 +8,6 @@ import { AuthLayout } from '../../layouts/AuthLayout';
 import { useAuthStore } from '../../stores/authStore';
 import { LOGIN_PAGE_CONSTANTS } from './utils/constants';
 import { ROUTES } from '../../router/routes';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const tabItems = [
   {

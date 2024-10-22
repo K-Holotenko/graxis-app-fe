@@ -23,7 +23,7 @@ export const RegistrationPage = () => (
       imageSrc={REGISTRATION_PAGE_CONSTANTS.IMAGE_SRC}
       items={tabItems}
       defaultActiveTabKey={REGISTRATION_PAGE_CONSTANTS.FORM.EMAIL_TAB.KEY}
-      title={REGISTRATION_PAGE_CONSTANTS.PAGE_TITLE}
+      title={REGISTRATION_PAGE_CONSTANTS.FORM.TITLE}
     />
   </PageContainer>
 );

@@ -21,7 +21,7 @@ export const AuthService = {
 
       return user;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   },
 
@@ -39,7 +39,7 @@ export const AuthService = {
 
       return user;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   },
 

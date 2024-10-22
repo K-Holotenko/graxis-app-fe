@@ -15,26 +15,31 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthorized: false,
   user: {},
+
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
 
     set({ isAuthorized: !!response, user: response });
   },
+
   registerWithEmail: async (email: string, password: string) => {
     const response = await AuthService.registerWithEmail(email, password);
 
     set({ isAuthorized: !!response, user: response });
   },
+
   loginWithGoogle: async () => {
     const response = await AuthService.loginWithGoogle();
 
     set({ isAuthorized: !!response, user: response });
   },
+
   loginWithFacebook: async () => {
     const response = await AuthService.loginWithFacebook();
 
     set({ isAuthorized: !!response, user: response });
   },
+
   signOut: async () => {
     await AuthService.signOut();
 
