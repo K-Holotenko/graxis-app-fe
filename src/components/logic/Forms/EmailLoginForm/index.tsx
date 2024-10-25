@@ -29,15 +29,13 @@ export const EmailLoginForm = () => {
     >
       <EmailInputFormItem
         label={TEXT.EMAIL}
-        rules={[VALIDATION_CONDITION.REQUIRED]}
-        helperText={TEXT.HELPER_TEXT_EMAIL}
+        rules={[VALIDATION_CONDITION.EMAIL]}
       />
       <PasswordInputFormItem
         label={TEXT.PASSWORD}
         name="password"
-        rules={[VALIDATION_CONDITION.REQUIRED]}
+        rules={[VALIDATION_CONDITION.PASSWORD]}
         placeholder={TEXT.INPUT_PASSWORD}
-        helperText={TEXT.HELPER_TEXT_PASSWORD}
       />
       <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20" />
     </Form>

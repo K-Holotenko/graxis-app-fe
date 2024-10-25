@@ -33,22 +33,20 @@ export const EmailRegistrationForm = () => {
     >
       <EmailInputFormItem
         label={TEXT.EMAIL}
-        helperText={TEXT.HELPER_TEXT_EMAIL}
+        rules={[VALIDATION_CONDITION.EMAIL]}
       />
       <PasswordInputFormItem
         label={TEXT.PASSWORD}
         name="password"
-        rules={[VALIDATION_CONDITION.REQUIRED]}
+        rules={[VALIDATION_CONDITION.PASSWORD]}
         placeholder=""
-        helperText={TEXT.HELPER_TEXT_PASSWORD}
       />
       <PasswordInputFormItem
         label={TEXT.CONFIRMATION_PASSWORD}
         name="confirmationPassword"
         placeholder=""
-        helperText={TEXT.HELPER_TEXT_PASSWORD}
         rules={[
-          VALIDATION_CONDITION.REQUIRED,
+          VALIDATION_CONDITION.PASSWORD,
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {

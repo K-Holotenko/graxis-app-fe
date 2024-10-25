@@ -10,21 +10,14 @@ interface EmailInputFormItemProps {
   label: string;
   rules?: Rule[];
   placeholder?: string;
-  helperText: string;
 }
 
 export const EmailInputFormItem = ({
   label = 'Email',
   rules = [],
   placeholder = TEXT.INPUT_EMAIL,
-  helperText = TEXT.HELPER_TEXT_EMAIL,
 }: EmailInputFormItemProps) => (
-  <Form.Item<FieldType>
-    label={label}
-    name="email"
-    rules={rules}
-    help={helperText}
-  >
+  <Form.Item<FieldType> label={label} name="email" rules={rules}>
     <Input placeholder={placeholder} />
   </Form.Item>
 );
