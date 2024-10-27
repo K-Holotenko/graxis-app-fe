@@ -6,7 +6,7 @@ export const REGISTRATION_PAGE_CONSTANTS = {
   FORM: {
     TITLE: 'Реєстрація',
     EMAIL_TAB: {
-      TITLE: 'Електронна пошта',
+      TITLE: 'Електрона пошта',
       KEY: 'emailRegistrationTab',
     },
     PHONE_TAB: {

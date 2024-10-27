@@ -8,6 +8,7 @@ import { AuthLayout } from '../../layouts/AuthLayout';
 import { useAuthStore } from '../../stores/authStore';
 import { LOGIN_PAGE_CONSTANTS } from './utils/constants';
 import { ROUTES } from '../../router/routes';
+import { AuthForms } from '../../components/logic/AuthForms';
 
 const tabItems = [
   {
@@ -37,12 +38,13 @@ export const LoginPage = () => {
 
   return (
     <PageContainer pageTitle={LOGIN_PAGE_CONSTANTS.PAGE_TITLE}>
-      <AuthLayout
-        imageSrc={LOGIN_PAGE_CONSTANTS.IMAGE_SRC}
-        items={tabItems}
-        defaultActiveTabKey={LOGIN_PAGE_CONSTANTS.FORM.EMAIL_TAB.KEY}
-        title={LOGIN_PAGE_CONSTANTS.FORM.TITLE}
-      />
+      <AuthLayout imageSrc={LOGIN_PAGE_CONSTANTS.IMAGE_SRC}>
+        <AuthForms
+          items={tabItems}
+          defaultActiveTabKey={LOGIN_PAGE_CONSTANTS.FORM.EMAIL_TAB.KEY}
+          title={LOGIN_PAGE_CONSTANTS.FORM.TITLE}
+        />
+      </AuthLayout>
     </PageContainer>
   );
 };
