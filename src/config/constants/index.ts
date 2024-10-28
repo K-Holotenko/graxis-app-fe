@@ -27,4 +27,5 @@ export const FORMS = {
   PHONE_LOGIN_FORM: 'phoneLoginForm',
   EMAIL_REGISTRATION_FORM: 'emailRegistrationForm',
   PHONE_REGISTRATION_FORM: 'phoneRegistrationForm',
+  VERIFICATION_FORM: 'verificationForm',
 };

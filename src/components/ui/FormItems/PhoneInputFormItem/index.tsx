@@ -1,4 +1,4 @@
-import { Form, InputNumber } from 'antd';
+import { Form, Input, InputNumber } from 'antd';
 import { VALIDATION_MESSAGE } from '../../../../config/validation';
 
 interface FieldType {
@@ -17,10 +17,11 @@ export const PhoneInputFormItem = ({
     name="phone"
     rules={[{ required: true, message: VALIDATION_MESSAGE.REQUIRED }]}
   >
-    <InputNumber
+    {/* <InputNumber
       addonBefore="+380"
       controls={false}
       style={{ width: '100%' }}
-    />
+    /> */}
+    <Input />
   </Form.Item>
 );
