@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Col, Image, Row } from 'antd';
 
-import logoSrc from '../../assets/icons/logo.svg';
+import logoSrc from 'assets/icons/logo.svg';
 
 import './styles.scss';
 

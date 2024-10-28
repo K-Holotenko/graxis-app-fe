@@ -1,9 +1,9 @@
-import { AuthForms } from '../../components/logic/AuthForms';
-import { EmailRegistrationForm } from '../../components/logic/Forms/EmailRegistrationForm';
-import { PhoneRegistrationForm } from '../../components/logic/Forms/PhoneRegistrationForm';
-import { PageContainer } from '../../components/ui/PageContainer';
-import { AuthLayout } from '../../layouts/AuthLayout';
+import { AuthForms } from 'components/logic/AuthForms';
+import { PhoneRegistrationForm } from 'components/logic/Forms/PhoneRegistrationForm';
+import { PageContainer } from 'components/ui/PageContainer';
+import { AuthLayout } from 'layouts/AuthLayout';
 import { REGISTRATION_PAGE_CONSTANTS } from './utils/constants';
+import { EmailRegistrationForm } from 'components/logic/Forms/EmailRegistrationForm';
 
 const tabItems = [
   {
