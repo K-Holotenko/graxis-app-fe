@@ -10,6 +10,13 @@ export const TEXT = {
 
   FORGOT_PASSWORD: 'Забули пароль?',
 
+  HELPER_TEXT_EMAIL: 'Дотримуйтесь шаблону youremil@gmail.com',
+  HELPER_TEXT_PASSWORD:
+    'Пароль може містити тільки A p # 4 і бути не менше 8 символів',
+
+  INPUT_EMAIL: 'Введіть пошту',
+  INPUT_PASSWORD: 'Введіть пароль',
+
   LOGIN: 'Увійти',
 
   NO_ACCOUNT: 'Не має акаунту? ',
@@ -17,6 +24,7 @@ export const TEXT = {
   OR: 'Або',
 
   PASSWORD: 'Пароль',
+
   PHONE: 'Номер телефону',
 
   REGISTER: 'Зареєструватись',

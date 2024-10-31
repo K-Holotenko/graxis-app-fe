@@ -31,17 +31,22 @@ export const EmailRegistrationForm = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      <EmailInputFormItem label={TEXT.EMAIL} />
+      <EmailInputFormItem
+        label={TEXT.EMAIL}
+        rules={[VALIDATION_CONDITION.EMAIL]}
+      />
       <PasswordInputFormItem
         label={TEXT.PASSWORD}
         name="password"
-        rules={[VALIDATION_CONDITION.REQUIRED]}
+        rules={[VALIDATION_CONDITION.PASSWORD]}
+        placeholder=""
       />
       <PasswordInputFormItem
         label={TEXT.CONFIRMATION_PASSWORD}
         name="confirmationPassword"
+        placeholder=""
         rules={[
-          VALIDATION_CONDITION.REQUIRED,
+          VALIDATION_CONDITION.PASSWORD,
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
