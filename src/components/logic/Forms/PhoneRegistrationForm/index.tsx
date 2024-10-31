@@ -1,38 +1,27 @@
+import React, { useEffect, useState } from 'react';
 import { Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { FORMS, TEXT } from '../../../../config/constants';
-import { SubmitButtonFormItem } from '../../../ui/FormItems/SubmitButtonFormItem';
-import { PhoneInputFormItem } from '../../../ui/FormItems/PhoneInputFormItem';
-import { VALIDATION_CONDITION } from '../../../../config/validation';
-import { CheckboxFormItem } from '../../../ui/FormItems/CheckboxFormItem';
-import { ROUTES } from '../../../../router/routes';
-import { useEffect, useState } from 'react';
-import { firebaseAuth } from '../../../../config/firebase';
 import { RecaptchaVerifier } from 'firebase/auth';
+import { firebaseAuth } from '../../../../config/firebase';
 import { useAuthStore } from '../../../../stores/authStore';
+import { ROUTES } from '../../../../router/routes';
+import { FORMS, TEXT } from '../../../../config/constants';
+import { PhoneInputFormItem } from '../../../ui/FormItems/PhoneInputFormItem';
+import { SubmitButtonFormItem } from '../../../ui/FormItems/SubmitButtonFormItem';
+import { CheckboxFormItem } from '../../../ui/FormItems/CheckboxFormItem';
+import { VALIDATION_CONDITION } from '../../../../config/validation';
 
-interface PhoneRegistrationFormValues {
+interface PhoneRegistrationFormValuesProps {
   phone: string;
 }
 
-// export const EmailRegistrationForm = () => {
-//   const { registerWithEmail } = useAuthStore();
-
-//   const onFinish = (values: EmailRegistrationFormValues) => {
-//     registerWithEmail(values.email, values.password);
-//   };
 export const PhoneRegistrationForm = () => {
   const navigate = useNavigate();
-
+  const { loginWithPhoneNumber } = useAuthStore();
   const [mounted, setMounted] = useState(false);
-  // const fictionalPhoneNumber = {
-  //   phoneNumber: '+380123456789',
-  //   code: '234512',
-  // };
 
   useEffect(() => {
     if (mounted) return;
-
     window.recaptchaVerifier = new RecaptchaVerifier(
       firebaseAuth,
       'phone-registration-btn',
@@ -40,49 +29,45 @@ export const PhoneRegistrationForm = () => {
         size: 'invisible',
         callback: () => {
           console.log('reCAPTCHA solved');
+          // @ts-expect-error fff
+          grecaptcha.reset();
+        },
+        'expired-callback': () => {
+          // @ts-expect-error fff
+          grecaptcha.reset();
+        },
+        'error-callback': () => {
+          // @ts-expect-error fff
+          grecaptcha.reset();
         },
       }
     );
-
     setMounted(true);
   }, [mounted]);
 
-  const { loginWithPhoneNumber } = useAuthStore();
-  // const onFinish = (values: { phone: string }) => {
-  //   sessionStorage.setItem('phone', values.phone);
-  //   navigate(ROUTES.VERIFICATION);
-  // };
+  const onFinish = async (values: PhoneRegistrationFormValuesProps) => {
+    const phoneNumber = values.phone.trim();
 
-  //const onFinish = (values: EmailRegistrationFormValues) => {
-  //     registerWithEmail(values.email, values.password);
-  //   };
-  const onFinish = async (values: PhoneRegistrationFormValues) => {
-    sessionStorage.setItem('phone', values.phone);
+    sessionStorage.setItem('phone', phoneNumber);
 
     try {
-      // const confirmationResult =
-      //   // await AuthService.signInWithPhoneNumber();
-      // firebaseAuth,
-      // fictionalPhoneNumber.phoneNumber,
-      // window.recaptchaVerifier
-      await loginWithPhoneNumber(values.phone, '');
-      // const res = await confirmationResult.confirm(fictionalPhoneNumber.code);
-      // console.log('user: ', res.user);
+      if (!window.recaptchaVerifier)
+        throw new Error('reCAPTCHA не ініціалізовано');
+
+      await loginWithPhoneNumber(phoneNumber);
 
       navigate(ROUTES.VERIFICATION);
     } catch (error) {
-      console.error(error);
+      console.error('Помилка при авторизації:', error);
     }
   };
-
-  const onFinishFailed = () => {};
 
   return (
     <Form
       name={FORMS.PHONE_REGISTRATION_FORM}
       layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      onFinishFailed={() => {}}
     >
       <PhoneInputFormItem label={TEXT.PHONE} />
       <CheckboxFormItem

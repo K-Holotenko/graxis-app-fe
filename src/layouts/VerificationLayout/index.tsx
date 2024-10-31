@@ -65,7 +65,7 @@ export const VerificationLayout = ({
           <VerificationForm />
           <Typography.Link
             onClick={handleLinkClick}
-          >{`+380${phone}`}</Typography.Link>
+          >{`${phone}`}</Typography.Link>
           {/* <Typography.Link href={ROUTES.LOGIN}>{TEXT.AUTHORIZE}</Typography.Link> */}
         </Col>
       </Col>

@@ -6,6 +6,7 @@ import { PhoneInputFormItem } from '../../../ui/FormItems/PhoneInputFormItem';
 
 export const PhoneLoginForm = () => {
   const onFinish = () => {};
+
   const onFinishFailed = () => {};
 
   return (
@@ -16,7 +17,11 @@ export const PhoneLoginForm = () => {
       onFinishFailed={onFinishFailed}
     >
       <PhoneInputFormItem label={TEXT.PHONE} />
-      <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20" />
+      <SubmitButtonFormItem
+        title={TEXT.SUBMIT}
+        className="mt-20"
+        id="phone-login-btn"
+      />
     </Form>
   );
 };

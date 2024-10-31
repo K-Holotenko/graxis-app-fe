@@ -1,54 +1,4 @@
-// .auth-image-col {
-//     height: 100vh;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     overflow: hidden;
 
-//     .auth-image-container {
-//       height: 100%;
-
-//       .auth-image {
-//         height: 100vh;
-//         width: auto;
-//         object-fit: cover;
-//         object-position: left;
-//       }
-//     }
-//   }
-
-//   .auth-form-col {
-//     .auth-page-title {
-//       text-align: center;
-//       margin-top: 100px;
-//     }
-
-//     .logo {
-//       margin-top: 40px;
-//       text-align: center;
-//     }
-//   }
-
-//   @media (min-width: 1000px) {
-//     .auth-image-col {
-//       justify-content: flex-start;
-//     }
-//   }
-
-//   @media (max-width: 750px) {
-//     .auth-image-col {
-//       display: none;
-//     }
-//   }
-// Row justify="center" className="verification-layout">
-// <Col sm={6} md={9} lg={10} className="verification-image-col">
-//   <div className="verification-image-container">
-//     <Image
-//       src={imageSrc}
-//       alt="Auth image"
-//       preview={false}
-//       className="verification-image"
-//     />
 .verification-layout {
   min-height: 100vh;
   display: flex;
@@ -58,33 +8,19 @@
   .verification-image-col {
     width: 100%;
     height: 100vh;
-    // display: flex;
-    // align-items: center;
-    // justify-content: flex-start;
- 
-    // height: 100vh;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-        // overflow: hidden;
+    
 
     .verification-image-container {
-    //   height: 100vh;
+   
       width: 100%;
-    //   overflow: hidden;
-      // height: 100%;
+   
       object-fit: cover;
 
       .verification-image {
         width: 100%;
         height: 100vh;
         object-fit: cover;
-        // object-position: left;
-        
-        // height: 100vh;
-        //         width: auto;
-        //         object-fit: contain;
-        //         object-position: left;
+       
       }
     }
   }
