@@ -6,6 +6,7 @@ interface PasswordInputFormItemProps {
   name?: string;
   dependencies?: string[];
   rules?: Rule[];
+  placeholder: string;
 }
 
 export const PasswordInputFormItem = ({
@@ -13,6 +14,7 @@ export const PasswordInputFormItem = ({
   name = 'password',
   dependencies = [],
   rules = [],
+  placeholder = '',
 }: PasswordInputFormItemProps) => (
   <Form.Item
     name={name}
@@ -20,6 +22,6 @@ export const PasswordInputFormItem = ({
     dependencies={dependencies}
     rules={rules}
   >
-    <Input.Password />
+    <Input.Password placeholder={placeholder} />
   </Form.Item>
 );

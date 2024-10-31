@@ -1,5 +1,6 @@
 import { Form, Input } from 'antd';
-import { VALIDATION_MESSAGE } from '../../../../config/validation';
+import { Rule } from 'antd/es/form';
+import { TEXT } from '../../../../config/constants';
 
 interface FieldType {
   email: string;
@@ -7,16 +8,16 @@ interface FieldType {
 
 interface EmailInputFormItemProps {
   label: string;
+  rules?: Rule[];
+  placeholder?: string;
 }
 
 export const EmailInputFormItem = ({
   label = 'Email',
+  rules = [],
+  placeholder = TEXT.INPUT_EMAIL,
 }: EmailInputFormItemProps) => (
-  <Form.Item<FieldType>
-    label={label}
-    name="email"
-    rules={[{ required: true, message: VALIDATION_MESSAGE.REQUIRED }]}
-  >
-    <Input />
+  <Form.Item<FieldType> label={label} name="email" rules={rules}>
+    <Input placeholder={placeholder} />
   </Form.Item>
 );

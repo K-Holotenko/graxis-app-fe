@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber } from 'antd';
+import { Form, Input } from 'antd';
 import { VALIDATION_MESSAGE } from '../../../../config/validation';
 
 interface FieldType {
