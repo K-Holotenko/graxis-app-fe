@@ -10,6 +10,8 @@ import {
 } from '../../../../config/validation';
 import { CheckboxFormItem } from '../../../ui/FormItems/CheckboxFormItem';
 import { useAuthStore } from '../../../../stores/authStore';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'router/routes';
 
 interface EmailRegistrationFormValues {
   email: string;
@@ -17,10 +19,13 @@ interface EmailRegistrationFormValues {
 }
 
 export const EmailRegistrationForm = () => {
+  const navigate = useNavigate();
   const { registerWithEmail } = useAuthStore();
 
   const onFinish = (values: EmailRegistrationFormValues) => {
-    registerWithEmail(values.email, values.password);
+    registerWithEmail(values.email, values.password).then(() => {
+      navigate(ROUTES.VERIFY_EMAIL);
+    });
   };
   const onFinishFailed = () => {};
 

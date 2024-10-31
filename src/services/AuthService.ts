@@ -2,12 +2,14 @@ import {
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
   GoogleAuthProvider,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
 
 import { firebaseAuth } from '../config/firebase';
+import { ROUTES } from 'router/routes';
 
 export const AuthService = {
   loginWithEmail: async (email: string, password: string): Promise<unknown> => {
@@ -36,6 +38,12 @@ export const AuthService = {
         password
       );
       const user = userCredential.user;
+      const actionCodeSettings = {
+        url: `https://dev.graxis.net/${ROUTES.LOGIN}`,
+        handleCodeInApp: true,
+      };
+
+      await sendEmailVerification(user, actionCodeSettings);
 
       return user;
     } catch (error) {
