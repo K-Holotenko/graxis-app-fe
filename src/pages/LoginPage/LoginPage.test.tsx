@@ -1,9 +1,12 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 import { TEXT } from 'config/constants';
 import { LOGIN_PAGE_CONSTANTS } from './utils/constants';
 import { HelmetProvider } from 'react-helmet-async';
 import { LoginPage } from '.';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { NoAccountLink } from 'components/ui/NoAccountLink';
+import { ROUTES } from 'router/routes';
 
 describe('LoginPage', () => {
   it('renders PageContainer with the correct photo', () => {
@@ -17,19 +20,21 @@ describe('LoginPage', () => {
     expect(mainPhoto).toHaveAttribute('src', LOGIN_PAGE_CONSTANTS.IMAGE_SRC);
   });
 
-  // TODO Please uncomment and finish this test by passing the correct location,
-  // "PageContainer" text is shown only when the rout is REGISTRATION
+  it('renders PageContainer with the correct title Login page', async () => {
+    render(
+      <HelmetProvider>
+        <MemoryRouter initialEntries={[ROUTES.LOGIN]}>
+          <Routes>
+            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+          </Routes>
+        </MemoryRouter>
+      </HelmetProvider>
+    );
 
-  // it('renders PageContainer with the correct title', () => {
-  //   const { getByText } = render(
-  //     <HelmetProvider>
-  //       <LoginPage />
-  //     </HelmetProvider>
-  //   );
-  //   const pageTitle = getByText(LOGIN_PAGE_CONSTANTS.PAGE_TITLE);
-
-  //   expect(pageTitle).toBeInTheDocument();
-  // });
+    await waitFor(() => {
+      expect(document.title).toBe(LOGIN_PAGE_CONSTANTS.PAGE_TITLE);
+    });
+  });
 
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
@@ -108,31 +113,34 @@ describe('LoginPage', () => {
     expect(forgotPasswordButtonText).toBeInTheDocument();
   });
 
-  // TODO Please uncomment and finish this test by passing the correct location,
-  // "No account" text is shown only when the rout is REGISTRATION
+  it('renders PageContainer with the correct text "No account?"', async () => {
+    const { getByText } = render(
+      <HelmetProvider>
+        <MemoryRouter initialEntries={[ROUTES.LOGIN]}>
+          <Routes>
+            <Route path={ROUTES.LOGIN} element={<NoAccountLink />} />
+          </Routes>
+        </MemoryRouter>
+      </HelmetProvider>
+    );
 
-  // it('renders PageContainer with the correct text "No account?"', () => {
-  //   const { getByText } = render(
-  //     <HelmetProvider>
-  //       <LoginPage />
-  //     </HelmetProvider>
-  //   );
-  //   const noAccount = getByText(TEXT.NO_ACCOUNT);
+    const noAccount = getByText(TEXT.NO_ACCOUNT);
 
-  //   expect(noAccount).toBeInTheDocument();
-  // });
+    expect(noAccount).toBeInTheDocument();
+  });
 
-  // TODO Please uncomment and finish this test by passing the correct location,
-  // "Register" button is shown only when the rout is REGISTRATION
+  it('renders PageContainer with the correct text "Register" in button', () => {
+    const { getByText } = render(
+      <HelmetProvider>
+        <MemoryRouter initialEntries={[ROUTES.LOGIN]}>
+          <Routes>
+            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+          </Routes>
+        </MemoryRouter>
+      </HelmetProvider>
+    );
+    const authorizeText = getByText(TEXT.AUTHORIZE);
 
-  // it('renders PageContainer with the correct text "Register" in button', () => {
-  //   const { getByText } = render(
-  //     <HelmetProvider>
-  //       <LoginPage />
-  //     </HelmetProvider>
-  //   );
-  //   const RegisterButtonText = getByText(TEXT.REGISTER);
-
-  //   expect(RegisterButtonText).toBeInTheDocument();
-  // });
+    expect(authorizeText).toBeInTheDocument();
+  });
 });

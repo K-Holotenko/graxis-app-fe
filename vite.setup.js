@@ -20,11 +20,15 @@ vi.mock('firebase/auth', () => ({
   })),
 }));
 
-vi.mock('react-router-dom', () => ({
-  ...vi.importActual('react-router-dom'),
-  useNavigate: () => vi.fn(),
-  useLocation: () => vi.fn(),
-}));
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+
+  return {
+    ...actual,
+    useNavigate: () => vi.fn(),
+    useLocation: () => vi.fn(),
+  };
+});
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

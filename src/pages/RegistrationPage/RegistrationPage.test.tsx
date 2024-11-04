@@ -1,8 +1,10 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { RegistrationPage } from '.';
 import { REGISTRATION_PAGE_CONSTANTS } from './utils/constants';
 import { TEXT } from 'config/constants';
 import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { ROUTES } from 'router/routes';
 
 describe('RegistrationPage', () => {
   it('renders PageContainer with the correct photo', () => {
@@ -19,19 +21,21 @@ describe('RegistrationPage', () => {
     );
   });
 
-  // TODO Please uncomment and finish this test by passing the correct location,
-  // "Registration" title is shown only when the rout is REGISTRATION
+  it('renders PageContainer with the correct title Registration page', async () => {
+    render(
+      <HelmetProvider>
+        <MemoryRouter initialEntries={[ROUTES.REGISTRATION]}>
+          <Routes>
+            <Route path={ROUTES.REGISTRATION} element={<RegistrationPage />} />
+          </Routes>
+        </MemoryRouter>
+      </HelmetProvider>
+    );
 
-  // it('renders PageContainer with the correct title', () => {
-  //   const { getByText } = render(
-  //     <HelmetProvider>
-  //       <RegistrationPage />
-  //     </HelmetProvider>
-  //   );
-  //   const pageTitle = getByText(REGISTRATION_PAGE_CONSTANTS.PAGE_TITLE);
-
-  //   expect(pageTitle).toBeInTheDocument();
-  // });
+    await waitFor(() => {
+      expect(document.title).toBe(REGISTRATION_PAGE_CONSTANTS.PAGE_TITLE);
+    });
+  });
 
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
@@ -124,19 +128,21 @@ describe('RegistrationPage', () => {
     expect(orTitle).toBeInTheDocument();
   });
 
-  // TODO Please uncomment and finish this test by passing the correct location,
-  // "Already have account?" is shown only when the rout is REGISTRATION
+  it('renders PageContainer with the correct "Already have account?" text', () => {
+    const { getByText } = render(
+      <HelmetProvider>
+        <MemoryRouter initialEntries={[ROUTES.REGISTRATION]}>
+          <Routes>
+            <Route path={ROUTES.REGISTRATION} element={<RegistrationPage />} />
+          </Routes>
+        </MemoryRouter>
+      </HelmetProvider>
+    );
 
-  // it('renders PageContainer with the correct "Already have account?" text', () => {
-  //   const { getByText } = render(
-  //     <HelmetProvider>
-  //       <RegistrationPage />
-  //     </HelmetProvider>
-  //   );
-  //   const haveAccountText = getByText(TEXT.ALREADY_HAVE_ACCOUNT);
+    const haveAccountText = getByText(TEXT.ALREADY_HAVE_ACCOUNT);
 
-  //   expect(haveAccountText).toBeInTheDocument();
-  // });
+    expect(haveAccountText).toBeInTheDocument();
+  });
 
   it('renders PageContainer with the correct "Authorize" text', () => {
     const { getByText } = render(

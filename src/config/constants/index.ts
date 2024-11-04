@@ -1,7 +1,7 @@
 export const TEXT = {
   ALLOW_DATA_PROCESSING:
     'Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача',
-  ALREADY_HAVE_ACCOUNT: 'У вас є акаунт? ',
+  ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
   AUTHORIZE: 'Авторизуватися',
 
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
@@ -12,7 +12,7 @@ export const TEXT = {
 
   LOGIN: 'Увійти',
 
-  NO_ACCOUNT: 'Не має акаунту? ',
+  NO_ACCOUNT: 'Не має акаунту?',
 
   OR: 'Або',
 
