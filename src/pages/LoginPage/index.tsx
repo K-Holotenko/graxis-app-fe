@@ -6,19 +6,19 @@ import { PhoneLoginForm } from '../../components/logic/Forms/PhoneLoginForm';
 import { PageContainer } from '../../components/ui/PageContainer';
 import { AuthLayout } from '../../layouts/AuthLayout';
 import { useAuthStore } from '../../stores/authStore';
-import { LOGIN_PAGE_CONSTANTS } from './utils/constants';
+import { LOGIN_PAGE_CONFIG } from './utils/config';
 import { ROUTES } from '../../router/routes';
 import { AuthForms } from '../../components/logic/AuthForms';
 
 const tabItems = [
   {
-    label: LOGIN_PAGE_CONSTANTS.FORM.EMAIL_TAB.TITLE,
-    key: LOGIN_PAGE_CONSTANTS.FORM.EMAIL_TAB.KEY,
+    label: LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.TITLE,
+    key: LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.KEY,
     children: <EmailLoginForm />,
   },
   {
-    label: LOGIN_PAGE_CONSTANTS.FORM.PHONE_TAB.TITLE,
-    key: LOGIN_PAGE_CONSTANTS.FORM.PHONE_TAB.KEY,
+    label: LOGIN_PAGE_CONFIG.FORM.PHONE_TAB.TITLE,
+    key: LOGIN_PAGE_CONFIG.FORM.PHONE_TAB.KEY,
     children: <PhoneLoginForm />,
   },
 ];
@@ -37,12 +37,12 @@ export const LoginPage = () => {
   }, [navigate, isAuthorized, location.pathname]);
 
   return (
-    <PageContainer pageTitle={LOGIN_PAGE_CONSTANTS.PAGE_TITLE}>
-      <AuthLayout imageSrc={LOGIN_PAGE_CONSTANTS.IMAGE_SRC}>
+    <PageContainer pageTitle={LOGIN_PAGE_CONFIG.PAGE_TITLE}>
+      <AuthLayout imageSrc={LOGIN_PAGE_CONFIG.IMAGE_SRC}>
         <AuthForms
           items={tabItems}
-          defaultActiveTabKey={LOGIN_PAGE_CONSTANTS.FORM.EMAIL_TAB.KEY}
-          title={LOGIN_PAGE_CONSTANTS.FORM.TITLE}
+          defaultActiveTabKey={LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.KEY}
+          title={LOGIN_PAGE_CONFIG.FORM.TITLE}
         />
       </AuthLayout>
     </PageContainer>

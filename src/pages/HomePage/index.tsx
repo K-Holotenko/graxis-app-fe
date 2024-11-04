@@ -1,19 +1,11 @@
-import { Button } from 'antd';
-import { PageContainer } from '../../components/ui/PageContainer';
-import { useAuthStore } from '../../stores/authStore';
-import { HOME_PAGE_CONSTANTS } from './utils/constants';
+import { PageContainer } from 'components/ui/PageContainer';
+import { HOME_PAGE_CONFIG } from './utils/config';
+import { AppLayout } from 'layouts/AppLayout';
 
-export const HomePage = () => {
-  const { signOut } = useAuthStore();
-
-  const onClick = () => {
-    signOut();
-  };
-
-  return (
-    <PageContainer pageTitle={HOME_PAGE_CONSTANTS.PAGE_TITLE}>
+export const HomePage = () => (
+  <PageContainer pageTitle={HOME_PAGE_CONFIG.PAGE_TITLE}>
+    <AppLayout>
       <div>Home</div>
-      <Button onClick={onClick}>Sign out</Button>
-    </PageContainer>
-  );
-};
+    </AppLayout>
+  </PageContainer>
+);
