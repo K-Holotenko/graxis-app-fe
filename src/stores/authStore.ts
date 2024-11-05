@@ -5,7 +5,7 @@ import { ConfirmationResult, User } from 'firebase/auth';
 
 interface AuthState {
   isAuthorized: boolean;
-  user: User | null | unknown ;
+  user: User | null | unknown;
   loginWithEmail: (email: string, password: string) => Promise<void>;
   registerWithEmail: (email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
