@@ -21,7 +21,7 @@ export const VerifyEmailPage = () => {
         <Row justify="center" className="mt-200">
           <Col span={24}>
             <Typography className="centered">
-              {VERIFY_EMAIL_PAGE_CONSTANTS.MAIN_MESSAGE(emailToVerify)}
+              {VERIFY_EMAIL_PAGE_CONSTANTS.MAIN_MESSAGE(emailToVerify || '')}
             </Typography>
           </Col>
         </Row>

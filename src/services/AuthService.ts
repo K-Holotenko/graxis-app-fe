@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 
 import { firebaseAuth } from '../config/firebase';
-import { ROUTES } from 'router/routes';
+import { EMAIL_VERIFICATION_REDIRECT_LINK } from 'config/constants';
 
 export const AuthService = {
   loginWithEmail: async (email: string, password: string): Promise<unknown> => {
@@ -32,14 +32,17 @@ export const AuthService = {
     password: string
   ): Promise<unknown> => {
     try {
+      console.log(123, EMAIL_VERIFICATION_REDIRECT_LINK);
+
       const userCredential = await createUserWithEmailAndPassword(
         firebaseAuth,
         email,
         password
       );
       const user = userCredential.user;
+
       const actionCodeSettings = {
-        url: `https://dev.graxis.net/${ROUTES.LOGIN}`,
+        url: EMAIL_VERIFICATION_REDIRECT_LINK,
         handleCodeInApp: true,
       };
 

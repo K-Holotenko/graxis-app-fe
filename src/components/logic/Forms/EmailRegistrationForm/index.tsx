@@ -23,9 +23,9 @@ export const EmailRegistrationForm = () => {
   const { registerWithEmail } = useAuthStore();
 
   const onFinish = (values: EmailRegistrationFormValues) => {
-    registerWithEmail(values.email, values.password).then(() => {
-      navigate(ROUTES.VERIFY_EMAIL);
-    });
+    registerWithEmail(values.email, values.password).then(() =>
+      navigate(ROUTES.VERIFY_EMAIL)
+    );
   };
   const onFinishFailed = () => {};
 

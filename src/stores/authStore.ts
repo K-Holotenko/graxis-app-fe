@@ -4,7 +4,7 @@ import { AuthService } from '../services/AuthService';
 
 interface AuthState {
   isAuthorized: boolean;
-  emailToVerify: string;
+  emailToVerify: string | null;
   user: unknown;
   loginWithEmail: (email: string, password: string) => Promise<void>;
   registerWithEmail: (email: string, password: string) => Promise<void>;
@@ -15,8 +15,8 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthorized: false,
-  user: {},
-  emailToVerify: '',
+  user: null,
+  emailToVerify: null,
 
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
