@@ -13,6 +13,8 @@ export const VerificationForm = () => {
   const { verifyCode } = useAuthStore();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  
+// TODO logic for resending code
 
   const handleSubmit = async () => {
     try {

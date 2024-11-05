@@ -4,9 +4,8 @@
     "es2021": true,
     "jest": true
   },
-  "extends": [
-    "react-app",
-    "plugin:react/recommended",
+  "extends": [   
+    // "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "plugin:prettier/recommended",
@@ -29,7 +28,9 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "react-hooks"],
+  "plugins": [
+    // "react", 
+    "@typescript-eslint", "react-hooks"],
   "rules": {
     "no-console": "warn",
     "prefer-const": "warn",

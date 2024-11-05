@@ -1,17 +1,17 @@
 import imageSrc from '../../../assets/images/man-on-bike.jpg';
 
-export const REGISTRATION_PAGE_CONSTANTS = {
-  PAGE_TITLE: 'Registration',
+export const LOGIN_PAGE_CONFIG = {
+  PAGE_TITLE: 'Login',
   IMAGE_SRC: imageSrc,
   FORM: {
-    TITLE: 'Реєстрація',
+    TITLE: 'Авторизація',
     EMAIL_TAB: {
       TITLE: 'Електрона пошта',
-      KEY: 'emailRegistrationTab',
+      KEY: 'emailLoginTab',
     },
     PHONE_TAB: {
       TITLE: 'Номер телефону',
-      KEY: 'phoneRegistrationTab',
+      KEY: 'phoneLoginTab',
     },
   },
 };

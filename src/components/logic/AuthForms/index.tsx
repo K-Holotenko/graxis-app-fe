@@ -5,7 +5,7 @@ import { SocialMediaSection } from '../SocialMediaSection';
 import { TEXT } from '../../../config/constants';
 import { AuthFooter } from '../AuthFooter';
 import { ForgotPasswordLink } from '../../ui/ForgotPasswordLink';
-import { REGISTRATION_PAGE_CONSTANTS } from 'pages/RegistrationPage/utils/constants';
+import { REGISTRATION_PAGE_CONFIG } from 'pages/RegistrationPage/utils/config';
 
 const { Title } = Typography;
 
@@ -28,7 +28,7 @@ export const AuthForms = ({
 }: AuthFormsProps) => {
   const [activeTabKey, setActiveTabKey] = useState(defaultActiveTabKey);
   const isEmailTabActive =
-    activeTabKey === REGISTRATION_PAGE_CONSTANTS.FORM.EMAIL_TAB.KEY;
+    activeTabKey === REGISTRATION_PAGE_CONFIG.FORM.EMAIL_TAB.KEY;
 
   return (
     <>
