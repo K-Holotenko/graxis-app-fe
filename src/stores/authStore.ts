@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 import { AuthService } from '../services/AuthService';
-import { ConfirmationResult } from 'firebase/auth';
+import { ConfirmationResult, User } from 'firebase/auth';
 
 interface AuthState {
   isAuthorized: boolean;
@@ -11,20 +11,19 @@ interface AuthState {
   loginWithGoogle: () => Promise<void>;
   loginWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
-
-  // user: User | null;
-  confirmationResult: ConfirmationResult | null;
+  confirmationResult: ConfirmationResult | null ;
   error: string | null;
   loginWithPhoneNumber: (phoneNumber: string) => Promise<void>;
-  verifyCode: (code: string) => Promise<void>;
+  verifyCode: (code: string) => Promise<User | undefined>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthorized: false,
   user: {},
-  // user: null,
   confirmationResult: null,
   error: null,
+  phoneNumber: '',
+
 
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
@@ -52,21 +51,19 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   loginWithPhoneNumber: async (phoneNumber) => {
     try {
-      const confirmationResult =
-        await AuthService.loginWithPhoneNumber(phoneNumber);
-
-      set({ confirmationResult });
-    } catch (error) {
+      const confirmationResult = await AuthService.loginWithPhoneNumber(phoneNumber);
+      set({ confirmationResult, error: null });
+      console.log(confirmationResult);
+    } 
+    catch (error) {
       set({ error: (error as Error).message });
     }
   },
 
   verifyCode: async (code) => {
     const { confirmationResult } = useAuthStore.getState();
-
     if (!confirmationResult) {
       set({ error: 'Confirmation result not found' });
-
       return;
     }
 
@@ -74,21 +71,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       const user = await AuthService.verifyCode(confirmationResult, code);
 
       set({ user, isAuthorized: true, error: null });
+      return user;
     } catch (error) {
+
       set({ error: (error as Error).message });
+      throw error;
     }
   },
-
-  // loginWithPhoneNumber: async (phone: string, code: string) => {
-  //   try {
-  //     const confirmationResult = await AuthService.loginWithPhoneNumber(phone);
-  //     const user = await AuthService.verifyCode(confirmationResult, code);
-
-  //     set({ isAuthorized: !!user, user });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // },
 
   signOut: async () => {
     await AuthService.signOut();

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Form } from 'antd';
+import { useEffect, useState } from 'react';
+import { Form, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { RecaptchaVerifier } from 'firebase/auth';
 import { firebaseAuth } from '../../../../config/firebase';
@@ -29,47 +29,54 @@ export const PhoneRegistrationForm = () => {
         size: 'invisible',
         callback: () => {
           console.log('reCAPTCHA solved');
-          // @ts-expect-error fff
+          //  @ts-expect-error fff
           grecaptcha.reset();
         },
         'expired-callback': () => {
+          window.recaptchaVerifier.clear();
           // @ts-expect-error fff
           grecaptcha.reset();
         },
         'error-callback': () => {
+          window.recaptchaVerifier.clear();
           // @ts-expect-error fff
           grecaptcha.reset();
         },
-      }
+      },
+
     );
+
     setMounted(true);
   }, [mounted]);
 
-  const onFinish = async (values: PhoneRegistrationFormValuesProps) => {
-    const phoneNumber = values.phone.trim();
+  // TODO: Revisit user phone number verification and choose one of the following approaches:
+  // 1. Store the user's phone number in Firestore and check against it when necessary to ensure validity and uniqueness.
+  // 2. Send the verification code, handle any errors that Firebase Auth may throw, and return the user to the registration step if validation fails.
+  // 3. Use Firebase Auth Admin SDK with Cloud Functions to manage verification on the server side for more flexible control.
 
+  const onFinish = async (values: PhoneRegistrationFormValuesProps) => {
+    const phoneNumber = `+380${values.phone}`;
     sessionStorage.setItem('phone', phoneNumber);
 
     try {
-      if (!window.recaptchaVerifier)
-        throw new Error('reCAPTCHA не ініціалізовано');
-
       await loginWithPhoneNumber(phoneNumber);
-
-      navigate(ROUTES.VERIFICATION);
+      navigate(ROUTES.VERIFICATIONCODE);
     } catch (error) {
-      console.error('Помилка при авторизації:', error);
+      console.error(error);
     }
-  };
+  }
 
   return (
     <Form
       name={FORMS.PHONE_REGISTRATION_FORM}
       layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={() => {}}
+      onFinishFailed={() => { }}
     >
       <PhoneInputFormItem label={TEXT.PHONE} />
+      <Typography>
+        {TEXT.SEND_SMS}
+      </Typography>
       <CheckboxFormItem
         label={TEXT.ALLOW_DATA_PROCESSING}
         name="agreement"

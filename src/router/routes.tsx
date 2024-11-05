@@ -2,5 +2,5 @@ export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   REGISTRATION: '/registration',
-  VERIFICATION: '/verification',
+  VERIFICATIONCODE: '/verification',
 };

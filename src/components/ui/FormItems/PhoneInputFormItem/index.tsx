@@ -1,5 +1,5 @@
-import { Form, Input } from 'antd';
-import { VALIDATION_MESSAGE } from '../../../../config/validation';
+import { Form, InputNumber } from 'antd';
+import { VALIDATION_CONDITION, VALIDATION_MESSAGE } from '../../../../config/validation';
 
 interface FieldType {
   phone: string;
@@ -15,13 +15,14 @@ export const PhoneInputFormItem = ({
   <Form.Item<FieldType>
     label={label}
     name="phone"
-    rules={[{ required: true, message: VALIDATION_MESSAGE.REQUIRED }]}
+    validateTrigger="onBlur"
+    rules={[{ required: true, message: VALIDATION_MESSAGE.REQUIRED },
+    { pattern: VALIDATION_CONDITION.PHONE_INPUT.pattern, message: VALIDATION_MESSAGE.INVALID_PHONE },]}
   >
-    {/* <InputNumber
+    <InputNumber
       addonBefore="+380"
       controls={false}
       style={{ width: '100%' }}
-    /> */}
-    <Input />
+    />
   </Form.Item>
 );

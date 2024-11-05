@@ -80,25 +80,17 @@ export const AuthService = {
     }
   },
 
-  loginWithPhoneNumber: async (
-    phoneNumber: string
-  ): Promise<ConfirmationResult> => {
-    // if (!window.recaptchaVerifier) {
-    //   console.error('reCAPTCHA не инициализирован');
-    //   throw new Error('reCAPTCHA не инициализирован');
-    // }
-
+  loginWithPhoneNumber: async (phoneNumber: string): Promise<ConfirmationResult> => {
     try {
       const confirmationResult = await signInWithPhoneNumber(
         firebaseAuth,
         phoneNumber,
         window.recaptchaVerifier
       );
-
       return confirmationResult;
     } catch (error) {
-      console.error('Помилка авторизації:', error);
-      throw error;
+      console.error(error);
+      throw error; 
     }
   },
 
@@ -108,10 +100,10 @@ export const AuthService = {
   ): Promise<User> => {
     try {
       const result = await confirmationResult.confirm(code);
-
-      return result.user;
+      const user = result.user;
+      return user;
     } catch (error) {
-      console.error('Помилка кода:', error);
+      console.error(error);
       throw error;
     }
   },

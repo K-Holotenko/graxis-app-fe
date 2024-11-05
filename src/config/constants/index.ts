@@ -29,7 +29,14 @@ export const TEXT = {
 
   REGISTER: 'Зареєструватись',
 
+  SEC: 'c',
+
+  SEND_SMS: 'Ми надішлемо смс для підтвердження номера',
+  SEND_SMS_AGAIN: 'Надіслати повторно',
+  SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
+
   SUBMIT: 'Продовжити',
+
 };
 
 export const FORMS = {
@@ -39,3 +46,7 @@ export const FORMS = {
   PHONE_REGISTRATION_FORM: 'phoneRegistrationForm',
   VERIFICATION_FORM: 'verificationForm',
 };
+
+
+
+  //MESSAGE: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
