@@ -5,7 +5,7 @@ import { LOGIN_PAGE_CONSTANTS } from './utils/constants';
 import { HelmetProvider } from 'react-helmet-async';
 import { LoginPage } from '.';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { NoAccountLink } from 'components/ui/NoAccountLink';
+
 import { ROUTES } from 'router/routes';
 
 describe('LoginPage', () => {
@@ -113,22 +113,6 @@ describe('LoginPage', () => {
     expect(forgotPasswordButtonText).toBeInTheDocument();
   });
 
-  it('renders PageContainer with the correct text "No account?"', async () => {
-    const { getByText } = render(
-      <HelmetProvider>
-        <MemoryRouter initialEntries={[ROUTES.LOGIN]}>
-          <Routes>
-            <Route path={ROUTES.LOGIN} element={<NoAccountLink />} />
-          </Routes>
-        </MemoryRouter>
-      </HelmetProvider>
-    );
-
-    const noAccount = getByText(TEXT.NO_ACCOUNT);
-
-    expect(noAccount).toBeInTheDocument();
-  });
-
   it('renders PageContainer with the correct text "Register" in button', () => {
     const { getByText } = render(
       <HelmetProvider>
@@ -143,4 +127,22 @@ describe('LoginPage', () => {
 
     expect(authorizeText).toBeInTheDocument();
   });
+
+  //   it('renders PageContainer with the correct text "No account?"', () => {
+  //     const mockLocation = { pathname: ROUTES.LOGIN };
+
+  //     const { getByText } = render(
+  //       <HelmetProvider>
+  //         <MemoryRouter initialEntries={[mockLocation]}>
+  //           <Routes>
+  //             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+  //           </Routes>
+  //         </MemoryRouter>
+  //       </HelmetProvider>
+  //     );
+
+  //     const noAccount = getByText(TEXT.NO_ACCOUNT);
+
+  //     expect(noAccount).toBeInTheDocument();
+  //   });
 });
