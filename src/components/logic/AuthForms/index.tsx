@@ -26,7 +26,6 @@ export const AuthForms = ({
   title,
   defaultActiveTabKey,
 }: AuthFormsProps) => {
-
   const [activeTabKey, setActiveTabKey] = useState(defaultActiveTabKey);
   const isEmailTabActive =
     activeTabKey === REGISTRATION_PAGE_CONSTANTS.FORM.EMAIL_TAB.KEY;
@@ -36,7 +35,12 @@ export const AuthForms = ({
       <Title level={2} className="auth-page-title">
         {title}
       </Title>
-      <Tabs defaultActiveKey={defaultActiveTabKey} centered items={items} onChange={(key) => setActiveTabKey(key)} />
+      <Tabs
+        defaultActiveKey={defaultActiveTabKey}
+        centered
+        items={items}
+        onChange={(key) => setActiveTabKey(key)}
+      />
       {isEmailTabActive && (
         <Row justify="end">
           <ForgotPasswordLink />

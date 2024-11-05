@@ -12,7 +12,6 @@ interface VerificationButtonFormItemProps {
 export const VerificationButtonFormItem = ({
   title,
   className,
-
 }: VerificationButtonFormItemProps) => {
   const { timer, isDisabled, resetCountdown } = useCountdown(5);
   const handleResend = async () => {

@@ -14,8 +14,6 @@ export const VALIDATION_MESSAGE = {
   PASSWORD:
     'Пароль може містити тільки літери, цифри та спеціальні символи (A, p, #, 4)та бути не менше 8 символів',
   REQUIRED: 'Заповніть поле!',
-
-
 };
 
 export const VALIDATION_CONDITION = {

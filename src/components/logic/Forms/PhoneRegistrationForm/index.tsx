@@ -42,8 +42,7 @@ export const PhoneRegistrationForm = () => {
           // @ts-expect-error fff
           grecaptcha.reset();
         },
-      },
-
+      }
     );
 
     setMounted(true);
@@ -56,6 +55,7 @@ export const PhoneRegistrationForm = () => {
 
   const onFinish = async (values: PhoneRegistrationFormValuesProps) => {
     const phoneNumber = `+380${values.phone}`;
+
     sessionStorage.setItem('phone', phoneNumber);
 
     try {
@@ -64,19 +64,17 @@ export const PhoneRegistrationForm = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <Form
       name={FORMS.PHONE_REGISTRATION_FORM}
       layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={() => { }}
+      onFinishFailed={() => {}}
     >
       <PhoneInputFormItem label={TEXT.PHONE} />
-      <Typography>
-        {TEXT.SEND_SMS}
-      </Typography>
+      <Typography>{TEXT.SEND_SMS}</Typography>
       <CheckboxFormItem
         label={TEXT.ALLOW_DATA_PROCESSING}
         name="agreement"

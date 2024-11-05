@@ -11,7 +11,7 @@ interface AuthState {
   loginWithGoogle: () => Promise<void>;
   loginWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
-  confirmationResult: ConfirmationResult | null ;
+  confirmationResult: ConfirmationResult | null;
   error: string | null;
   loginWithPhoneNumber: (phoneNumber: string) => Promise<void>;
   verifyCode: (code: string) => Promise<User | undefined>;
@@ -23,7 +23,6 @@ export const useAuthStore = create<AuthState>((set) => ({
   confirmationResult: null,
   error: null,
   phoneNumber: '',
-
 
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
@@ -51,19 +50,22 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   loginWithPhoneNumber: async (phoneNumber) => {
     try {
-      const confirmationResult = await AuthService.loginWithPhoneNumber(phoneNumber);
+      const confirmationResult =
+        await AuthService.loginWithPhoneNumber(phoneNumber);
+
       set({ confirmationResult, error: null });
       console.log(confirmationResult);
-    } 
-    catch (error) {
+    } catch (error) {
       set({ error: (error as Error).message });
     }
   },
 
   verifyCode: async (code) => {
     const { confirmationResult } = useAuthStore.getState();
+
     if (!confirmationResult) {
       set({ error: 'Confirmation result not found' });
+
       return;
     }
 
@@ -71,9 +73,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       const user = await AuthService.verifyCode(confirmationResult, code);
 
       set({ user, isAuthorized: true, error: null });
+
       return user;
     } catch (error) {
-
       set({ error: (error as Error).message });
       throw error;
     }

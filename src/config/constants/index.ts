@@ -36,7 +36,6 @@ export const TEXT = {
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
 
   SUBMIT: 'Продовжити',
-
 };
 
 export const FORMS = {
@@ -47,6 +46,4 @@ export const FORMS = {
   VERIFICATION_FORM: 'verificationForm',
 };
 
-
-
-  //MESSAGE: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
+//MESSAGE: 'Ми відправили вам підтвердження коду на ваш мобільний номер',

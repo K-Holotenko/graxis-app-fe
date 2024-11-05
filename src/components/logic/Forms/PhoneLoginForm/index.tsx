@@ -41,8 +41,7 @@ export const PhoneLoginForm = () => {
           // @ts-expect-error fff
           grecaptcha.reset();
         },
-      },
-
+      }
     );
 
     setMounted(true);
@@ -55,6 +54,7 @@ export const PhoneLoginForm = () => {
 
   const onFinish = async (values: PhoneLoginFormValuesProps) => {
     const phoneNumber = `+380${values.phone}`;
+
     sessionStorage.setItem('phone', phoneNumber);
 
     try {
@@ -63,7 +63,7 @@ export const PhoneLoginForm = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const onFinishFailed = () => {};
 
@@ -75,9 +75,7 @@ export const PhoneLoginForm = () => {
       onFinishFailed={onFinishFailed}
     >
       <PhoneInputFormItem label={TEXT.PHONE} />
-      <Typography>
-        {TEXT.SEND_SMS}
-      </Typography>
+      <Typography>{TEXT.SEND_SMS}</Typography>
       <SubmitButtonFormItem
         title={TEXT.SUBMIT}
         className="mt-20"
