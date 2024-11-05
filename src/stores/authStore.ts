@@ -5,7 +5,7 @@ import { ConfirmationResult, User } from 'firebase/auth';
 
 interface AuthState {
   isAuthorized: boolean;
-  user: unknown;
+  user: User | null | unknown ;
   loginWithEmail: (email: string, password: string) => Promise<void>;
   registerWithEmail: (email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
@@ -15,11 +15,12 @@ interface AuthState {
   error: string | null;
   loginWithPhoneNumber: (phoneNumber: string) => Promise<void>;
   verifyCode: (code: string) => Promise<User | undefined>;
+  phoneNumber: string;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthorized: false,
-  user: {},
+  user: null,
   confirmationResult: null,
   error: null,
   phoneNumber: '',
@@ -61,7 +62,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   verifyCode: async (code) => {
-    const { confirmationResult } = useAuthStore.getState();
+    const { confirmationResult } = useAuthStore.getState() as AuthState;
 
     if (!confirmationResult) {
       set({ error: 'Confirmation result not found' });
