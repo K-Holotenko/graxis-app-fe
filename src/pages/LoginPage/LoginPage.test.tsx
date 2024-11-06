@@ -127,22 +127,4 @@ describe('LoginPage', () => {
 
     expect(authorizeText).toBeInTheDocument();
   });
-
-  //   it('renders PageContainer with the correct text "No account?"', () => {
-  //     const mockLocation = { pathname: ROUTES.LOGIN };
-
-  //     const { getByText } = render(
-  //       <HelmetProvider>
-  //         <MemoryRouter initialEntries={[mockLocation]}>
-  //           <Routes>
-  //             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-  //           </Routes>
-  //         </MemoryRouter>
-  //       </HelmetProvider>
-  //     );
-
-  //     const noAccount = getByText(TEXT.NO_ACCOUNT);
-
-  //     expect(noAccount).toBeInTheDocument();
-  //   });
 });
