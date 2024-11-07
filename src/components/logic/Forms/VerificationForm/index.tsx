@@ -13,20 +13,14 @@ export const VerificationForm = () => {
   const { verifyCode } = useAuthStore();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  
-// TODO logic for resending code
+
+  //  TODO logic for resending code
 
   const handleSubmit = async () => {
     try {
-      const user = await verifyCode(code);
-
-      if (!user) {
-        throw new Error(VALIDATION_MESSAGE.CODE_VERIFY_ERR);
-      }
-
+      await verifyCode(code);
       navigate(ROUTES.HOME);
-    } catch (err) {
-      console.error(err);
+    } catch {
       setErrorMessage(VALIDATION_MESSAGE.CODE_VERIFY_ERR);
     }
   };
@@ -40,14 +34,12 @@ export const VerificationForm = () => {
       <VerificationButtonFormItem
         className="mt-20"
         title={TEXT.SEND_SMS_AGAIN}
-        code={code}
-        id="code-resend-btn"
       />
       <Form.Item>
         <Input.OTP
           inputMode="numeric"
           formatter={(str) =>
-            str.replace(VALIDATION_CONDITION.SMS_INPUT.pattern, '')
+            str.replace(VALIDATION_CONDITION.VERIFICATION_CODE.pattern, '')
           }
           onChange={setCode}
         />

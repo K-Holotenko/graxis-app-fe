@@ -5,8 +5,6 @@ import { TEXT } from 'config/constants';
 interface VerificationButtonFormItemProps {
   title: string;
   className?: string;
-  code: string;
-  id: string;
 }
 
 export const VerificationButtonFormItem = ({
@@ -14,9 +12,6 @@ export const VerificationButtonFormItem = ({
   className,
 }: VerificationButtonFormItemProps) => {
   const { timer, isDisabled, resetCountdown } = useCountdown(5);
-  const handleResend = async () => {
-    resetCountdown();
-  };
 
   return (
     <Form.Item>
@@ -24,7 +19,7 @@ export const VerificationButtonFormItem = ({
         block
         type="link"
         htmlType="button"
-        onClick={handleResend}
+        onClick={resetCountdown}
         disabled={isDisabled}
         className={className}
       >

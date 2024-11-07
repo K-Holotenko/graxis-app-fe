@@ -1,5 +1,5 @@
 export const VALIDATION_MESSAGE = {
-  ALREADY_REGISTERED_EMAIL: 'Дана електрона пошта уже зареєстрована',
+  ALREADY_REGISTERED_EMAIL: 'Ця електрона пошта вже зареєстрована',
 
   CODE_VERIFY_ERR: 'Невірний код верифікації',
 
@@ -31,7 +31,7 @@ export const VALIDATION_CONDITION = {
   PHONE_INPUT: {
     pattern: /^\d{9}$/,
   },
-  SMS_INPUT: {
+  VERIFICATION_CODE: {
     pattern: /\D/g,
   },
 };

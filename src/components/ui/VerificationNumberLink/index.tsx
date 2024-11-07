@@ -8,7 +8,7 @@ export const VerificationNumberLink = () => {
   return (
     <Typography.Link href={`${ROUTES.REGISTRATION}`}>
       {phone}
-      <Image src={EditSrc} alt="Logo" preview={false} />
+      <Image src={EditSrc} alt="Edit" preview={false} />
     </Typography.Link>
   );
 };

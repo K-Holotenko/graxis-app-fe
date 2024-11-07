@@ -12,18 +12,14 @@ interface AuthState {
   loginWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
   confirmationResult: ConfirmationResult | null;
-  error: string | null;
   loginWithPhoneNumber: (phoneNumber: string) => Promise<void>;
-  verifyCode: (code: string) => Promise<User | undefined>;
-  phoneNumber: string;
+  verifyCode: (code: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthorized: false,
   user: null,
   confirmationResult: null,
-  error: null,
-  phoneNumber: '',
 
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
@@ -50,36 +46,20 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   loginWithPhoneNumber: async (phoneNumber) => {
-    try {
-      const confirmationResult =
-        await AuthService.loginWithPhoneNumber(phoneNumber);
+    const confirmationResult =
+      await AuthService.loginWithPhoneNumber(phoneNumber);
 
-      set({ confirmationResult, error: null });
-      console.log(confirmationResult);
-    } catch (error) {
-      set({ error: (error as Error).message });
-    }
+    set({ confirmationResult });
   },
 
   verifyCode: async (code) => {
     const { confirmationResult } = useAuthStore.getState() as AuthState;
 
-    if (!confirmationResult) {
-      set({ error: 'Confirmation result not found' });
+    if (!confirmationResult) return;
 
-      return;
-    }
+    const user = await AuthService.verifyCode(confirmationResult, code);
 
-    try {
-      const user = await AuthService.verifyCode(confirmationResult, code);
-
-      set({ user, isAuthorized: true, error: null });
-
-      return user;
-    } catch (error) {
-      set({ error: (error as Error).message });
-      throw error;
-    }
+    set({ user, isAuthorized: true });
   },
 
   signOut: async () => {

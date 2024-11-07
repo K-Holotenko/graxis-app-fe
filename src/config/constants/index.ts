@@ -45,5 +45,3 @@ export const FORMS = {
   PHONE_REGISTRATION_FORM: 'phoneRegistrationForm',
   VERIFICATION_FORM: 'verificationForm',
 };
-
-//MESSAGE: 'Ми відправили вам підтвердження коду на ваш мобільний номер',

@@ -27,23 +27,21 @@ export const PhoneLoginForm = () => {
       {
         size: 'invisible',
         callback: () => {
-          console.log('reCAPTCHA solved');
-          //  @ts-expect-error fff
+          //  @ts-expect-error Cannot find name 'grecaptcha'
           grecaptcha.reset();
         },
         'expired-callback': () => {
           window.recaptchaVerifier.clear();
-          // @ts-expect-error fff
+          // @ts-expect-error Cannot find name 'grecaptcha'
           grecaptcha.reset();
         },
         'error-callback': () => {
           window.recaptchaVerifier.clear();
-          // @ts-expect-error fff
+          // @ts-expect-error Cannot find name 'grecaptcha'
           grecaptcha.reset();
         },
       }
     );
-
     setMounted(true);
   }, [mounted]);
 
@@ -76,11 +74,12 @@ export const PhoneLoginForm = () => {
     >
       <PhoneInputFormItem label={TEXT.PHONE} />
       <Typography>{TEXT.SEND_SMS}</Typography>
-      <SubmitButtonFormItem
-        title={TEXT.SUBMIT}
-        className="mt-20"
+      <button
+        className="display-none"
         id="phone-login-btn"
+        aria-hidden="true"
       />
+      <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20" />
     </Form>
   );
 };
