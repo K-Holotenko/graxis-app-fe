@@ -3,12 +3,12 @@ import { getAnalytics } from 'firebase/analytics';
 
 import { firebaseApp } from './index';
 
-jest.mock('firebase/app', () => ({
-  initializeApp: jest.fn(),
+vi.mock('firebase/app', () => ({
+  initializeApp: vi.fn(),
 }));
 
-jest.mock('firebase/analytics', () => ({
-  getAnalytics: jest.fn(),
+vi.mock('firebase/analytics', () => ({
+  getAnalytics: vi.fn(),
 }));
 
 describe('Firebase Initialization', () => {

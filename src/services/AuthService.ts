@@ -80,25 +80,26 @@ export const AuthService = {
     }
   },
 
-  loginWithPhoneNumber: async ( phoneNumber: string
+  loginWithPhoneNumber: async (
+    phoneNumber: string
   ): Promise<ConfirmationResult> => {
-      const confirmationResult = await signInWithPhoneNumber(
-        firebaseAuth,
-        phoneNumber,
-        window.recaptchaVerifier
-      );
-      
-      return confirmationResult;
+    const confirmationResult = await signInWithPhoneNumber(
+      firebaseAuth,
+      phoneNumber,
+      window.recaptchaVerifier
+    );
+
+    return confirmationResult;
   },
 
   verifyCode: async (
     confirmationResult: ConfirmationResult,
     code: string
   ): Promise<User> => {
-      const result = await confirmationResult.confirm(code);
-      const user = result.user;
+    const result = await confirmationResult.confirm(code);
+    const user = result.user;
 
-      return user;
+    return user;
   },
 
   signOut: async () => {
