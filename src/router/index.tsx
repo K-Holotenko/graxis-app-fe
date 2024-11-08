@@ -5,6 +5,7 @@ import { LoginPage } from 'pages/LoginPage';
 import { RegistrationPage } from 'pages/RegistrationPage';
 import { ROUTES } from './routes';
 import { PrivateRoute } from './PrivateRoute';
+import { VerifyEmailPage } from 'pages/VerifyEmailPage';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.LOGIN,
     element: <LoginPage />,
+  },
+  {
+    path: ROUTES.VERIFY_EMAIL,
+    element: <VerifyEmailPage />,
   },
   {
     path: ROUTES.REGISTRATION,
