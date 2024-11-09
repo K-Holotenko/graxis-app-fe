@@ -6,6 +6,7 @@ import { ConfirmationResult, User } from 'firebase/auth';
 interface AuthState {
   isAuthorized: boolean;
   user: User | null | unknown;
+  emailToVerify: string | null;
   loginWithEmail: (email: string, password: string) => Promise<void>;
   registerWithEmail: (email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
@@ -20,6 +21,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   isAuthorized: false,
   user: null,
   confirmationResult: null,
+  emailToVerify: null,
 
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
@@ -30,7 +32,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   registerWithEmail: async (email: string, password: string) => {
     const response = await AuthService.registerWithEmail(email, password);
 
-    set({ isAuthorized: !!response, user: response });
+    set({ isAuthorized: !!response, user: response, emailToVerify: email });
   },
 
   loginWithGoogle: async () => {

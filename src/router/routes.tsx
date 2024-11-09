@@ -3,4 +3,5 @@ export const ROUTES = {
   LOGIN: '/login',
   REGISTRATION: '/registration',
   VERIFICATIONCODE: '/verification',
+  VERIFY_EMAIL: '/verify-email',
 };
