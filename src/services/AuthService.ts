@@ -6,24 +6,29 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  User,
 } from 'firebase/auth';
 
 import { firebaseAuth } from '../config/firebase';
 import { EMAIL_VERIFICATION_REDIRECT_LINK } from 'config/constants';
 
 export const AuthService = {
-  loginWithEmail: async (email: string, password: string): Promise<unknown> => {
+  loginWithEmail: async (
+    email: string,
+    password: string
+  ): Promise<User | null> => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         firebaseAuth,
         email,
         password
       );
-      const user = userCredential.user;
+      const user: User = userCredential.user;
 
       return user;
-    } catch (error) {
-      console.error(error);
+    } catch {
+      //TODO. Add proper error handling later
+      return null;
     }
   },
 
@@ -32,8 +37,6 @@ export const AuthService = {
     password: string
   ): Promise<unknown> => {
     try {
-      console.log(123, EMAIL_VERIFICATION_REDIRECT_LINK);
-
       const userCredential = await createUserWithEmailAndPassword(
         firebaseAuth,
         email,
@@ -49,8 +52,8 @@ export const AuthService = {
       await sendEmailVerification(user, actionCodeSettings);
 
       return user;
-    } catch (error) {
-      console.error(error);
+    } catch {
+      //TODO. Add proper error handling later
     }
   },
 
@@ -58,16 +61,12 @@ export const AuthService = {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(firebaseAuth, provider);
-      const credential =
-        GoogleAuthProvider.credentialFromResult(userCredential);
-
-      console.log(userCredential, credential);
 
       const user = userCredential.user;
 
       return user;
-    } catch (error) {
-      console.error(error);
+    } catch {
+      //TODO. Add proper error handling later
     }
   },
 
@@ -75,24 +74,20 @@ export const AuthService = {
     try {
       const provider = new FacebookAuthProvider();
       const userCredential = await signInWithPopup(firebaseAuth, provider);
-      const credential =
-        FacebookAuthProvider.credentialFromResult(userCredential);
-
-      console.log(userCredential, credential);
 
       const user = userCredential.user;
 
       return user;
-    } catch (error) {
-      console.error(error);
+    } catch {
+      //TODO. Add proper error handling later
     }
   },
 
   signOut: async () => {
     try {
       await signOut(firebaseAuth);
-    } catch (error) {
-      console.error(error);
+    } catch {
+      //TODO. Add proper error handling later
     }
   },
 };

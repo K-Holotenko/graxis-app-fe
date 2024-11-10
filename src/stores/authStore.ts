@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import { AuthService } from '../services/AuthService';
+import CookieService from 'services/CookieService';
 
 interface AuthState {
   isAuthorized: boolean;
@@ -11,17 +12,22 @@ interface AuthState {
   loginWithGoogle: () => Promise<void>;
   loginWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
+  setAuthorized: (state: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  isAuthorized: false,
+  isAuthorized: CookieService.hasCookie('accessToken'),
   user: null,
   emailToVerify: null,
 
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
+    const accessToken = await response?.getIdToken();
 
-    set({ isAuthorized: !!response, user: response });
+    if (accessToken) {
+      CookieService.setCookie('accessToken', accessToken, 7);
+      set({ isAuthorized: true, user: response });
+    }
   },
 
   registerWithEmail: async (email: string, password: string) => {
@@ -46,5 +52,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     await AuthService.signOut();
 
     set({ isAuthorized: false, user: {} });
+  },
+
+  setAuthorized: (state: boolean) => {
+    set({ isAuthorized: state });
   },
 }));
