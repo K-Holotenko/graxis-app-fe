@@ -80,9 +80,12 @@ export const AuthService = {
     }
   },
 
+  // TODO
+  // Handle different types of authentication errors
   loginWithPhoneNumber: async (
     phoneNumber: string
-  ): Promise<ConfirmationResult> => {
+  ): Promise<ConfirmationResult | undefined> => {
+
     const confirmationResult = await signInWithPhoneNumber(
       firebaseAuth,
       phoneNumber,
@@ -92,10 +95,12 @@ export const AuthService = {
     return confirmationResult;
   },
 
+  // TODO
+  // Handle different types of authentication errors
   verifyCode: async (
     confirmationResult: ConfirmationResult,
     code: string
-  ): Promise<User> => {
+  ): Promise<User | undefined> => {
     const result = await confirmationResult.confirm(code);
     const user = result.user;
 

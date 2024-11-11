@@ -16,6 +16,7 @@ export const TEXT = {
 
   INPUT_EMAIL: 'Введіть пошту',
   INPUT_PASSWORD: 'Введіть пароль',
+  INPUT_PHONE: 'Введіть номер телефону',
 
   LOGIN: 'Увійти',
 

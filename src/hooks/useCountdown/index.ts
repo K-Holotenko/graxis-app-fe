@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 
-export const useCountdown = (initialTime: number) => {
+interface UseCountdownReturn {
+  timer: number;
+  isDisabled: boolean;
+  resetCountdown: () => void;
+}
+
+export const useCountdown = (initialTime: number): UseCountdownReturn => {
   const [timer, setTimer] = useState(initialTime);
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -18,7 +24,7 @@ export const useCountdown = (initialTime: number) => {
     return () => clearInterval(countdown);
   }, [timer]);
 
-  const resetCountdown = () => {
+  const resetCountdown = (): void => {
     setTimer(initialTime);
     setIsDisabled(true);
   };

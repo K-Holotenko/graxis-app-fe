@@ -32,7 +32,6 @@ export const VerificationForm = () => {
       layout="vertical"
     >
       <VerificationButtonFormItem
-        className="mt-20"
         title={TEXT.SEND_SMS_AGAIN}
       />
       <Form.Item>
@@ -41,15 +40,14 @@ export const VerificationForm = () => {
           formatter={(str) =>
             str.replace(VALIDATION_CONDITION.VERIFICATION_CODE.pattern, '')
           }
+          size='large'
           onChange={setCode}
         />
       </Form.Item>
       {errorMessage && (
         <Alert message={errorMessage} type="error" banner showIcon={false} />
       )}
-      <Form.Item>
-        <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20" />
-      </Form.Item>
+      <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20" />
     </Form>
   );
 };

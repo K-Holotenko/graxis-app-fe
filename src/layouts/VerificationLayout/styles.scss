@@ -1,0 +1,26 @@
+.verif-code-row {
+    margin-top: 100px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .verif-code-space {
+        .verif-code-text {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .verif-code-row {
+        padding-left: 0px;
+        padding-right: 0px;
+        .verif-code-space {
+            .verif-code-text {
+                font-size: 16px;
+            }
+        }
+    }
+}

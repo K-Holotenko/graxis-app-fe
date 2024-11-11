@@ -1,84 +1,73 @@
-import { useEffect, useState } from 'react';
-import { Form, Typography } from 'antd';
+import { useState } from 'react';
+import { Alert, Form, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { RecaptchaVerifier } from 'firebase/auth';
-import { firebaseAuth } from '../../../../config/firebase';
-import { useAuthStore } from '../../../../stores/authStore';
-import { ROUTES } from '../../../../router/routes';
+import { useAuthStore } from 'stores/authStore';
 import { FORMS, TEXT } from '../../../../config/constants';
 import { PhoneInputFormItem } from '../../../ui/FormItems/PhoneInputFormItem';
 import { SubmitButtonFormItem } from '../../../ui/FormItems/SubmitButtonFormItem';
 import { CheckboxFormItem } from '../../../ui/FormItems/CheckboxFormItem';
 import { VALIDATION_CONDITION } from '../../../../config/validation';
+import { useRecaptcha } from 'hooks/useRecaptcha';
+import { handlePhoneAuth } from 'utils/handlePhoneAuth';
+import { ROUTES } from 'router/routes';
+import { useAuthPhoneErrorCheck } from 'hooks/useAuthPhoneErrorCheck';
+import './styles.scss';
 
 interface PhoneRegistrationFormValuesProps {
   phone: string;
 }
 
 export const PhoneRegistrationForm = () => {
+  const [form] = Form.useForm();
   const navigate = useNavigate();
   const { loginWithPhoneNumber } = useAuthStore();
-  const [mounted, setMounted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { isPhoneInvalid, onFieldsChange } = useAuthPhoneErrorCheck(form);
 
-  useEffect(() => {
-    if (mounted) return;
-    window.recaptchaVerifier = new RecaptchaVerifier(
-      firebaseAuth,
-      'phone-registration-btn',
-      {
-        size: 'invisible',
-        callback: () => {
-          //  @ts-expect-error Cannot find name 'grecaptcha'
-          grecaptcha.reset();
-        },
-        'expired-callback': () => {
-          window.recaptchaVerifier.clear();
-          // @ts-expect-error Cannot find name 'grecaptcha'
-          grecaptcha.reset();
-        },
-        'error-callback': () => {
-          window.recaptchaVerifier.clear();
-          // @ts-expect-error Cannot find name 'grecaptcha'
-          grecaptcha.reset();
-        },
-      }
-    );
-
-    setMounted(true);
-  }, [mounted]);
+  useRecaptcha({ buttonId: 'phone-registration-btn' });
 
   // TODO: Revisit user phone number verification and choose one of the following approaches:
   // 1. Store the user's phone number in Firestore and check against it when necessary to ensure validity and uniqueness.
   // 2. Send the verification code, handle any errors that Firebase Auth may throw, and return the user to the registration step if validation fails.
   // 3. Use Firebase Auth Admin SDK with Cloud Functions to manage verification on the server side for more flexible control.
 
-  const onFinish = async (values: PhoneRegistrationFormValuesProps) => {
-    const phoneNumber = `+380${values.phone}`;
-
-    sessionStorage.setItem('phone', phoneNumber);
-
-    try {
-      await loginWithPhoneNumber(phoneNumber);
-      navigate(ROUTES.VERIFICATIONCODE);
-    } catch (error) {
-      console.error(error);
-    }
+  const onFinish = (values: PhoneRegistrationFormValuesProps) => {
+    const navigateToVerification = () => {
+      navigate(`${ROUTES.VERIFICATIONCODE}?from=${ROUTES.REGISTRATION}`);
+    };
+      handlePhoneAuth(
+      values.phone,
+      loginWithPhoneNumber,
+      navigateToVerification,
+      setErrorMessage,
+    );
   };
-
+ 
   return (
     <Form
       name={FORMS.PHONE_REGISTRATION_FORM}
       layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={() => {}}
+      className='phone-form'
+      form={form}
+      onFieldsChange={onFieldsChange}
+      requiredMark={false}
     >
-      <PhoneInputFormItem label={TEXT.PHONE} />
-      <Typography>{TEXT.SEND_SMS}</Typography>
+      <PhoneInputFormItem
+        label={TEXT.PHONE}
+        className='phone-input'
+      />
+      {!isPhoneInvalid && (
+        <Typography.Text className="phone-sms-text">{TEXT.SEND_SMS}</Typography.Text>
+      )}
       <CheckboxFormItem
         label={TEXT.ALLOW_DATA_PROCESSING}
         name="agreement"
         rules={[VALIDATION_CONDITION.REQUIRED]}
       />
+      {errorMessage && (
+        <Alert message={errorMessage} type="error" banner showIcon={false} />
+      )}
       <button
         className="display-none"
         id="phone-registration-btn"
