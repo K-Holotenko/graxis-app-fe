@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
     element: <RegistrationPage />,
   },
   {
-    path: ROUTES.VERIFICATIONCODE,
+    path: ROUTES.VERIFICATION_CODE,
     element: <VerificationPage />,
   },
 ]);

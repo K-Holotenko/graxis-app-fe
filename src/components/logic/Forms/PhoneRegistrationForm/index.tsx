@@ -26,14 +26,9 @@ export const PhoneRegistrationForm = () => {
 
   useRecaptcha({ buttonId: 'phone-registration-btn' });
 
-  // TODO: Revisit user phone number verification and choose one of the following approaches:
-  // 1. Store the user's phone number in Firestore and check against it when necessary to ensure validity and uniqueness.
-  // 2. Send the verification code, handle any errors that Firebase Auth may throw, and return the user to the registration step if validation fails.
-  // 3. Use Firebase Auth Admin SDK with Cloud Functions to manage verification on the server side for more flexible control.
-
   const onFinish = (values: PhoneRegistrationFormValuesProps) => {
     const navigateToVerification = () => {
-      navigate(`${ROUTES.VERIFICATIONCODE}?from=${ROUTES.REGISTRATION}`);
+      navigate(`${ROUTES.VERIFICATION_CODE}?from=${ROUTES.REGISTRATION}`);
     };
       handlePhoneAuth(
       values.phone,
@@ -42,7 +37,7 @@ export const PhoneRegistrationForm = () => {
       setErrorMessage,
     );
   };
- 
+
   return (
     <Form
       name={FORMS.PHONE_REGISTRATION_FORM}

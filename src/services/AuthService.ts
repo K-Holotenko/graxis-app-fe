@@ -91,8 +91,7 @@ export const AuthService = {
     }
   },
 
-  // TODO
-  // Handle different types of authentication errors
+  // TODO Handle different types of authentication errors
   loginWithPhoneNumber: async (
     phoneNumber: string
   ): Promise<ConfirmationResult | undefined> => {
@@ -106,8 +105,7 @@ export const AuthService = {
     return confirmationResult;
   },
 
-  // TODO
-  // Handle different types of authentication errors
+  // TODO Handle different types of authentication errors
   verifyCode: async (
     confirmationResult: ConfirmationResult,
     code: string

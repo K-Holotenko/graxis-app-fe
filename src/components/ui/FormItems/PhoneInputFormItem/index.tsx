@@ -12,7 +12,6 @@ interface FieldType {
 interface PhoneInputFormItemProps {
   label: string;
   className: string;
-
 }
 
 export const PhoneInputFormItem = ({

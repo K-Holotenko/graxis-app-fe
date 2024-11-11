@@ -2,6 +2,6 @@ export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   REGISTRATION: '/registration',
-  VERIFICATIONCODE: '/verification',
+  VERIFICATION_CODE: '/verification',
   VERIFY_EMAIL: '/verify-email',
 };

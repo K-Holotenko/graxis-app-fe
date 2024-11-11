@@ -12,7 +12,6 @@ export const VerificationNumberLink = () => {
   const fromPage = params.get('from') || ROUTES.LOGIN;
 
   return (
-
     <Link to={fromPage} className='phone-link'>
       {phone}
       <Image src={EditSrc} alt="Edit" preview={false} />

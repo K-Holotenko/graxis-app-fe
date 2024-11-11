@@ -4,11 +4,11 @@
     margin-top: 20px;
     font-size: 12px;
     font-weight: 500;
-    
+
     &.verif-sms-btn-active {
-        color: $primary; 
+        color: $primary;
     }
-}    
+}
 
 @media (min-width: 768px) {
     .verif-sms-btn {
