@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/react';
 import { RegistrationPage } from '.';
-import { REGISTRATION_PAGE_CONSTANTS } from './utils/constants';
+import { REGISTRATION_PAGE_CONFIG } from './utils/config';
 import { TEXT } from 'config/constants';
 import { HelmetProvider } from 'react-helmet-async';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -17,7 +17,7 @@ describe('RegistrationPage', () => {
 
     expect(mainPhoto).toHaveAttribute(
       'src',
-      REGISTRATION_PAGE_CONSTANTS.IMAGE_SRC
+      REGISTRATION_PAGE_CONFIG.IMAGE_SRC
     );
   });
 
@@ -33,7 +33,7 @@ describe('RegistrationPage', () => {
     );
 
     await waitFor(() => {
-      expect(document.title).toBe(REGISTRATION_PAGE_CONSTANTS.PAGE_TITLE);
+      expect(document.title).toBe(REGISTRATION_PAGE_CONFIG.PAGE_TITLE);
     });
   });
 
@@ -44,7 +44,7 @@ describe('RegistrationPage', () => {
       </HelmetProvider>
     );
     const emailTabTitle = getByText(
-      REGISTRATION_PAGE_CONSTANTS.FORM.EMAIL_TAB.TITLE
+      REGISTRATION_PAGE_CONFIG.FORM.EMAIL_TAB.TITLE
     );
 
     expect(emailTabTitle).toBeInTheDocument();
@@ -57,7 +57,7 @@ describe('RegistrationPage', () => {
       </HelmetProvider>
     );
     const phoneTabTitle = getByText(
-      REGISTRATION_PAGE_CONSTANTS.FORM.PHONE_TAB.TITLE
+      REGISTRATION_PAGE_CONFIG.FORM.PHONE_TAB.TITLE
     );
 
     expect(phoneTabTitle).toBeInTheDocument();

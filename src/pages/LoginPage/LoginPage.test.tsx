@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 
 import { TEXT } from 'config/constants';
-import { LOGIN_PAGE_CONSTANTS } from './utils/constants';
+import { LOGIN_PAGE_CONFIG } from './utils/config';
 import { HelmetProvider } from 'react-helmet-async';
 import { LoginPage } from '.';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -17,7 +17,7 @@ describe('LoginPage', () => {
     );
     const mainPhoto = getByAltText('Auth image');
 
-    expect(mainPhoto).toHaveAttribute('src', LOGIN_PAGE_CONSTANTS.IMAGE_SRC);
+    expect(mainPhoto).toHaveAttribute('src', LOGIN_PAGE_CONFIG.IMAGE_SRC);
   });
 
   it('renders PageContainer with the correct title Login page', async () => {
@@ -32,7 +32,7 @@ describe('LoginPage', () => {
     );
 
     await waitFor(() => {
-      expect(document.title).toBe(LOGIN_PAGE_CONSTANTS.PAGE_TITLE);
+      expect(document.title).toBe(LOGIN_PAGE_CONFIG.PAGE_TITLE);
     });
   });
 
@@ -42,7 +42,7 @@ describe('LoginPage', () => {
         <LoginPage />
       </HelmetProvider>
     );
-    const emailTabTitle = getByText(LOGIN_PAGE_CONSTANTS.FORM.EMAIL_TAB.TITLE);
+    const emailTabTitle = getByText(LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.TITLE);
 
     expect(emailTabTitle).toBeInTheDocument();
   });
@@ -53,7 +53,7 @@ describe('LoginPage', () => {
         <LoginPage />
       </HelmetProvider>
     );
-    const phoneTabTitle = getByText(LOGIN_PAGE_CONSTANTS.FORM.PHONE_TAB.TITLE);
+    const phoneTabTitle = getByText(LOGIN_PAGE_CONFIG.FORM.PHONE_TAB.TITLE);
 
     expect(phoneTabTitle).toBeInTheDocument();
   });
