@@ -25,7 +25,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     const accessToken = await response?.getIdToken();
 
     if (accessToken) {
-      CookieService.setCookie('accessToken', accessToken, 7);
+      CookieService.setCookie('accessToken', accessToken);
       set({ isAuthorized: true, user: response });
     }
   },
