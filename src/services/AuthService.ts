@@ -1,11 +1,14 @@
 import {
+  ConfirmationResult,
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
   GoogleAuthProvider,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signInWithPhoneNumber,
   signInWithPopup,
   signOut,
+  User,
 } from 'firebase/auth';
 
 import { firebaseAuth } from '../config/firebase';
@@ -86,6 +89,31 @@ export const AuthService = {
     } catch (error) {
       console.error(error);
     }
+  },
+
+  // TODO Handle different types of authentication errors
+  loginWithPhoneNumber: async (
+    phoneNumber: string
+  ): Promise<ConfirmationResult | undefined> => {
+
+    const confirmationResult = await signInWithPhoneNumber(
+      firebaseAuth,
+      phoneNumber,
+      window.recaptchaVerifier
+    );
+
+    return confirmationResult;
+  },
+
+  // TODO Handle different types of authentication errors
+  verifyCode: async (
+    confirmationResult: ConfirmationResult,
+    code: string
+  ): Promise<User | undefined> => {
+    const result = await confirmationResult.confirm(code);
+    const user = result.user;
+
+    return user;
   },
 
   signOut: async () => {
