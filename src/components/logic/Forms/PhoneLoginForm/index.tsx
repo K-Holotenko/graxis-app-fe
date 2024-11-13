@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useRecaptcha } from 'hooks/useRecaptcha';
 import { handlePhoneAuth } from 'utils/handlePhoneAuth';
 import { ROUTES } from 'router/routes';
-import '../PhoneRegistrationForm/styles.scss'
+import '../PhoneRegistrationForm/styles.scss';
 import { useAuthPhoneErrorCheck } from 'hooks/useAuthPhoneErrorCheck';
 
 interface PhoneLoginFormValuesProps {
@@ -28,27 +28,30 @@ export const PhoneLoginForm = () => {
     const navigateToVerification = () => {
       navigate(`${ROUTES.VERIFICATION_CODE}?from=${ROUTES.LOGIN}`);
     };
+
     handlePhoneAuth(
       values.phone,
       loginWithPhoneNumber,
       navigateToVerification,
-      setErrorMessage,
+      setErrorMessage
     );
   };
 
   return (
-    <Form 
-      name={FORMS.PHONE_LOGIN_FORM} 
-      layout="vertical" 
-      onFinish={onFinish} 
-      onFieldsChange={onFieldsChange} 
-      className='phone-form' 
+    <Form
+      name={FORMS.PHONE_LOGIN_FORM}
+      layout="vertical"
+      onFinish={onFinish}
+      onFieldsChange={onFieldsChange}
+      className="phone-form"
       requiredMark={false}
       form={form}
     >
-      <PhoneInputFormItem label={TEXT.PHONE} className='phone-input' />
+      <PhoneInputFormItem label={TEXT.PHONE} className="phone-input" />
       {!isPhoneInvalid && (
-        <Typography.Text className="phone-sms-text">{TEXT.SEND_SMS}</Typography.Text>
+        <Typography.Text className="phone-sms-text">
+          {TEXT.SEND_SMS}
+        </Typography.Text>
       )}
       {errorMessage && (
         <Alert message={errorMessage} type="error" banner showIcon={false} />
@@ -58,7 +61,7 @@ export const PhoneLoginForm = () => {
         id="phone-login-btn"
         aria-hidden="true"
       />
-      <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20"  />
+      <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20" />
     </Form>
   );
 };

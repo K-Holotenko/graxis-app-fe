@@ -30,11 +30,12 @@ export const PhoneRegistrationForm = () => {
     const navigateToVerification = () => {
       navigate(`${ROUTES.VERIFICATION_CODE}?from=${ROUTES.REGISTRATION}`);
     };
-      handlePhoneAuth(
+
+    handlePhoneAuth(
       values.phone,
       loginWithPhoneNumber,
       navigateToVerification,
-      setErrorMessage,
+      setErrorMessage
     );
   };
 
@@ -43,17 +44,16 @@ export const PhoneRegistrationForm = () => {
       name={FORMS.PHONE_REGISTRATION_FORM}
       layout="vertical"
       onFinish={onFinish}
-      className='phone-form'
+      className="phone-form"
       form={form}
       onFieldsChange={onFieldsChange}
       requiredMark={false}
     >
-      <PhoneInputFormItem
-        label={TEXT.PHONE}
-        className='phone-input'
-      />
+      <PhoneInputFormItem label={TEXT.PHONE} className="phone-input" />
       {!isPhoneInvalid && (
-        <Typography.Text className="phone-sms-text">{TEXT.SEND_SMS}</Typography.Text>
+        <Typography.Text className="phone-sms-text">
+          {TEXT.SEND_SMS}
+        </Typography.Text>
       )}
       <CheckboxFormItem
         label={TEXT.ALLOW_DATA_PROCESSING}

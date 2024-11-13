@@ -10,7 +10,7 @@ export const handlePhoneAuth = async (
   phone: string,
   loginWithPhoneNumber: (phoneNumber: string) => Promise<void>,
   navigate: (path: string) => void,
-  setErrorMessage: (message: string | null) => void,
+  setErrorMessage: (message: string | null) => void
 ): Promise<void> => {
   const phoneNumber = `+380${phone}`;
 

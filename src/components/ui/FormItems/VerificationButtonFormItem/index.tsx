@@ -14,6 +14,7 @@ export const VerificationButtonFormItem = ({
   const buttonClass = isDisabled
     ? 'verif-sms-btn verif-sms-btn-disabled'
     : 'verif-sms-btn verif-sms-btn-active';
+
   return (
     <Form.Item>
       <Button
