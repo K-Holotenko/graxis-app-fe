@@ -31,16 +31,14 @@ export const VerificationForm = () => {
       name={FORMS.VERIFICATION_FORM}
       layout="vertical"
     >
-      <VerificationButtonFormItem
-        title={TEXT.SEND_SMS_AGAIN}
-      />
+      <VerificationButtonFormItem title={TEXT.SEND_SMS_AGAIN} />
       <Form.Item>
         <Input.OTP
           inputMode="numeric"
           formatter={(str) =>
             str.replace(VALIDATION_CONDITION.VERIFICATION_CODE.pattern, '')
           }
-          size='large'
+          size="large"
           onChange={setCode}
         />
       </Form.Item>

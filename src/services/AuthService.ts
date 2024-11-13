@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   ConfirmationResult,
   createUserWithEmailAndPassword,
@@ -26,7 +27,7 @@ export const AuthService = {
 
       return user;
     } catch (error) {
-      console.error(error);
+      // TODO Add error handling
     }
   },
 
@@ -35,8 +36,6 @@ export const AuthService = {
     password: string
   ): Promise<unknown> => {
     try {
-      console.log(123, EMAIL_VERIFICATION_REDIRECT_LINK);
-
       const userCredential = await createUserWithEmailAndPassword(
         firebaseAuth,
         email,
@@ -53,7 +52,7 @@ export const AuthService = {
 
       return user;
     } catch (error) {
-      console.error(error);
+      // TODO Add error handling
     }
   },
 
@@ -64,13 +63,11 @@ export const AuthService = {
       const credential =
         GoogleAuthProvider.credentialFromResult(userCredential);
 
-      console.log(userCredential, credential);
-
       const user = userCredential.user;
 
       return user;
     } catch (error) {
-      console.error(error);
+      // TODO Add error handling
     }
   },
 
@@ -81,13 +78,11 @@ export const AuthService = {
       const credential =
         FacebookAuthProvider.credentialFromResult(userCredential);
 
-      console.log(userCredential, credential);
-
       const user = userCredential.user;
 
       return user;
     } catch (error) {
-      console.error(error);
+      // TODO Add error handling
     }
   },
 
@@ -95,7 +90,6 @@ export const AuthService = {
   loginWithPhoneNumber: async (
     phoneNumber: string
   ): Promise<ConfirmationResult | undefined> => {
-
     const confirmationResult = await signInWithPhoneNumber(
       firebaseAuth,
       phoneNumber,
@@ -120,7 +114,7 @@ export const AuthService = {
     try {
       await signOut(firebaseAuth);
     } catch (error) {
-      console.error(error);
+      // TODO Add error handling
     }
   },
 };

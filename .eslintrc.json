@@ -72,6 +72,9 @@
     "react/react-in-jsx-scope": "off"
   },
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "typescript": {
         "project": "./tsconfig.json"
