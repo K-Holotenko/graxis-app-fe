@@ -23,17 +23,7 @@
     "test": "vitest --globals",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "lint": "eslint src/** --max-warnings=0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
+    "lint": "eslint 'src/**'  --max-warnings=0"
   },
   "browserslist": {
     "production": [

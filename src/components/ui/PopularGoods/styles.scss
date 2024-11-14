@@ -1,0 +1,13 @@
+.popular-goods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 100px;
+  justify-content: center;
+}
+
+.popular-goods__title {
+  text-align: center;
+  margin-bottom: 60px;
+  font-size: 30px;
+}
