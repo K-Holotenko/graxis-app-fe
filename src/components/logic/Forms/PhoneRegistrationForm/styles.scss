@@ -1,22 +1,21 @@
-.phone-form{
-    display: flex;
-    flex-direction: column;
+.phone-form {
+  display: flex;
+  flex-direction: column;
 
-    .phone-input {
-        margin-bottom: 8px;
-    }
+  .phone-input {
+    margin-bottom: 8px;
+  }
 
-    .ant-form-item-explain-error {
-        font-size: 12px;
-        line-height: 1.2;
-        margin-top: 6px;
-        margin-bottom: 6px;
-      }
+  .ant-form-item-explain-error {
+    font-size: 12px;
+    line-height: 1.2;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
 
-    .phone-sms-text {
-        font-size: 12px;
-        color: #B1B2B2;
-        margin-bottom: 12px;
-    }
+  .phone-sms-text {
+    font-size: 12px;
+    color: #b1b2b2;
+    margin-bottom: 12px;
+  }
 }
-    

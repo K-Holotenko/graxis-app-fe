@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import { AuthService } from '../services/AuthService';
+import CookieService from 'services/CookieService';
 import { ConfirmationResult, User } from 'firebase/auth';
 
 interface AuthState {
@@ -12,21 +13,26 @@ interface AuthState {
   loginWithGoogle: () => Promise<void>;
   loginWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
+  setAuthorized: (state: boolean) => void;
   confirmationResult: ConfirmationResult | null;
   loginWithPhoneNumber: (phoneNumber: string) => Promise<void>;
   verifyCode: (code: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  isAuthorized: false,
+  isAuthorized: CookieService.hasCookie('accessToken'),
   user: null,
   confirmationResult: null,
   emailToVerify: null,
 
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
+    const accessToken = await response?.getIdToken();
 
-    set({ isAuthorized: !!response, user: response });
+    if (accessToken) {
+      CookieService.setCookie('accessToken', accessToken);
+      set({ isAuthorized: true, user: response });
+    }
   },
 
   registerWithEmail: async (email: string, password: string) => {
@@ -68,5 +74,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     await AuthService.signOut();
 
     set({ isAuthorized: false, user: {} });
+  },
+
+  setAuthorized: (state: boolean) => {
+    set({ isAuthorized: state });
   },
 }));

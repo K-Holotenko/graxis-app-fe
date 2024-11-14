@@ -16,18 +16,22 @@ import { firebaseAuth } from '../config/firebase';
 import { EMAIL_VERIFICATION_REDIRECT_LINK } from 'config/constants';
 
 export const AuthService = {
-  loginWithEmail: async (email: string, password: string): Promise<unknown> => {
+  loginWithEmail: async (
+    email: string,
+    password: string
+  ): Promise<User | null> => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         firebaseAuth,
         email,
         password
       );
-      const user = userCredential.user;
+      const user: User = userCredential.user;
 
       return user;
-    } catch (error) {
-      // TODO Add error handling
+    } catch {
+      //TODO. Add proper error handling later
+      return null;
     }
   },
 
@@ -51,8 +55,8 @@ export const AuthService = {
       await sendEmailVerification(user, actionCodeSettings);
 
       return user;
-    } catch (error) {
-      // TODO Add error handling
+    } catch {
+      //TODO. Add proper error handling later
     }
   },
 
@@ -60,14 +64,12 @@ export const AuthService = {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(firebaseAuth, provider);
-      const credential =
-        GoogleAuthProvider.credentialFromResult(userCredential);
 
       const user = userCredential.user;
 
       return user;
-    } catch (error) {
-      // TODO Add error handling
+    } catch {
+      //TODO. Add proper error handling later
     }
   },
 
@@ -75,14 +77,12 @@ export const AuthService = {
     try {
       const provider = new FacebookAuthProvider();
       const userCredential = await signInWithPopup(firebaseAuth, provider);
-      const credential =
-        FacebookAuthProvider.credentialFromResult(userCredential);
 
       const user = userCredential.user;
 
       return user;
-    } catch (error) {
-      // TODO Add error handling
+    } catch {
+      //TODO. Add proper error handling later
     }
   },
 
@@ -113,8 +113,8 @@ export const AuthService = {
   signOut: async () => {
     try {
       await signOut(firebaseAuth);
-    } catch (error) {
-      // TODO Add error handling
+    } catch {
+      //TODO. Add proper error handling later
     }
   },
 };
