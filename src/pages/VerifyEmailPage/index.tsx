@@ -15,14 +15,24 @@ export const VerifyEmailPage = () => {
     if (!emailToVerify) navigate(ROUTES.LOGIN);
   }, [emailToVerify, navigate]);
 
+  const { firstPartMes, emailText, secondPartMes } =
+    VERIFY_EMAIL_PAGE_CONSTANTS.MAIN_MESSAGE(emailToVerify || '');
+
   return (
     <PageContainer pageTitle={VERIFY_EMAIL_PAGE_CONSTANTS.PAGE_TITLE}>
       <AuthLayout imageSrc={VERIFY_EMAIL_PAGE_CONSTANTS.IMAGE_SRC}>
         <Row justify="center" className="mt-200">
           <Col span={24}>
-            <Typography className="centered">
-              {VERIFY_EMAIL_PAGE_CONSTANTS.MAIN_MESSAGE(emailToVerify || '')}
-            </Typography>
+            <Typography.Text className="left">
+              {firstPartMes}
+              <Typography.Link
+                href={`mailto:${emailText}`}
+                style={{ textDecoration: 'underline' }}
+              >
+                {emailText}
+              </Typography.Link>
+              {secondPartMes}
+            </Typography.Text>
           </Col>
         </Row>
       </AuthLayout>

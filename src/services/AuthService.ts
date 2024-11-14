@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
+  ConfirmationResult,
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
   GoogleAuthProvider,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signInWithPhoneNumber,
   signInWithPopup,
   signOut,
   User,
@@ -81,6 +84,30 @@ export const AuthService = {
     } catch {
       //TODO. Add proper error handling later
     }
+  },
+
+  // TODO Handle different types of authentication errors
+  loginWithPhoneNumber: async (
+    phoneNumber: string
+  ): Promise<ConfirmationResult | undefined> => {
+    const confirmationResult = await signInWithPhoneNumber(
+      firebaseAuth,
+      phoneNumber,
+      window.recaptchaVerifier
+    );
+
+    return confirmationResult;
+  },
+
+  // TODO Handle different types of authentication errors
+  verifyCode: async (
+    confirmationResult: ConfirmationResult,
+    code: string
+  ): Promise<User | undefined> => {
+    const result = await confirmationResult.confirm(code);
+    const user = result.user;
+
+    return user;
   },
 
   signOut: async () => {
