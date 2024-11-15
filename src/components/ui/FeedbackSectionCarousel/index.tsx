@@ -9,13 +9,13 @@ export const FeedbackSectionCarousel = () => (
     infinite={true}
     centerMode
     slidesToShow={2}
-    centerPadding="350px"
+    centerPadding="318px"
     responsive={[
       {
         breakpoint: 1700,
         settings: {
           centerMode: true,
-          centerPadding: '140px',
+          centerPadding: '108px',
           slidesToShow: 2,
         },
       },
@@ -39,13 +39,13 @@ export const FeedbackSectionCarousel = () => (
         breakpoint: 768,
         settings: {
           centerMode: false,
-          slidesToShow: 1.02,
+          slidesToShow: 1.04,
         },
       },
       {
         breakpoint: 375,
         settings: {
-          slidesToShow: 1.01,
+          slidesToShow: 1.03,
           centerMode: false,
         },
       },

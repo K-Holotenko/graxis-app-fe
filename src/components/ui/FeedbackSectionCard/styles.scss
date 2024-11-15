@@ -4,6 +4,7 @@
   height: 382px;
   background-color: $primary;
   border-radius: 20px;
+  margin-left: 12px;
 
   .ant-card-body {
     padding: 40px;
@@ -62,6 +63,7 @@
 @media (min-width: 768px) {
   .feedback-card {
     height: 318px;
+    margin-left: 16px;
 
     .ant-card-body {
       padding-right: 80px;
