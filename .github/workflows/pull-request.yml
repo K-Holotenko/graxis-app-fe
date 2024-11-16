@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies and build
         run: npm ci
       - name: Type check
-        run: npm run type-check
+        run: npm run typecheck
   lint: 
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
