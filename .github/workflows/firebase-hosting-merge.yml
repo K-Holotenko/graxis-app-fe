@@ -1,0 +1,68 @@
+name: Deploy to Firebase Hosting on merge
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with: 
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies and build
+        run: npm ci
+      - name: Type check
+        run: npm run type-check
+  lint: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with: 
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies and build
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with: 
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with: 
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GRAXIS_LLC }}
+          channelId: live
+          projectId: graxis-llc

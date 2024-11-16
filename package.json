@@ -23,7 +23,8 @@
     "test": "vitest --globals",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "lint": "eslint 'src/**' --ignore-pattern 'src/assets/**' --max-warnings=0"
+    "lint": "eslint 'src/**' --ignore-pattern 'src/assets/**' --max-warnings=0",
+    "typecheck": "tsc --noEmit --project tsconfig.json"
   },
   "husky": {
     "hooks": {
