@@ -14,7 +14,6 @@ export const FeedbackSectionCarousel = () => (
       {
         breakpoint: 1700,
         settings: {
-          centerMode: true,
           centerPadding: '108px',
           slidesToShow: 2,
         },
@@ -22,7 +21,6 @@ export const FeedbackSectionCarousel = () => (
       {
         breakpoint: 1200,
         settings: {
-          centerMode: true,
           centerPadding: '180px',
           slidesToShow: 1,
         },
@@ -30,8 +28,7 @@ export const FeedbackSectionCarousel = () => (
       {
         breakpoint: 1024,
         settings: {
-          centerMode: true,
-          centerPadding: '110px',
+          centerPadding: '105px',
           slidesToShow: 1,
         },
       },

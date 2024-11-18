@@ -1,13 +1,15 @@
 import { Typography } from 'antd';
 import { FeedbackSectionCarousel } from 'components/ui/FeedbackSectionCarousel';
 import { FEEDBACK_SECTION } from './utils/config';
-import './styles.scss';
+import styles from './styles.module.scss';
+
+const { Title } = Typography;
 
 export const FeedbackSection = () => (
-  <section className="feedback-section">
-    <Typography.Title level={4} className="feedback-title">
+  <section className={styles['feedback-section']}>
+    <Title level={4} className={styles['feedback-title']}>
       {FEEDBACK_SECTION.TITLE}
-    </Typography.Title>
+    </Title>
     <FeedbackSectionCarousel />
   </section>
 );

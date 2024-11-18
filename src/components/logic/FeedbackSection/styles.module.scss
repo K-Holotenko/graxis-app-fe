@@ -1,4 +1,4 @@
-@import '/src/assets/styles/variables.scss';
+@use 'src/assets/styles/variables' as feedbackVars;
 
 .feedback-section {
   padding-top: 60px;
@@ -7,7 +7,7 @@
   .feedback-title {
     margin-bottom: 40px;
     text-align: center;
-    font-family: $font-family-second;
+    font-family: feedbackVars.$font-family-second;
   }
 }
 
