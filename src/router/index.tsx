@@ -1,10 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { HomePage } from 'pages/HomePage';
-import { LoginPage } from 'pages/LoginPage';
-import { RegistrationPage } from 'pages/RegistrationPage';
+
+import { HomePage } from 'src/pages/HomePage';
+import { LoginPage } from 'src/pages/LoginPage';
+import { RegistrationPage } from 'src/pages/RegistrationPage';
+import { VerificationPage } from 'src/pages/VerificationPage';
+import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
+
 import { ROUTES } from './routes';
-import { VerificationPage } from '../pages/VerificationPage';
-import { VerifyEmailPage } from 'pages/VerifyEmailPage';
 
 export const router = createBrowserRouter([
   {

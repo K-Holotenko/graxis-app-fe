@@ -1,12 +1,12 @@
 import { render, waitFor } from '@testing-library/react';
-
-import { TEXT } from 'config/constants';
-import { LOGIN_PAGE_CONFIG } from './utils/config';
 import { HelmetProvider } from 'react-helmet-async';
-import { LoginPage } from '.';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
-import { ROUTES } from 'router/routes';
+import { TEXT } from 'src/config/constants';
+import { ROUTES } from 'src/router/routes';
+
+import { LoginPage } from '.';
+import { LOGIN_PAGE_CONFIG } from './utils/config';
 
 describe('LoginPage', () => {
   it('renders PageContainer with the correct photo', () => {

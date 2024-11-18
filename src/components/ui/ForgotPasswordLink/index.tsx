@@ -1,7 +1,7 @@
 import { Typography } from 'antd';
 
-import { TEXT } from '../../../config/constants';
-import { ROUTES } from '../../../router/routes';
+import { TEXT } from 'src/config/constants';
+import { ROUTES } from 'src/router/routes';
 
 export const ForgotPasswordLink = () => (
   <Typography.Link href={ROUTES.LOGIN}>{TEXT.FORGOT_PASSWORD}</Typography.Link>

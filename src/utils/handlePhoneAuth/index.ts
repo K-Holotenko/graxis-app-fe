@@ -1,5 +1,5 @@
-import { ROUTES } from 'router/routes';
-import { VALIDATION_MESSAGE } from 'config/validation';
+import { VALIDATION_MESSAGE } from 'src/config/validation';
+import { ROUTES } from 'src/router/routes';
 
 // TODO: Revisit user phone number verification and choose one of the following approaches:
 // 1. Store the user's phone number in Firestore and check against it when necessary to ensure validity and uniqueness.

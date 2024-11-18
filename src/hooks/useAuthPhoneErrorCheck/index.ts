@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { FormInstance } from 'antd';
+import { useState } from 'react';
 
 export const useAuthPhoneErrorCheck = (
   form: FormInstance

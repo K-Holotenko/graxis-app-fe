@@ -1,9 +1,10 @@
 import { Row, Space, Typography } from 'antd';
 import Title from 'antd/es/typography/Title';
-import { VERIFICATION_PAGE_CONSTANTS } from 'pages/VerificationPage/utils/constants';
-import { VerificationNumberLink } from 'components/ui/VerificationNumberLink';
-import { VerificationForm } from 'components/logic/Forms/VerificationForm';
-import { TEXT } from 'config/constants';
+
+import { VerificationForm } from 'src/components/logic/Forms/VerificationForm';
+import { VerificationNumberLink } from 'src/components/ui/VerificationNumberLink';
+import { TEXT } from 'src/config/constants';
+import { VERIFICATION_PAGE_CONSTANTS } from 'src/pages/VerificationPage/utils/constants';
 import './styles.scss';
 
 export const VerificationLayout = () => (

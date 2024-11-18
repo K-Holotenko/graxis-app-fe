@@ -1,6 +1,7 @@
 import { Button, Form } from 'antd';
-import { useCountdown } from '../../../../hooks/useCountdown';
-import { TEXT } from 'config/constants';
+
+import { TEXT } from 'src/config/constants';
+import { useCountdown } from 'src/hooks/useCountdown';
 import './styles.scss';
 
 interface VerificationButtonFormItemProps {

@@ -1,9 +1,11 @@
-import { RouterProvider } from 'react-router-dom';
 /// <reference types="vite-plugin-svgr/client" />
-import { router } from './router';
 import { useEffect } from 'react';
-import CookieService from 'services/CookieService';
-import { useAuthStore } from 'stores/authStore';
+import { RouterProvider } from 'react-router-dom';
+
+import CookieService from 'src/services/CookieService';
+import { useAuthStore } from 'src/stores/authStore';
+
+import { router } from './router';
 
 const App = () => {
   const { setAuthorized } = useAuthStore();

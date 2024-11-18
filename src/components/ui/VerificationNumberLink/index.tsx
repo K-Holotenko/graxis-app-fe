@@ -1,7 +1,8 @@
-import { Link, useLocation } from 'react-router-dom';
-import { ROUTES } from 'router/routes';
 import { Image } from 'antd';
-import EditSrc from 'assets/icons/edit-icon.svg';
+import { Link, useLocation } from 'react-router-dom';
+
+import EditSrc from 'src/assets/icons/edit-icon.svg';
+import { ROUTES } from 'src/router/routes';
 import './styles.scss';
 
 export const VerificationNumberLink = () => {

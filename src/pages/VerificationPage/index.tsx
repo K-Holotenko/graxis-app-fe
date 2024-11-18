@@ -1,7 +1,8 @@
-import { AuthLayout } from 'layouts/AuthLayout';
-import { PageContainer } from '../../components/ui/PageContainer';
+import { PageContainer } from 'src/components/ui/PageContainer';
+import { AuthLayout } from 'src/layouts/AuthLayout';
+import { VerificationLayout } from 'src/layouts/VerificationLayout';
+
 import { VERIFICATION_PAGE_CONSTANTS } from './utils/constants';
-import { VerificationLayout } from 'layouts/VerificationLayout';
 
 export const VerificationPage = () => (
   <PageContainer pageTitle={VERIFICATION_PAGE_CONSTANTS.PAGE_TITLE}>

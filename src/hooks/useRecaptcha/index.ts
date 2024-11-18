@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
 import { RecaptchaVerifier } from 'firebase/auth';
-import { firebaseAuth } from 'config/firebase';
+import { useEffect, useState } from 'react';
+
+import { firebaseAuth } from 'src/config/firebase';
 
 interface UseRecaptchaProps {
   buttonId: string;

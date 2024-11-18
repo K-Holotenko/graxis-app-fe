@@ -1,11 +1,13 @@
 import { Row, Typography, Col } from 'antd';
-import { PageContainer } from '../../components/ui/PageContainer';
-import { AuthLayout } from '../../layouts/AuthLayout';
-import { VERIFY_EMAIL_PAGE_CONSTANTS } from './utils/constants';
-import { useAuthStore } from 'stores/authStore';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from 'router/routes';
+
+import { PageContainer } from 'src/components/ui/PageContainer';
+import { AuthLayout } from 'src/layouts/AuthLayout';
+import { ROUTES } from 'src/router/routes';
+import { useAuthStore } from 'src/stores/authStore';
+
+import { VERIFY_EMAIL_PAGE_CONSTANTS } from './utils/constants';
 
 export const VerifyEmailPage = () => {
   const navigate = useNavigate();

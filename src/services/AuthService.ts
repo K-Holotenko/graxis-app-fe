@@ -12,8 +12,8 @@ import {
   User,
 } from 'firebase/auth';
 
-import { firebaseAuth } from '../config/firebase';
-import { EMAIL_VERIFICATION_REDIRECT_LINK } from 'config/constants';
+import { EMAIL_VERIFICATION_REDIRECT_LINK } from 'src/config/constants';
+import { firebaseAuth } from 'src/config/firebase';
 
 export const AuthService = {
   loginWithEmail: async (
