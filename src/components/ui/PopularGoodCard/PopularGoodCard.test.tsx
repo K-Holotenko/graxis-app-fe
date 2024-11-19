@@ -1,7 +1,8 @@
 import { render, fireEvent } from '@testing-library/react';
-import PopularGoodCard from './index';
+import { PopularGoodCard } from './index';
 
 const defaultProps = {
+  key: 1,
   image: 'test-image.jpg',
   name: 'Test Product',
   rating: 4.8,
@@ -17,15 +18,12 @@ describe('PopularGoodCard', () => {
     );
 
     expect(getByText('Test Product')).toBeInTheDocument();
-
     expect(getByText('4.8')).toBeInTheDocument();
-
     expect(getByText('400 грн / год')).toBeInTheDocument();
 
     const img = getByAltText('Test Product');
 
     expect(img).toBeInTheDocument();
-
     expect(img).toHaveAttribute('src', 'test-image.jpg');
   });
 
@@ -60,6 +58,7 @@ describe('PopularGoodCard', () => {
 
     expect(onFavoriteToggleMock).toHaveBeenCalledTimes(0);
   });
+
   it('should call onFavoriteToggle when the heart icon is clicked', () => {
     const onFavoriteToggleMock = vi.fn();
     const { container } = render(

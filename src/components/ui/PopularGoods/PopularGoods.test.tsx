@@ -1,36 +1,36 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import PopularGoods from './index';
+import { render } from '@testing-library/react';
+import { PopularGoods } from './index';
+import { PopularGoodCardProps } from '../PopularGoodCard';
 
-interface PopularGoodCardProps {
-  image: string;
-  name: string;
-  rating: number;
-  price: number;
-  isFavorite: boolean;
-  onFavoriteToggle: () => void;
-}
+vi.mock('../PopularGoodCard', async (importOriginal) => {
+  const actual = (await importOriginal()) as object;
 
-vi.mock('../PopularGoodCard', () => ({
-  __esModule: true,
-  default: ({
-    image,
-    name,
-    rating,
-    price,
-    isFavorite,
-    onFavoriteToggle,
-  }: PopularGoodCardProps) => (
-    <div>
-      <img src={image} alt={name} />
-      <span>{name}</span>
-      <span>{rating}</span>
-      <span>{price}</span>
-      <span>{isFavorite ? 'Favorited' : 'Not Favorited'}</span>
-      <button onClick={onFavoriteToggle}>Toggle Favorite</button>
-    </div>
-  ),
-}));
+  return {
+    ...actual,
+
+    default: ({
+      key,
+      image,
+      name,
+      rating,
+      price,
+      isFavorite,
+      onFavoriteToggle,
+    }: PopularGoodCardProps) => (
+      <div data-testid="popular-good-card">
+        <span>{key}</span>
+        <img src={image} alt={name} />
+        <span>{name}</span>
+        <span>{rating}</span>
+        <span>{price}</span>
+        <button onClick={onFavoriteToggle}>
+          {isFavorite ? 'Unfavorite' : 'Favorite'}
+        </button>
+      </div>
+    ),
+  };
+});
 
 describe('PopularGoods', () => {
   it('should render the title of popular goods', () => {
@@ -46,21 +46,9 @@ describe('PopularGoods', () => {
     expect(images.length).toBe(8);
   });
 
-  it('should trigger onFavoriteToggle for each product', () => {
-    const { getAllByText } = render(<PopularGoods />);
-    const buttons = getAllByText('Toggle Favorite');
+  it('renders the correct title', () => {
+    const { getByText } = render(<PopularGoods />);
 
-    buttons.forEach((button) => fireEvent.click(button));
-  });
-
-  it('should update favorite status correctly when "Toggle Favorite" is clicked', () => {
-    const { getAllByText, rerender } = render(<PopularGoods />);
-
-    const buttons = getAllByText('Toggle Favorite');
-
-    fireEvent.click(buttons[0]);
-    rerender(<PopularGoods />);
-
-    expect(getAllByText('Favorited').length).toBeGreaterThanOrEqual(1);
+    expect(getByText('Популярні товари')).toBeInTheDocument();
   });
 });

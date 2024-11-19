@@ -7,6 +7,7 @@ export const TEXT = {
   AUTHORIZE: 'Авторизуватися',
 
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
+  CURRENCY_PER_TIME: 'грн / год',
 
   EMAIL: 'Пошта',
 

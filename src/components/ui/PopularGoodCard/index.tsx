@@ -2,8 +2,10 @@ import { Card } from 'antd';
 import { StarFilled, HeartOutlined, HeartFilled } from '@ant-design/icons';
 
 import './styles.scss';
+import { TEXT } from 'config/constants';
 
-interface PopularGoodCardProps {
+export interface PopularGoodCardProps {
+  key: number;
   image: string;
   name: string;
   rating: number;
@@ -12,7 +14,7 @@ interface PopularGoodCardProps {
   onFavoriteToggle: () => void;
 }
 
-const PopularGoodCard = ({
+export const PopularGoodCard = ({
   image,
   name,
   rating,
@@ -23,13 +25,13 @@ const PopularGoodCard = ({
   <Card className="product-card" hoverable>
     <div className="image-wrapper">
       <img src={image} alt={name} className="product-image" />
-      <span onClick={onFavoriteToggle} className="favorite-icon">
+      <button onClick={onFavoriteToggle} className="favorite-icon">
         {isFavorite ? (
           <HeartFilled className="filled-heart" />
         ) : (
           <HeartOutlined />
         )}
-      </span>
+      </button>
     </div>
     <div className="card-info">
       <span>{name}</span>
@@ -39,9 +41,9 @@ const PopularGoodCard = ({
       </div>
     </div>
     <div className="card-bottom">
-      <span className="price">{price} грн / год</span>
+      <span className="price">
+        {price} {TEXT.CURRENCY_PER_TIME}
+      </span>
     </div>
   </Card>
 );
-
-export default PopularGoodCard;
