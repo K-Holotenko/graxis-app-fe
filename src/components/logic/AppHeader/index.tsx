@@ -66,7 +66,15 @@ export const AppHeader = () => {
               {isAuthorized && width > HEADER_MOBILE_WIDTH && (
                 <Col>
                   {/* temporarily, dropdown should be added, firstName and lastName should be selected from the store  */}
-                  <Avatar style={{ backgroundColor: theme.success }}>BC</Avatar>
+                  <Avatar
+                    style={{
+                      backgroundColor: theme.success,
+                      height: 48,
+                      width: 48,
+                    }}
+                  >
+                    BC
+                  </Avatar>
                 </Col>
               )}
             </Row>
