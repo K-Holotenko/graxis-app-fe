@@ -30,12 +30,8 @@ export const AuthService = {
 
       return user;
     } catch {
-<<<<<<< HEAD
-      // TODO Add error handling
-=======
       //TODO. Add proper error handling later
       return null;
->>>>>>> dev
     }
   },
 
@@ -60,11 +56,7 @@ export const AuthService = {
 
       return user;
     } catch {
-<<<<<<< HEAD
-      // TODO Add error handling
-=======
       //TODO. Add proper error handling later
->>>>>>> dev
     }
   },
 
@@ -77,11 +69,7 @@ export const AuthService = {
 
       return user;
     } catch {
-<<<<<<< HEAD
-      // TODO Add error handling
-=======
       //TODO. Add proper error handling later
->>>>>>> dev
     }
   },
 
@@ -94,11 +82,7 @@ export const AuthService = {
 
       return user;
     } catch {
-<<<<<<< HEAD
-      // TODO Add error handling
-=======
       //TODO. Add proper error handling later
->>>>>>> dev
     }
   },
 
@@ -130,11 +114,7 @@ export const AuthService = {
     try {
       await signOut(firebaseAuth);
     } catch {
-<<<<<<< HEAD
-      // TODO Add error handling
-=======
       //TODO. Add proper error handling later
->>>>>>> dev
     }
   },
 };
