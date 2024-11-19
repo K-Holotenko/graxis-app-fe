@@ -1,29 +1,41 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
+  ConfirmationResult,
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
   GoogleAuthProvider,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signInWithPhoneNumber,
   signInWithPopup,
   signOut,
+  User,
 } from 'firebase/auth';
 
 import { firebaseAuth } from '../config/firebase';
 import { EMAIL_VERIFICATION_REDIRECT_LINK } from 'config/constants';
 
 export const AuthService = {
-  loginWithEmail: async (email: string, password: string): Promise<unknown> => {
+  loginWithEmail: async (
+    email: string,
+    password: string
+  ): Promise<User | null> => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         firebaseAuth,
         email,
         password
       );
-      const user = userCredential.user;
+      const user: User = userCredential.user;
 
       return user;
     } catch {
+<<<<<<< HEAD
       // TODO Add error handling
+=======
+      //TODO. Add proper error handling later
+      return null;
+>>>>>>> dev
     }
   },
 
@@ -48,7 +60,11 @@ export const AuthService = {
 
       return user;
     } catch {
+<<<<<<< HEAD
       // TODO Add error handling
+=======
+      //TODO. Add proper error handling later
+>>>>>>> dev
     }
   },
 
@@ -61,7 +77,11 @@ export const AuthService = {
 
       return user;
     } catch {
+<<<<<<< HEAD
       // TODO Add error handling
+=======
+      //TODO. Add proper error handling later
+>>>>>>> dev
     }
   },
 
@@ -74,15 +94,47 @@ export const AuthService = {
 
       return user;
     } catch {
+<<<<<<< HEAD
       // TODO Add error handling
+=======
+      //TODO. Add proper error handling later
+>>>>>>> dev
     }
+  },
+
+  // TODO Handle different types of authentication errors
+  loginWithPhoneNumber: async (
+    phoneNumber: string
+  ): Promise<ConfirmationResult | undefined> => {
+    const confirmationResult = await signInWithPhoneNumber(
+      firebaseAuth,
+      phoneNumber,
+      window.recaptchaVerifier
+    );
+
+    return confirmationResult;
+  },
+
+  // TODO Handle different types of authentication errors
+  verifyCode: async (
+    confirmationResult: ConfirmationResult,
+    code: string
+  ): Promise<User | undefined> => {
+    const result = await confirmationResult.confirm(code);
+    const user = result.user;
+
+    return user;
   },
 
   signOut: async () => {
     try {
       await signOut(firebaseAuth);
     } catch {
+<<<<<<< HEAD
       // TODO Add error handling
+=======
+      //TODO. Add proper error handling later
+>>>>>>> dev
     }
   },
 };

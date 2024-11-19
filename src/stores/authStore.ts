@@ -1,27 +1,38 @@
 import { create } from 'zustand';
 
 import { AuthService } from '../services/AuthService';
+import CookieService from 'services/CookieService';
+import { ConfirmationResult, User } from 'firebase/auth';
 
 interface AuthState {
   isAuthorized: boolean;
+  user: User | null | unknown;
   emailToVerify: string | null;
-  user: unknown;
   loginWithEmail: (email: string, password: string) => Promise<void>;
   registerWithEmail: (email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   loginWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
+  setAuthorized: (state: boolean) => void;
+  confirmationResult: ConfirmationResult | null;
+  loginWithPhoneNumber: (phoneNumber: string) => Promise<void>;
+  verifyCode: (code: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  isAuthorized: false,
+  isAuthorized: CookieService.hasCookie('accessToken'),
   user: null,
+  confirmationResult: null,
   emailToVerify: null,
 
   loginWithEmail: async (email: string, password: string) => {
     const response = await AuthService.loginWithEmail(email, password);
+    const accessToken = await response?.getIdToken();
 
-    set({ isAuthorized: !!response, user: response });
+    if (accessToken) {
+      CookieService.setCookie('accessToken', accessToken);
+      set({ isAuthorized: true, user: response });
+    }
   },
 
   registerWithEmail: async (email: string, password: string) => {
@@ -42,9 +53,30 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ isAuthorized: !!response, user: response });
   },
 
+  loginWithPhoneNumber: async (phoneNumber) => {
+    const confirmationResult =
+      await AuthService.loginWithPhoneNumber(phoneNumber);
+
+    set({ confirmationResult });
+  },
+
+  verifyCode: async (code) => {
+    const { confirmationResult } = useAuthStore.getState() as AuthState;
+
+    if (!confirmationResult) return;
+
+    const user = await AuthService.verifyCode(confirmationResult, code);
+
+    set({ user, isAuthorized: true });
+  },
+
   signOut: async () => {
     await AuthService.signOut();
 
     set({ isAuthorized: false, user: {} });
+  },
+
+  setAuthorized: (state: boolean) => {
+    set({ isAuthorized: state });
   },
 }));

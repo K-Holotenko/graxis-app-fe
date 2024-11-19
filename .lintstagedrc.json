@@ -1,6 +1,10 @@
 {
+<<<<<<< HEAD
   "*.{js,jsx,ts,tsx,css,scss,md}": [
     "prettier --write",
     "eslint --fix --max-warnings=0"
   ]
+=======
+  "*.{js,jsx,ts,tsx,css,scss,md}": ["prettier --write", "eslint --fix"]
+>>>>>>> dev
 }
