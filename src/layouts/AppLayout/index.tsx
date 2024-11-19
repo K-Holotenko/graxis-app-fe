@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { Col, Row } from 'antd';
 
-import { Header } from 'components/logic/Header';
-import { Footer } from 'components/logic/Footer';
+import { AppHeader } from 'components/logic/AppHeader';
+import { AppFooter } from 'components/logic/AppFooter';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -12,7 +12,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => (
   <div className="app-layout">
     <Row>
       <Col span={24}>
-        <Header />
+        <AppHeader />
       </Col>
     </Row>
     <Row>
@@ -20,7 +20,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => (
     </Row>
     <Row>
       <Col span={24}>
-        <Footer />
+        <AppFooter />
       </Col>
     </Row>
   </div>

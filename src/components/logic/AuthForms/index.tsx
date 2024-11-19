@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import { Divider, Row, Typography, Tabs } from 'antd';
 
-import { SocialMediaSection } from '../SocialMediaSection';
-import { TEXT } from '../../../config/constants';
-import { AuthFooter } from '../AuthFooter';
-import { ForgotPasswordLink } from '../../ui/ForgotPasswordLink';
+import { SocialMediaSection } from 'components/logic/SocialMediaSection';
+import { AuthFooter } from 'components/logic/AuthFooter';
+import { ForgotPasswordLink } from 'components/ui/ForgotPasswordLink';
+import { TEXT } from 'config/constants';
 
 const { Title } = Typography;
 
