@@ -1,10 +1,10 @@
+import { ReactNode, ComponentProps } from 'react';
 import { Button } from 'antd';
 
 import { ButtonTypes, TEXT } from 'config/constants';
 import { ReactComponent as UserIcon } from 'assets/icons/user-icon.svg';
-import { ReactNode } from 'react';
 
-interface SignInButtonProps extends React.ComponentProps<typeof Button> {
+interface SignInButtonProps extends ComponentProps<typeof Button> {
   onClick: () => void;
   className?: string;
   type?: ButtonTypes;

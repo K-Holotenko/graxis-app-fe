@@ -6,14 +6,9 @@ import mapPinLightSrc from 'assets/icons/map-pin-icon-light.svg';
 import { IMAGE_DESCRIPTION } from 'config/constants';
 import useToken from 'antd/es/theme/useToken';
 import { theme } from 'config/theme';
-import { useEffect } from 'react';
 
 export const MapPinIcon = () => {
   const [, token] = useToken();
-
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
 
   return (
     <Image

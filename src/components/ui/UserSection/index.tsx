@@ -11,7 +11,7 @@ export const UserSection = () => {
   const [username] = useState('Вадим Семко'); // should be implemented using store and real name
 
   return (
-    <Row className="user-section" align={'middle'} justify={'center'}>
+    <Row className="user-section" align="middle" justify="center">
       <Col span={24}>
         <Avatar style={{ backgroundColor: theme.success }}>
           {usernameABBR}

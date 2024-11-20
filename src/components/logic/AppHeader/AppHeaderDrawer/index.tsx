@@ -29,7 +29,7 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
       closeIcon={null}
       open={open}
       placement="left"
-      width={'100%'}
+      width="100%"
       extra={<CloseIcon onClick={onClose} className="drawer-close-btn" />}
       title={<Logo />}
       style={{ backgroundColor: theme.primaryColor }}
