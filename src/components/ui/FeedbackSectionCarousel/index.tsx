@@ -1,0 +1,55 @@
+import { Carousel } from 'antd';
+import { FeedbackSectionCard } from '../FeedbackSectionCard';
+import { feedbackMockData } from 'components/logic/FeedbackSection/utils/feedbackMockData';
+
+export const FeedbackSectionCarousel = () => (
+  <Carousel
+    dots={false}
+    draggable
+    infinite={true}
+    centerMode
+    slidesToShow={2}
+    centerPadding="318px"
+    responsive={[
+      {
+        breakpoint: 1700,
+        settings: {
+          centerPadding: '108px',
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          centerPadding: '180px',
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          centerPadding: '105px',
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          centerMode: false,
+          slidesToShow: 1.04,
+        },
+      },
+      {
+        breakpoint: 375,
+        settings: {
+          slidesToShow: 1.03,
+          centerMode: false,
+        },
+      },
+    ]}
+  >
+    {feedbackMockData.map((feedback) => (
+      <FeedbackSectionCard key={feedback.id} feedback={feedback} />
+    ))}
+  </Carousel>
+);
