@@ -1,7 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import { PopularGoodCard } from './index';
 
-const defaultProps = {
+const mockedPopularGoodCardProps = {
   key: 1,
   image: 'test-image.jpg',
   name: 'Test Product',
@@ -14,7 +14,7 @@ const defaultProps = {
 describe('PopularGoodCard', () => {
   it('should render product details correctly', () => {
     const { getByText, getByAltText } = render(
-      <PopularGoodCard {...defaultProps} />
+      <PopularGoodCard {...mockedPopularGoodCardProps} />
     );
 
     expect(getByText('Test Product')).toBeInTheDocument();
@@ -29,14 +29,16 @@ describe('PopularGoodCard', () => {
 
   it('should render the correct heart icon based on isFavorite prop', () => {
     const { rerender, container } = render(
-      <PopularGoodCard {...defaultProps} />
+      <PopularGoodCard {...mockedPopularGoodCardProps} />
     );
 
     let heartIcon = container.querySelector('.anticon-heart-outlined');
 
     expect(heartIcon).toBeDefined();
 
-    rerender(<PopularGoodCard {...defaultProps} isFavorite={true} />);
+    rerender(
+      <PopularGoodCard {...mockedPopularGoodCardProps} isFavorite={true} />
+    );
 
     heartIcon = container.querySelector('.anticon-heart-filled');
 
@@ -47,7 +49,7 @@ describe('PopularGoodCard', () => {
     const onFavoriteToggleMock = vi.fn();
     const { getByText } = render(
       <PopularGoodCard
-        {...defaultProps}
+        {...mockedPopularGoodCardProps}
         onFavoriteToggle={onFavoriteToggleMock}
       />
     );
@@ -63,7 +65,7 @@ describe('PopularGoodCard', () => {
     const onFavoriteToggleMock = vi.fn();
     const { container } = render(
       <PopularGoodCard
-        {...defaultProps}
+        {...mockedPopularGoodCardProps}
         onFavoriteToggle={onFavoriteToggleMock}
       />
     );

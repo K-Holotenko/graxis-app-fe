@@ -80,7 +80,7 @@ const goods = [
 
 export const PopularGoods = () => (
   <>
-    <h2 className="popular-goods__title">Популярні товари</h2>
+    <h2 className="popular-goods-title">Популярні товари</h2>
     <div className="popular-goods">
       {goods.map((good) => (
         <PopularGoodCard
