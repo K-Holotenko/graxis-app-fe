@@ -21,12 +21,13 @@ interface FeedbackSectionCardProps {
 }
 
 export const FeedbackSectionCard = ({ feedback }: FeedbackSectionCardProps) => (
-  <Card className={styles['feedback-card']}>
+  <Card className={styles['feedback-card']} data-testid="feedback-card">
     <Flex justify="space-between" align="center" wrap={false}>
       <Rate
         className={styles['feedback-rate']}
         disabled
         defaultValue={feedback.rating}
+        data-testid="feedback-rate"
       />
       <Paragraph className={styles['feedback-date']}>
         {new Date(feedback.createdAt).toLocaleDateString('uk-UA', {
@@ -55,6 +56,7 @@ export const FeedbackSectionCard = ({ feedback }: FeedbackSectionCardProps) => (
             <Avatar
               src={feedbackAvatar}
               className={styles['feedback-avatar']}
+              data-testid="feedback-avatar"
             />
             <Paragraph className={styles['feedback-name']}>
               {feedback.authorName}

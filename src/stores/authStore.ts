@@ -67,7 +67,12 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     const user = await AuthService.verifyCode(confirmationResult, code);
 
-    set({ user, isAuthorized: true });
+    if (user) {
+      const accessToken = await user.getIdToken();
+
+      CookieService.setCookie('accessToken', accessToken);
+      set({ user, isAuthorized: true });
+    }
   },
 
   signOut: async () => {
