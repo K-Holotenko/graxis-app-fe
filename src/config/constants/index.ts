@@ -15,6 +15,9 @@ export const TEXT = {
   HELPER_TEXT_EMAIL: 'Дотримуйтесь шаблону youremil@gmail.com',
   HELPER_TEXT_PASSWORD:
     'Пароль може містити тільки A p # 4 і бути не менше 8 символів',
+  HERO_SECTION_TITLE: 'ТВОЯ ПЛАТФОРМА ДЛЯ ШЕРІНГУ',
+  HERO_SECTION_SUBTITLE:
+    'Шерінг речей без зайвого клопоту коли завгодно, де завгодно',
 
   INPUT_EMAIL: 'Введіть пошту',
   INPUT_PASSWORD: 'Введіть пароль',
