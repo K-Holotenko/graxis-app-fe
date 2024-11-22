@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Avatar } from 'antd';
 
 import { SelectLocationBlock } from 'components/logic/SelectLocationBlock';
@@ -20,6 +20,11 @@ export const AppHeader = () => {
 
   const { isAuthorized } = useAuthStore();
   const [showDrawer, setShowDrawer] = useState(false);
+  const [isDesktop, setDesktop] = useState(false);
+
+  useEffect(() => {
+    setDesktop(width > HEADER_MOBILE_WIDTH);
+  }, [width]);
 
   return (
     <>
@@ -27,7 +32,7 @@ export const AppHeader = () => {
         <div className="container">
           <Row className="app-header" justify={'space-between'}>
             <Row gutter={16} align="middle">
-              {width <= HEADER_MOBILE_WIDTH && (
+              {!isDesktop && (
                 <Col>
                   <DrawerIcon onClick={() => setShowDrawer(true)} />
                 </Col>
@@ -37,7 +42,7 @@ export const AppHeader = () => {
                 <Logo />
               </Col>
 
-              {width > HEADER_MOBILE_WIDTH && (
+              {isDesktop && (
                 <Col>
                   <SelectLocationBlock />
                 </Col>
@@ -51,19 +56,19 @@ export const AppHeader = () => {
                 </Col>
               )}
 
-              {width > HEADER_MOBILE_WIDTH && (
+              {isDesktop && (
                 <Col>
                   <AddAdvertisementButton onClick={() => {}} />
                 </Col>
               )}
 
-              {!isAuthorized && width > HEADER_MOBILE_WIDTH && (
+              {!isAuthorized && isDesktop && (
                 <Col>
                   <SignInButton onClick={() => {}} />
                 </Col>
               )}
 
-              {isAuthorized && width > HEADER_MOBILE_WIDTH && (
+              {isAuthorized && isDesktop && (
                 <Col>
                   {/* temporarily, dropdown should be added, firstName and lastName should be selected from the store  */}
                   <Avatar

@@ -13,7 +13,7 @@ import { UserSection } from 'components/ui/UserSection';
 import { TEXT } from 'config/constants';
 import { SignInButton } from 'components/ui/SignInButton';
 
-import './styles.scss';
+import styles from './styles.module.scss';
 
 interface AppHeaderDrawerProps {
   open: boolean;
@@ -25,12 +25,12 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
 
   return (
     <Drawer
-      className="header-drawer"
+      className={styles.headerDrawer}
       closeIcon={null}
       open={open}
       placement="left"
       width="100%"
-      extra={<CloseIcon onClick={onClose} className="drawer-close-btn" />}
+      extra={<CloseIcon onClick={onClose} className={styles.drawerCloseBtn} />}
       title={<Logo />}
       style={{ backgroundColor: theme.primaryColor }}
     >
@@ -41,7 +41,6 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
           </Col>
         </Row>
       )}
-
       {!isAuthorized && (
         <Row>
           <Col span={24}>
@@ -62,44 +61,27 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
           </Col>
         </Row>
       )}
-
       <Row>
         <Col span={24}>
           <AddAdvertisementButton
             onClick={() => {}}
-            className="mt-20"
-            style={{
-              backgroundColor: theme.lightGreenColor,
-              color: theme.primaryColor,
-              padding: '12px 25px',
-              height: '48px',
-              width: '100%',
-            }}
+            className={styles.addAdvertisementButton}
             icon={<PlusIconDark />}
           />
         </Col>
       </Row>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorText: theme.whiteColor,
-            colorIcon: 'red',
-          },
-        }}
-      >
-        <Row>
-          <Col span={24}>
-            <Typography style={{ fontSize: 13 }} className="pt-12 pb-12">
-              {TEXT.CHOOSE_LOCATION}
-            </Typography>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <SelectLocationBlock />
-          </Col>
-        </Row>
-      </ConfigProvider>
+      <Row>
+        <Col span={24}>
+          <Typography style={{ fontSize: 13 }} className="pt-12 pb-12">
+            {TEXT.CHOOSE_LOCATION}
+          </Typography>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <SelectLocationBlock />
+        </Col>
+      </Row>
     </Drawer>
   );
 };
