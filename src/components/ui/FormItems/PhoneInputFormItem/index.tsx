@@ -1,4 +1,4 @@
-import { Form, InputNumber } from 'antd';
+import { Form, Input } from 'antd';
 import {
   VALIDATION_CONDITION,
   VALIDATION_MESSAGE,
@@ -12,11 +12,13 @@ interface FieldType {
 interface PhoneInputFormItemProps {
   label: string;
   className: string;
+  setFieldValue: (name: string, value: string) => void;
 }
 
 export const PhoneInputFormItem = ({
   label = 'Phone Number',
   className,
+  setFieldValue,
 }: PhoneInputFormItemProps) => (
   <Form.Item<FieldType>
     label={label}
@@ -31,11 +33,14 @@ export const PhoneInputFormItem = ({
       },
     ]}
   >
-    <InputNumber
+    <Input
+      type="tel"
       addonBefore="+380"
-      controls={false}
       style={{ width: '100%' }}
       placeholder={TEXT.INPUT_PHONE}
+      onChange={(e) => {
+        setFieldValue('phone', e.target.value.replace(/\D/g, ''));
+      }}
     />
   </Form.Item>
 );
