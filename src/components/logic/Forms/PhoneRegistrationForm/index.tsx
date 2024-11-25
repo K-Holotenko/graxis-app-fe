@@ -49,11 +49,7 @@ export const PhoneRegistrationForm = () => {
       onFieldsChange={onFieldsChange}
       requiredMark={false}
     >
-      <PhoneInputFormItem
-        label={TEXT.PHONE}
-        className="phone-input"
-        setFieldValue={form.setFieldValue}
-      />
+      <PhoneInputFormItem label={TEXT.PHONE} className="phone-input" />
       {!isPhoneInvalid && (
         <Typography.Text className="phone-sms-text">
           {TEXT.SEND_SMS}

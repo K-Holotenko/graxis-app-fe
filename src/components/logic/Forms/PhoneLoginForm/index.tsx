@@ -47,11 +47,7 @@ export const PhoneLoginForm = () => {
       requiredMark={false}
       form={form}
     >
-      <PhoneInputFormItem
-        label={TEXT.PHONE}
-        className="phone-input"
-        setFieldValue={form.setFieldValue}
-      />
+      <PhoneInputFormItem label={TEXT.PHONE} className="phone-input" />
       {!isPhoneInvalid && (
         <Typography.Text className="phone-sms-text">
           {TEXT.SEND_SMS}

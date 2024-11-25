@@ -19,17 +19,16 @@ export const EmailInputFormItem = ({
 }: EmailInputFormItemProps) => {
   const form = Form.useFormInstance();
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    form.setFieldValue(
+      'email',
+      e.target.value.replace(REGEXS.notAsciiChars, '')
+    );
+  };
+
   return (
     <Form.Item<FieldType> label={label} name="email" rules={rules}>
-      <Input
-        placeholder={placeholder}
-        onChange={(e) => {
-          form.setFieldValue(
-            'email',
-            e.target.value.replace(REGEXS.notAsciiChars, '')
-          );
-        }}
-      />
+      <Input placeholder={placeholder} onChange={onChange} />
     </Form.Item>
   );
 };
