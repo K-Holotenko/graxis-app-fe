@@ -24,6 +24,25 @@ body {
   margin-top: 34px;
 }
 
+.pt-12 {
+  padding-top: 12px;
+}
+
+.pb-12 {
+  padding-bottom: 12px;
+}
+
+.fs-16 {
+  font-size: 16px;
+}
+
+.container {
+  max-width: 1696px;
+  padding: 0 112px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .display-none {
   display: none;
 }
@@ -38,4 +57,10 @@ body {
 
 .w100 {
   width: 100%;
+}
+
+@media (max-width: 834px) {
+  .container {
+    padding: 0 20px;
+  }
 }
