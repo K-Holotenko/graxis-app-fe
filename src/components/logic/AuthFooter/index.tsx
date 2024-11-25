@@ -1,8 +1,9 @@
 import { useLocation } from 'react-router-dom';
 
 import { ROUTES } from 'router/routes';
-import { HaveAccountLink } from 'components/ui/HaveAccountLink';
+
 import { NoAccountLink } from 'components/ui/NoAccountLink';
+import { HaveAccountLink } from 'components/ui/HaveAccountLink';
 
 export const AuthFooter = () => {
   const location = useLocation();

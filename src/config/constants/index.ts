@@ -1,8 +1,10 @@
+import { ROUTES } from 'router/routes';
+
 export const TEXT = {
   ADD_ADVERTISEMENT: 'Додати оголошення',
   ALLOW_DATA_PROCESSING:
     'Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача',
-  ALREADY_HAVE_ACCOUNT: 'У вас є акаунт? ',
+  ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
   AUTHORIZE: 'Авторизуватися',
 
   CHOOSE_LOCATION: 'Виберіть локацію',
@@ -18,10 +20,11 @@ export const TEXT = {
 
   INPUT_EMAIL: 'Введіть пошту',
   INPUT_PASSWORD: 'Введіть пароль',
+  INPUT_PHONE: 'Введіть номер телефону',
 
   LOGIN: 'Увійти',
 
-  NO_ACCOUNT: 'Не має акаунту? ',
+  NO_ACCOUNT: 'Не має акаунту?',
 
   OR: 'Або',
 
@@ -30,6 +33,12 @@ export const TEXT = {
   PHONE: 'Номер телефону',
 
   REGISTER: 'Зареєструватись',
+
+  SEC: 'c',
+
+  SEND_SMS: 'Ми надішлемо смс для підтвердження номера',
+  SEND_SMS_AGAIN: 'Надіслати повторно',
+  SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
 
   SUBMIT: 'Продовжити',
 };
@@ -40,6 +49,7 @@ export const FORMS = {
   EMAIL_REGISTRATION_FORM: 'emailRegistrationForm',
   PHONE_REGISTRATION_FORM: 'phoneRegistrationForm',
   SELECT_LOCATION_FORM: 'selectLocationForm',
+  VERIFICATION_FORM: 'verificationForm',
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };
@@ -68,3 +78,5 @@ export enum ThemeMode {
   light = 'light',
   dark = 'dark',
 }
+
+export const EMAIL_VERIFICATION_REDIRECT_LINK = `${process.env.REACT_APP_CLIENT_URL}${ROUTES.LOGIN}`;

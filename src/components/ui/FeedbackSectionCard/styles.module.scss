@@ -1,0 +1,78 @@
+@use 'src/assets/styles/variables' as feedbackVars;
+
+.feedback-card {
+  background-color: feedbackVars.$primary;
+  border-radius: 20px;
+  margin-left: 12px;
+  padding: 16px;
+  height: 100%;
+
+  .feedback-rate {
+    color: #c0d32c;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .feedback-date {
+    font-family: feedbackVars.$font-family-second;
+    color: feedbackVars.$secondary;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 0;
+  }
+
+  .feedback-title {
+    font-family: feedbackVars.$font-family-second;
+    color: feedbackVars.$secondary;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 19px;
+    margin-bottom: 0;
+  }
+
+  .feedback-review {
+    font-family: feedbackVars.$font-family-second;
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  .feedback-name {
+    font-size: 18px;
+    font-family: feedbackVars.$font-family-second;
+    color: #ffffff;
+    margin-bottom: 0;
+  }
+}
+
+.feedback-descr-wrap {
+  height: 234px;
+}
+
+.feedback-avatar {
+  width: 44px;
+  height: 44px;
+}
+
+@media (min-width: 400px) {
+  .feedback-card {
+    .feedback-date {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .feedback-card {
+    margin-left: 16px;
+    padding-right: 56px;
+    padding-bottom: 0;
+  }
+
+  .feedback-descr-wrap {
+    height: 183px;
+  }
+}

@@ -43,6 +43,22 @@ body {
   margin: 0 auto;
 }
 
+.display-none {
+  display: none;
+}
+
+.mt-200 {
+  margin-top: 200px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.w100 {
+  width: 100%;
+}
+
 @media (max-width: 834px) {
   .container {
     padding: 0 20px;
