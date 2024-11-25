@@ -8,12 +8,8 @@ export const VALIDATION_MESSAGE = {
   EMAIL: 'Дотримуйтесь шаблону: youremail@gmail.com',
   INVALID_PHONE:
     'Данний номер телефону вже зареєстрованно або цей номер не є дійсним',
-  INVALID_PASSWORD:
-    'Пароль може мати букви латиниці, цифри та спеціальні символи',
 
   NOT_REGISTERED_PHONE: 'Данний номер не зареєстровано',
-  PASSWORD:
-    'Пароль може містити тільки літери, цифри та спеціальні символи (A, p, #, 4)та бути не менше 8 символів',
   REQUIRED: 'Заповніть поле!',
 };
 
@@ -23,11 +19,6 @@ export const VALIDATION_CONDITION = {
     required: true,
     message: VALIDATION_MESSAGE.EMAIL,
     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  },
-  PASSWORD: {
-    required: true,
-    message: VALIDATION_MESSAGE.PASSWORD,
-    pattern: /^[A-Za-z0-9#]{8,}$/,
   },
   PHONE_INPUT: {
     pattern: /^\d{9}$/,

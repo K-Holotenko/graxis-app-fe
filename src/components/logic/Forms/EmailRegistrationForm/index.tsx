@@ -12,6 +12,7 @@ import { CheckboxFormItem } from '../../../ui/FormItems/CheckboxFormItem';
 import { useAuthStore } from '../../../../stores/authStore';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'router/routes';
+import { CREATE_PASSWORD_VALIDATION_CONDITIONS } from './utils';
 
 interface EmailRegistrationFormValues {
   email: string;
@@ -43,7 +44,7 @@ export const EmailRegistrationForm = () => {
       <PasswordInputFormItem
         label={TEXT.PASSWORD}
         name="password"
-        rules={[VALIDATION_CONDITION.PASSWORD]}
+        rules={CREATE_PASSWORD_VALIDATION_CONDITIONS}
         placeholder=""
       />
       <PasswordInputFormItem
@@ -51,7 +52,7 @@ export const EmailRegistrationForm = () => {
         name="confirmationPassword"
         placeholder=""
         rules={[
-          VALIDATION_CONDITION.PASSWORD,
+          VALIDATION_CONDITION.REQUIRED,
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
