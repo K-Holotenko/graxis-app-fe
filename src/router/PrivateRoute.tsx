@@ -16,6 +16,6 @@ export const PrivateRoute = ({ children }: PrivateRouteProps): JSX.Element => {
   return isAuthorized && hasAccessToken ? (
     children
   ) : (
-    <Navigate to={ROUTES.LOGIN} />
+    <Navigate to={ROUTES.REGISTRATION} />
   );
 };
