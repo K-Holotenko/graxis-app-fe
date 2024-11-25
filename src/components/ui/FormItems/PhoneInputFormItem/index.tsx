@@ -35,6 +35,7 @@ export const PhoneInputFormItem = ({
   >
     <Input
       type="tel"
+      maxLength={9}
       addonBefore="+380"
       style={{ width: '100%' }}
       placeholder={TEXT.INPUT_PHONE}
