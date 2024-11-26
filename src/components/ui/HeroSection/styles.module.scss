@@ -1,241 +1,222 @@
 @use '/src/assets/styles/variables.scss';
 
-.hero-section-container {
-  background-image: url('../../../assets/images/hero-section-background.svg');
+.heroSectionContainer {
+  background-image: url('../../../assets/images/Group.svg');
   background-repeat: no-repeat;
   background-position: right;
-  height: 800px;
 }
-.hero-section {
+.heroSection {
   padding: 0 100px;
   font-family: variables.$font-family-second;
+  h1 {
+    font-size: 56px;
+    color: variables.$primary;
+    font-weight: 500;
+    margin-bottom: 72px;
+  }
+  h2 {
+    font-size: 48px;
+    color: #1d1617;
+    margin-bottom: 30px;
+    font-weight: 500;
+    margin-bottom: 60px;
+  }
 }
-.hero-content {
-  max-width: 50%;
+.heroContent {
+  max-width: 49%;
   padding-right: 20px;
-  padding-top: 180px;
+  padding-top: 200px;
 }
-h1 {
-  font-size: 56px;
-  line-height: 1.2;
-  color: variables.$primary;
-  font-weight: 500;
-  margin-bottom: 72px;
-}
-h2 {
-  font-size: 48px;
-  line-height: 1.5;
-  color: #1d1617;
-  margin-bottom: 30px;
-  font-weight: 500;
-  margin-bottom: 60px;
-}
-.hero-search {
-  max-width: 400px;
-}
-.ant-input {
-  border-radius: 8px;
-  font-size: 16px;
-}
-.ant-btn {
-  border-radius: 8px;
-}
-.hero-section-input {
+.heroSectionInput {
   height: 45px;
-  border-color: #4f4f4f;
+  border-color: variables.$text-secondary;
+  margin-bottom: 80px;
 }
 @media (max-width: 1286px) {
-  .hero-section-container {
+  .heroSectionContainer {
     background-size: 590px 530px;
     height: auto;
-    .hero-section {
+
+    .heroSection {
       padding: 0 80px;
+      h1 {
+        font-size: 40px;
+        font-weight: 600;
+        margin-bottom: 42px;
+      }
+      h2 {
+        font-size: 33px;
+        font-weight: 500;
+        margin-bottom: 30px;
+      }
     }
-    .hero-content {
+    .heroContent {
       padding-right: 40px;
       padding-top: 70px;
     }
-    h1 {
-      font-size: 40px;
-      line-height: 1.2;
-      color: variables.$primary;
-      font-weight: 500;
-      margin-bottom: 42px;
-    }
-    h2 {
-      font-size: 33px;
-      line-height: 1.5;
-      color: #1d1617;
-      font-weight: 500;
-      margin-bottom: 30px;
-    }
-    .hero-section-input {
+
+    .heroSectionInput {
       height: 46px;
       font-size: 16px;
-      border-color: #4f4f4f;
     }
   }
 }
 @media (max-width: 1130px) {
-  .hero-section-container {
+  .heroSectionContainer {
     background-size: 572px 582px;
     height: auto;
-    .hero-section {
+    .heroSection {
       padding: 0 80px;
+      h1 {
+        font-size: 44px;
+        font-weight: 600;
+        margin-bottom: 32px;
+        text-align: center;
+      }
+      h2 {
+        font-size: 36px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        text-align: center;
+      }
     }
-    .hero-content {
+    .heroContent {
       padding-right: 70px;
       padding-top: 70px;
     }
-    h1 {
-      font-size: 44px;
-      line-height: 1.2;
-      color: variables.$primary;
-      font-weight: 500;
-      margin-bottom: 32px;
-      text-align: center;
-    }
-    h2 {
-      font-size: 36px;
-      line-height: 1.5;
-      color: #1d1617;
-      font-weight: 500;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .hero-section-input {
+
+    .heroSectionInput {
       height: 46px;
       font-size: 16px;
-      border-color: #4f4f4f;
       margin-right: 20px;
     }
   }
 }
 
 @media (max-width: 835px) {
-  .hero-section-container {
+  .heroSectionContainer {
     background-size: 402px 410px;
     height: auto;
-    .hero-section {
+    .heroSection {
       padding: 0 24px;
+      h1 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 40px;
+      }
+      h2 {
+        font-size: 22px;
+        margin-top: 40px 24px 44px 64px;
+        margin-bottom: 44px;
+      }
     }
-    .hero-content {
+    .heroContent {
       padding-right: 38px;
       padding-top: 80px;
     }
-    h1 {
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 40px;
-    }
-    h2 {
-      font-size: 22px;
-      margin-top: 40px 24px 44px 64px;
-      margin-bottom: 44px;
-    }
-    .hero-section-input {
+
+    .heroSectionInput {
       height: 46px;
       font-size: 16px;
-      border-color: #4f4f4f;
     }
   }
 }
 @media (max-width: 626px) {
-  .hero-section-container {
+  .heroSectionContainer {
     background-size: 302px 310px;
     height: auto;
-    .hero-section {
+    .heroSection {
       padding: 0 24px;
+      h1 {
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      h2 {
+        font-size: 20px;
+        margin-top: 40px 24px 44px 64px;
+        margin-bottom: 22px;
+        text-align: center;
+      }
     }
-    .hero-content {
+    .heroContent {
       padding-right: 25px;
       padding-top: 50px;
     }
-    h1 {
-      font-size: 25px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    h2 {
-      font-size: 20px;
-      margin-top: 40px 24px 44px 64px;
-      margin-bottom: 22px;
-      text-align: center;
-    }
-    .hero-section-input {
+
+    .heroSectionInput {
       height: 35px;
       font-size: 16px;
-      border-color: #4f4f4f;
     }
   }
 }
 
 @media (max-width: 518px) {
-  .hero-section-container {
+  .heroSectionContainer {
     background-size: 210px 210px;
     height: auto;
     background-position: top;
-    .hero-section {
+    .heroSection {
       padding: 0 20px;
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      h2 {
+        font-size: 20px;
+        margin-top: 40px 24px 44px 64px;
+        margin-bottom: 12px;
+        text-align: center;
+      }
     }
-    .hero-content {
+    .heroContent {
       padding-top: 201px;
       padding-right: 0;
       max-width: 100%;
     }
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    h2 {
-      font-size: 20px;
-      margin-top: 40px 24px 44px 64px;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-    .hero-section-input {
+
+    .heroSectionInput {
       height: 35px;
       font-size: 16px;
-      border-color: #4f4f4f;
     }
   }
 }
 
 @media (max-width: 376px) {
-  .hero-section-container {
+  .heroSectionContainer {
     background-size: 205px 205px;
     background-position: top;
     height: auto;
 
-    .hero-section {
+    .heroSection {
       padding: 0 16px;
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 2px;
+        margin-top: 16px;
+        text-align: center;
+      }
+      h2 {
+        font-size: 20px;
+        margin-left: 24px;
+        margin-right: 23px;
+        margin-bottom: 44px;
+        text-align: center;
+      }
     }
-    .hero-content {
+    .heroContent {
       padding-top: 201px;
       padding-right: 0;
       max-width: 100%;
     }
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 2px;
-      margin-top: 16px;
-      text-align: center;
-    }
-    h2 {
-      font-size: 20px;
-      margin-left: 24px;
-      margin-right: 23px;
-      margin-bottom: 44px;
-      text-align: center;
-    }
-    .hero-section-input {
+
+    .heroSectionInput {
       height: 46px;
       font-size: 16px;
-      border-color: #4f4f4f;
     }
   }
 }
