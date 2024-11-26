@@ -45,12 +45,12 @@ export const EmailRegistrationForm = () => {
         label={TEXT.PASSWORD}
         name="password"
         rules={CREATE_PASSWORD_VALIDATION_CONDITIONS}
-        placeholder=""
+        placeholder={TEXT.INPUT_PASSWORD}
       />
       <PasswordInputFormItem
         label={TEXT.CONFIRMATION_PASSWORD}
         name="confirmationPassword"
-        placeholder=""
+        placeholder={TEXT.INPUT_PASSWORD}
         rules={[
           VALIDATION_CONDITION.REQUIRED,
           ({ getFieldValue }) => ({

@@ -42,9 +42,14 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   loginWithGoogle: async () => {
-    const response = await AuthService.loginWithGoogle();
+    const user = await AuthService.loginWithGoogle();
 
-    set({ isAuthorized: !!response, user: response });
+    if (user) {
+      const accessToken = await user.getIdToken();
+
+      CookieService.setCookie('accessToken', accessToken);
+      set({ isAuthorized: true, user });
+    }
   },
 
   loginWithFacebook: async () => {
