@@ -1,18 +1,19 @@
 import { fireEvent, render } from '@testing-library/react';
 
 import { EmailRegistrationForm } from './index';
-import { TEXT } from '../../../../config/constants/index';
+import { TEXT } from 'config/constants';
 import { CREATE_PASSWORD_VALIDATION_CONDITIONS } from './utils';
+import { sleep } from 'utils/sleep';
 
 describe('EmailRegistrationForm', () => {
-  it('should allow password with all rules', async () => {
+  it('should successfully validate password', async () => {
     const { getByLabelText, queryByText } = render(<EmailRegistrationForm />);
 
     const passwordInputEl = getByLabelText(TEXT.PASSWORD);
 
     fireEvent.change(passwordInputEl, { target: { value: 'Password1!' } });
 
-    await new Promise((res) => setTimeout(() => res(''), 1000));
+    await sleep(1_000);
 
     CREATE_PASSWORD_VALIDATION_CONDITIONS.forEach((condition) => {
       const errorMessage = queryByText(condition.message);
@@ -21,7 +22,7 @@ describe('EmailRegistrationForm', () => {
     });
   });
 
-  it('should not allow password without one uppercase letter', async () => {
+  it('should fail password validation if there is no uppercase letter', async () => {
     const { getByLabelText, findByText } = render(<EmailRegistrationForm />);
 
     const passwordInputEl = getByLabelText(TEXT.PASSWORD);
@@ -35,7 +36,7 @@ describe('EmailRegistrationForm', () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it('should not allow password without one lowercase letter', async () => {
+  it('should fail password validation if there is no lowercase letter', async () => {
     const { getByLabelText, findByText } = render(<EmailRegistrationForm />);
 
     const passwordInputEl = getByLabelText(TEXT.PASSWORD);
@@ -49,7 +50,7 @@ describe('EmailRegistrationForm', () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it('should not allow password without one digit', async () => {
+  it('should fail password validation if there is no digit', async () => {
     const { getByLabelText, findByText } = render(<EmailRegistrationForm />);
 
     const passwordInputEl = getByLabelText(TEXT.PASSWORD);
@@ -63,7 +64,7 @@ describe('EmailRegistrationForm', () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it('should not allow password without one special character', async () => {
+  it('should fail password validation if there is no special character', async () => {
     const { getByLabelText, findByText } = render(<EmailRegistrationForm />);
 
     const passwordInputEl = getByLabelText(TEXT.PASSWORD);
@@ -77,7 +78,7 @@ describe('EmailRegistrationForm', () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it('should not allow password less 8 characters length', async () => {
+  it("should fail password validation if's length < 8", async () => {
     const { getByLabelText, findByText } = render(<EmailRegistrationForm />);
 
     const passwordInputEl = getByLabelText(TEXT.PASSWORD);

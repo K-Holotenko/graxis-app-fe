@@ -6,7 +6,7 @@ import { PhoneInputFormItem } from './index';
 const label = 'Phone Number';
 
 describe('PhoneInputFormItem', () => {
-  it('should allow digits', async () => {
+  it('should allow entry of digits', () => {
     const { getByLabelText } = render(
       <Form>
         <PhoneInputFormItem label={label} className="" />
@@ -18,7 +18,7 @@ describe('PhoneInputFormItem', () => {
     expect(inputEl.value).toBe('12345');
   });
 
-  it('should strip not-digits', async () => {
+  it("shouldn't allow entry of not digits", () => {
     const { getByLabelText } = render(
       <Form>
         <PhoneInputFormItem label={label} className="" />
@@ -33,7 +33,7 @@ describe('PhoneInputFormItem', () => {
     expect(inputEl.value).toBe('1');
   });
 
-  it('should allow max 9 characters', async () => {
+  it('should allow a max of 9 characters', () => {
     const { getByLabelText } = render(
       <Form>
         <PhoneInputFormItem label={label} className="" />

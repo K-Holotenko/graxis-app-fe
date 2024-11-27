@@ -12,7 +12,7 @@ const validAsciiEmails = [
 ];
 
 describe('EmailInputFormItem', () => {
-  it('should allow ascii chars', async () => {
+  it('should allow entry of ASCII characters', () => {
     const { getByLabelText } = render(
       <Form>
         <EmailInputFormItem label={label} />
@@ -26,7 +26,7 @@ describe('EmailInputFormItem', () => {
     });
   });
 
-  it('should not allow not-ascii chars', async () => {
+  it("shouldn't allow entry of not-ASCII characters", () => {
     const { getByLabelText } = render(
       <Form>
         <EmailInputFormItem label={label} />
