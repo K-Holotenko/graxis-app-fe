@@ -1,0 +1,26 @@
+@use 'src/assets/styles/variables' as feedbackVars;
+
+.feedback-section {
+  padding-top: 60px;
+  padding-bottom: 80px;
+
+  .feedback-title {
+    margin-bottom: 40px;
+    text-align: center;
+    font-family: feedbackVars.$font-family-second;
+  }
+}
+
+@media (min-width: 768px) {
+  .feedback-section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .feedback-section {
+    padding-top: 131px;
+    padding-bottom: 140px;
+  }
+}

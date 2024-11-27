@@ -1,0 +1,13 @@
+@use 'assets/styles/variables';
+
+.user-section {
+  color: variables.$success;
+  height: 48px;
+  text-align: center;
+  border: 1px solid variables.$success;
+  border-radius: 12px;
+
+  .user-section__username {
+    padding-left: 10px;
+  }
+}
