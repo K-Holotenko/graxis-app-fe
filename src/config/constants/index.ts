@@ -9,6 +9,7 @@ export const TEXT = {
 
   CHOOSE_LOCATION: 'Виберіть локацію',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
+  CURRENCY_PER_TIME: 'грн / год',
 
   EMAIL: 'Пошта',
 
