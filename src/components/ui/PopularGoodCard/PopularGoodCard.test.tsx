@@ -11,8 +11,10 @@ const mockedPopularGoodCardProps = {
   onFavoriteToggle: vi.fn(),
 };
 
+const onFavoriteToggleMock = vi.fn();
+
 describe('PopularGoodCard', () => {
-  it('should render product details correctly', () => {
+  it('should display product details correctly', () => {
     const { getByText, getByAltText } = render(
       <PopularGoodCard {...mockedPopularGoodCardProps} />
     );
@@ -27,7 +29,7 @@ describe('PopularGoodCard', () => {
     expect(img).toHaveAttribute('src', 'test-image.jpg');
   });
 
-  it('should render the correct heart icon based on isFavorite prop', () => {
+  it('should display the correct heart icon based on isFavorite prop', () => {
     const { rerender, container } = render(
       <PopularGoodCard {...mockedPopularGoodCardProps} />
     );
@@ -46,7 +48,6 @@ describe('PopularGoodCard', () => {
   });
 
   it('should not call onFavoriteToggle when an unrelated element is clicked', () => {
-    const onFavoriteToggleMock = vi.fn();
     const { getByText } = render(
       <PopularGoodCard
         {...mockedPopularGoodCardProps}
@@ -62,7 +63,6 @@ describe('PopularGoodCard', () => {
   });
 
   it('should call onFavoriteToggle when the heart icon is clicked', () => {
-    const onFavoriteToggleMock = vi.fn();
     const { container } = render(
       <PopularGoodCard
         {...mockedPopularGoodCardProps}
