@@ -1,21 +1,22 @@
+import { REGEXS } from 'config/constants';
 import { VALIDATION_CONDITION } from 'config/validation';
 
 export const CREATE_PASSWORD_VALIDATION_CONDITIONS = [
   VALIDATION_CONDITION.REQUIRED,
   {
-    pattern: /[A-Z]/,
+    pattern: REGEXS.upperCaseLetter,
     message: 'Пароль має містити принаймні одну велику літеру',
   },
   {
-    pattern: /[a-z]/,
+    pattern: REGEXS.lowerCaseLetter,
     message: 'Пароль має містити принаймні одну малу літеру',
   },
   {
-    pattern: /\d/,
+    pattern: REGEXS.digit,
     message: 'Пароль має містити принаймні одну цифру',
   },
   {
-    pattern: /[\W_]/,
+    pattern: REGEXS.specialChars,
     message: 'Пароль має містити принаймні один спеціальний символ',
   },
   {
