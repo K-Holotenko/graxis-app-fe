@@ -4,15 +4,17 @@
   background-image: url('../../../assets/images/Group.svg');
   background-repeat: no-repeat;
   background-position: right;
+  background-size: 45% auto;
 }
 .heroSection {
   padding: 0 100px;
-  font-family: variables.$font-family-second;
   h1 {
+    font-family: variables.$font-family-second;
     font-size: 56px;
     color: variables.$primary;
-    font-weight: 500;
     margin-bottom: 72px;
+    line-height: 150%;
+    font-weight: 600;
   }
   h2 {
     font-size: 48px;
@@ -23,8 +25,8 @@
   }
 }
 .heroContent {
-  max-width: 49%;
-  padding-right: 20px;
+  max-width: 55%;
+  padding-right: 8px;
   padding-top: 200px;
 }
 .heroSectionInput {
@@ -34,14 +36,9 @@
 }
 @media (max-width: 1286px) {
   .heroSectionContainer {
-    background-size: 590px 530px;
-    height: auto;
-
     .heroSection {
-      padding: 0 80px;
       h1 {
         font-size: 40px;
-        font-weight: 600;
         margin-bottom: 42px;
       }
       h2 {
@@ -51,8 +48,7 @@
       }
     }
     .heroContent {
-      padding-right: 40px;
-      padding-top: 70px;
+      padding-top: 100px;
     }
 
     .heroSectionInput {
@@ -61,98 +57,27 @@
     }
   }
 }
-@media (max-width: 1130px) {
+
+@media (max-width: 1080px) {
   .heroSectionContainer {
-    background-size: 572px 582px;
-    height: auto;
     .heroSection {
-      padding: 0 80px;
+      padding: 0 24px 50px;
       h1 {
-        font-size: 44px;
-        font-weight: 600;
+        font-size: 32px;
         margin-bottom: 32px;
-        text-align: center;
       }
       h2 {
-        font-size: 36px;
-        font-weight: 500;
+        font-size: 22px;
         margin-bottom: 20px;
-        text-align: center;
       }
     }
-    .heroContent {
-      padding-right: 70px;
-      padding-top: 70px;
-    }
-
     .heroSectionInput {
-      height: 46px;
-      font-size: 16px;
       margin-right: 20px;
     }
   }
 }
 
-@media (max-width: 835px) {
-  .heroSectionContainer {
-    background-size: 402px 410px;
-    height: auto;
-    .heroSection {
-      padding: 0 24px;
-      h1 {
-        font-size: 32px;
-        font-weight: 600;
-        margin-bottom: 40px;
-      }
-      h2 {
-        font-size: 22px;
-        margin-top: 40px 24px 44px 64px;
-        margin-bottom: 44px;
-      }
-    }
-    .heroContent {
-      padding-right: 38px;
-      padding-top: 80px;
-    }
-
-    .heroSectionInput {
-      height: 46px;
-      font-size: 16px;
-    }
-  }
-}
-@media (max-width: 626px) {
-  .heroSectionContainer {
-    background-size: 302px 310px;
-    height: auto;
-    .heroSection {
-      padding: 0 24px;
-      h1 {
-        font-size: 25px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-      h2 {
-        font-size: 20px;
-        margin-top: 40px 24px 44px 64px;
-        margin-bottom: 22px;
-        text-align: center;
-      }
-    }
-    .heroContent {
-      padding-right: 25px;
-      padding-top: 50px;
-    }
-
-    .heroSectionInput {
-      height: 35px;
-      font-size: 16px;
-    }
-  }
-}
-
-@media (max-width: 518px) {
+@media (max-width: 700px) {
   .heroSectionContainer {
     background-size: 210px 210px;
     height: auto;
@@ -180,42 +105,6 @@
 
     .heroSectionInput {
       height: 35px;
-      font-size: 16px;
-    }
-  }
-}
-
-@media (max-width: 376px) {
-  .heroSectionContainer {
-    background-size: 205px 205px;
-    background-position: top;
-    height: auto;
-
-    .heroSection {
-      padding: 0 16px;
-      h1 {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 2px;
-        margin-top: 16px;
-        text-align: center;
-      }
-      h2 {
-        font-size: 20px;
-        margin-left: 24px;
-        margin-right: 23px;
-        margin-bottom: 44px;
-        text-align: center;
-      }
-    }
-    .heroContent {
-      padding-top: 201px;
-      padding-right: 0;
-      max-width: 100%;
-    }
-
-    .heroSectionInput {
-      height: 46px;
       font-size: 16px;
     }
   }
