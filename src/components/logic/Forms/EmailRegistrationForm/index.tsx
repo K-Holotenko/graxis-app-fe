@@ -44,12 +44,12 @@ export const EmailRegistrationForm = () => {
         label={TEXT.PASSWORD}
         name="password"
         rules={[VALIDATION_CONDITION.PASSWORD]}
-        placeholder=""
+        placeholder={TEXT.INPUT_PASSWORD}
       />
       <PasswordInputFormItem
         label={TEXT.CONFIRMATION_PASSWORD}
         name="confirmationPassword"
-        placeholder=""
+        placeholder={TEXT.INPUT_PASSWORD}
         rules={[
           VALIDATION_CONDITION.PASSWORD,
           ({ getFieldValue }) => ({

@@ -6,16 +6,20 @@ import { ReactComponent as FacebookIcon } from '../../../assets/icons/facebook-i
 import { ReactComponent as GoogleIcon } from '../../../assets/icons/google-icon.svg';
 
 import { useAuthStore } from '../../../stores/authStore';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'router/routes';
 
 export const SocialMediaSection = () => {
+  const navigate = useNavigate();
   const { loginWithGoogle, loginWithFacebook } = useAuthStore();
 
   const onAppleClick = () => {};
   const onFacebookClick = () => {
     loginWithFacebook();
   };
-  const onGoogleClick = () => {
-    loginWithGoogle();
+  const onGoogleClick = async () => {
+    await loginWithGoogle();
+    navigate(ROUTES.HOME);
   };
 
   return (

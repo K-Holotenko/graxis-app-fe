@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Col, Image, Row } from 'antd';
 
-import logoSrc from 'assets/icons/logo.svg';
+import { Logo } from 'components/ui/Logo';
 
 import './styles.scss';
 
@@ -25,7 +25,7 @@ export const AuthLayout = ({ imageSrc, children }: AuthLayoutProps) => (
     <Col sm={18} md={16} lg={14} className="auth-form-col">
       <Col md={{ span: 12, offset: 6 }}>
         <Row justify="center" className="auth-logo-row">
-          <Image src={logoSrc} alt="Logo" preview={false} className="logo" />
+          <Logo />
         </Row>
         {children}
       </Col>

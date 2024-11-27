@@ -5,7 +5,6 @@ import './styles.scss';
 import { TEXT } from 'config/constants';
 
 export interface PopularGoodCardProps {
-  key: number;
   image: string;
   name: string;
   rating: number;

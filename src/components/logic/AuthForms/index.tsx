@@ -1,11 +1,11 @@
 import { ReactNode, useState } from 'react';
 import { Divider, Row, Typography, Tabs } from 'antd';
 
-import { SocialMediaSection } from '../SocialMediaSection';
-import { TEXT } from '../../../config/constants';
-import { AuthFooter } from '../AuthFooter';
-import { ForgotPasswordLink } from '../../ui/ForgotPasswordLink';
-import { REGISTRATION_PAGE_CONFIG } from 'pages/RegistrationPage/utils/config';
+import { SocialMediaSection } from 'components/logic/SocialMediaSection';
+import { AuthFooter } from 'components/logic/AuthFooter';
+import { ForgotPasswordLink } from 'components/ui/ForgotPasswordLink';
+import { TEXT } from 'config/constants';
+import { LOGIN_PAGE_CONFIG } from 'pages/LoginPage/utils/config';
 
 const { Title } = Typography;
 
@@ -28,7 +28,7 @@ export const AuthForms = ({
 }: AuthFormsProps) => {
   const [activeTabKey, setActiveTabKey] = useState(defaultActiveTabKey);
   const isEmailTabActive =
-    activeTabKey === REGISTRATION_PAGE_CONFIG.FORM.EMAIL_TAB.KEY;
+    activeTabKey === LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.KEY;
 
   return (
     <>
