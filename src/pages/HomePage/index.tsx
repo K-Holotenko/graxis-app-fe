@@ -7,6 +7,7 @@ import { FeedbackSection } from 'components/logic/FeedbackSection';
 export const HomePage = () => (
   <PageContainer pageTitle={HOME_PAGE_CONFIG.PAGE_TITLE}>
     <AppLayout>
+      <div>Home</div>
       <HeroSection />
       <FeedbackSection />
     </AppLayout>
