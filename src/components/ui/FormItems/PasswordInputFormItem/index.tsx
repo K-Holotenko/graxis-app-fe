@@ -21,6 +21,7 @@ export const PasswordInputFormItem = ({
     label={label}
     dependencies={dependencies}
     rules={rules}
+    validateFirst
   >
     <Input.Password placeholder={placeholder} />
   </Form.Item>

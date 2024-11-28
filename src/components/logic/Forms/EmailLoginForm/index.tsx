@@ -34,7 +34,7 @@ export const EmailLoginForm = () => {
       <PasswordInputFormItem
         label={TEXT.PASSWORD}
         name="password"
-        rules={[VALIDATION_CONDITION.PASSWORD]}
+        rules={[VALIDATION_CONDITION.REQUIRED]}
         placeholder={TEXT.INPUT_PASSWORD}
       />
       <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20" />

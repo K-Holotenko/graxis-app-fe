@@ -84,3 +84,11 @@ export enum ThemeMode {
 }
 
 export const EMAIL_VERIFICATION_REDIRECT_LINK = `${process.env.REACT_APP_CLIENT_URL}${ROUTES.LOGIN}`;
+
+export const REGEXS = {
+  notAsciiChars: /[^\x00-\x7F]/g,
+  upperCaseLetter: /[A-Z]/,
+  lowerCaseLetter: /[a-z]/,
+  digit: /\d/,
+  specialChars: /[\W_]/,
+};
