@@ -13,6 +13,7 @@ describe('EmailRegistrationForm', () => {
 
     fireEvent.change(passwordInputEl, { target: { value: 'Password1!' } });
 
+    // TODO: find better solution when will be working on tests tech debt
     await sleep(1_000);
 
     CREATE_PASSWORD_VALIDATION_CONDITIONS.forEach((condition) => {
