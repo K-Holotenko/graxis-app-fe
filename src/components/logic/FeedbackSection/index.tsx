@@ -1,5 +1,7 @@
 import { Typography } from 'antd';
-import { FeedbackSectionCarousel } from 'components/ui/FeedbackSectionCarousel';
+
+import { FeedbackSectionCarousel } from 'src/components/ui/FeedbackSectionCarousel';
+
 import { FEEDBACK_SECTION } from './utils/config';
 import styles from './styles.module.scss';
 

@@ -78,8 +78,7 @@
           ["internal", "unknown"],
           ["parent", "sibling", "index", "object", "type"]
         ],
-        "newlines-between": "always",
-        "alphabetize": { "order": "asc", "caseInsensitive": true }
+        "newlines-between": "always"
       }
     ],
     "no-relative-import-paths/no-relative-import-paths": [

@@ -1,11 +1,7 @@
 import { Col, Image, Row } from 'antd';
 import { ReactNode } from 'react';
 
-<<<<<<< HEAD
-import { Logo } from 'components/ui/Logo';
-=======
-import logoSrc from 'src/assets/icons/logo.svg';
->>>>>>> 1b3ba16 (GRX-135 Set up import to support absolute path and follow the order)
+import { Logo } from 'src/components/ui/Logo';
 
 import './styles.scss';
 

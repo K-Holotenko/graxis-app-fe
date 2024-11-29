@@ -2,7 +2,7 @@ import { Card } from 'antd';
 import { StarFilled, HeartOutlined, HeartFilled } from '@ant-design/icons';
 
 import './styles.scss';
-import { TEXT } from 'config/constants';
+import { TEXT } from 'src/config/constants';
 
 export interface PopularGoodCardProps {
   image: string;
