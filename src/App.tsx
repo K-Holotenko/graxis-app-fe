@@ -10,6 +10,7 @@ import { router } from './router';
 const App = () => {
   const { setAuthorized } = useAuthStore();
   console.log('App');
+  console.log('App');
   useEffect(() => {
     const accessToken = CookieService.getCookie('accessToken');
 
