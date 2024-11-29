@@ -1,7 +1,7 @@
 import { Image } from 'antd';
 
-import notificationIconSrc from 'assets/icons/notification-icon.svg';
-import { IMAGE_DESCRIPTION } from 'config/constants';
+import notificationIconSrc from 'src/assets/icons/notification-icon.svg';
+import { IMAGE_DESCRIPTION } from 'src/config/constants';
 
 export const NotificationIcon = () => (
   <Image
