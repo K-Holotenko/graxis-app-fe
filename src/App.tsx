@@ -12,6 +12,7 @@ const App = () => {
   console.log('App');
   console.log('App');
   console.log('App');
+  console.log('App');
   useEffect(() => {
     const accessToken = CookieService.getCookie('accessToken');
 
