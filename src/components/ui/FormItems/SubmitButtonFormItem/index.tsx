@@ -1,5 +1,6 @@
 import { Button, Form } from 'antd';
-import { ButtonTypes } from 'config/constants';
+
+import { ButtonTypes } from 'src/config/constants';
 
 interface SubmitButtonFormItemProps {
   title: string;

@@ -1,7 +1,7 @@
 import { Image } from 'antd';
 
-import logoSrc from 'assets/icons/logo.svg';
-import { IMAGE_DESCRIPTION } from 'config/constants';
+import logoSrc from 'src/assets/icons/logo.svg';
+import { IMAGE_DESCRIPTION } from 'src/config/constants';
 
 export const Logo = () => (
   <Image

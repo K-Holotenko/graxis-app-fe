@@ -1,5 +1,5 @@
-import { REGEXS } from 'config/constants';
-import { VALIDATION_CONDITION } from 'config/validation';
+import { REGEXS } from 'src/config/constants';
+import { VALIDATION_CONDITION } from 'src/config/validation';
 
 export const CREATE_PASSWORD_VALIDATION_CONDITIONS = [
   VALIDATION_CONDITION.REQUIRED,

@@ -1,9 +1,10 @@
 import { Form, Input } from 'antd';
+
+import { TEXT } from 'src/config/constants';
 import {
   VALIDATION_CONDITION,
   VALIDATION_MESSAGE,
-} from '../../../../config/validation';
-import { TEXT } from 'config/constants';
+} from 'src/config/validation';
 
 interface FieldType {
   phone: string;

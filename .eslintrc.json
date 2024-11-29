@@ -27,7 +27,12 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "react-hooks"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-hooks",
+    "no-relative-import-paths"
+  ],
   "rules": {
     "no-console": "warn",
     "prefer-const": "warn",
@@ -65,6 +70,21 @@
     "react-hooks/exhaustive-deps": "warn",
     "import/prefer-default-export": "off",
     "import/newline-after-import": "warn",
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal", "unknown"],
+          ["parent", "sibling", "index", "object", "type"]
+        ],
+        "newlines-between": "always"
+      }
+    ],
+    "no-relative-import-paths/no-relative-import-paths": [
+      "warn",
+      { "allowSameFolder": true }
+    ],
     "no-duplicate-imports": "warn",
     "react/no-array-index-key": "warn",
     "react/prop-types": "off",

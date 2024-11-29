@@ -1,8 +1,8 @@
 import { Button } from 'antd';
-
-import { ButtonTypes, TEXT } from 'config/constants';
-import { ReactComponent as PlusIcon } from 'assets/icons/plus-icon.svg';
 import { ReactNode } from 'react';
+
+import { ButtonTypes, TEXT } from 'src/config/constants';
+import { ReactComponent as PlusIcon } from 'src/assets/icons/plus-icon.svg';
 
 interface AddAdvertisementButtonProps
   extends React.ComponentProps<typeof Button> {

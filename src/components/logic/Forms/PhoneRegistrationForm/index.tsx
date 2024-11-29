@@ -1,16 +1,17 @@
-import { useState } from 'react';
 import { Alert, Form, Typography } from 'antd';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from 'stores/authStore';
-import { FORMS, TEXT } from '../../../../config/constants';
-import { PhoneInputFormItem } from '../../../ui/FormItems/PhoneInputFormItem';
-import { SubmitButtonFormItem } from '../../../ui/FormItems/SubmitButtonFormItem';
-import { CheckboxFormItem } from '../../../ui/FormItems/CheckboxFormItem';
-import { VALIDATION_CONDITION } from '../../../../config/validation';
-import { useRecaptcha } from 'hooks/useRecaptcha';
-import { handlePhoneAuth } from 'utils/handlePhoneAuth';
-import { ROUTES } from 'router/routes';
-import { useAuthPhoneErrorCheck } from 'hooks/useAuthPhoneErrorCheck';
+
+import { CheckboxFormItem } from 'src/components/ui/FormItems/CheckboxFormItem';
+import { PhoneInputFormItem } from 'src/components/ui/FormItems/PhoneInputFormItem';
+import { SubmitButtonFormItem } from 'src/components/ui/FormItems/SubmitButtonFormItem';
+import { FORMS, TEXT } from 'src/config/constants';
+import { VALIDATION_CONDITION } from 'src/config/validation';
+import { useAuthPhoneErrorCheck } from 'src/hooks/useAuthPhoneErrorCheck';
+import { useRecaptcha } from 'src/hooks/useRecaptcha';
+import { ROUTES } from 'src/router/routes';
+import { useAuthStore } from 'src/stores/authStore';
+import { handlePhoneAuth } from 'src/utils/handlePhoneAuth';
 import './styles.scss';
 
 interface PhoneRegistrationFormValuesProps {

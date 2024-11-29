@@ -1,9 +1,10 @@
 import { fireEvent, render } from '@testing-library/react';
 
+import { TEXT } from 'src/config/constants';
+import { sleep } from 'src/utils/sleep';
+
 import { EmailRegistrationForm } from './index';
-import { TEXT } from 'config/constants';
 import { CREATE_PASSWORD_VALIDATION_CONDITIONS } from './utils';
-import { sleep } from 'utils/sleep';
 
 describe('EmailRegistrationForm', () => {
   it('should successfully validate password', async () => {

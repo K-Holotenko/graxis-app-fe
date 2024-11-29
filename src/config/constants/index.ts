@@ -1,4 +1,4 @@
-import { ROUTES } from 'router/routes';
+import { ROUTES } from 'src/router/routes';
 
 export const TEXT = {
   ADD_ADVERTISEMENT: 'Додати оголошення',

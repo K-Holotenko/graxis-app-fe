@@ -1,4 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
+
 import { PopularGoodCard } from './index';
 
 const mockedPopularGoodCardProps = {

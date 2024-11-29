@@ -1,11 +1,11 @@
-import { ReactNode, useState } from 'react';
 import { Divider, Row, Typography, Tabs } from 'antd';
+import { ReactNode, useState } from 'react';
 
-import { SocialMediaSection } from 'components/logic/SocialMediaSection';
-import { AuthFooter } from 'components/logic/AuthFooter';
-import { ForgotPasswordLink } from 'components/ui/ForgotPasswordLink';
-import { TEXT } from 'config/constants';
-import { LOGIN_PAGE_CONFIG } from 'pages/LoginPage/utils/config';
+import { AuthFooter } from 'src/components/logic/AuthFooter';
+import { SocialMediaSection } from 'src/components/logic/SocialMediaSection';
+import { ForgotPasswordLink } from 'src/components/ui/ForgotPasswordLink';
+import { TEXT } from 'src/config/constants';
+import { LOGIN_PAGE_CONFIG } from 'src/pages/LoginPage/utils/config';
 
 const { Title } = Typography;
 

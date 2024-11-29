@@ -1,10 +1,12 @@
 import { render, waitFor } from '@testing-library/react';
-import { RegistrationPage } from '.';
-import { REGISTRATION_PAGE_CONFIG } from './utils/config';
-import { TEXT } from 'config/constants';
 import { HelmetProvider } from 'react-helmet-async';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { ROUTES } from 'router/routes';
+
+import { TEXT } from 'src/config/constants';
+import { ROUTES } from 'src/router/routes';
+
+import { RegistrationPage } from '.';
+import { REGISTRATION_PAGE_CONFIG } from './utils/config';
 
 describe('RegistrationPage', () => {
   it('renders PageContainer with the correct photo', () => {

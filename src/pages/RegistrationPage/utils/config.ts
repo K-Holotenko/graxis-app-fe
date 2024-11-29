@@ -1,4 +1,4 @@
-import imageSrc from 'assets/images/man-on-bike.jpg';
+import imageSrc from 'src/assets/images/man-on-bike.jpg';
 
 export const REGISTRATION_PAGE_CONFIG = {
   PAGE_TITLE: 'Registration',

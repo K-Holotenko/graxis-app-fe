@@ -1,6 +1,7 @@
 import { Form, Input } from 'antd';
 import { Rule } from 'antd/es/form';
-import { REGEXS, TEXT } from '../../../../config/constants';
+
+import { REGEXS, TEXT } from 'src/config/constants';
 
 interface FieldType {
   email: string;

@@ -1,14 +1,13 @@
-import image1 from '../../../assets/images/first_card.jpg';
-import image2 from '../../../assets/images/second_card.jpg';
-import image3 from '../../../assets/images/third_card.jpg';
-import image4 from '../../../assets/images/fourth_card.jpg';
-import image5 from '../../../assets/images/fifth_card.jpg';
-import image6 from '../../../assets/images/sixth_card.jpg';
-import image7 from '../../../assets/images/seventh_card.jpg';
-import image8 from '../../../assets/images/eighth_card.jpg';
-
+import image1 from 'src/assets/images/first_card.jpg';
+import image2 from 'src/assets/images/second_card.jpg';
+import image3 from 'src/assets/images/third_card.jpg';
+import image4 from 'src/assets/images/fourth_card.jpg';
+import image5 from 'src/assets/images/fifth_card.jpg';
+import image6 from 'src/assets/images/sixth_card.jpg';
+import image7 from 'src/assets/images/seventh_card.jpg';
+import image8 from 'src/assets/images/eighth_card.jpg';
 import './styles.scss';
-import { PopularGoodCard } from '../PopularGoodCard';
+import { PopularGoodCard } from 'src/components/ui/PopularGoodCard';
 
 // TEMPORARY, should be stored in store
 const goods = [

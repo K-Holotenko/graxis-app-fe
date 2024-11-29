@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
 
-import { MapPinIcon } from 'components/ui/MapPinIcon';
-import { SelectLocationForm } from 'components/logic/Forms/SelectLocationForm';
+import { MapPinIcon } from 'src/components/ui/MapPinIcon';
+import { SelectLocationForm } from 'src/components/logic/Forms/SelectLocationForm';
 
 import './styles.scss';
 

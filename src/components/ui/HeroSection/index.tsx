@@ -1,6 +1,8 @@
 import { Input } from 'antd';
+
+import { TEXT } from 'src/config/constants';
+
 import styles from './styles.module.scss';
-import { TEXT } from 'config/constants';
 
 export const HeroSection = () => (
   <div className={styles.heroSectionContainer}>
