@@ -1,8 +1,8 @@
 import { ROUTES } from 'src/router/routes';
-import InstagramIcon from '../../assets/icons/instagram-icon-dark.svg';
-import LinkedInIcon from '../../assets/icons/linkedin-icon-dark.svg';
-import TikTokIcon from '../../assets/icons/tiktok-icon-dark.svg';
-import TelegramIcon from '../../assets/icons/telegram-icon-dark.svg';
+import InstagramIcon from 'src/assets/icons/instagram-icon-dark.svg';
+import LinkedInIcon from 'src/assets/icons/linkedin-icon-dark.svg';
+import TikTokIcon from 'src/assets/icons/tiktok-icon-dark.svg';
+import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
   ADD_ADVERTISEMENT: 'Додати оголошення',
