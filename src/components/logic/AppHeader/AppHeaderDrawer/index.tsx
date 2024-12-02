@@ -1,17 +1,16 @@
 import { Col, ConfigProvider, Drawer, Row, Typography } from 'antd';
 
-import { ReactComponent as CloseIcon } from 'assets/icons/close-icon.svg';
-import { ReactComponent as Logo } from 'assets/icons/logo-light.svg';
-import { ReactComponent as PlusIconDark } from 'assets/icons/plus-icon-dark.svg';
-import { ReactComponent as UserIconDark } from 'assets/icons/user-icon-dark.svg';
-
-import { theme } from 'config/theme';
-import { useAuthStore } from 'stores/authStore';
-import { AddAdvertisementButton } from 'components/ui/AddAdvertisementButton';
-import { SelectLocationBlock } from 'components/logic/SelectLocationBlock';
-import { UserSection } from 'components/ui/UserSection';
-import { TEXT } from 'config/constants';
-import { SignInButton } from 'components/ui/SignInButton';
+import { ReactComponent as CloseIcon } from 'src/assets/icons/close-icon.svg';
+import { ReactComponent as Logo } from 'src/assets/icons/logo-light.svg';
+import { ReactComponent as PlusIconDark } from 'src/assets/icons/plus-icon-dark.svg';
+import { ReactComponent as UserIconDark } from 'src/assets/icons/user-icon-dark.svg';
+import { theme } from 'src/config/theme';
+import { useAuthStore } from 'src/stores/authStore';
+import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton';
+import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
+import { UserSection } from 'src/components/ui/UserSection';
+import { TEXT } from 'src/config/constants';
+import { SignInButton } from 'src/components/ui/SignInButton';
 
 import styles from './styles.module.scss';
 

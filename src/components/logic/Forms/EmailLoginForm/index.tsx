@@ -1,11 +1,11 @@
 import { Form } from 'antd';
 
-import { FORMS, TEXT } from '../../../../config/constants';
-import { SubmitButtonFormItem } from '../../../ui/FormItems/SubmitButtonFormItem';
-import { PasswordInputFormItem } from '../../../ui/FormItems/PasswordInputFormItem';
-import { EmailInputFormItem } from '../../../ui/FormItems/EmailInputFormItem';
-import { VALIDATION_CONDITION } from '../../../../config/validation';
-import { useAuthStore } from '../../../../stores/authStore';
+import { EmailInputFormItem } from 'src/components/ui/FormItems/EmailInputFormItem';
+import { PasswordInputFormItem } from 'src/components/ui/FormItems/PasswordInputFormItem';
+import { SubmitButtonFormItem } from 'src/components/ui/FormItems/SubmitButtonFormItem';
+import { FORMS, TEXT } from 'src/config/constants';
+import { VALIDATION_CONDITION } from 'src/config/validation';
+import { useAuthStore } from 'src/stores/authStore';
 
 interface EmailLoginFormValues {
   email: string;
@@ -34,7 +34,7 @@ export const EmailLoginForm = () => {
       <PasswordInputFormItem
         label={TEXT.PASSWORD}
         name="password"
-        rules={[VALIDATION_CONDITION.PASSWORD]}
+        rules={[VALIDATION_CONDITION.REQUIRED]}
         placeholder={TEXT.INPUT_PASSWORD}
       />
       <SubmitButtonFormItem title={TEXT.SUBMIT} className="mt-20" />

@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
 import { Col, Row } from 'antd';
+import { ReactNode } from 'react';
 
-import { AppHeader } from 'components/logic/AppHeader';
-import { AppFooter } from 'components/logic/AppFooter';
+import { AppHeader } from 'src/components/logic/AppHeader';
+import { AppFooter } from 'src/components/logic/AppFooter';
 
 interface AppLayoutProps {
   children: ReactNode;

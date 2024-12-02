@@ -1,8 +1,8 @@
+import { ConfirmationResult, User } from 'firebase/auth';
 import { create } from 'zustand';
 
-import { AuthService } from '../services/AuthService';
-import CookieService from 'services/CookieService';
-import { ConfirmationResult, User } from 'firebase/auth';
+import { AuthService } from 'src/services/AuthService';
+import CookieService from 'src/services/CookieService';
 
 interface AuthState {
   isAuthorized: boolean;

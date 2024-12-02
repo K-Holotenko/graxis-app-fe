@@ -1,7 +1,7 @@
 import { Avatar, Col, Row } from 'antd';
 import { useState } from 'react';
 
-import { theme } from 'config/theme';
+import { theme } from 'src/config/theme';
 
 import './styles.scss';
 

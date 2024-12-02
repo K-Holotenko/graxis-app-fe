@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { EmailLoginForm } from '../../components/logic/Forms/EmailLoginForm';
-import { PhoneLoginForm } from '../../components/logic/Forms/PhoneLoginForm';
-import { PageContainer } from '../../components/ui/PageContainer';
-import { AuthLayout } from '../../layouts/AuthLayout';
-import { useAuthStore } from '../../stores/authStore';
+import { AuthForms } from 'src/components/logic/AuthForms';
+import { EmailLoginForm } from 'src/components/logic/Forms/EmailLoginForm';
+import { PhoneLoginForm } from 'src/components/logic/Forms/PhoneLoginForm';
+import { PageContainer } from 'src/components/ui/PageContainer';
+import { AuthLayout } from 'src/layouts/AuthLayout';
+import { ROUTES } from 'src/router/routes';
+import { useAuthStore } from 'src/stores/authStore';
+
 import { LOGIN_PAGE_CONFIG } from './utils/config';
-import { ROUTES } from '../../router/routes';
-import { AuthForms } from '../../components/logic/AuthForms';
 
 const tabItems = [
   {

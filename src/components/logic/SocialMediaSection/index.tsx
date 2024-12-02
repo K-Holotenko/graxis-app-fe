@@ -1,13 +1,12 @@
 import { Col, Row } from 'antd';
-
-import { SocialMediaButton } from '../../../components/ui/SocialMediaButton';
-import { ReactComponent as AppleIcon } from '../../../assets/icons/apple-icon.svg';
-import { ReactComponent as FacebookIcon } from '../../../assets/icons/facebook-icon.svg';
-import { ReactComponent as GoogleIcon } from '../../../assets/icons/google-icon.svg';
-
-import { useAuthStore } from '../../../stores/authStore';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from 'router/routes';
+
+import { ReactComponent as AppleIcon } from 'src/assets/icons/apple-icon.svg';
+import { ReactComponent as FacebookIcon } from 'src/assets/icons/facebook-icon.svg';
+import { ReactComponent as GoogleIcon } from 'src/assets/icons/google-icon.svg';
+import { SocialMediaButton } from 'src/components/ui/SocialMediaButton';
+import { ROUTES } from 'src/router/routes';
+import { useAuthStore } from 'src/stores/authStore';
 
 export const SocialMediaSection = () => {
   const navigate = useNavigate();

@@ -1,10 +1,14 @@
 import { Col, ConfigProvider, Image, Row, Typography } from 'antd';
 
-import { APP_CONTACT_DATA, SOCIAL_MEDIA_LIST, TEXT } from 'config/constants';
-import { Logo } from 'components/ui/Logo';
+import {
+  APP_CONTACT_DATA,
+  SOCIAL_MEDIA_LIST,
+  TEXT,
+} from 'src/config/constants';
+import { theme } from 'src/config/theme';
+import { Logo } from 'src/components/ui/Logo';
 
 import styles from './styles.module.scss';
-import { theme } from 'config/theme';
 
 const { Link, Text } = Typography;
 

@@ -1,17 +1,19 @@
 import { Form } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-import { FORMS, TEXT } from '../../../../config/constants';
-import { SubmitButtonFormItem } from '../../../ui/FormItems/SubmitButtonFormItem';
-import { PasswordInputFormItem } from '../../../ui/FormItems/PasswordInputFormItem';
-import { EmailInputFormItem } from '../../../ui/FormItems/EmailInputFormItem';
+import { CheckboxFormItem } from 'src/components/ui/FormItems/CheckboxFormItem';
+import { EmailInputFormItem } from 'src/components/ui/FormItems/EmailInputFormItem';
+import { PasswordInputFormItem } from 'src/components/ui/FormItems/PasswordInputFormItem';
+import { SubmitButtonFormItem } from 'src/components/ui/FormItems/SubmitButtonFormItem';
+import { FORMS, TEXT } from 'src/config/constants';
 import {
   VALIDATION_CONDITION,
   VALIDATION_MESSAGE,
-} from '../../../../config/validation';
-import { CheckboxFormItem } from '../../../ui/FormItems/CheckboxFormItem';
-import { useAuthStore } from '../../../../stores/authStore';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from 'router/routes';
+} from 'src/config/validation';
+import { ROUTES } from 'src/router/routes';
+import { useAuthStore } from 'src/stores/authStore';
+
+import { CREATE_PASSWORD_VALIDATION_CONDITIONS } from './utils';
 
 interface EmailRegistrationFormValues {
   email: string;
@@ -43,15 +45,15 @@ export const EmailRegistrationForm = () => {
       <PasswordInputFormItem
         label={TEXT.PASSWORD}
         name="password"
-        rules={[VALIDATION_CONDITION.PASSWORD]}
-        placeholder=""
+        rules={CREATE_PASSWORD_VALIDATION_CONDITIONS}
+        placeholder={TEXT.INPUT_PASSWORD}
       />
       <PasswordInputFormItem
         label={TEXT.CONFIRMATION_PASSWORD}
         name="confirmationPassword"
-        placeholder=""
+        placeholder={TEXT.INPUT_PASSWORD}
         rules={[
-          VALIDATION_CONDITION.PASSWORD,
+          VALIDATION_CONDITION.REQUIRED,
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {

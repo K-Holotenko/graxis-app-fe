@@ -1,8 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
+import CookieService from 'src/services/CookieService';
+import { useAuthStore } from 'src/stores/authStore';
+
 import { ROUTES } from './routes';
-import { useAuthStore } from '../stores/authStore';
-import CookieService from 'services/CookieService';
 
 interface PrivateRouteProps {
   children: JSX.Element;

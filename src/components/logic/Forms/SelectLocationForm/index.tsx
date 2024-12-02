@@ -1,7 +1,7 @@
 import { Form } from 'antd';
 
-import { FORMS } from '../../../../config/constants';
-import { SelectLocationFormItem } from 'components/ui/FormItems/SelectLocationFormItem';
+import { SelectLocationFormItem } from 'src/components/ui/FormItems/SelectLocationFormItem';
+import { FORMS } from 'src/config/constants';
 
 export const SelectLocationForm = () => {
   const onFinish = () => {};

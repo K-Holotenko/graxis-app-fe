@@ -1,6 +1,7 @@
 import { Carousel } from 'antd';
-import { FeedbackSectionCard } from '../FeedbackSectionCard';
-import { feedbackMockData } from 'components/logic/FeedbackSection/utils/feedbackMockData';
+
+import { feedbackMockData } from 'src/components/logic/FeedbackSection/utils/feedbackMockData';
+import { FeedbackSectionCard } from 'src/components/ui/FeedbackSectionCard';
 
 export const FeedbackSectionCarousel = () => (
   <Carousel

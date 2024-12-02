@@ -1,4 +1,4 @@
-import { ROUTES } from 'router/routes';
+import { ROUTES } from 'src/router/routes';
 import InstagramIcon from '../../assets/icons/instagram-icon-dark.svg';
 import LinkedInIcon from '../../assets/icons/linkedin-icon-dark.svg';
 import TikTokIcon from '../../assets/icons/tiktok-icon-dark.svg';
@@ -15,6 +15,7 @@ export const TEXT = {
   CHOOSE_LOCATION: 'Виберіть локацію',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
   CONTACT_US: 'Звʼяжіться з нами',
+  CURRENCY_PER_TIME: 'грн / год',
 
   EMAIL: 'Пошта',
 
@@ -25,6 +26,9 @@ export const TEXT = {
   HELPER_TEXT_EMAIL: 'Дотримуйтесь шаблону youremil@gmail.com',
   HELPER_TEXT_PASSWORD:
     'Пароль може містити тільки A p # 4 і бути не менше 8 символів',
+  HERO_SECTION_TITLE: 'ТВОЯ ПЛАТФОРМА ДЛЯ ШЕРІНГУ',
+  HERO_SECTION_SUBTITLE:
+    'Шерінг речей без зайвого клопоту коли завгодно, де завгодно',
 
   INPUT_EMAIL: 'Введіть пошту',
   INPUT_PASSWORD: 'Введіть пароль',
@@ -124,4 +128,12 @@ export const SOCIAL_MEDIA_LIST = [
 export const APP_CONTACT_DATA = {
   email: 'info@graxis.com',
   phone: '555-555-5555',
+};
+
+export const REGEXS = {
+  notAsciiChars: /[^\x00-\x7F]/g,
+  upperCaseLetter: /[A-Z]/,
+  lowerCaseLetter: /[a-z]/,
+  digit: /\d/,
+  specialChars: /[\W_]/,
 };

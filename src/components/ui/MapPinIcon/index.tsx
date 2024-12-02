@@ -1,11 +1,10 @@
 import { Image } from 'antd';
-
-import mapPinSrc from 'assets/icons/map-pin-icon.svg';
-import mapPinLightSrc from 'assets/icons/map-pin-icon-light.svg';
-
-import { IMAGE_DESCRIPTION } from 'config/constants';
 import useToken from 'antd/es/theme/useToken';
-import { theme } from 'config/theme';
+
+import mapPinSrc from 'src/assets/icons/map-pin-icon.svg';
+import mapPinLightSrc from 'src/assets/icons/map-pin-icon-light.svg';
+import { IMAGE_DESCRIPTION } from 'src/config/constants';
+import { theme } from 'src/config/theme';
 
 export const MapPinIcon = () => {
   const [, token] = useToken();

@@ -1,15 +1,16 @@
 import { Alert, Form, Typography } from 'antd';
-import { FORMS, TEXT } from '../../../../config/constants';
-import { SubmitButtonFormItem } from '../../../ui/FormItems/SubmitButtonFormItem';
-import { PhoneInputFormItem } from '../../../ui/FormItems/PhoneInputFormItem';
-import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from 'stores/authStore';
 import { useState } from 'react';
-import { useRecaptcha } from 'hooks/useRecaptcha';
-import { handlePhoneAuth } from 'utils/handlePhoneAuth';
-import { ROUTES } from 'router/routes';
-import '../PhoneRegistrationForm/styles.scss';
-import { useAuthPhoneErrorCheck } from 'hooks/useAuthPhoneErrorCheck';
+import { useNavigate } from 'react-router-dom';
+
+import { PhoneInputFormItem } from 'src/components/ui/FormItems/PhoneInputFormItem';
+import { SubmitButtonFormItem } from 'src/components/ui/FormItems/SubmitButtonFormItem';
+import { FORMS, TEXT } from 'src/config/constants';
+import { useAuthPhoneErrorCheck } from 'src/hooks/useAuthPhoneErrorCheck';
+import { useRecaptcha } from 'src/hooks/useRecaptcha';
+import { ROUTES } from 'src/router/routes';
+import { useAuthStore } from 'src/stores/authStore';
+import { handlePhoneAuth } from 'src/utils/handlePhoneAuth';
+import 'src/components/logic/Forms/PhoneRegistrationForm/styles.scss';
 
 interface PhoneLoginFormValuesProps {
   phone: string;

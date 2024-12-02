@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
 import { ConfigProvider as AntConfigProvider } from 'antd';
-import { theme } from '../../../config/theme';
+import { ReactNode } from 'react';
+
+import { theme } from 'src/config/theme';
 
 type ThemeData = {
   token: {

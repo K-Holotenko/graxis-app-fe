@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router-dom';
 
-import { ROUTES } from '../../../router/routes';
-import { ForgotPasswordLink } from '../../../components/ui/ForgotPasswordLink';
-import { HaveAccountLink } from '../../../components/ui/HaveAccountLink';
+import { ForgotPasswordLink } from 'src/components/ui/ForgotPasswordLink';
+import { HaveAccountLink } from 'src/components/ui/HaveAccountLink';
+import { ROUTES } from 'src/router/routes';
 
 export const Footer = () => {
   const location = useLocation();

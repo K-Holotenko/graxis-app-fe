@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Avatar } from 'antd';
 
-import { SelectLocationBlock } from 'components/logic/SelectLocationBlock';
-import { Logo } from 'components/ui/Logo';
-import { useAuthStore } from 'stores/authStore';
-import { ReactComponent as DrawerIcon } from 'assets/icons/drawer-icon.svg';
-import { HEADER_MOBILE_WIDTH } from 'config/constants';
-import { theme } from 'config/theme';
-import { useWindowSize } from 'hooks/useWindowSize';
-import { NotificationBadge } from '../NotificationBadge';
+import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
+import { Logo } from 'src/components/ui/Logo';
+import { useAuthStore } from 'src/stores/authStore';
+import { ReactComponent as DrawerIcon } from 'src/assets/icons/drawer-icon.svg';
+import { HEADER_MOBILE_WIDTH } from 'src/config/constants';
+import { theme } from 'src/config/theme';
+import { useWindowSize } from 'src/hooks/useWindowSize';
+import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton';
+import { SignInButton } from 'src/components/ui/SignInButton';
+import { NotificationBadge } from 'src/components/logic/NotificationBadge';
+
 import { AppHeaderDrawer } from './AppHeaderDrawer';
-import { AddAdvertisementButton } from 'components/ui/AddAdvertisementButton';
-import { SignInButton } from 'components/ui/SignInButton';
 
 import './styles.scss';
 

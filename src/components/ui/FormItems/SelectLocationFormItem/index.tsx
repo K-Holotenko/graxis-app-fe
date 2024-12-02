@@ -1,7 +1,7 @@
 import { Form, Select } from 'antd';
 import { Rule } from 'antd/es/form';
 
-import { CITY_LIST } from 'config/constants';
+import { CITY_LIST } from 'src/config/constants';
 
 interface SelectLocationFormItemProps {
   rules?: Rule[];

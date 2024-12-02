@@ -1,5 +1,7 @@
 import { Avatar, Card, Flex, Rate, Typography } from 'antd';
-import feedbackAvatar from 'assets/images/feedback-avatar.jpg';
+
+import feedbackAvatar from 'src/assets/images/feedback-avatar.jpg';
+
 import styles from './styles.module.scss';
 
 const { Meta } = Card;
