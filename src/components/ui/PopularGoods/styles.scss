@@ -1,13 +1,27 @@
+@use '/src/assets/styles/variables.scss';
+
 .popular-goods {
+  max-width: 1700px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   padding: 0 100px;
-  justify-content: center;
+  justify-content: space-between;
+  margin: 0 auto;
 }
 
 .popular-goods-title {
   text-align: center;
-  margin-bottom: 60px;
-  font-size: 30px;
+  margin-bottom: 80px;
+  font-family: variables.$font-family-second;
+  color: variables.$primary;
+  font-weight: 500;
+  font-size: 32px;
+  margin-top: 160px;
+}
+
+@media (max-width: 837px) {
+  .popular-goods {
+    justify-content: center;
+  }
 }

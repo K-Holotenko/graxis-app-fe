@@ -4,24 +4,29 @@
   background-image: url('../../../assets/images/Group.svg');
   background-repeat: no-repeat;
   background-position: right;
-  background-size: 45% auto;
+  background-size: 47% auto;
+  max-width: 1700px;
+  margin: 0 auto;
 }
 .heroSection {
   padding: 0 100px;
+
   h1 {
     font-family: variables.$font-family-second;
     font-size: 56px;
     color: variables.$primary;
-    margin-bottom: 72px;
+    margin-bottom: 40px;
     line-height: 150%;
-    font-weight: 600;
+    font-weight: 500;
   }
   h2 {
     font-size: 48px;
-    color: #1d1617;
+    font-family: variables.$font-family;
+    color: variables.$text-primary;
     margin-bottom: 30px;
     font-weight: 500;
-    margin-bottom: 60px;
+    margin-bottom: 90px;
+    line-height: auto;
   }
 }
 .heroContent {
