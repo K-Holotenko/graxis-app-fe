@@ -13,6 +13,7 @@ import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton
 import { SignInButton } from 'src/components/ui/SignInButton';
 import { NotificationBadge } from 'src/components/logic/NotificationBadge';
 import { ROUTES } from 'src/router/routes';
+
 import { AppHeaderDrawer } from './AppHeaderDrawer';
 
 import './styles.scss';

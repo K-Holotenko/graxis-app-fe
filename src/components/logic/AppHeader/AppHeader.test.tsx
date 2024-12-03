@@ -2,9 +2,10 @@ import { act } from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { AppHeader } from './index';
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
+
+import { AppHeader } from './index';
 
 vi.mock('src/stores/authStore');
 
@@ -27,6 +28,7 @@ describe('AppHeader', () => {
     );
 
     const addListingBtn = getByTestId('add-listing-btn');
+
     await act(async () => fireEvent.click(addListingBtn));
     expect(container).toHaveTextContent(/Add listing page/);
   });
@@ -46,6 +48,7 @@ describe('AppHeader', () => {
     );
 
     const addListingBtn = getByTestId('add-listing-btn');
+
     await act(async () => fireEvent.click(addListingBtn));
     expect(container).toHaveTextContent(/Login page/);
   });

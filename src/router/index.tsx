@@ -1,7 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { PrivateRoute } from './PrivateRoute';
-
 import { HomePage } from 'src/pages/HomePage';
 import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
@@ -9,6 +7,7 @@ import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { AddListingPage } from 'src/pages/AddListingPage';
 
+import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
 
 export const router = createBrowserRouter([
