@@ -1,13 +1,13 @@
 @use 'src/assets/styles/variables' as feedbackVars;
 
-.feedback-card {
+.feedbackCard {
   background-color: feedbackVars.$primary;
   border-radius: 20px;
   margin-left: 12px;
   padding: 16px;
   height: 100%;
 
-  .feedback-rate {
+  .feedbackRate {
     color: #c0d32c;
 
     svg {
@@ -16,15 +16,16 @@
     }
   }
 
-  .feedback-date {
+  .feedbackDate {
     font-family: feedbackVars.$font-family-second;
     color: feedbackVars.$secondary;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
     margin-bottom: 0;
   }
 
-  .feedback-title {
+  .feedbackTitle {
     font-family: feedbackVars.$font-family-second;
     color: feedbackVars.$secondary;
     font-size: 16px;
@@ -33,14 +34,14 @@
     margin-bottom: 0;
   }
 
-  .feedback-review {
+  .feedbackReview {
     font-family: feedbackVars.$font-family-second;
     color: #ffffff;
     font-size: 16px;
     margin-bottom: 0;
   }
 
-  .feedback-name {
+  .feedbackName {
     font-size: 18px;
     font-family: feedbackVars.$font-family-second;
     color: #ffffff;
@@ -48,31 +49,23 @@
   }
 }
 
-.feedback-descr-wrap {
+.feedbackDescrWrap {
   height: 234px;
 }
 
-.feedback-avatar {
+.feedbackAvatar {
   width: 44px;
   height: 44px;
 }
 
-@media (min-width: 400px) {
-  .feedback-card {
-    .feedback-date {
-      font-size: 16px;
-    }
-  }
-}
-
 @media (min-width: 768px) {
-  .feedback-card {
+  .feedbackCard {
     margin-left: 16px;
     padding-right: 56px;
     padding-bottom: 0;
   }
 
-  .feedback-descr-wrap {
+  .feedbackDescrWrap {
     height: 183px;
   }
 }
