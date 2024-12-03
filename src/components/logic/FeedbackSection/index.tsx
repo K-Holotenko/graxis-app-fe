@@ -8,17 +8,16 @@ import styles from './styles.module.scss';
 const { Title } = Typography;
 
 export const FeedbackSection = () => (
-  <section
-    className={styles['feedback-section']}
-    data-testid="feedback-section"
-  >
-    <Title
-      level={4}
-      className={styles['feedback-title']}
-      data-testid="feedback-title"
-    >
-      {FEEDBACK_SECTION.TITLE}
-    </Title>
-    <FeedbackSectionCarousel />
+  <section className={styles.feedbackSection} data-testid="feedback-section">
+    <div className={styles.feedbackWrap}>
+      <Title
+        level={4}
+        className={styles.feedbackTitle}
+        data-testid="feedback-title"
+      >
+        {FEEDBACK_SECTION.TITLE}
+      </Title>
+      <FeedbackSectionCarousel />
+    </div>
   </section>
 );

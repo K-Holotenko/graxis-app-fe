@@ -1,10 +1,16 @@
 @use 'src/assets/styles/variables' as feedbackVars;
 
-.feedback-section {
+.feedbackSection {
   padding-top: 60px;
   padding-bottom: 80px;
 
-  .feedback-title {
+  .feedbackWrap {
+    width: 100%;
+    max-width: 1472px;
+    margin: 0 auto;
+  }
+
+  .feedbackTitle {
     margin-bottom: 40px;
     text-align: center;
     font-family: feedbackVars.$font-family-second;
@@ -12,15 +18,24 @@
 }
 
 @media (min-width: 768px) {
-  .feedback-section {
+  .feedbackSection {
     padding-top: 100px;
     padding-bottom: 100px;
+
+    .feedbackTitle {
+      font-size: 26px;
+    }
   }
 }
 
 @media (min-width: 1024px) {
-  .feedback-section {
+  .feedbackSection {
     padding-top: 131px;
     padding-bottom: 140px;
+
+    .feedbackTitle {
+      font-size: 48px;
+      margin-bottom: 80px;
+    }
   }
 }

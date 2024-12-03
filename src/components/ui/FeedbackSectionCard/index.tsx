@@ -23,15 +23,15 @@ interface FeedbackSectionCardProps {
 }
 
 export const FeedbackSectionCard = ({ feedback }: FeedbackSectionCardProps) => (
-  <Card className={styles['feedback-card']} data-testid="feedback-card">
+  <Card className={styles.feedbackCard} data-testid="feedback-card">
     <Flex justify="space-between" align="center" wrap={false}>
       <Rate
-        className={styles['feedback-rate']}
+        className={styles.feedbackRate}
         disabled
         defaultValue={feedback.rating}
         data-testid="feedback-rate"
       />
-      <Paragraph className={styles['feedback-date']}>
+      <Paragraph className={styles.feedbackDate}>
         {new Date(feedback.createdAt).toLocaleDateString('uk-UA', {
           day: 'numeric',
           month: 'long',
@@ -41,26 +41,24 @@ export const FeedbackSectionCard = ({ feedback }: FeedbackSectionCardProps) => (
     </Flex>
     <Meta
       title={
-        <Paragraph className={styles['feedback-title']}>
-          {feedback.title}
-        </Paragraph>
+        <Paragraph className={styles.feedbackTitle}>{feedback.title}</Paragraph>
       }
       description={
         <Flex
           vertical
           justify="space-between"
-          className={styles['feedback-descr-wrap']}
+          className={styles.feedbackDescrWrap}
         >
-          <Paragraph className={styles['feedback-review']}>
+          <Paragraph className={styles.feedbackReview}>
             {feedback.review}
           </Paragraph>
           <Flex gap={20} align="center">
             <Avatar
               src={feedbackAvatar}
-              className={styles['feedback-avatar']}
+              className={styles.feedbackAvatar}
               data-testid="feedback-avatar"
             />
-            <Paragraph className={styles['feedback-name']}>
+            <Paragraph className={styles.feedbackName}>
               {feedback.authorName}
               <br /> {feedback.authorSurname}
             </Paragraph>
