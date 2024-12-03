@@ -39,6 +39,9 @@
   border-color: variables.$text-secondary;
   margin-bottom: 80px;
 }
+.roundedInput {
+  border-radius: 10px;
+}
 @media (max-width: 1286px) {
   .heroSectionContainer {
     .heroSection {

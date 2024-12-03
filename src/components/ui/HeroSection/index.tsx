@@ -12,10 +12,9 @@ export const HeroSection = () => (
         <h1>{TEXT.HERO_SECTION_TITLE}</h1>
         <h2>{TEXT.HERO_SECTION_SUBTITLE}</h2>
         <Input
-          className={styles.heroSectionInput}
+          className={`${styles.heroSectionInput} ${styles.roundedInput}`}
           placeholder="Пошук товару"
           prefix={<SearchOutlined />}
-          style={{ borderRadius: '10px' }}
         />
       </div>
     </div>
