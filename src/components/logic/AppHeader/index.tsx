@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Avatar } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
 import { Logo } from 'src/components/ui/Logo';
@@ -11,7 +12,7 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton';
 import { SignInButton } from 'src/components/ui/SignInButton';
 import { NotificationBadge } from 'src/components/logic/NotificationBadge';
-
+import { ROUTES } from 'src/router/routes';
 import { AppHeaderDrawer } from './AppHeaderDrawer';
 
 import './styles.scss';
@@ -59,7 +60,9 @@ export const AppHeader = () => {
 
               {isDesktop && (
                 <Col>
-                  <AddAdvertisementButton onClick={() => {}} />
+                  <Link to={isAuthorized ? ROUTES.ADD_LISTING : ROUTES.LOGIN}>
+                    <AddAdvertisementButton onClick={() => {}} />
+                  </Link>
                 </Col>
               )}
 

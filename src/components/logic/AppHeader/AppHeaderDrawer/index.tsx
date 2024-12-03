@@ -1,4 +1,5 @@
 import { Col, ConfigProvider, Drawer, Row, Typography } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as CloseIcon } from 'src/assets/icons/close-icon.svg';
 import { ReactComponent as Logo } from 'src/assets/icons/logo-light.svg';
@@ -11,6 +12,7 @@ import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
 import { UserSection } from 'src/components/ui/UserSection';
 import { TEXT } from 'src/config/constants';
 import { SignInButton } from 'src/components/ui/SignInButton';
+import { ROUTES } from 'src/router/routes';
 
 import styles from './styles.module.scss';
 
@@ -62,11 +64,13 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
       )}
       <Row>
         <Col span={24}>
-          <AddAdvertisementButton
-            onClick={() => {}}
-            className={styles.addAdvertisementButton}
-            icon={<PlusIconDark />}
-          />
+          <Link to={isAuthorized ? ROUTES.ADD_LISTING : ROUTES.LOGIN}>
+            <AddAdvertisementButton
+              onClick={() => {}}
+              className={styles.addAdvertisementButton}
+              icon={<PlusIconDark />}
+            />
+          </Link>
         </Col>
       </Row>
       <Row>
