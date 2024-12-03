@@ -12,8 +12,8 @@ export const HeroSection = () => (
         <h1>{TEXT.HERO_SECTION_TITLE}</h1>
         <h2>{TEXT.HERO_SECTION_SUBTITLE}</h2>
         <Input
-          className={`${styles.heroSectionInput} ${styles.roundedInput}`}
-          placeholder="Пошук товару"
+          className={styles.heroSectionInput}
+          placeholder={TEXT.INPUT_SEARCH}
           prefix={<SearchOutlined />}
         />
       </div>

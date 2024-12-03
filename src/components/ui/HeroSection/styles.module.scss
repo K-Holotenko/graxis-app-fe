@@ -1,4 +1,4 @@
-@use '/src/assets/styles/variables.scss';
+@use 'src/assets/styles/variables.scss';
 
 .heroSectionContainer {
   background-image: url('../../../assets/images/Group.svg');
@@ -38,8 +38,6 @@
   height: 45px;
   border-color: variables.$text-secondary;
   margin-bottom: 80px;
-}
-.roundedInput {
   border-radius: 10px;
 }
 @media (max-width: 1286px) {
