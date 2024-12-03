@@ -27,6 +27,7 @@ export const AddAdvertisementButton = ({
     className={className}
     onClick={onClick}
     style={{ padding: '15px 20px', height: '48px' }}
+    data-testid="add-listing-btn"
     {...props}
   >
     {TEXT.ADD_ADVERTISEMENT}
