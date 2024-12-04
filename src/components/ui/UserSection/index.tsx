@@ -1,8 +1,6 @@
 import { Avatar, Col, Dropdown, Row } from 'antd';
 import { useState } from 'react';
-
 import { theme } from 'src/config/theme';
-
 import './styles.scss';
 import { AvatarMenu } from 'src/components/logic/AppHeader/AvatarMenu';
 

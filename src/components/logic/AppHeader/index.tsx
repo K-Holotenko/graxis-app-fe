@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Dropdown } from 'antd';
-
+import { useNavigate } from 'react-router-dom';
 import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
 import { Logo } from 'src/components/ui/Logo';
 import { useAuthStore } from 'src/stores/authStore';
@@ -11,14 +11,10 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton';
 import { SignInButton } from 'src/components/ui/SignInButton';
 import { NotificationBadge } from 'src/components/logic/NotificationBadge';
-
-import { AppHeaderDrawer } from './AppHeaderDrawer';
-
-import './styles.scss';
-
-import { AvatarMenu } from './AvatarMenu';
-import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'src/router/routes';
+import { AppHeaderDrawer } from './AppHeaderDrawer';
+import './styles.scss';
+import { AvatarMenu } from './AvatarMenu';
 
 export const AppHeader = () => {
   const { width } = useWindowSize();
