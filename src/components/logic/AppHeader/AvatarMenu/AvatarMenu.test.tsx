@@ -30,8 +30,8 @@ describe('AvatarMenu', () => {
 
   it('should display 3 menu item', () => {
     const { getAllByRole } = render(<AvatarMenu />);
-
     const menuItems = getAllByRole('menuitem');
+
     expect(menuItems.length).toBe(3);
   });
 });
