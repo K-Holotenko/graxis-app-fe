@@ -5,6 +5,8 @@ import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
 import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
+import { PublicationsPage } from 'src/pages/PublicationsPage';
+import { SettingsPage } from 'src/pages/SettingsPage';
 
 import { ROUTES } from './routes';
 
@@ -28,5 +30,13 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.VERIFICATION_CODE,
     element: <VerificationPage />,
+  },
+  {
+    path: ROUTES.PUBLICATIONS,
+    element: <PublicationsPage />,
+  },
+  {
+    path: ROUTES.SETTINGS,
+    element: <SettingsPage />,
   },
 ]);

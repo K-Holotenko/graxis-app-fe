@@ -4,4 +4,6 @@ export const ROUTES = {
   REGISTRATION: '/registration',
   VERIFICATION_CODE: '/verification',
   VERIFY_EMAIL: '/verify-email',
+  SETTINGS: '/settings',
+  PUBLICATIONS: '/publications',
 };

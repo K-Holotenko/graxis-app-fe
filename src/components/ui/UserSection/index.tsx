@@ -1,9 +1,10 @@
-import { Avatar, Col, Row } from 'antd';
+import { Avatar, Col, Dropdown, Row } from 'antd';
 import { useState } from 'react';
 
 import { theme } from 'src/config/theme';
 
 import './styles.scss';
+import { AvatarMenu } from 'src/components/logic/AppHeader/AvatarMenu';
 
 // should be changed to select or dropdown according to the latest design
 export const UserSection = () => {
@@ -13,10 +14,21 @@ export const UserSection = () => {
   return (
     <Row className="user-section" align="middle" justify="center">
       <Col span={24}>
-        <Avatar style={{ backgroundColor: theme.success }}>
-          {usernameABBR}
-        </Avatar>
-        <span className="user-section__username">{username}</span>
+        <Dropdown
+          overlay={<AvatarMenu />}
+          placement="bottom"
+          trigger={['click']}
+        >
+          <div style={{ textAlign: 'center' }}>
+            <Avatar
+              size={'large'}
+              style={{ cursor: 'pointer', backgroundColor: theme.success }}
+            >
+              {usernameABBR}
+            </Avatar>
+            <span className="user-section__username">{username}</span>
+          </div>
+        </Dropdown>
       </Col>
     </Row>
   );

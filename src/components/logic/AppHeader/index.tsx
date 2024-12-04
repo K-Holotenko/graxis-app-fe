@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Avatar } from 'antd';
+import { Row, Col, Avatar, Dropdown } from 'antd';
 
 import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
 import { Logo } from 'src/components/ui/Logo';
@@ -16,12 +16,17 @@ import { AppHeaderDrawer } from './AppHeaderDrawer';
 
 import './styles.scss';
 
+import { AvatarMenu } from './AvatarMenu';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'src/router/routes';
+
 export const AppHeader = () => {
   const { width } = useWindowSize();
 
   const { isAuthorized } = useAuthStore();
   const [showDrawer, setShowDrawer] = useState(false);
   const [isDesktop, setDesktop] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setDesktop(width > HEADER_MOBILE_WIDTH);
@@ -65,22 +70,31 @@ export const AppHeader = () => {
 
               {!isAuthorized && isDesktop && (
                 <Col>
-                  <SignInButton onClick={() => {}} />
+                  <SignInButton onClick={() => navigate(ROUTES.LOGIN)} />
                 </Col>
               )}
 
               {isAuthorized && isDesktop && (
                 <Col>
-                  {/* temporarily, dropdown should be added, firstName and lastName should be selected from the store  */}
-                  <Avatar
-                    style={{
-                      backgroundColor: theme.success,
-                      height: 48,
-                      width: 48,
-                    }}
-                  >
-                    BC
-                  </Avatar>
+                  <div style={{ textAlign: 'center' }}>
+                    <Dropdown
+                      overlay={<AvatarMenu />}
+                      placement="bottom"
+                      trigger={['click']}
+                    >
+                      <Avatar
+                        size={'large'}
+                        style={{
+                          cursor: 'pointer',
+                          backgroundColor: theme.success,
+                          height: 48,
+                          width: 48,
+                        }}
+                      >
+                        BC
+                      </Avatar>
+                    </Dropdown>
+                  </div>
                 </Col>
               )}
             </Row>

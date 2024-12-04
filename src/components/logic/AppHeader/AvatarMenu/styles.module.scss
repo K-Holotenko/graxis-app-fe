@@ -1,0 +1,31 @@
+@use '/src/assets/styles/variables.scss';
+
+.dropdownButton {
+  &:hover {
+    background-color: rgba(240, 240, 240, 1) !important;
+  }
+
+  &:active {
+    background-color: variables.$success !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .avatarMenu {
+    background-color: variables.$primary !important;
+  }
+  .dropdownButton {
+    color: white !important;
+    background-color: variables.$primary;
+
+    &:hover {
+      color: black !important;
+      background-color: rgba(240, 240, 240, 1) !important;
+    }
+
+    &:active {
+      color: black !important;
+      background-color: white !important;
+    }
+  }
+}
