@@ -64,7 +64,7 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
       )}
       <Row>
         <Col span={24}>
-          <Link to={isAuthorized ? ROUTES.ADD_LISTING : ROUTES.LOGIN}>
+          <Link to={isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN}>
             <AddAdvertisementButton
               onClick={() => {}}
               className={styles.addAdvertisementButton}

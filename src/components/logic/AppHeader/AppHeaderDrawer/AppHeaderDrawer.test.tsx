@@ -1,6 +1,6 @@
 import { act } from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
@@ -10,27 +10,27 @@ import { AppHeaderDrawer } from './index';
 vi.mock('src/stores/authStore');
 
 describe('AppHeaderDrawer', () => {
-  it('should redirect to add listing on button click if authorized', async () => {
+  it('should redirect to add publication on button click if authorized', async () => {
     vi.mocked(useAuthStore).mockReturnValue({
       isAuthorized: true,
     });
 
     const { getByTestId, container } = render(
-      <BrowserRouter>
+      <Router>
         <AppHeaderDrawer open onClose={() => {}} />
         <Routes>
           <Route
-            path={ROUTES.ADD_LISTING}
-            element={<div>Add listing page</div>}
+            path={ROUTES.ADD_PUBLICATION}
+            element={<div>Add publication page</div>}
           />
         </Routes>
-      </BrowserRouter>
+      </Router>
     );
 
-    const addListingBtn = getByTestId('add-listing-btn');
+    const addPublicationBtn = getByTestId('add-publication-btn');
 
-    await act(async () => fireEvent.click(addListingBtn));
-    expect(container).toHaveTextContent(/Add listing page/);
+    await act(async () => fireEvent.click(addPublicationBtn));
+    expect(container).toHaveTextContent(/Add publication page/);
   });
 
   it('should redirect to login on button click if unauthorized', async () => {
@@ -39,17 +39,17 @@ describe('AppHeaderDrawer', () => {
     });
 
     const { getByTestId, container } = render(
-      <BrowserRouter>
+      <Router>
         <AppHeaderDrawer open onClose={() => {}} />
         <Routes>
           <Route path={ROUTES.LOGIN} element={<div>Login page</div>} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     );
 
-    const addListingBtn = getByTestId('add-listing-btn');
+    const addPublicationBtn = getByTestId('add-publication-btn');
 
-    await act(async () => fireEvent.click(addListingBtn));
+    await act(async () => fireEvent.click(addPublicationBtn));
     expect(container).toHaveTextContent(/Login page/);
   });
 });

@@ -61,7 +61,9 @@ export const AppHeader = () => {
 
               {isDesktop && (
                 <Col>
-                  <Link to={isAuthorized ? ROUTES.ADD_LISTING : ROUTES.LOGIN}>
+                  <Link
+                    to={isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN}
+                  >
                     <AddAdvertisementButton onClick={() => {}} />
                   </Link>
                 </Col>
