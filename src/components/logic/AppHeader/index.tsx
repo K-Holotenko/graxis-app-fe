@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Avatar } from 'antd';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
 import { Logo } from 'src/components/ui/Logo';
@@ -9,7 +9,7 @@ import { ReactComponent as DrawerIcon } from 'src/assets/icons/drawer-icon.svg';
 import { HEADER_MOBILE_WIDTH } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton';
+import { AddPublicationButton } from 'src/components/ui/AddPublicationButton';
 import { SignInButton } from 'src/components/ui/SignInButton';
 import { NotificationBadge } from 'src/components/logic/NotificationBadge';
 import { ROUTES } from 'src/router/routes';
@@ -20,6 +20,7 @@ import './styles.scss';
 
 export const AppHeader = () => {
   const { width } = useWindowSize();
+  const navigate = useNavigate();
 
   const { isAuthorized } = useAuthStore();
   const [showDrawer, setShowDrawer] = useState(false);
@@ -28,6 +29,10 @@ export const AppHeader = () => {
   useEffect(() => {
     setDesktop(width > HEADER_MOBILE_WIDTH);
   }, [width]);
+
+  const onAddPublicationBtnClick = () => {
+    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
+  };
 
   return (
     <>
@@ -61,11 +66,7 @@ export const AppHeader = () => {
 
               {isDesktop && (
                 <Col>
-                  <Link
-                    to={isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN}
-                  >
-                    <AddAdvertisementButton onClick={() => {}} />
-                  </Link>
+                  <AddPublicationButton onClick={onAddPublicationBtnClick} />
                 </Col>
               )}
 

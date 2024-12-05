@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "vitest --globals",
     "eject": "react-scripts eject",
-    "lint": "eslint \"src/**\" --ignore-pattern \"src/assets/**\" --max-warnings=0 --fix",
+    "lint": "eslint \"src/**\" --ignore-pattern \"src/assets/**\" --max-warnings=0",
     "typecheck": "tsc --noEmit --project tsconfig.json"
   },
   "husky": {
