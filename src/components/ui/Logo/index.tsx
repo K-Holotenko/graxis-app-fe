@@ -3,11 +3,15 @@ import { Image } from 'antd';
 import logoSrc from 'src/assets/icons/logo.svg';
 import { IMAGE_DESCRIPTION } from 'src/config/constants';
 
-export const Logo = () => (
+interface LogoProps {
+  className?: string;
+}
+
+export const Logo = ({ className }: LogoProps) => (
   <Image
     src={logoSrc}
     alt={IMAGE_DESCRIPTION.LOGO}
     preview={false}
-    className="logo"
+    className={`logo ${className}`}
   />
 );

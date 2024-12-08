@@ -43,7 +43,7 @@ export const AppHeader = () => {
               )}
 
               <Col>
-                <Logo />
+                <Logo className={styles.logo} />
               </Col>
 
               {isDesktop && (
