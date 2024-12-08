@@ -6,14 +6,8 @@
 
   .feedbackWrap {
     width: 100%;
-    max-width: 1472px;
+    max-width: 1720px;
     margin: 0 auto;
-  }
-
-  .feedbackTitle {
-    margin-bottom: 40px;
-    text-align: center;
-    font-family: feedbackVars.$font-family-second;
   }
 }
 
@@ -21,10 +15,6 @@
   .feedbackSection {
     padding-top: 100px;
     padding-bottom: 100px;
-
-    .feedbackTitle {
-      font-size: 26px;
-    }
   }
 }
 
@@ -32,10 +22,5 @@
   .feedbackSection {
     padding-top: 131px;
     padding-bottom: 140px;
-
-    .feedbackTitle {
-      font-size: 48px;
-      margin-bottom: 80px;
-    }
   }
 }
