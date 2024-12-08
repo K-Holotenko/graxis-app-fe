@@ -6,4 +6,5 @@ export const ROUTES = {
   VERIFY_EMAIL: '/verify-email',
   SETTINGS: '/settings',
   PUBLICATIONS: '/publications',
+  ADD_PUBLICATION: '/add-publication',
 };

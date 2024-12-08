@@ -8,7 +8,7 @@ import { useAuthStore } from 'src/stores/authStore';
 import { ReactComponent as DrawerIcon } from 'src/assets/icons/drawer-icon.svg';
 import { HEADER_MOBILE_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton';
+import { AddPublicationButton } from 'src/components/ui/AddPublicationButton';
 import { SignInButton } from 'src/components/ui/SignInButton';
 import { NotificationBadge } from 'src/components/logic/NotificationBadge';
 import { ROUTES } from 'src/router/routes';
@@ -20,15 +20,19 @@ import styles from './styles.module.scss';
 
 export const AppHeader = () => {
   const { width } = useWindowSize();
+  const navigate = useNavigate();
 
   const { isAuthorized } = useAuthStore();
   const [showDrawer, setShowDrawer] = useState(false);
   const [isDesktop, setDesktop] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setDesktop(width > HEADER_MOBILE_WIDTH);
   }, [width]);
+
+  const onAddPublicationBtnClick = () => {
+    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
+  };
 
   return (
     <>
@@ -62,7 +66,7 @@ export const AppHeader = () => {
 
               {isDesktop && (
                 <Col>
-                  <AddAdvertisementButton onClick={() => {}} />
+                  <AddPublicationButton onClick={onAddPublicationBtnClick} />
                 </Col>
               )}
 

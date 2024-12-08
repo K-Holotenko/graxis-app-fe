@@ -7,7 +7,9 @@ import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { PublicationsPage } from 'src/pages/PublicationsPage';
 import { SettingsPage } from 'src/pages/SettingsPage';
+import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 
+import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
 
 export const router = createBrowserRouter([
@@ -38,5 +40,13 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.SETTINGS,
     element: <SettingsPage />,
+  },
+  {
+    path: ROUTES.ADD_PUBLICATION,
+    element: (
+      <PrivateRoute>
+        <AddPublicationPage />
+      </PrivateRoute>
+    ),
   },
 ]);

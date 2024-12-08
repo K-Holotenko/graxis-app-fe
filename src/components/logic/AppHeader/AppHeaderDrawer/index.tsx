@@ -1,4 +1,5 @@
 import { Col, ConfigProvider, Drawer, Row, Typography } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as CloseIcon } from 'src/assets/icons/close-icon.svg';
 import { ReactComponent as Logo } from 'src/assets/icons/logo-light.svg';
@@ -6,11 +7,12 @@ import { ReactComponent as PlusIconDark } from 'src/assets/icons/plus-icon-dark.
 import { ReactComponent as UserIconDark } from 'src/assets/icons/user-icon-dark.svg';
 import { theme } from 'src/config/theme';
 import { useAuthStore } from 'src/stores/authStore';
-import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton';
+import { AddPublicationButton } from 'src/components/ui/AddPublicationButton';
 import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
 import { UserSection } from 'src/components/ui/UserSection';
 import { TEXT } from 'src/config/constants';
 import { SignInButton } from 'src/components/ui/SignInButton';
+import { ROUTES } from 'src/router/routes';
 
 import styles from './styles.module.scss';
 
@@ -21,6 +23,11 @@ interface AppHeaderDrawerProps {
 
 export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
   const { isAuthorized } = useAuthStore();
+  const navigate = useNavigate();
+
+  const onAddPublicationBtnClick = () => {
+    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
+  };
 
   return (
     <Drawer
@@ -62,9 +69,9 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
       )}
       <Row>
         <Col span={24}>
-          <AddAdvertisementButton
-            onClick={() => {}}
-            className={styles.addAdvertisementButton}
+          <AddPublicationButton
+            onClick={onAddPublicationBtnClick}
+            className={styles.addPublicationButton}
             icon={<PlusIconDark />}
           />
         </Col>
