@@ -59,7 +59,7 @@ export const FORMS = {
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };
-export const HEADER_MOBILE_WIDTH = 905;
+export const HEADER_MOBILE_WIDTH = SCREEN_WIDTH.LG;
 
 export const IMAGE_DESCRIPTION = {
   LOGO: 'Logo',

@@ -1,5 +1,16 @@
-.app-header {
+@use 'src/assets/styles/variables.scss';
+
+.appHeader {
   padding-top: 16px;
+}
+.avatarLarge {
+  cursor: pointer;
+  background-color: variables.$success;
+  height: 48px;
+  width: 48px;
+}
+.dropdownMenu {
+  text-align: 'center';
 }
 
 @media (max-width: 1180px) {

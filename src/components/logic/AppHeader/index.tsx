@@ -7,7 +7,6 @@ import { Logo } from 'src/components/ui/Logo';
 import { useAuthStore } from 'src/stores/authStore';
 import { ReactComponent as DrawerIcon } from 'src/assets/icons/drawer-icon.svg';
 import { HEADER_MOBILE_WIDTH } from 'src/config/constants';
-import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { AddAdvertisementButton } from 'src/components/ui/AddAdvertisementButton';
 import { SignInButton } from 'src/components/ui/SignInButton';
@@ -17,7 +16,7 @@ import { ROUTES } from 'src/router/routes';
 import { AppHeaderDrawer } from './AppHeaderDrawer';
 import { AvatarMenu } from './AvatarMenu';
 
-import './styles.scss';
+import styles from './styles.module.scss';
 
 export const AppHeader = () => {
   const { width } = useWindowSize();
@@ -33,9 +32,9 @@ export const AppHeader = () => {
 
   return (
     <>
-      <section className="app-header-section">
+      <section>
         <div className="container">
-          <Row className="app-header" justify={'space-between'}>
+          <Row className={styles.appHeader} justify={'space-between'}>
             <Row gutter={16} align="middle">
               {!isDesktop && (
                 <Col>
@@ -75,21 +74,13 @@ export const AppHeader = () => {
 
               {isAuthorized && isDesktop && (
                 <Col>
-                  <div style={{ textAlign: 'center' }}>
+                  <div className={styles.dropdownMenu}>
                     <Dropdown
                       overlay={<AvatarMenu />}
                       placement="bottom"
                       trigger={['click']}
                     >
-                      <Avatar
-                        size={'large'}
-                        style={{
-                          cursor: 'pointer',
-                          backgroundColor: theme.success,
-                          height: 48,
-                          width: 48,
-                        }}
-                      >
+                      <Avatar size="large" className={styles.avatarLarge}>
                         BC
                       </Avatar>
                     </Dropdown>
