@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
 
+import { TEXT } from 'src/config/constants';
+
 import { FeedbackSection } from '.';
 
 describe('FeedbackSection', () => {
@@ -11,9 +13,9 @@ describe('FeedbackSection', () => {
   });
 
   it('render the section title correctly', () => {
-    const { getByTestId } = render(<FeedbackSection />);
-    const feedbackSectionTitle = getByTestId('feedback-title');
+    const { getByText } = render(<FeedbackSection />);
+    const categoriesSectionTitle = getByText(TEXT.FEEDBACKS);
 
-    expect(feedbackSectionTitle).toBeInTheDocument();
+    expect(categoriesSectionTitle).toBeInTheDocument();
   });
 });

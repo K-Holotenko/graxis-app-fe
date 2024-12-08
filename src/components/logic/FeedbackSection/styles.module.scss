@@ -3,22 +3,12 @@
 .feedbackSection {
   padding-top: 60px;
   padding-bottom: 80px;
-
-  .feedbackTitle {
-    font-family: feedbackVars.$font-family-second;
-    margin-bottom: 40px;
-    text-align: center;
-  }
 }
 
 @media (min-width: 768px) {
   .feedbackSection {
     padding-top: 100px;
     padding-bottom: 100px;
-
-    .feedbackTitle {
-      font-size: 26px;
-    }
   }
 }
 
@@ -26,10 +16,5 @@
   .feedbackSection {
     padding-top: 131px;
     padding-bottom: 140px;
-
-    .feedbackTitle {
-      font-size: 48px;
-      margin-bottom: 80px;
-    }
   }
 }

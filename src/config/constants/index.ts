@@ -12,6 +12,7 @@ export const TEXT = {
   AUTHORIZE: 'Авторизуватися',
 
   CATEGORIES: 'Категорії',
+  CATEGORIES_SECTION_TITLE: 'Категорії товарів',
   CHOOSE_LOCATION: 'Виберіть локацію',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
   CONTACT_US: 'Звʼяжіться з нами',
@@ -114,7 +115,7 @@ export const SOCIAL_MEDIA_LIST = [
     name: 'Telegram',
     icon: TelegramIcon,
     alt: 'Telegram icon',
-    href: '',
+    href: 'https://t.me/+FB2vFZqthEVlMTAy',
   },
   {
     key: 'tiktok',
@@ -136,4 +137,11 @@ export const REGEXS = {
   lowerCaseLetter: /[a-z]/,
   digit: /\d/,
   specialChars: /[\W_]/,
+};
+
+export const CATEGORIES_CARD_NAME = {
+  POWER: 'Енергозабезпечення',
+  TECH: 'Техніка та електроніка',
+  OTHER: 'Інше',
+  SUGGESTION: 'Запропонуйте <br /> категорію',
 };
