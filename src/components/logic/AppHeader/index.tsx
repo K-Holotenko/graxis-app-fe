@@ -15,7 +15,6 @@ import { ROUTES } from 'src/router/routes';
 
 import { AppHeaderDrawer } from './AppHeaderDrawer';
 import { AvatarMenu } from './AvatarMenu';
-
 import styles from './styles.module.scss';
 
 export const AppHeader = () => {

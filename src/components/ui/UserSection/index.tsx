@@ -2,6 +2,7 @@ import { Avatar, Col, Dropdown, Row } from 'antd';
 import { useState } from 'react';
 
 import { AvatarMenu } from 'src/components/logic/AppHeader/AvatarMenu';
+
 import styles from './styles.module.scss';
 
 // should be changed to select or dropdown according to the latest design
