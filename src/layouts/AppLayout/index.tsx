@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { AppHeader } from 'src/components/logic/AppHeader';
 import { AppFooter } from 'src/components/logic/AppFooter';
-import { MainConteiner } from 'src/components/ui/MainContainer';
+import { MainContainer } from 'src/components/ui/MainContainer';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -18,7 +18,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => (
     </Row>
     <Row>
       <Col span={24}>
-        <MainConteiner>{children}</MainConteiner>
+        <MainContainer>{children}</MainContainer>
       </Col>
     </Row>
     <Row>

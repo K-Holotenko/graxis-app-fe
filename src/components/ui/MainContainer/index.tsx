@@ -2,10 +2,10 @@ import { ReactNode } from 'react';
 
 import styles from './styles.module.scss';
 
-interface MainConteinerProps {
+interface MainContainerProps {
   children: ReactNode;
 }
 
-export const MainConteiner = ({ children }: MainConteinerProps) => (
-  <main className={styles.mainConteiner}>{children}</main>
+export const MainContainer = ({ children }: MainContainerProps) => (
+  <main className={styles.mainContainer}>{children}</main>
 );
