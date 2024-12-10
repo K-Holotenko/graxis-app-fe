@@ -4,16 +4,10 @@
   padding-top: 60px;
   padding-bottom: 80px;
 
-  .feedbackWrap {
-    width: 100%;
-    max-width: 1472px;
-    margin: 0 auto;
-  }
-
   .feedbackTitle {
+    font-family: feedbackVars.$font-family-second;
     margin-bottom: 40px;
     text-align: center;
-    font-family: feedbackVars.$font-family-second;
   }
 }
 
