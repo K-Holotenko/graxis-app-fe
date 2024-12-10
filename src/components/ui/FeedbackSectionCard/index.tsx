@@ -31,10 +31,13 @@ export const FeedbackSectionCard = ({ feedback }: FeedbackSectionCardProps) => (
         defaultValue={feedback.rating}
         data-testid="feedback-rate"
       />
-      <Paragraph className={styles.feedbackDate}>
-        {new Date(feedback.createdAt).toLocaleDateString('uk-UA', {
+      <Paragraph className={styles.feedbackDate} data-testid="feedback-date">
+        {`${new Date(feedback.createdAt).toLocaleDateString('uk-UA', {
           day: 'numeric',
           month: 'long',
+        })},`}
+        <br />
+        {new Date(feedback.createdAt).toLocaleDateString('uk-UA', {
           year: 'numeric',
         })}
       </Paragraph>

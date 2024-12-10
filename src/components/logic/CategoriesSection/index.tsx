@@ -10,18 +10,15 @@ export const CategoriesSection = () => (
     className={styles.categoriesSection}
     data-testid="categories-section"
   >
-    <div className={styles.categoriesContainer}>
-      <HomeSectionTitle title={TEXT.CATEGORIES_SECTION_TITLE} />
-      <ul className={styles.categoriesList}>
-        {CATEGORIES_SECTION_CARD.map((categories, index) => (
-          <li key={categories.id}>
-            <CategoriesSectionCard
-              categories={categories}
-              isLast={index === CATEGORIES_SECTION_CARD.length - 1}
-            />
-          </li>
-        ))}
-      </ul>
+    <HomeSectionTitle title={TEXT.CATEGORIES_SECTION_TITLE} />
+    <div className={styles.categoriesList}>
+      {CATEGORIES_SECTION_CARD.map((categories, index) => (
+        <CategoriesSectionCard
+          key={categories.id}
+          categories={categories}
+          isLast={index === CATEGORIES_SECTION_CARD.length - 1}
+        />
+      ))}
     </div>
   </section>
 );

@@ -1,14 +1,32 @@
-@use 'src/assets/styles/variables' as feedbackVars;
+@use 'src/assets/styles/variables';
+
+@mixin text-styles(
+  $color: variables.$color-white,
+  $line-height: variables.$line-height-medium
+) {
+  font-family: variables.$font-family;
+  font-size: variables.$font-size-medium;
+  color: $color;
+  line-height: $line-height;
+  letter-spacing: variables.$letter-spacing-narrow;
+  margin-bottom: 0;
+}
 
 .feedbackCard {
-  background-color: feedbackVars.$primary;
+  background-color: variables.$primary;
   border-radius: 20px;
   margin-left: 12px;
   padding: 16px;
   height: 100%;
 
   .feedbackRate {
-    color: #c0d32c;
+    color: variables.$light-green-color;
+
+    :global {
+      .ant-rate-star {
+        margin-inline-end: 2px;
+      }
+    }
 
     svg {
       width: 18px;
@@ -17,40 +35,28 @@
   }
 
   .feedbackDate {
-    font-family: feedbackVars.$font-family-second;
-    color: feedbackVars.$secondary;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: -0.02em;
-    margin-bottom: 0;
+    @include text-styles(variables.$secondary, variables.$line-height-large);
+    font-weight: variables.$font-weight-bold;
   }
 
   .feedbackTitle {
-    font-family: feedbackVars.$font-family-second;
-    color: feedbackVars.$secondary;
-    font-size: 16px;
-    font-weight: 700;
+    @include text-styles(variables.$secondary, variables.$line-height-large);
+    font-weight: variables.$font-weight-bold;
     margin-top: 19px;
-    margin-bottom: 0;
   }
 
   .feedbackReview {
-    font-family: feedbackVars.$font-family-second;
-    color: #ffffff;
-    font-size: 16px;
-    margin-bottom: 0;
+    @include text-styles(variables.$color-white, variables.$line-height-large);
   }
 
   .feedbackName {
-    font-size: 18px;
-    font-family: feedbackVars.$font-family-second;
-    color: #ffffff;
-    margin-bottom: 0;
+    @include text-styles(variables.$color-white);
+    font-size: variables.$font-size-18;
   }
 }
 
 .feedbackDescrWrap {
-  height: 234px;
+  height: 278px;
 }
 
 .feedbackAvatar {
@@ -61,11 +67,9 @@
 @media (min-width: 768px) {
   .feedbackCard {
     margin-left: 16px;
-    padding-right: 56px;
-    padding-bottom: 0;
   }
 
   .feedbackDescrWrap {
-    height: 183px;
+    height: 209px;
   }
 }

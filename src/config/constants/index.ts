@@ -43,6 +43,7 @@ export const TEXT = {
 
   PASSWORD: 'Пароль',
   PHONE: 'Номер телефону',
+  POPULAR_GOODS: 'Популярні товари',
   POPULAR_NOW: 'Популярне зараз',
 
   REGISTER: 'Зареєструватись',

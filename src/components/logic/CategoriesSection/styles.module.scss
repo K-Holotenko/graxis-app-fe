@@ -1,19 +1,13 @@
 @use 'src/assets/styles/variables';
 
 .categoriesSection {
-  padding: 0px 10px 80px 9px;
-}
-
-.categoriesContainer {
-  max-width: 1720px;
-  margin: 0 auto;
-  width: 100%;
+  padding-bottom: 80px;
 }
 
 .categoriesList {
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
   gap: 16px;
 }
 
@@ -25,7 +19,7 @@
 
 @media (min-width: 768px) {
   .categoriesSection {
-    padding: 0px 45px 100px 45px;
+    padding-bottom: 100px;
   }
 
   .categoriesList {
@@ -34,18 +28,13 @@
   }
 }
 
-@media (min-width: 1200px) {
-  .categoriesList {
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  }
-}
-
 @media (min-width: 1400px) {
   .categoriesSection {
-    padding: 134px 100px 160px 100px;
+    padding-top: 134px;
+    padding-bottom: 160px;
   }
 
   .categoriesList {
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(318px, 1fr));
   }
 }
