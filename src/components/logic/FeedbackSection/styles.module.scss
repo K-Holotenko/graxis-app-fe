@@ -1,20 +1,20 @@
 @use 'src/assets/styles/variables' as feedbackVars;
 
 .feedbackSection {
-  padding-top: 60px;
-  padding-bottom: 80px;
+  margin-top: 60px;
+  margin-bottom: 80px;
 }
 
 @media (min-width: 768px) {
   .feedbackSection {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    margin-top: 100px;
+    margin-bottom: 100px;
   }
 }
 
 @media (min-width: 1024px) {
   .feedbackSection {
-    padding-top: 131px;
-    padding-bottom: 140px;
+    margin-top: 131px;
+    margin-bottom: 140px;
   }
 }

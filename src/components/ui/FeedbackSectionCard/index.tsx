@@ -50,7 +50,7 @@ export const FeedbackSectionCard = ({ feedback }: FeedbackSectionCardProps) => (
         <Flex
           vertical
           justify="space-between"
-          className={styles.feedbackDescrWrap}
+          className={styles.feedbackDescriptionWrapper}
         >
           <Paragraph className={styles.feedbackReview}>
             {feedback.review}

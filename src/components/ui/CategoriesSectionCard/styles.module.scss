@@ -23,6 +23,10 @@
     margin-bottom: 0;
     text-align: center;
   }
+
+  .categoriesTitleLast{
+    width: 92px;
+  }
 }
 
 .categoriesImg {
@@ -62,6 +66,11 @@
       line-height: variables.$line-height-tight;
       letter-spacing: variables.$letter-spacing-narrow;
     }
+
+    .categoriesTitleLast{
+      width: 192px;
+      text-align: start;
+    }
   }
 
   .categoriesImg {
@@ -100,7 +109,12 @@
       font-family: variables.$font-family-second;
       font-size: variables.$font-size-ml;
       font-weight: variables.$font-weight-semibold;
-      line-height: variables.$line-height-medium;
+      line-height: variables.$line-height-medium;   
+    }
+
+    .categoriesTitleLast{
+      width: 180px;
+      text-align: center;
     }
   }
 

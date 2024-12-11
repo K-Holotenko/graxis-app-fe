@@ -144,5 +144,5 @@ export const CATEGORIES_CARD_NAME = {
   POWER: 'Енергозабезпечення',
   TECH: 'Техніка та електроніка',
   OTHER: 'Інше',
-  SUGGESTION: 'Запропонуйте <br /> категорію',
+  SUGGESTION: 'Запропонуйте категорію',
 };

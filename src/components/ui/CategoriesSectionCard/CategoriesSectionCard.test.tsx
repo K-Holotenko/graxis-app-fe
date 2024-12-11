@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import { CategoriesSectionCard } from '.';
 import { CATEGORIES_SECTION_CARD } from './utils/config';
@@ -7,11 +7,11 @@ import { CATEGORIES_SECTION_CARD } from './utils/config';
 describe('CategoriesSectionCard', () => {
   it('should render the correct titles for each category card', () => {
     const { getByText } = render(
-      <MemoryRouter>
+      <BrowserRouter>
         {CATEGORIES_SECTION_CARD.map((category) => (
           <CategoriesSectionCard key={category.id} categories={category} />
         ))}
-      </MemoryRouter>
+      </BrowserRouter>
     );
 
     CATEGORIES_SECTION_CARD.forEach((category) => {
@@ -23,11 +23,11 @@ describe('CategoriesSectionCard', () => {
 
   it('should render the correct image for each category card', () => {
     const { getByAltText } = render(
-      <MemoryRouter>
+      <BrowserRouter>
         {CATEGORIES_SECTION_CARD.map((category) => (
           <CategoriesSectionCard key={category.id} categories={category} />
         ))}
-      </MemoryRouter>
+      </BrowserRouter>
     );
 
     CATEGORIES_SECTION_CARD.forEach((category) => {
@@ -39,11 +39,11 @@ describe('CategoriesSectionCard', () => {
 
   it('should navigate to the correct link when clicked', () => {
     const { getAllByTestId } = render(
-      <MemoryRouter>
+      <BrowserRouter>
         {CATEGORIES_SECTION_CARD.map((category) => (
           <CategoriesSectionCard key={category.id} categories={category} />
         ))}
-      </MemoryRouter>
+      </BrowserRouter>
     );
 
     const cards = getAllByTestId('categories-link');
@@ -62,11 +62,11 @@ describe('CategoriesSectionCard', () => {
 
   it('should render the correct icon for the last category card', () => {
     const { getByAltText } = render(
-      <MemoryRouter>
+      <BrowserRouter>
         {CATEGORIES_SECTION_CARD.map((category) => (
           <CategoriesSectionCard key={category.id} categories={category} />
         ))}
-      </MemoryRouter>
+      </BrowserRouter>
     );
 
     const lastCategory =

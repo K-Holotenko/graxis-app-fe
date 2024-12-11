@@ -39,8 +39,10 @@ export const CategoriesSectionCard = ({
       />
       {categories.icon ? (
         <div className={styles.categoriesWrap}>
-          <Paragraph className={styles.categoriesTitle}>
-            <span dangerouslySetInnerHTML={{ __html: categories.title }} />
+          <Paragraph
+            className={`${styles.categoriesTitle} ${styles.categoriesTitleLast}`}
+          >
+            {categories.title}
           </Paragraph>
           <img
             alt={categories.title}
