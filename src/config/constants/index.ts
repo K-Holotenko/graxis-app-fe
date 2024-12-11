@@ -63,6 +63,7 @@ export const FORMS = {
   PHONE_REGISTRATION_FORM: 'phoneRegistrationForm',
   SELECT_LOCATION_FORM: 'selectLocationForm',
   VERIFICATION_FORM: 'verificationForm',
+  ADD_LISTING_FORM: 'addLsitingForm',
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };

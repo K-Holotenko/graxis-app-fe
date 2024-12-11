@@ -26,7 +26,7 @@ describe('AppHeaderDrawer', () => {
     const addPublicationBtn = getByTestId('add-publication-btn');
 
     addPublicationBtn.click();
-    expect(mockNavigate).toHaveBeenCalledWith(ROUTES.ADD_PUBLICATION);
+    expect(mockNavigate).toHaveBeenCalledWith(ROUTES.LISTING_PAGE);
   });
 
   it('should redirect to login on button click if unauthorized', async () => {

@@ -15,6 +15,7 @@ import { SignInButton } from 'src/components/ui/SignInButton';
 import { ROUTES } from 'src/router/routes';
 
 import styles from './styles.module.scss';
+import { useEffect, useState } from 'react';
 
 interface AppHeaderDrawerProps {
   open: boolean;
@@ -24,10 +25,15 @@ interface AppHeaderDrawerProps {
 export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
   const { isAuthorized } = useAuthStore();
   const navigate = useNavigate();
+  const [currentLocation, setCurrentLocation] = useState('');
 
   const onAddPublicationBtnClick = () => {
-    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
+    navigate(isAuthorized ? ROUTES.LISTING_PAGE : ROUTES.LOGIN);
   };
+
+  useEffect(() => {
+    setCurrentLocation(location.pathname);
+  }, [location]);
 
   return (
     <Drawer
@@ -67,15 +73,18 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
           </Col>
         </Row>
       )}
-      <Row>
-        <Col span={24}>
-          <AddPublicationButton
-            onClick={onAddPublicationBtnClick}
-            className={styles.addPublicationButton}
-            icon={<PlusIconDark />}
-          />
-        </Col>
-      </Row>
+      {currentLocation !== ROUTES.LISTING_PAGE && (
+        <Row>
+          <Col span={24}>
+            <AddPublicationButton
+              onClick={onAddPublicationBtnClick}
+              className={styles.addPublicationButton}
+              icon={<PlusIconDark />}
+            />
+          </Col>
+        </Row>
+      )}
+
       <Row>
         <Col span={24}>
           <Typography style={{ fontSize: 13 }} className="pt-12 pb-12">

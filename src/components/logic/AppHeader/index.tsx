@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Avatar } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
 import { Logo } from 'src/components/ui/Logo';
@@ -21,17 +21,23 @@ import './styles.scss';
 export const AppHeader = () => {
   const { width } = useWindowSize();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { isAuthorized } = useAuthStore();
   const [showDrawer, setShowDrawer] = useState(false);
   const [isDesktop, setDesktop] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState('');
 
   useEffect(() => {
     setDesktop(width > HEADER_MOBILE_WIDTH);
   }, [width]);
 
+  useEffect(() => {
+    setCurrentLocation(location.pathname);
+  }, [location]);
+
   const onAddPublicationBtnClick = () => {
-    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
+    navigate(isAuthorized ? ROUTES.LISTING_PAGE : ROUTES.LOGIN);
   };
 
   return (
@@ -64,7 +70,7 @@ export const AppHeader = () => {
                 </Col>
               )}
 
-              {isDesktop && (
+              {isDesktop && currentLocation !== ROUTES.LISTING_PAGE && (
                 <Col>
                   <AddPublicationButton onClick={onAddPublicationBtnClick} />
                 </Col>

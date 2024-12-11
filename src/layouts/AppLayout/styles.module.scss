@@ -1,0 +1,5 @@
+@use 'src/assets/styles/variables';
+
+.greyBackground {
+  background-color: variables.$listing-page-background;
+}
