@@ -17,12 +17,15 @@ export const PopularGoodCard = ({
   rating,
   price,
 }: PopularGoodCardProps) => (
-  <Card className="product-card" hoverable>
-    <div className="image-wrapper">
-      <img src={image} alt={name} className="product-image" />
-    </div>
+  <Card
+    className="product-card"
+    hoverable
+    cover={<img src={image} alt={name} className="product-image" />}
+  >
+    {/* <div className="image-wrapper">
+    </div> */}
     <div className="card-info">
-      <span>{name}</span>
+      <span className="nameCardInfo">{name}</span>
       <div className="rating">
         <StarFilled className="star-icon" />
         <span className="rating-value">{rating.toFixed(1)}</span>
