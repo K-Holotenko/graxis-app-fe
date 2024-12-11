@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd';
 import { ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { AppHeader } from 'src/components/logic/AppHeader';
 import { AppFooter } from 'src/components/logic/AppFooter';
@@ -7,7 +8,6 @@ import { MainContainer } from 'src/components/ui/MainContainer';
 import { ROUTES } from 'src/router/routes';
 
 import styles from './styles.module.scss';
-import { useLocation } from 'react-router-dom';
 
 interface AppLayoutProps {
   children: ReactNode;

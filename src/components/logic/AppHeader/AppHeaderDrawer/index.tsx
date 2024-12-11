@@ -1,6 +1,7 @@
 import { Col, ConfigProvider, Drawer, Row, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
+import { useEffect, useState } from 'react';
 import { ReactComponent as CloseIcon } from 'src/assets/icons/close-icon.svg';
 import { ReactComponent as Logo } from 'src/assets/icons/logo-light.svg';
 import { ReactComponent as PlusIconDark } from 'src/assets/icons/plus-icon-dark.svg';
@@ -15,7 +16,6 @@ import { SignInButton } from 'src/components/ui/SignInButton';
 import { ROUTES } from 'src/router/routes';
 
 import styles from './styles.module.scss';
-import { useEffect, useState } from 'react';
 
 interface AppHeaderDrawerProps {
   open: boolean;
@@ -33,7 +33,7 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
 
   useEffect(() => {
     setCurrentLocation(location.pathname);
-  }, [location]);
+  }, []);
 
   return (
     <Drawer

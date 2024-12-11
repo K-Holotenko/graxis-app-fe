@@ -1,5 +1,4 @@
-import { AddListingForm } from '../Forms/AddListingForm';
-
+import { AddListingForm } from 'src/components/logic/Forms/AddListingForm';
 import styles from './styles.module.scss';
 
 export const AddListing = () => (

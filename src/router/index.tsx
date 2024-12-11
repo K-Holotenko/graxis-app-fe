@@ -5,10 +5,10 @@ import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
 import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
+import { ListingPage } from 'src/pages/ListingPage';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
-import { ListingPage } from 'src/pages/ListingPage';
 
 export const router = createBrowserRouter([
   {
