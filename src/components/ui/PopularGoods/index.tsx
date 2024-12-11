@@ -17,7 +17,6 @@ const goods = [
     name: 'Назва товарів',
     rating: 4.8,
     price: 400,
-    isFavorite: false,
   },
   {
     id: 2,
@@ -25,7 +24,6 @@ const goods = [
     name: 'Назва товарів',
     rating: 4.8,
     price: 400,
-    isFavorite: true,
   },
   {
     id: 3,
@@ -33,7 +31,6 @@ const goods = [
     name: 'Назва товарів',
     rating: 4.8,
     price: 400,
-    isFavorite: false,
   },
   {
     id: 4,
@@ -41,7 +38,6 @@ const goods = [
     name: 'Назва товарів',
     rating: 4.8,
     price: 400,
-    isFavorite: false,
   },
   {
     id: 5,
@@ -49,7 +45,6 @@ const goods = [
     name: 'Назва товарів',
     rating: 4.8,
     price: 400,
-    isFavorite: true,
   },
   {
     id: 6,
@@ -57,7 +52,6 @@ const goods = [
     name: 'Назва товарів',
     rating: 4.8,
     price: 400,
-    isFavorite: false,
   },
   {
     id: 7,
@@ -65,7 +59,6 @@ const goods = [
     name: 'Назва товарів',
     rating: 4.8,
     price: 400,
-    isFavorite: false,
   },
   {
     id: 8,
@@ -73,25 +66,24 @@ const goods = [
     name: 'Назва товарів',
     rating: 4.8,
     price: 400,
-    isFavorite: true,
   },
 ];
 
 export const PopularGoods = () => (
   <>
-    <h2 className="popular-goods-title">Популярні товари</h2>
-    <div className="popular-goods">
-      {goods.map((good) => (
-        <PopularGoodCard
-          key={good.id}
-          image={good.image}
-          name={good.name}
-          rating={good.rating}
-          price={good.price}
-          isFavorite={good.isFavorite}
-          onFavoriteToggle={() => {}}
-        />
-      ))}
-    </div>
+    <section className="popular-goods-section">
+      <h2 className="popular-goods-title">Популярні товари</h2>
+      <div className="popular-goods">
+        {goods.map((good) => (
+          <PopularGoodCard
+            key={good.id}
+            image={good.image}
+            name={good.name}
+            rating={good.rating}
+            price={good.price}
+          />
+        ))}
+      </div>
+    </section>
   </>
 );

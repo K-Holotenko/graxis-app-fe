@@ -1,4 +1,8 @@
 import { ROUTES } from 'src/router/routes';
+import InstagramIcon from 'src/assets/icons/instagram-icon-dark.svg';
+import LinkedInIcon from 'src/assets/icons/linkedin-icon-dark.svg';
+import TikTokIcon from 'src/assets/icons/tiktok-icon-dark.svg';
+import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
   ADD_ADVERTISEMENT: 'Додати оголошення',
@@ -7,12 +11,16 @@ export const TEXT = {
   ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
   AUTHORIZE: 'Авторизуватися',
 
+  CATEGORIES: 'Категорії',
   CHOOSE_LOCATION: 'Виберіть локацію',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
+  CONTACT_US: 'Звʼяжіться з нами',
   CURRENCY_PER_TIME: 'грн / год',
 
   EMAIL: 'Пошта',
 
+  FAST_LINKS: 'Швидкі посилання',
+  FEEDBACKS: 'Відгуки',
   FORGOT_PASSWORD: 'Забули пароль?',
 
   HELPER_TEXT_EMAIL: 'Дотримуйтесь шаблону youremil@gmail.com',
@@ -34,10 +42,11 @@ export const TEXT = {
   OR: 'Або',
 
   PASSWORD: 'Пароль',
-
   PHONE: 'Номер телефону',
+  POPULAR_NOW: 'Популярне зараз',
 
   REGISTER: 'Зареєструватись',
+  RIGHTS: '© 2024 Graxis. Всі права захищено. Політика конфіденційності',
 
   SEC: 'c',
 
@@ -85,6 +94,42 @@ export enum ThemeMode {
 }
 
 export const EMAIL_VERIFICATION_REDIRECT_LINK = `${process.env.REACT_APP_CLIENT_URL}${ROUTES.LOGIN}`;
+
+export const SOCIAL_MEDIA_LIST = [
+  {
+    key: 'instagram',
+    name: 'Instagram',
+    icon: InstagramIcon,
+    alt: 'Instagram icon',
+    href: '',
+  },
+  {
+    key: 'linkedin',
+    name: 'LinkedIn',
+    icon: LinkedInIcon,
+    alt: 'LinkedIn icon',
+    href: '',
+  },
+  {
+    key: 'telegram',
+    name: 'Telegram',
+    icon: TelegramIcon,
+    alt: 'Telegram icon',
+    href: '',
+  },
+  {
+    key: 'tiktok',
+    name: 'TikTok',
+    icon: TikTokIcon,
+    alt: 'TikTok icon',
+    href: '',
+  },
+];
+
+export const APP_CONTACT_DATA = {
+  email: 'info@graxis.com',
+  phone: '555-555-5555',
+};
 
 export const REGEXS = {
   notAsciiChars: /[^\x00-\x7F]/g,

@@ -9,8 +9,6 @@
   margin: 0 auto;
 }
 .heroSection {
-  padding: 0 100px;
-
   h1 {
     font-family: variables.$font-family-second;
     font-size: 56px;
@@ -67,7 +65,7 @@
 @media (max-width: 1080px) {
   .heroSectionContainer {
     .heroSection {
-      padding: 0 24px 50px;
+      padding-bottom: 50px;
       h1 {
         font-size: 32px;
         margin-bottom: 32px;
@@ -89,7 +87,7 @@
     height: auto;
     background-position: top;
     .heroSection {
-      padding: 0 20px;
+      padding: 0;
       h1 {
         font-size: 24px;
         font-weight: 600;
