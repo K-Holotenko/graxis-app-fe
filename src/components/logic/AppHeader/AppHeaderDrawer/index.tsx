@@ -1,8 +1,8 @@
 import { Col, ConfigProvider, Drawer, Row, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
 import { useEffect, useState } from 'react';
 import { ReactComponent as CloseIcon } from 'src/assets/icons/close-icon.svg';
+
 import { ReactComponent as Logo } from 'src/assets/icons/logo-light.svg';
 import { ReactComponent as PlusIconDark } from 'src/assets/icons/plus-icon-dark.svg';
 import { ReactComponent as UserIconDark } from 'src/assets/icons/user-icon-dark.svg';
