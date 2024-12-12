@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
@@ -23,14 +23,14 @@ describe('AppHeader', () => {
     });
 
     const { getByTestId } = render(
-      <MemoryRouter>
+      <BrowserRouter>
         <AppHeader />
-      </MemoryRouter>
+      </BrowserRouter>
     );
     const addPublicationBtn = getByTestId('add-publication-btn');
 
     addPublicationBtn.click();
-    expect(mockNavigate).toHaveBeenCalledWith(ROUTES.LISTING_PAGE);
+    expect(mockNavigate).toHaveBeenCalledWith(ROUTES.ADD_PUBLICATION);
   });
 
   it('should redirect to login on button click if unauthorized', () => {
@@ -39,9 +39,9 @@ describe('AppHeader', () => {
     });
 
     const { getByTestId } = render(
-      <MemoryRouter>
+      <BrowserRouter>
         <AppHeader />
-      </MemoryRouter>
+      </BrowserRouter>
     );
     const addPublicationBtn = getByTestId('add-publication-btn');
 

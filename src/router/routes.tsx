@@ -4,5 +4,5 @@ export const ROUTES = {
   REGISTRATION: '/registration',
   VERIFICATION_CODE: '/verification',
   VERIFY_EMAIL: '/verify-email',
-  LISTING_PAGE: '/listing-page',
+  ADD_PUBLICATION: '/add-publication',
 };

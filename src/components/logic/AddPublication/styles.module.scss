@@ -1,6 +1,6 @@
 @use 'src/assets/styles/variables';
 
-.addListingSection {
+.section {
   background-color: #ffff;
   margin-top: 140px;
   margin-bottom: 140px;
@@ -9,7 +9,7 @@
   box-shadow: 0 0 6px rgba(variables.$primary, 0.2);
 }
 
-.addListingHeader {
+.header {
   font-size: 48px;
   font-family: variables.$font-family-second;
   font-weight: 500;

@@ -1,6 +1,5 @@
 import { Col, Row } from 'antd';
 import { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { AppHeader } from 'src/components/logic/AppHeader';
 import { AppFooter } from 'src/components/logic/AppFooter';
@@ -14,8 +13,8 @@ interface AppLayoutProps {
 }
 
 export const AppLayout = ({ children }: AppLayoutProps) => {
-  const location = useLocation();
-
+  const isAddPublicationPage =
+    window.location.pathname === ROUTES.ADD_PUBLICATION;
   return (
     <div className="app-layout">
       <Row>
@@ -23,11 +22,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
           <AppHeader />
         </Col>
       </Row>
-      <Row
-        className={
-          location.pathname === ROUTES.LISTING_PAGE ? styles.greyBackground : ''
-        }
-      >
+      <Row className={isAddPublicationPage ? styles.greyBackground : ''}>
         <Col span={24}>
           <MainContainer>{children}</MainContainer>
         </Col>

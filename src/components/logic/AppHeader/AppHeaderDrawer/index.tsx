@@ -1,6 +1,5 @@
 import { Col, ConfigProvider, Drawer, Row, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 import { ReactComponent as CloseIcon } from 'src/assets/icons/close-icon.svg';
 import { ReactComponent as Logo } from 'src/assets/icons/logo-light.svg';
@@ -25,15 +24,12 @@ interface AppHeaderDrawerProps {
 export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
   const { isAuthorized } = useAuthStore();
   const navigate = useNavigate();
-  const [currentLocation, setCurrentLocation] = useState('');
+  const shouldShowAddPublicationButton =
+    window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
   const onAddPublicationBtnClick = () => {
-    navigate(isAuthorized ? ROUTES.LISTING_PAGE : ROUTES.LOGIN);
+    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
   };
-
-  useEffect(() => {
-    setCurrentLocation(location.pathname);
-  }, []);
 
   return (
     <Drawer
@@ -73,7 +69,7 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
           </Col>
         </Row>
       )}
-      {currentLocation !== ROUTES.LISTING_PAGE && (
+      {shouldShowAddPublicationButton && (
         <Row>
           <Col span={24}>
             <AddPublicationButton

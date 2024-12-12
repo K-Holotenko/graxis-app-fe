@@ -5,7 +5,7 @@ import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
 import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
-import { ListingPage } from 'src/pages/ListingPage';
+import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
@@ -32,10 +32,10 @@ export const router = createBrowserRouter([
     element: <VerificationPage />,
   },
   {
-    path: ROUTES.LISTING_PAGE,
+    path: ROUTES.ADD_PUBLICATION,
     element: (
       <PrivateRoute>
-        <ListingPage />
+        <AddPublicationPage />
       </PrivateRoute>
     ),
   },
