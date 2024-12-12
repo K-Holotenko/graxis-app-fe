@@ -1,5 +1,20 @@
 @use 'src/assets/styles/variables.scss';
 
+.avatarMenu {
+  width: 256px;
+  height: 144px;
+  border-radius: 16px;
+}
+.dropdownButton {
+  width: 240px;
+  height: 40px;
+  font-size: 14px !important;
+  color: variables.$primary !important;
+  border-radius: 8px !important;
+  margin-bottom: 8px !important;
+  padding: 8px !important;
+  line-height: 22px !important;
+}
 .dropdownButton:hover {
   background-color: #f0f0f0 !important;
 }
