@@ -1,11 +1,11 @@
 @use 'src/assets/styles/variables';
 
 .avatarLarge {
-  cursor: 'pointer';
+  cursor: pointer;
   background-color: variables.$success;
 }
 .avatarSection {
-  text-align: 'center';
+  text-align: center;
 }
 .userSection {
   color: variables.$success;
@@ -16,4 +16,7 @@
 }
 .userSectionUsername {
   padding-left: 10px;
+}
+.userSection:hover {
+  cursor: pointer;
 }
