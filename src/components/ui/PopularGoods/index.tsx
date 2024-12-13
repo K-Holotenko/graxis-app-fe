@@ -8,6 +8,8 @@ import image7 from 'src/assets/images/seventh_card.jpg';
 import image8 from 'src/assets/images/eighth_card.jpg';
 import './styles.scss';
 import { PopularGoodCard } from 'src/components/ui/PopularGoodCard';
+import { TEXT } from 'src/config/constants';
+import { HomeSectionTitle } from 'src/components/ui/HomeSectionTitle';
 
 // TEMPORARY, should be stored in store
 const goods = [
@@ -71,19 +73,17 @@ const goods = [
 
 export const PopularGoods = () => (
   <>
-    <section className="popular-goods-section">
-      <h2 className="popular-goods-title">Популярні товари</h2>
-      <div className="popular-goods">
-        {goods.map((good) => (
-          <PopularGoodCard
-            key={good.id}
-            image={good.image}
-            name={good.name}
-            rating={good.rating}
-            price={good.price}
-          />
-        ))}
-      </div>
-    </section>
+    <HomeSectionTitle title={TEXT.POPULAR_GOODS} />
+    <div className="popular-goods">
+      {goods.map((good) => (
+        <PopularGoodCard
+          key={good.id}
+          image={good.image}
+          name={good.name}
+          rating={good.rating}
+          price={good.price}
+        />
+      ))}
+    </div>
   </>
 );

@@ -12,8 +12,6 @@ const mockedPopularGoodCardProps = {
   onFavoriteToggle: vi.fn(),
 };
 
-const onFavoriteToggleMock = vi.fn();
-
 describe('PopularGoodCard', () => {
   it('should display product details correctly', () => {
     const { getByText, getByAltText } = render(
