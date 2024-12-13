@@ -3,18 +3,25 @@
 .categoriesLink {
   display: block;
   text-decoration: none;
+  transition: transform 250ms linear;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.01);
+    outline: none;
+  }
 }
 
 .categoriesCard {
   background-color: variables.$primary;
   border-radius: variables.$category-card-radius;
-  height: 170px;
-
-  :global {
-    .ant-card-body {
-      padding: 60px 0 0 0;
-    }
-  }
+  padding: 58px 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  aspect-ratio: 1 / 1;
 
   .categoriesTitle {
     font-size: variables.$font-size-small;
@@ -24,15 +31,14 @@
     text-align: center;
   }
 
-  .categoriesTitleLast{
+  .categoriesTitleLast {
     width: 92px;
   }
 }
 
 .categoriesImg {
   display: block;
-  margin: 0 auto;
-  margin-bottom: 10px;
+  margin: auto 0;
   width: 66px;
   height: 60px;
 }
@@ -40,8 +46,6 @@
 .lastCard .categoriesImg {
   width: 38px;
   height: 38px;
-  margin-bottom: 16px;
-  margin-top: 8px;
 }
 
 .categoriesWrap {
@@ -49,17 +53,30 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
+  margin-top: 7px;
+}
+
+@media (min-width: 576px) {
+  .categoriesCard {
+    .categoriesTitle {
+      font-size: variables.$font-size-medium;
+    }
+
+    .categoriesTitleLast {
+      width: 162px;
+      text-align: start;
+    }
+  }
+
+  .categoriesImg {
+    width: 104px;
+    height: 100px;
+  }
 }
 
 @media (min-width: 768px) {
   .categoriesCard {
-    height: 380px;
-
-    :global {
-      .ant-card-body {
-        padding-top: 120px;
-      }
-    }
+    padding-top: 120px;
 
     .categoriesTitle {
       font-size: variables.$font-size-l;
@@ -67,21 +84,15 @@
       letter-spacing: variables.$letter-spacing-narrow;
     }
 
-    .categoriesTitleLast{
+    .categoriesTitleLast {
       width: 192px;
       text-align: start;
     }
   }
 
   .categoriesImg {
-    margin-bottom: 60px;
     width: 154px;
     height: 150px;
-  }
-
-  .lastCard .categoriesImg {
-    margin-bottom: 99px;
-    margin-top: 40px;
   }
 
   .categoriesWrap {
@@ -97,35 +108,25 @@
 
 @media (min-width: 1400px) {
   .categoriesCard {
-    height: 400px;
-
-    :global {
-      .ant-card-body {
-        padding-top: 117px;
-      }
-    }
+    padding-top: 117px;
+    min-height: 342px;
+    aspect-ratio: 0;
 
     .categoriesTitle {
       font-family: variables.$font-family-second;
       font-size: variables.$font-size-ml;
       font-weight: variables.$font-weight-semibold;
-      line-height: variables.$line-height-medium;   
+      line-height: variables.$line-height-medium;
     }
 
-    .categoriesTitleLast{
+    .categoriesTitleLast {
       width: 180px;
       text-align: center;
     }
   }
 
   .categoriesImg {
-    margin-bottom: 64px;
     width: 160px;
     height: 156px;
-  }
-
-  .lastCard .categoriesImg {
-    margin-bottom: 73px;
-    margin-top: 68px;
   }
 }
