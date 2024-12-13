@@ -9,16 +9,14 @@
   padding: 0;
   margin: 0;
 
+  .ant-card-cover {
+    width: 100%;
+  }
+
   .ant-card-body {
     padding: 0;
     width: 100%;
   }
-
-  // .image-wrapper {
-  //   position: relative;
-  //   width: 320px;
-  //   height: 279px;
-  //   overflow: hidden;
 
   .product-image {
     width: 100%;
@@ -26,44 +24,43 @@
     object-fit: cover;
     border-radius: 5px;
   }
-  // }
 
-  .card-info {
-    display: flex;
-    justify-content: space-between;
-
-    .nameCardInfo {
-      margin-top: 20px;
-    }
-
-    .rating {
+  .card-description {
+    margin-top: 20px;
+    .card-info {
       display: flex;
-      align-items: center;
-      margin-top: 20px;
+      justify-content: space-between;
+      text-align: center;
+      padding-bottom: 16px;
 
-      .star-icon {
-        font-size: variables.$font-size-small;
-        color: variables.$primary;
-        margin-right: 5px;
-      }
+      .rating {
+        display: flex;
+        align-items: center;
 
-      .rating-value {
-        font-size: variables.$font-size-small;
-        color: variables.$primary;
-        font-weight: bold;
+        .star-icon {
+          font-size: variables.$font-size-small;
+          color: variables.$primary;
+          margin-right: 5px;
+        }
+
+        .rating-value {
+          font-size: variables.$font-size-small;
+          color: variables.$primary;
+          font-weight: bold;
+        }
       }
     }
-  }
 
-  .card-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: right;
-    width: 100%;
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: right;
+      width: 100%;
 
-    .price {
-      font-weight: bold;
-      color: variables.$text-primary;
+      .price {
+        font-weight: bold;
+        color: variables.$text-primary;
+      }
     }
   }
 }

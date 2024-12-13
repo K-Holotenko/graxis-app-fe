@@ -22,19 +22,19 @@ export const PopularGoodCard = ({
     hoverable
     cover={<img src={image} alt={name} className="product-image" />}
   >
-    {/* <div className="image-wrapper">
-    </div> */}
-    <div className="card-info">
-      <span className="nameCardInfo">{name}</span>
-      <div className="rating">
-        <StarFilled className="star-icon" />
-        <span className="rating-value">{rating.toFixed(1)}</span>
+    <section className="card-description">
+      <div className="card-info">
+        <span>{name}</span>
+        <div className="rating">
+          <StarFilled className="star-icon" />
+          <span className="rating-value">{rating.toFixed(1)}</span>
+        </div>
       </div>
-    </div>
-    <div className="card-bottom">
-      <span className="price">
-        {price} {TEXT.CURRENCY_PER_TIME}
-      </span>
-    </div>
+      <div className="card-bottom">
+        <span className="price">
+          {price} {TEXT.CURRENCY_PER_TIME}
+        </span>
+      </div>
+    </section>
   </Card>
 );
