@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { PopularGoodCard } from './index';
 
@@ -8,8 +8,6 @@ const mockedPopularGoodCardProps = {
   name: 'Test Product',
   rating: 4.8,
   price: 400,
-  isFavorite: false,
-  onFavoriteToggle: vi.fn(),
 };
 
 describe('PopularGoodCard', () => {
