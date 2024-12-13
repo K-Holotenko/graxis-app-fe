@@ -36,18 +36,24 @@ describe('FeedbackSectionCard', () => {
   });
 
   it('should render date correctly', () => {
-    const { getByText } = render(
+    const { getByTestId } = render(
       <FeedbackSectionCard feedback={mockedFeedbackSingleTest} />
     );
-    const date = getByText(
+    const fullDate = getByTestId('feedback-date');
+
+    expect(fullDate).toHaveTextContent(
       new Date(mockedFeedbackSingleTest.createdAt).toLocaleDateString('uk-UA', {
         day: 'numeric',
         month: 'long',
-        year: 'numeric',
-      })
+      }) +
+        ',' +
+        new Date(mockedFeedbackSingleTest.createdAt).toLocaleDateString(
+          'uk-UA',
+          {
+            year: 'numeric',
+          }
+        )
     );
-
-    expect(date).toBeInTheDocument();
   });
 
   it('should render name of the good correctly', () => {
