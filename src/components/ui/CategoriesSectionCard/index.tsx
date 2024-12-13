@@ -1,4 +1,4 @@
-import { Card, Typography } from 'antd';
+import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 
 import styles from './styles.module.scss';
@@ -27,8 +27,7 @@ export const CategoriesSectionCard = ({
     className={styles.categoriesLink}
     data-testid="categories-link"
   >
-    <Card
-      hoverable
+    <div
       className={`${styles.categoriesCard} ${isLast && styles.lastCard}`}
       data-testid="categories-card"
     >
@@ -55,6 +54,6 @@ export const CategoriesSectionCard = ({
           {categories.title}
         </Paragraph>
       )}
-    </Card>
+    </div>
   </Link>
 );
