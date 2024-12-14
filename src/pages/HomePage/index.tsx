@@ -9,7 +9,6 @@ import { HOME_PAGE_CONFIG } from 'src/pages/HomePage/utils/config';
 export const HomePage = () => (
   <PageContainer pageTitle={HOME_PAGE_CONFIG.PAGE_TITLE}>
     <AppLayout>
-      <div>Home</div>
       <HeroSection />
       <CategoriesSection />
       <PopularGoods />

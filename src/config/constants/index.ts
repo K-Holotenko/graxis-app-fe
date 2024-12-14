@@ -36,6 +36,8 @@ export const TEXT = {
   INPUT_PHONE: 'Введіть номер телефону',
 
   LOGIN: 'Увійти',
+  LOGOUT: 'Вийти',
+  MY_PUBLICATIONS: 'Мої оголошення',
 
   NO_ACCOUNT: 'Не має акаунту?',
 
@@ -54,7 +56,7 @@ export const TEXT = {
   SEND_SMS: 'Ми надішлемо смс для підтвердження номера',
   SEND_SMS_AGAIN: 'Надіслати повторно',
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
-
+  SETTINGS: 'Налаштування',
   SUBMIT: 'Продовжити',
 };
 
@@ -68,7 +70,7 @@ export const FORMS = {
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };
-export const HEADER_MOBILE_WIDTH = 905;
+export const HEADER_MOBILE_WIDTH = SCREEN_WIDTH.LG;
 
 export const IMAGE_DESCRIPTION = {
   LOGO: 'Logo',
