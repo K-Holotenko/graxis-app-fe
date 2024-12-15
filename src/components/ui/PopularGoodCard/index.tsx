@@ -24,7 +24,7 @@ export const PopularGoodCard = ({
   >
     <section className="card-description">
       <div className="card-info">
-        <span>{name}</span>
+        <span className="card-name">{name}</span>
         <div className="rating">
           <StarFilled className="star-icon" />
           <span className="rating-value">{rating.toFixed(1)}</span>
