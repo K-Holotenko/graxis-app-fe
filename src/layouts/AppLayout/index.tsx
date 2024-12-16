@@ -15,6 +15,7 @@ interface AppLayoutProps {
 export const AppLayout = ({ children }: AppLayoutProps) => {
   const isAddPublicationPage =
     window.location.pathname === ROUTES.ADD_PUBLICATION;
+
   return (
     <div className="app-layout">
       <Row>
