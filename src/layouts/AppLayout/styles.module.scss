@@ -2,4 +2,7 @@
 
 .greyBackground {
   background-color: variables.$add-publication-page-background;
+  @media (max-width: 576px) {
+    background-color: #ffff;
+  }
 }

@@ -7,6 +7,14 @@
   padding: 80px 100px;
   border-radius: 12px;
   box-shadow: 0 0 6px rgba(variables.$primary, 0.2);
+  @media (max-width: 576px) {
+    min-height: 50vh; //TEMPORARY value for container preview
+    padding: 0;
+    margin-top: 40px;
+    margin-bottom: 80px;
+    box-shadow: none;
+    border-radius: 0;
+  }
 }
 
 .header {
@@ -17,4 +25,12 @@
   color: variables.$primary;
   margin-top: 80px;
   margin-bottom: 40px;
+  @media (max-width: 576px) {
+    margin: 0;
+    padding-bottom: 32px;
+    font-size: 32px;
+    font-family: variables.$font-family-second;
+    font-weight: 500;
+    line-height: 125%;
+  }
 }
