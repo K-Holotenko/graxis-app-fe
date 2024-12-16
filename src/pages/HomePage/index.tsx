@@ -1,3 +1,4 @@
+import { CategoriesSection } from 'src/components/logic/CategoriesSection';
 import { FeedbackSection } from 'src/components/logic/FeedbackSection';
 import { HeroSection } from 'src/components/ui/HeroSection';
 import { PageContainer } from 'src/components/ui/PageContainer';
@@ -9,6 +10,7 @@ export const HomePage = () => (
   <PageContainer pageTitle={HOME_PAGE_CONFIG.PAGE_TITLE}>
     <AppLayout>
       <HeroSection />
+      <CategoriesSection />
       <PopularGoods />
       <FeedbackSection />
     </AppLayout>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Avatar } from 'antd';
+import { Row, Col, Avatar, Dropdown } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
@@ -7,7 +7,6 @@ import { Logo } from 'src/components/ui/Logo';
 import { useAuthStore } from 'src/stores/authStore';
 import { ReactComponent as DrawerIcon } from 'src/assets/icons/drawer-icon.svg';
 import { HEADER_MOBILE_WIDTH } from 'src/config/constants';
-import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { AddPublicationButton } from 'src/components/ui/AddPublicationButton';
 import { SignInButton } from 'src/components/ui/SignInButton';
@@ -15,8 +14,8 @@ import { NotificationBadge } from 'src/components/logic/NotificationBadge';
 import { ROUTES } from 'src/router/routes';
 
 import { AppHeaderDrawer } from './AppHeaderDrawer';
-
-import './styles.scss';
+import { AvatarMenu } from './AvatarMenu';
+import styles from './styles.module.scss';
 
 export const AppHeader = () => {
   const { width } = useWindowSize();
@@ -38,9 +37,9 @@ export const AppHeader = () => {
 
   return (
     <>
-      <section className="app-header-section">
+      <section>
         <div className="container">
-          <Row className="app-header" justify={'space-between'}>
+          <Row className={styles.appHeader} justify={'space-between'}>
             <Row gutter={16} align="middle">
               {!isDesktop && (
                 <Col>
@@ -49,7 +48,7 @@ export const AppHeader = () => {
               )}
 
               <Col>
-                <Logo />
+                <Logo className={styles.logo} />
               </Col>
 
               {isDesktop && (
@@ -74,22 +73,23 @@ export const AppHeader = () => {
 
               {!isAuthorized && isDesktop && (
                 <Col>
-                  <SignInButton onClick={() => {}} />
+                  <SignInButton onClick={() => navigate(ROUTES.LOGIN)} />
                 </Col>
               )}
 
               {isAuthorized && isDesktop && (
                 <Col>
-                  {/* temporarily, dropdown should be added, firstName and lastName should be selected from the store  */}
-                  <Avatar
-                    style={{
-                      backgroundColor: theme.success,
-                      height: 48,
-                      width: 48,
-                    }}
-                  >
-                    BC
-                  </Avatar>
+                  <div className={styles.dropdownMenu}>
+                    <Dropdown
+                      overlay={<AvatarMenu />}
+                      placement="bottom"
+                      trigger={['click']}
+                    >
+                      <Avatar size="large" className={styles.avatarLarge}>
+                        BC
+                      </Avatar>
+                    </Dropdown>
+                  </div>
                 </Col>
               )}
             </Row>

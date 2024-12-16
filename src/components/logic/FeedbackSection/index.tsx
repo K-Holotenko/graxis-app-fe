@@ -1,21 +1,14 @@
-import { Typography } from 'antd';
-
 import { FeedbackSectionCarousel } from 'src/components/ui/FeedbackSectionCarousel';
+import { HomeSectionTitle } from 'src/components/ui/HomeSectionTitle';
+import { TEXT } from 'src/config/constants';
 
-import { FEEDBACK_SECTION } from './utils/config';
 import styles from './styles.module.scss';
-
-const { Title } = Typography;
 
 export const FeedbackSection = () => (
   <section className={styles.feedbackSection} data-testid="feedback-section">
-    <Title
-      level={4}
-      className={styles.feedbackTitle}
-      data-testid="feedback-title"
-    >
-      {FEEDBACK_SECTION.TITLE}
-    </Title>
-    <FeedbackSectionCarousel />
+    <div className={styles.feedbackWrap}>
+      <HomeSectionTitle title={TEXT.FEEDBACKS} />
+      <FeedbackSectionCarousel />
+    </div>
   </section>
 );

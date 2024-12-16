@@ -12,6 +12,7 @@ export const TEXT = {
   AUTHORIZE: 'Авторизуватися',
 
   CATEGORIES: 'Категорії',
+  CATEGORIES_SECTION_TITLE: 'Категорії товарів',
   CHOOSE_LOCATION: 'Виберіть локацію',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
   CONTACT_US: 'Звʼяжіться з нами',
@@ -35,6 +36,8 @@ export const TEXT = {
   INPUT_PHONE: 'Введіть номер телефону',
 
   LOGIN: 'Увійти',
+  LOGOUT: 'Вийти',
+  MY_PUBLICATIONS: 'Мої оголошення',
 
   NO_ACCOUNT: 'Не має акаунту?',
 
@@ -42,6 +45,7 @@ export const TEXT = {
 
   PASSWORD: 'Пароль',
   PHONE: 'Номер телефону',
+  POPULAR_GOODS: 'Популярні товари',
   POPULAR_NOW: 'Популярне зараз',
 
   REGISTER: 'Зареєструватись',
@@ -52,7 +56,7 @@ export const TEXT = {
   SEND_SMS: 'Ми надішлемо смс для підтвердження номера',
   SEND_SMS_AGAIN: 'Надіслати повторно',
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
-
+  SETTINGS: 'Налаштування',
   SUBMIT: 'Продовжити',
 };
 
@@ -67,7 +71,7 @@ export const FORMS = {
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };
-export const HEADER_MOBILE_WIDTH = 905;
+export const HEADER_MOBILE_WIDTH = SCREEN_WIDTH.LG;
 
 export const IMAGE_DESCRIPTION = {
   LOGO: 'Logo',
@@ -115,7 +119,7 @@ export const SOCIAL_MEDIA_LIST = [
     name: 'Telegram',
     icon: TelegramIcon,
     alt: 'Telegram icon',
-    href: '',
+    href: 'https://t.me/+FB2vFZqthEVlMTAy',
   },
   {
     key: 'tiktok',
@@ -137,4 +141,11 @@ export const REGEXS = {
   lowerCaseLetter: /[a-z]/,
   digit: /\d/,
   specialChars: /[\W_]/,
+};
+
+export const CATEGORIES_CARD_NAME = {
+  POWER: 'Енергозабезпечення',
+  TECH: 'Техніка та електроніка',
+  OTHER: 'Інше',
+  SUGGESTION: 'Запропонуйте категорію',
 };
