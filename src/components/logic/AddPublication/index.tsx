@@ -1,7 +1,7 @@
 import { AddPublicationForm } from 'src/components/logic/Forms/AddPublicationForm';
+import { TEXT } from 'src/config/constants';
 
 import styles from './styles.module.scss';
-import { TEXT } from 'src/config/constants';
 
 export const AddPublication = () => (
   <section className={styles.section}>
