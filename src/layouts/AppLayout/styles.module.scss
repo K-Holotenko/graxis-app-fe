@@ -1,0 +1,10 @@
+@use 'src/assets/styles/variables';
+
+.greyBackground {
+  background-color: variables.$add-publication-page-background;
+}
+@media (max-width: 576px) {
+  .greyBackground {
+    background-color: #ffff;
+  }
+}

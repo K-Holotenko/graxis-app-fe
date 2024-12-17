@@ -24,6 +24,8 @@ export const AppHeader = () => {
   const { isAuthorized } = useAuthStore();
   const [showDrawer, setShowDrawer] = useState(false);
   const [isDesktop, setDesktop] = useState(false);
+  const shouldShowAddPublicationButton =
+    window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
   useEffect(() => {
     setDesktop(width > HEADER_MOBILE_WIDTH);
@@ -63,7 +65,7 @@ export const AppHeader = () => {
                 </Col>
               )}
 
-              {isDesktop && (
+              {isDesktop && shouldShowAddPublicationButton && (
                 <Col>
                   <AddPublicationButton onClick={onAddPublicationBtnClick} />
                 </Col>

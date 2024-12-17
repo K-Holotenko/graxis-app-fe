@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
@@ -22,7 +22,11 @@ describe('AppHeader', () => {
       isAuthorized: true,
     });
 
-    const { getByTestId } = render(<AppHeader />);
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <AppHeader />
+      </BrowserRouter>
+    );
     const addPublicationBtn = getByTestId('add-publication-btn');
 
     addPublicationBtn.click();
@@ -34,7 +38,11 @@ describe('AppHeader', () => {
       isAuthorized: false,
     });
 
-    const { getByTestId } = render(<AppHeader />);
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <AppHeader />
+      </BrowserRouter>
+    );
     const addPublicationBtn = getByTestId('add-publication-btn');
 
     addPublicationBtn.click();

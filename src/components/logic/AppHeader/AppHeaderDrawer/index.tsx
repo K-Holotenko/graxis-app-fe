@@ -24,6 +24,8 @@ interface AppHeaderDrawerProps {
 export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
   const { isAuthorized } = useAuthStore();
   const navigate = useNavigate();
+  const shouldShowAddPublicationButton =
+    window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
   const onAddPublicationBtnClick = () => {
     navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
@@ -67,15 +69,18 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
           </Col>
         </Row>
       )}
-      <Row>
-        <Col span={24}>
-          <AddPublicationButton
-            onClick={onAddPublicationBtnClick}
-            className={styles.addPublicationButton}
-            icon={<PlusIconDark />}
-          />
-        </Col>
-      </Row>
+      {shouldShowAddPublicationButton && (
+        <Row>
+          <Col span={24}>
+            <AddPublicationButton
+              onClick={onAddPublicationBtnClick}
+              className={styles.addPublicationButton}
+              icon={<PlusIconDark />}
+            />
+          </Col>
+        </Row>
+      )}
+
       <Row>
         <Col span={24}>
           <Typography style={{ fontSize: 13 }} className="pt-12 pb-12">
