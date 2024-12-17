@@ -1,16 +1,11 @@
 @use 'src/assets/styles/variables.scss';
 @use 'src/assets/styles/fonts.scss';
 
-.popular-goods-section {
-  padding-top: 160px;
-  padding-bottom: 132px;
-}
-
 .popular-goods {
   display: grid;
   gap: 24px;
   justify-content: center;
-  max-width: 1352px;
+  // max-width: 1352px;
   margin: 0 auto;
   padding: 24px;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -26,21 +21,15 @@
 }
 
 @media (min-width: 576px) {
-  .popular-goods-section {
-    padding-top: 80px;
-    padding-bottom: 39px;
-  }
   .popular-goods {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .card-name {
+    font-size: 12px;
   }
 }
 
 @media (min-width: 769px) {
-  .popular-goods-section {
-    padding-top: 100px;
-    padding-bottom: 120px;
-  }
-
   .popular-goods {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
@@ -48,11 +37,6 @@
 }
 
 @media (min-width: 992px) {
-  .popular-goods-section {
-    padding-top: 100px;
-    padding-bottom: 120px;
-  }
-
   .popular-goods {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
@@ -60,11 +44,6 @@
 }
 
 @media (min-width: 1400px) {
-  .popular-goods-section {
-    padding-top: 80px;
-    padding-bottom: 132px;
-  }
-
   .popular-goods {
     grid-template-columns: repeat(4, 1fr);
   }
