@@ -1,5 +1,5 @@
 import { Card } from 'antd';
-import { StarFilled, HeartOutlined, HeartFilled } from '@ant-design/icons';
+import { StarFilled } from '@ant-design/icons';
 
 import './styles.scss';
 import { TEXT } from 'src/config/constants';
@@ -9,8 +9,6 @@ export interface PopularGoodCardProps {
   name: string;
   rating: number;
   price: number;
-  isFavorite: boolean;
-  onFavoriteToggle: () => void;
 }
 
 export const PopularGoodCard = ({
@@ -18,31 +16,25 @@ export const PopularGoodCard = ({
   name,
   rating,
   price,
-  isFavorite,
-  onFavoriteToggle,
 }: PopularGoodCardProps) => (
-  <Card className="product-card" hoverable>
-    <div className="image-wrapper">
-      <img src={image} alt={name} className="product-image" />
-      <button onClick={onFavoriteToggle} className="favorite-icon">
-        {isFavorite ? (
-          <HeartFilled className="filled-heart" />
-        ) : (
-          <HeartOutlined />
-        )}
-      </button>
-    </div>
-    <div className="card-info">
-      <span>{name}</span>
-      <div className="rating">
-        <StarFilled className="star-icon" />
-        <span className="rating-value">{rating.toFixed(1)}</span>
+  <Card
+    className="product-card"
+    hoverable
+    cover={<img src={image} alt={name} className="product-image" />}
+  >
+    <section className="card-description">
+      <div className="card-info">
+        <span className="card-name">{name}</span>
+        <div className="rating">
+          <StarFilled className="star-icon" />
+          <span className="rating-value">{rating.toFixed(1)}</span>
+        </div>
       </div>
-    </div>
-    <div className="card-bottom">
-      <span className="price">
-        {price} {TEXT.CURRENCY_PER_TIME}
-      </span>
-    </div>
+      <div className="card-bottom">
+        <span className="price">
+          {price} {TEXT.CURRENCY_PER_TIME}
+        </span>
+      </div>
+    </section>
   </Card>
 );

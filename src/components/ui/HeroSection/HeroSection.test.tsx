@@ -10,7 +10,7 @@ describe('HeroSection', () => {
 
     expect(getByText('ТВОЯ ПЛАТФОРМА ДЛЯ ШЕРІНГУ')).toBeInTheDocument();
     expect(
-      getByText('Шерінг речей без зайвого клопоту коли завгодно, де завгодно')
+      getByText('Шерінг речей без зайвого клопоту, коли завгодно, де завгодно')
     ).toBeInTheDocument();
 
     const input = getByPlaceholderText('Пошук товару');

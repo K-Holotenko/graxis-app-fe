@@ -1,6 +1,47 @@
+@use 'src/assets/styles/variables.scss';
+@use 'src/assets/styles/fonts.scss';
+
 .popular-goods {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+  gap: 24px;
   justify-content: center;
+  margin: 0 auto;
+}
+
+.popular-goods-title {
+  font-family: variables.$font-family-second;
+  font-size: 48px;
+  margin-bottom: 80px;
+  text-align: center;
+  font-weight: 500;
+  color: variables.$primary;
+}
+
+@media (min-width: 576px) {
+  .popular-goods {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  .card-name {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 769px) {
+  .popular-goods {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (min-width: 992px) {
+  .popular-goods {
+    grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .popular-goods {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
