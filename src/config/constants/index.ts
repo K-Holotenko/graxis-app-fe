@@ -9,7 +9,7 @@ export const TEXT = {
   ADD_ANNOUNCEMENT: 'Додайте оголошення',
   ALLOW_DATA_PROCESSING:
     'Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача',
-  ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
+  ALREADY_HAVE_ACCOUNT: 'У вас є акаунт? ',
   AUTHORIZE: 'Авторизуватися',
 
   CATEGORIES: 'Категорії',
@@ -41,7 +41,7 @@ export const TEXT = {
   LOGOUT: 'Вийти',
   MY_PUBLICATIONS: 'Мої оголошення',
 
-  NO_ACCOUNT: 'Не має акаунту?',
+  NO_ACCOUNT: 'Немає акаунта? ',
 
   OR: 'Або',
 
@@ -50,7 +50,7 @@ export const TEXT = {
   POPULAR_GOODS: 'Популярні товари',
   POPULAR_NOW: 'Популярне зараз',
 
-  REGISTER: 'Зареєструватись',
+  REGISTER: 'Зареєструватися',
   RIGHTS: '© 2024 Graxis. Всі права захищено. Політика конфіденційності',
 
   SEC: 'c',

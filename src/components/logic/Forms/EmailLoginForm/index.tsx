@@ -7,6 +7,8 @@ import { FORMS, TEXT } from 'src/config/constants';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { useAuthStore } from 'src/stores/authStore';
 
+import './styles.css';
+
 interface EmailLoginFormValues {
   email: string;
   password: string;
