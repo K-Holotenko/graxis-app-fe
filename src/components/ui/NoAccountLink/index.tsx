@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 export const NoAccountLink = () => (
   <Typography>
-    {TEXT.NO_ACCOUNT}
+    {TEXT.NO_ACCOUNT}{' '}
     <Typography.Link
       href={ROUTES.REGISTRATION}
       className={styles.registerStyle}

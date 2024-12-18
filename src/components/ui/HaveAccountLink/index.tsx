@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 export const HaveAccountLink = () => (
   <Typography>
-    {TEXT.ALREADY_HAVE_ACCOUNT}
+    {TEXT.ALREADY_HAVE_ACCOUNT}{' '}
     <Typography.Link href={ROUTES.LOGIN} className={styles.authorizeStyle}>
       {TEXT.AUTHORIZE}
     </Typography.Link>
