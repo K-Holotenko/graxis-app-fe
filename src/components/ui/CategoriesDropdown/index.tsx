@@ -108,7 +108,7 @@ export const CategoriesDropdown = () => {
   const treeTheme = {
     components: {
       TreeSelect: {
-        controlItemBgHover: theme.hovercolor,
+        controlItemBgHover: theme.hoverColor,
         titleHeight: 46,
         controlItemBgActive: theme.lightGreenColor,
       },

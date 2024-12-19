@@ -26,8 +26,8 @@ export const theme = {
   letterSpacingNarrow: -0.02,
   categoryCardRadius: 24,
   fontSize22: 22,
-  hovercolor: '#f0f0f0',
-  lightGray: '#979797',
+  hoverColor: '#f0f0f0',
+  lightGrey: '#979797',
   outline: '#eaeaea',
   shadow: '#0000001a',
 };
