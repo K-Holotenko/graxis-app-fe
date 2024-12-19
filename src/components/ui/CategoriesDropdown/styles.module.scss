@@ -1,0 +1,105 @@
+@use 'src/assets/styles/variables';
+
+@mixin small-font {
+  font-size: variables.$font-size-small;
+  letter-spacing: variables.$letter-spacing-narrow;
+}
+
+@mixin large-font {
+  font-size: variables.$font-size-18;
+  line-height: variables.$line-height-medium;
+}
+
+.formItemLabel {
+  font-family: variables.$font-family-second;
+  font-weight: variables.$font-weight-semibold;
+  font-size: variables.$font-size-18;
+  line-height: variables.$line-height-tight;
+  letter-spacing: variables.$letter-spacing-narrow;
+  color: variables.$text-primary;
+  margin-bottom: 4px;
+}
+
+.categoriesDropdownTree {
+  width: 100%;
+  height: 46px;
+
+  & :hover {
+    cursor: pointer !important;
+  }
+
+  :global {
+    .ant-select-selector {
+      padding: 9px 0px 9px 24px !important;
+    }
+
+    .ant-select-selection-item {
+      padding-right: 60px !important;
+    }
+
+    .ant-select-tree-treenode-switcher-close {
+      padding-left: 12px;
+    }
+
+    .ant-select-tree-node-content-wrapper {
+      padding-top: 13px !important;
+      padding-bottom: 13px !important;
+      margin-left: -20px !important;
+      padding-left: 30px !important;
+    }
+
+    .ant-select-arrow {
+      padding-right: 20px;
+    }
+
+    .ant-select-clear {
+      padding-right: 33px;
+    }
+
+    .ant-tree-select-dropdown {
+      padding-left: 20px;
+      padding-right: 24px;
+      inset: 46px auto auto 0px !important;
+
+      .ant-select-tree-switcher {
+        margin-top: 15px;
+        right: 0px;
+        position: absolute;
+      }
+    }
+
+    .ant-select-selection-placeholder {
+      @include small-font;
+      color: variables.$N6;
+    }
+
+    .ant-select-selection-item {
+      @include small-font;
+      color: variables.$text-primary;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .formItemLabel {
+    font-size: variables.$font-size-xl;
+    line-height: variables.$line-height-medium;
+    margin-bottom: 12px;
+  }
+
+  .categoriesDropdownTree {
+    :global {
+      .ant-select-selection-placeholder {
+        @include large-font;
+      }
+
+      .ant-select-selection-item {
+        @include large-font;
+      }
+
+      .ant-select-tree-title {
+        @include large-font;
+      }
+    }
+  }
+}

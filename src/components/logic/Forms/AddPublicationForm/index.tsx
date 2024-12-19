@@ -3,6 +3,7 @@ import { Col, Form, Row } from 'antd';
 import { TextAreaFormItem } from 'src/components/ui/FormItems/TextAreaFormItem';
 import { FORMS, TEXT } from 'src/config/constants';
 import { VALIDATION_CONDITION } from 'src/config/validation';
+import { CategoriesDropdown } from 'src/components/ui/CategoriesDropdown';
 
 export const AddPublicationForm = () => {
   const onFinish = () => {};
@@ -36,6 +37,9 @@ export const AddPublicationForm = () => {
             showCount
             rules={[VALIDATION_CONDITION.REQUIRED]}
           />
+        </Col>
+        <Col span={24}>
+          <CategoriesDropdown />
         </Col>
       </Row>
     </Form>
