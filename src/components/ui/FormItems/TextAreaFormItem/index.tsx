@@ -26,6 +26,7 @@ export const TextAreaFormItem = ({
     label={<p className={styles.formItemLabel}>{label}</p>}
     name={name}
     rules={rules}
+    required={false}
   >
     <Input.TextArea
       placeholder={placeholder}
