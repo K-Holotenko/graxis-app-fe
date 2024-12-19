@@ -1,0 +1,5 @@
+@use 'src/assets/styles/variables';
+
+.registerStyle {
+  font-weight: variables.$font-weight-semibold;
+}

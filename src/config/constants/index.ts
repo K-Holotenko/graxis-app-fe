@@ -41,7 +41,7 @@ export const TEXT = {
   LOGOUT: 'Вийти',
   MY_PUBLICATIONS: 'Мої оголошення',
 
-  NO_ACCOUNT: 'Не має акаунту?',
+  NO_ACCOUNT: 'Немає акаунта?',
 
   OR: 'Або',
 
@@ -50,7 +50,7 @@ export const TEXT = {
   POPULAR_GOODS: 'Популярні товари',
   POPULAR_NOW: 'Популярне зараз',
 
-  REGISTER: 'Зареєструватись',
+  REGISTER: 'Зареєструватися',
   RIGHTS: '© 2024 Graxis. Всі права захищено. Політика конфіденційності',
 
   SEC: 'c',
