@@ -45,7 +45,6 @@ export const TEXT = {
   LOGOUT: 'Вийти',
   MY_PUBLICATIONS: 'Мої оголошення',
 
-
   NAME: 'Назва',
   NO_ACCOUNT: 'Не має акаунту?',
 
