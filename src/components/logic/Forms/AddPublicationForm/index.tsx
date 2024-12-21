@@ -1,6 +1,8 @@
-import { Form } from 'antd';
+import { Col, Form, Row } from 'antd';
 
-import { FORMS } from 'src/config/constants';
+import { TextAreaFormItem } from 'src/components/ui/FormItems/TextAreaFormItem';
+import { FORMS, TEXT } from 'src/config/constants';
+import { VALIDATION_CONDITION } from 'src/config/validation';
 
 export const AddPublicationForm = () => {
   const onFinish = () => {};
@@ -12,6 +14,30 @@ export const AddPublicationForm = () => {
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-    ></Form>
+    >
+      <Row gutter={[0, 40]}>
+        <Col span={24}>
+          <TextAreaFormItem
+            name="name"
+            label={TEXT.NAME}
+            placeholder={TEXT.INPUT_PUBLICATION_NAME}
+            maxLength={150}
+            showCount
+            rules={[VALIDATION_CONDITION.REQUIRED]}
+          />
+        </Col>
+        <Col span={24}>
+          <TextAreaFormItem
+            name="description"
+            label={TEXT.DESCRIPTION}
+            placeholder={TEXT.INPUT_PUBLICATION_DESCRIPTION}
+            maxLength={1000}
+            rows={8}
+            showCount
+            rules={[VALIDATION_CONDITION.REQUIRED]}
+          />
+        </Col>
+      </Row>
+    </Form>
   );
 };

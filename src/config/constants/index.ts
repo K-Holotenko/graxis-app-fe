@@ -19,6 +19,8 @@ export const TEXT = {
   CONTACT_US: 'Звʼяжіться з нами',
   CURRENCY_PER_TIME: 'грн / год',
 
+  DESCRIPTION: 'Опис',
+
   EMAIL: 'Пошта',
 
   FAST_LINKS: 'Швидкі посилання',
@@ -35,13 +37,17 @@ export const TEXT = {
   INPUT_EMAIL: 'Введіть пошту',
   INPUT_PASSWORD: 'Введіть пароль',
   INPUT_PHONE: 'Введіть номер телефону',
+  INPUT_PUBLICATION_DESCRIPTION: 'Введіть інформацію про товар',
+  INPUT_PUBLICATION_NAME: 'Введіть назву оголошення',
   INPUT_SEARCH: 'Пошук товару',
 
   LOGIN: 'Увійти',
   LOGOUT: 'Вийти',
   MY_PUBLICATIONS: 'Мої оголошення',
 
-  NO_ACCOUNT: 'Немає акаунта?',
+
+  NAME: 'Назва',
+  NO_ACCOUNT: 'Не має акаунту?',
 
   OR: 'Або',
 
