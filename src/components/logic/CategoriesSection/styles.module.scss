@@ -21,9 +21,11 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .categoriesList {
     grid-template-columns: repeat(4, 1fr);
+    overflow-y: hidden;
+    overflow-x: auto;
   }
 }
 

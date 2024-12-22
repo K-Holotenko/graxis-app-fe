@@ -57,6 +57,8 @@
 
 @media (min-width: 576px) {
   .categoriesCard {
+    padding-top: 65px;
+
     .categoriesTitle {
       font-size: variables.$font-size-medium;
     }
@@ -68,8 +70,8 @@
   }
 
   .categoriesImg {
-    width: 104px;
-    height: 100px;
+    width: 134px;
+    height: 130px;
   }
 }
 
@@ -106,32 +108,10 @@
   }
 }
 
-@media (min-width: 1200px) and (max-width: 1399px) {
+@media (min-width: 992px) {
   .categoriesCard {
-    .categoriesTitle {
-      font-size: variables.$font-size-22;
-    }
-
-    .categoriesWrap {
-      gap: 30px;
-    }
-
-    .categoriesTitleLast {
-      width: 160px;
-    }
-  }
-
-  .categoriesImg {
-    width: 104px;
-    height: 100px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .categoriesCard {
+    min-height: 320px;
     padding-top: 40px;
-    min-height: 342px;
-    aspect-ratio: 0;
 
     .categoriesTitle {
       font-family: variables.$font-family-second;
@@ -146,12 +126,7 @@
     }
   }
 
-  .categoriesImg {
-    width: 160px;
-    height: 156px;
-  }
-
   .lastCard .categoriesImg {
-    margin-top: 110px;
+    margin-top: 95px;
   }
 }
