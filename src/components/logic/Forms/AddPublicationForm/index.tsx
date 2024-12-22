@@ -1,7 +1,9 @@
-import { Form, Input, ConfigProvider } from 'antd';
+import { Form, Input, ConfigProvider, Col, Row } from 'antd';
 
-import { FORMS } from 'src/config/constants';
+import { FORMS, TEXT } from 'src/config/constants';
 import { ReactComponent as HryvniaIcon } from 'src/assets/icons/hryvnia.svg';
+import { TextAreaFormItem } from 'src/components/ui/FormItems/TextAreaFormItem';
+import { VALIDATION_CONDITION } from 'src/config/validation';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import s from './styles.module.scss';
@@ -74,6 +76,30 @@ export const AddPublicationForm = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
+      <Row gutter={[0, 40]}>
+        <Col span={24}>
+          <TextAreaFormItem
+            name="name"
+            label={TEXT.NAME}
+            placeholder={TEXT.INPUT_PUBLICATION_NAME}
+            maxLength={150}
+            showCount
+            rules={[VALIDATION_CONDITION.REQUIRED]}
+          />
+        </Col>
+        <Col span={24}>
+          <TextAreaFormItem
+            name="description"
+            label={TEXT.DESCRIPTION}
+            placeholder={TEXT.INPUT_PUBLICATION_DESCRIPTION}
+            maxLength={1000}
+            rows={8}
+            showCount
+            rules={[VALIDATION_CONDITION.REQUIRED]}
+          />
+        </Col>
+      </Row>
+
       <div className={s.priceInputsRow}>
         <ConfigProvider
           theme={{

@@ -1,5 +1,5 @@
 export const VALIDATION_MESSAGE = {
-  ALREADY_REGISTERED_EMAIL: 'Ця електрона пошта вже зареєстрована',
+  ALREADY_REGISTERED_EMAIL: 'Ця електронна пошта вже зареєстрована',
   AUTH_MESSAGE_ERROR: 'Виникла помилка. Спробуйте ще раз',
 
   CODE_VERIFY_ERR: 'Невірний код верифікації',
