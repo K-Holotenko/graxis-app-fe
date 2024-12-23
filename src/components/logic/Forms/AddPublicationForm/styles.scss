@@ -1,7 +1,8 @@
 @use 'src/assets/styles/variables';
 
-.formItemLabel {
+.addPublicationLabel {
   font-family: variables.$font-family-second;
   font-size: variables.$font-size-xl;
   font-weight: variables.$font-weight-semibold;
+  margin-bottom: 20px;
 }
