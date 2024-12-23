@@ -1,10 +1,35 @@
+@use 'src/assets/styles/variables.scss';
+
 .priceInputsRow {
   display: flex;
-  column-gap: 24px;
+  column-gap: 8px;
+  position: relative;
 }
 
 .priceInput {
   height: 48px;
   max-width: 187px;
   width: 100%;
+}
+
+.fieldError {
+  position: absolute;
+  color: #ff4d4f;
+  bottom: 0;
+}
+
+.test label::after {
+  content: none !important;
+}
+
+@media (min-width: variables.$breakpoint-md) {
+  .priceInputsRow {
+    column-gap: 19.5px;
+  }
+}
+
+@media (min-width: variables.$breakpoint-xl) {
+  .priceInputsRow {
+    column-gap: 24px;
+  }
 }
