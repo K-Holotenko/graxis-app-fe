@@ -15,7 +15,12 @@ type AddPublicationInputs = {
   priceMonth: string;
 };
 
-export const AddPublicationForm = () => {
+type AddPublicationFormProps = {
+  onFinish?: () => void;
+  onFinishFailed?: () => void;
+};
+
+export const AddPublicationForm = (props: AddPublicationFormProps) => {
   const [form] = Form.useForm();
 
   const onFinish = (values: AddPublicationInputs) => {
@@ -35,8 +40,8 @@ export const AddPublicationForm = () => {
       form={form}
       name={FORMS.ADD_PUBLICATION_FORM}
       layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      onFinish={props.onFinish || onFinish}
+      onFinishFailed={props.onFinishFailed || onFinishFailed}
     >
       <Row gutter={[0, 40]}>
         <Col span={24}>

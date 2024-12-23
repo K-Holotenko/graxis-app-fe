@@ -3,11 +3,12 @@ import { Form, Input, ConfigProvider } from 'antd';
 
 import { ReactComponent as HryvniaIcon } from 'src/assets/icons/hryvnia.svg';
 import { TEXT } from 'src/config/constants';
+import { toFixedWithoutRounding } from 'src/utils/toFixedWithoutRounding';
 
 import type { RuleRender } from 'rc-field-form/lib/interface';
 import s from './styles.module.scss';
 
-const inputs = [
+export const inputs = [
   { label: TEXT.HRYVNIAS_PER_DAY, name: 'priceDay' },
   { label: TEXT.HRYVNIAS_PER_WEEK, name: 'priceWeek' },
   { label: TEXT.HRYVNIAS_PER_MONTH, name: 'priceMonth' },
@@ -24,7 +25,7 @@ export function PriceInputs() {
     const decimals = value.split('.')[1];
 
     if (decimals?.length > 2) {
-      form.setFieldValue(inputName, Number(value).toFixed(2));
+      form.setFieldValue(inputName, `${toFixedWithoutRounding(value, 2)}`);
 
       return;
     }
