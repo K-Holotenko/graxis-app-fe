@@ -74,7 +74,7 @@ describe('PriceInputs', () => {
     await findByText(TEXT.MAX_VALUE(999_999));
   });
 
-  it('should strip more than 2 decimals', async () => {
+  it('should strip more than 2 decimals', () => {
     const { getByTestId, getByLabelText } = render(
       <Form layout="vertical">
         <PriceInputs />
@@ -88,7 +88,7 @@ describe('PriceInputs', () => {
     expect(getByLabelText(inputs[0].label)).toHaveValue(10.99);
   });
 
-  it('should add ".00" at the end', async () => {
+  it('should add ".00" at the end', () => {
     const { getByTestId, getByLabelText } = render(
       <Form layout="vertical">
         <PriceInputs />
