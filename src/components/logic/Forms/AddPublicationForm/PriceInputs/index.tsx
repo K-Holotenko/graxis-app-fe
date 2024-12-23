@@ -7,6 +7,12 @@ import { TEXT } from 'src/config/constants';
 import type { RuleRender } from 'rc-field-form/lib/interface';
 import s from './styles.module.scss';
 
+const inputs = [
+  { label: TEXT.HRYVNIAS_PER_DAY, name: 'priceDay' },
+  { label: TEXT.HRYVNIAS_PER_WEEK, name: 'priceWeek' },
+  { label: TEXT.HRYVNIAS_PER_MONTH, name: 'priceMonth' },
+];
+
 export function PriceInputs() {
   const [showRequiredErr, setShowRequiredErr] = useState(false);
   const form = Form.useFormInstance();
@@ -26,9 +32,7 @@ export function PriceInputs() {
     // restrict negative numbers
     form.setFieldValue(inputName, Number(value) < 0 ? '0' : value);
 
-    form
-      .validateFields(['priceDay', 'priceWeek', 'priceMonth'])
-      .catch(() => {});
+    form.validateFields(inputs.map((input) => input.name)).catch(() => {});
   };
 
   const onBlur = (inputName: string) => {
@@ -54,11 +58,7 @@ export function PriceInputs() {
         }
       }
 
-      if (
-        !getFieldValue('priceDay') &&
-        !getFieldValue('priceWeek') &&
-        !getFieldValue('priceMonth')
-      ) {
+      if (inputs.every((input) => !getFieldValue(input.name))) {
         setShowRequiredErr(true);
 
         return Promise.reject();
@@ -79,52 +79,24 @@ export function PriceInputs() {
             },
           }}
         >
-          <Form.Item
-            label={TEXT.HRYVNIAS_PER_DAY}
-            name="priceDay"
-            rules={[priceInputValidator]}
-            validateStatus={showRequiredErr ? 'error' : undefined}
-          >
-            <Input
-              type="number"
-              prefix={<HryvniaIcon />}
-              placeholder="0.00"
-              className={s.priceInput}
-              onChange={() => onChange('priceDay')}
-              onBlur={() => onBlur('priceDay')}
-            />
-          </Form.Item>
-          <Form.Item
-            label={TEXT.HRYVNIAS_PER_WEEK}
-            name="priceWeek"
-            rules={[priceInputValidator]}
-            className={s.middleFormItem}
-            validateStatus={showRequiredErr ? 'error' : undefined}
-          >
-            <Input
-              type="number"
-              prefix={<HryvniaIcon />}
-              placeholder="0.00"
-              className={s.priceInput}
-              onChange={() => onChange('priceWeek')}
-              onBlur={() => onBlur('priceWeek')}
-            />
-          </Form.Item>
-          <Form.Item
-            label={TEXT.HRYVNIAS_PER_MONTH}
-            name="priceMonth"
-            rules={[priceInputValidator]}
-            validateStatus={showRequiredErr ? 'error' : undefined}
-          >
-            <Input
-              type="number"
-              prefix={<HryvniaIcon />}
-              placeholder="0.00"
-              className={s.priceInput}
-              onChange={() => onChange('priceMonth')}
-              onBlur={() => onBlur('priceMonth')}
-            />
-          </Form.Item>
+          {inputs.map(({ label, name }) => (
+            <Form.Item
+              key={name}
+              label={label}
+              name={name}
+              rules={[priceInputValidator]}
+              validateStatus={showRequiredErr ? 'error' : undefined}
+            >
+              <Input
+                type="number"
+                prefix={<HryvniaIcon />}
+                placeholder="0.00"
+                className={s.priceInput}
+                onChange={() => onChange(name)}
+                onBlur={() => onBlur(name)}
+              />
+            </Form.Item>
+          ))}
         </ConfigProvider>
         {showRequiredErr && (
           <p className={`${s.inputsError} ant-form-item-explain-error`}>
