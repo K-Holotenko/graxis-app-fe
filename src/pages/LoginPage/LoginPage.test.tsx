@@ -12,7 +12,9 @@ describe('LoginPage', () => {
   it('renders PageContainer with the correct photo', () => {
     const { getByAltText } = render(
       <HelmetProvider>
-        <LoginPage />
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const mainPhoto = getByAltText('Auth image');
@@ -39,7 +41,9 @@ describe('LoginPage', () => {
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <LoginPage />
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const emailTabTitle = getByText(LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.TITLE);
@@ -50,7 +54,9 @@ describe('LoginPage', () => {
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <LoginPage />
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const phoneTabTitle = getByText(LOGIN_PAGE_CONFIG.FORM.PHONE_TAB.TITLE);
@@ -61,7 +67,9 @@ describe('LoginPage', () => {
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <LoginPage />
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const emailTitle = getByText(TEXT.EMAIL);
@@ -72,7 +80,9 @@ describe('LoginPage', () => {
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <LoginPage />
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const passwordTitle = getByText(TEXT.PASSWORD);
@@ -83,7 +93,9 @@ describe('LoginPage', () => {
   it('renders PageContainer with the correct title "OR"', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <LoginPage />
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const orTitle = getByText(TEXT.OR);
@@ -94,7 +106,9 @@ describe('LoginPage', () => {
   it('renders PageContainer with the correct text in submit button', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <LoginPage />
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const submitButtonText = getByText(TEXT.SUBMIT);
@@ -105,7 +119,9 @@ describe('LoginPage', () => {
   it('renders PageContainer with the correct text "Forgot password?" in button', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <LoginPage />
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const forgotPasswordButtonText = getByText(TEXT.SUBMIT);

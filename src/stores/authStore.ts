@@ -83,6 +83,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   signOut: async () => {
     await AuthService.signOut();
 
+    CookieService.deleteCookie('accessToken');
     set({ isAuthorized: false, user: {} });
   },
 

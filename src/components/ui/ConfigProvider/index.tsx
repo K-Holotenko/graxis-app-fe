@@ -8,15 +8,18 @@ const defaultData = {
     fontFamily: theme.fontFamily,
   },
   components: {
+    colorLinkHover: '#074A5E',
     Button: {
       colorPrimaryHover: '#074A5E',
+      colorPrimaryActive: theme.primaryColor,
       colorPrimary: theme.primaryColor,
       borderRadius: theme.buttonBorderRadius,
       fontSize: theme.fontSize16,
       controlOutline: 'none',
-      colorFillQuaternary: 'none',
-      boxShadowTertiary: 'none',
-      colorFillAlter: 'none',
+    },
+    Link: {
+      colorLinkHover: theme.primaryColor,
+      colorInfoHover: theme.primaryColor,
     },
     Checkbox: {
       colorPrimaryHover: theme.primaryColor,

@@ -1,5 +1,11 @@
 @use 'src/assets/styles/variables';
 
 .authorizeStyle {
-  font-weight: variables.$font-weight-semibold;
+  font-family: variables.$font-family;
+  font-weight: 600;
+  color: variables.$primary;
+}
+
+.authorizeStyle:hover {
+  color: #074a5e;
 }
