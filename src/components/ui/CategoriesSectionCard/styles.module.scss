@@ -15,7 +15,7 @@
 .categoriesCard {
   background-color: variables.$primary;
   border-radius: variables.$category-card-radius;
-  padding: 58px 0 24px 0;
+  padding: 45px 0 24px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -53,11 +53,12 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-top: 7px;
 }
 
 @media (min-width: 576px) {
   .categoriesCard {
+    padding-top: 65px;
+
     .categoriesTitle {
       font-size: variables.$font-size-medium;
     }
@@ -69,14 +70,15 @@
   }
 
   .categoriesImg {
-    width: 104px;
-    height: 100px;
+    width: 134px;
+    height: 130px;
   }
 }
 
 @media (min-width: 768px) {
   .categoriesCard {
-    padding-top: 120px;
+    padding-top: 80px;
+    min-height: 270px;
 
     .categoriesTitle {
       font-size: variables.$font-size-l;
@@ -106,11 +108,10 @@
   }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 992px) {
   .categoriesCard {
-    padding-top: 117px;
-    min-height: 342px;
-    aspect-ratio: 0;
+    min-height: 320px;
+    padding-top: 40px;
 
     .categoriesTitle {
       font-family: variables.$font-family-second;
@@ -125,8 +126,7 @@
     }
   }
 
-  .categoriesImg {
-    width: 160px;
-    height: 156px;
+  .lastCard .categoriesImg {
+    margin-top: 95px;
   }
 }
