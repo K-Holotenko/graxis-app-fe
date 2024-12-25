@@ -46,7 +46,7 @@ export const TEXT = {
   MY_PUBLICATIONS: 'Мої оголошення',
 
   NAME: 'Назва',
-  NO_ACCOUNT: 'Не має акаунту?',
+  NO_ACCOUNT: 'Немає акаунту?',
 
   OR: 'Або',
 

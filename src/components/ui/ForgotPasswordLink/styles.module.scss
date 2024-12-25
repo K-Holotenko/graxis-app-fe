@@ -1,11 +1,11 @@
 @use 'src/assets/styles/variables';
 
-.registerStyle {
+.link {
   font-family: variables.$font-family;
-  font-weight: 600;
+  font-weight: 500;
   color: variables.$primary;
 }
 
-.registerStyle:hover {
+.link:hover {
   color: #074a5e;
 }

@@ -1,18 +1,16 @@
-import { Typography } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 
 import styles from './styles.module.scss';
 
+// TODO this comopnent is the same as HaveAccountLink we can merge them
 export const NoAccountLink = () => (
-  <Typography>
+  <span>
     {TEXT.NO_ACCOUNT}{' '}
-    <Typography.Link
-      href={ROUTES.REGISTRATION}
-      className={styles.registerStyle}
-    >
+    <Link to={ROUTES.REGISTRATION} className={styles.registerStyle}>
       {TEXT.REGISTER}
-    </Typography.Link>
-  </Typography>
+    </Link>
+  </span>
 );

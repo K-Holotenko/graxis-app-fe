@@ -12,7 +12,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct photo', () => {
     const { getByAltText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const mainPhoto = getByAltText('Auth image');
@@ -42,7 +44,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const emailTabTitle = getByText(
@@ -55,7 +59,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const phoneTabTitle = getByText(
@@ -68,7 +74,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const emailTitle = getByText(TEXT.EMAIL);
@@ -79,7 +87,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const passwordTitle = getByText(TEXT.PASSWORD);
@@ -90,7 +100,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct confirmation password title', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const confirmationPasswordTitle = getByText(TEXT.CONFIRMATION_PASSWORD);
@@ -100,7 +112,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct text in checkbox', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const checkboxText = getByText(TEXT.ALLOW_DATA_PROCESSING);
@@ -111,7 +125,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct text in submit button', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const submitButtonText = getByText(TEXT.SUBMIT);
@@ -122,7 +138,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct title "OR"', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const orTitle = getByText(TEXT.OR);
@@ -149,7 +167,9 @@ describe('RegistrationPage', () => {
   it('renders PageContainer with the correct "Authorize" text', () => {
     const { getByText } = render(
       <HelmetProvider>
-        <RegistrationPage />
+        <MemoryRouter>
+          <RegistrationPage />
+        </MemoryRouter>
       </HelmetProvider>
     );
     const authorizeText = getByText(TEXT.AUTHORIZE);
