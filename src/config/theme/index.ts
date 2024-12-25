@@ -25,4 +25,5 @@ export const theme = {
   lineHeightLarge: 1.5,
   letterSpacingNarrow: -0.02,
   categoryCardRadius: 24,
+  fontSize22: 22,
 };

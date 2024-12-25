@@ -1,8 +1,12 @@
-import { Typography } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 
+import styles from './styles.module.scss';
+
 export const ForgotPasswordLink = () => (
-  <Typography.Link href={ROUTES.LOGIN}>{TEXT.FORGOT_PASSWORD}</Typography.Link>
+  <Link to={ROUTES.LOGIN} className={styles.link}>
+    {TEXT.FORGOT_PASSWORD}
+  </Link>
 );

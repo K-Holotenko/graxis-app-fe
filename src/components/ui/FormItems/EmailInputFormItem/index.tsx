@@ -3,10 +3,6 @@ import { Rule } from 'antd/es/form';
 
 import { REGEXS, TEXT } from 'src/config/constants';
 
-interface FieldType {
-  email: string;
-}
-
 interface EmailInputFormItemProps {
   label: string;
   rules?: Rule[];
@@ -28,7 +24,7 @@ export const EmailInputFormItem = ({
   };
 
   return (
-    <Form.Item<FieldType> label={label} name="email" rules={rules}>
+    <Form.Item label={label} name="email" rules={rules}>
       <Input placeholder={placeholder} onChange={onChange} />
     </Form.Item>
   );

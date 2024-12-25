@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Dropdown } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { SelectLocationBlock } from 'src/components/logic/SelectLocationBlock';
 import { Logo } from 'src/components/ui/Logo';
@@ -37,66 +37,62 @@ export const AppHeader = () => {
 
   return (
     <>
-      <section>
-        <div className="container">
-          <Row className={styles.appHeader} justify={'space-between'}>
-            <Row gutter={16} align="middle">
-              {!isDesktop && (
-                <Col>
-                  <DrawerIcon onClick={() => setShowDrawer(true)} />
-                </Col>
-              )}
-
+      <header className={`container ${styles.headerContainer}`}>
+        <Row className={styles.appHeader} justify={'space-between'}>
+          <Row gutter={16} align="middle">
+            {!isDesktop && (
               <Col>
-                <Logo className={styles.logo} />
+                <DrawerIcon onClick={() => setShowDrawer(true)} />
               </Col>
-
-              {isDesktop && (
-                <Col>
-                  <SelectLocationBlock />
-                </Col>
-              )}
-            </Row>
-
-            <Row gutter={30} align="middle">
-              {isAuthorized && (
-                <Col>
-                  <NotificationBadge />
-                </Col>
-              )}
-
-              {isDesktop && shouldShowAddPublicationButton && (
-                <Col>
-                  <AddPublicationButton onClick={onAddPublicationBtnClick} />
-                </Col>
-              )}
-
-              {!isAuthorized && isDesktop && (
-                <Col>
-                  <SignInButton onClick={() => navigate(ROUTES.LOGIN)} />
-                </Col>
-              )}
-
-              {isAuthorized && isDesktop && (
-                <Col>
-                  <div className={styles.dropdownMenu}>
-                    <Dropdown
-                      overlay={<AvatarMenu />}
-                      placement="bottom"
-                      trigger={['click']}
-                    >
-                      <Avatar size="large" className={styles.avatarLarge}>
-                        BC
-                      </Avatar>
-                    </Dropdown>
-                  </div>
-                </Col>
-              )}
-            </Row>
+            )}
+            <Col>
+              <Link to={ROUTES.HOME}>
+                <Logo className={styles.logo} />
+              </Link>
+            </Col>
+            {isDesktop && (
+              <Col>
+                <SelectLocationBlock />
+              </Col>
+            )}
           </Row>
-        </div>
-      </section>
-
+          <Row gutter={30} align="middle">
+            {isAuthorized && (
+              <Col>
+                <NotificationBadge />
+              </Col>
+            )}
+            {isDesktop && shouldShowAddPublicationButton && (
+              <Col>
+                <AddPublicationButton
+                  onClick={onAddPublicationBtnClick}
+                  className={styles.publicationButton}
+                />
+              </Col>
+            )}
+            {!isAuthorized && isDesktop && (
+              <Col>
+                <SignInButton onClick={() => navigate(ROUTES.LOGIN)} />
+              </Col>
+            )}
+            {isAuthorized && isDesktop && (
+              <Col>
+                <div className={styles.dropdownMenu}>
+                  <Dropdown
+                    overlay={<AvatarMenu />}
+                    placement="bottom"
+                    trigger={['click']}
+                  >
+                    <Avatar size="large" className={styles.avatarLarge}>
+                      BC
+                    </Avatar>
+                  </Dropdown>
+                </div>
+              </Col>
+            )}
+          </Row>
+        </Row>
+      </header>
       {showDrawer && (
         <AppHeaderDrawer
           open={showDrawer}

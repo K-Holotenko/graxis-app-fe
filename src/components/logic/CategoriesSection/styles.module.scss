@@ -7,14 +7,8 @@
 .categoriesList {
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-}
-
-@media (min-width: 576px) {
-  .categoriesList {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
 }
 
 @media (min-width: 768px) {
@@ -23,8 +17,15 @@
   }
 
   .categoriesList {
-    grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
     gap: 24px;
+  }
+}
+
+@media (min-width: 992px) {
+  .categoriesList {
+    grid-template-columns: repeat(4, 1fr);
+    overflow-y: hidden;
+    overflow-x: auto;
   }
 }
 
@@ -32,9 +33,5 @@
   .categoriesSection {
     margin-top: 134px;
     margin-bottom: 160px;
-  }
-
-  .categoriesList {
-    grid-template-columns: repeat(auto-fit, minmax(318px, 1fr));
   }
 }
