@@ -18,8 +18,17 @@ export function PriceInputs() {
   const [showRequiredErr, setShowRequiredErr] = useState(false);
   const form = Form.useFormInstance();
 
+  const minValue = 10;
+  const maxValue = 999_999;
+
   const onChange = (inputName: string) => {
     const value = form.getFieldValue(inputName);
+
+    if (+value > maxValue) {
+      form.setFieldValue(inputName, `${maxValue}`);
+
+      return;
+    }
 
     // Strip to 2 decimals
     const decimals = value.split('.')[1];
@@ -44,19 +53,10 @@ export function PriceInputs() {
 
   const priceInputValidator: RuleRender = ({ getFieldValue }) => ({
     validator(_: unknown, value: string) {
-      const minValue = 10;
-      const maxValue = 999_999;
-
       setShowRequiredErr(false);
 
-      if (value) {
-        if (+value < minValue) {
-          return Promise.reject(new Error(TEXT.MIN_VALUE(minValue)));
-        }
-
-        if (+value > maxValue) {
-          return Promise.reject(new Error(TEXT.MAX_VALUE(maxValue)));
-        }
+      if (value && +value < minValue) {
+        return Promise.reject(new Error(TEXT.MIN_VALUE(minValue)));
       }
 
       if (inputs.every((input) => !getFieldValue(input.name))) {
