@@ -11,7 +11,6 @@ interface AuthState {
   loginWithEmail: (email: string, password: string) => Promise<void>;
   registerWithEmail: (email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
-  loginWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
   setAuthorized: (state: boolean) => void;
   confirmationResult: ConfirmationResult | null;
