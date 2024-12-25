@@ -1,8 +1,5 @@
 @use 'src/assets/styles/variables';
 
 p.formItemLabel {
-  font-family: variables.$font-family-second;
-  font-size: variables.$font-size-xl;
-  font-weight: variables.$font-weight-semibold;
   margin-bottom: 12px;
 }
