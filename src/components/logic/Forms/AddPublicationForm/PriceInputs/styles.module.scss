@@ -6,6 +6,10 @@
   column-gap: 8px;
 }
 
+.label {
+  color: variables.$text-secondary;
+}
+
 .priceInput {
   height: 48px;
   max-width: 187px;

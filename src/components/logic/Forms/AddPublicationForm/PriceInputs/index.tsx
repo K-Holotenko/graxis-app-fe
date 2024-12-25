@@ -83,7 +83,7 @@ export function PriceInputs() {
           {inputs.map(({ label, name }) => (
             <Form.Item
               key={name}
-              label={label}
+              label={<span className={s.label}>{label}</span>}
               name={name}
               rules={[priceInputValidator]}
               validateStatus={showRequiredErr ? 'error' : undefined}
