@@ -8,6 +8,7 @@
   max-width: 1700px;
   margin: 0 auto;
 }
+
 .heroSection {
   h1 {
     font-family: variables.$font-family-second;
@@ -17,6 +18,7 @@
     line-height: 150%;
     font-weight: 500;
   }
+
   h2 {
     font-size: 48px;
     font-family: variables.$font-family;
@@ -26,17 +28,20 @@
     margin-bottom: 90px;
   }
 }
+
 .heroContent {
   max-width: 55%;
   padding-right: 8px;
   padding-top: 200px;
 }
+
 .heroSectionInput {
   height: 45px;
   border-color: variables.$text-secondary;
   margin-bottom: 80px;
   border-radius: 10px;
 }
+
 @media (max-width: 1286px) {
   .heroSectionContainer {
     .heroSection {
@@ -69,11 +74,13 @@
         font-size: 32px;
         margin-bottom: 32px;
       }
+
       h2 {
         font-size: 22px;
         margin-bottom: 20px;
       }
     }
+
     .heroSectionInput {
       margin-right: 20px;
     }
@@ -85,6 +92,7 @@
     background-size: 210px 210px;
     height: auto;
     background-position: top;
+
     .heroSection {
       padding: 0;
       h1 {
@@ -93,6 +101,7 @@
         margin-bottom: 10px;
         text-align: center;
       }
+
       h2 {
         font-size: 20px;
         margin-top: 40px 24px 44px 64px;
@@ -100,6 +109,7 @@
         text-align: center;
       }
     }
+
     .heroContent {
       padding-top: 201px;
       padding-right: 0;

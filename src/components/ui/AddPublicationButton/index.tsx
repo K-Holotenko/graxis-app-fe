@@ -1,11 +1,10 @@
 import { Button } from 'antd';
-import { ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 
 import { ButtonTypes, TEXT } from 'src/config/constants';
 import { ReactComponent as PlusIcon } from 'src/assets/icons/plus-icon.svg';
 
-interface AddPublicationButtonProps
-  extends React.ComponentProps<typeof Button> {
+interface AddPublicationButtonProps extends ComponentProps<typeof Button> {
   onClick: () => void;
   className?: string;
   type?: ButtonTypes;
@@ -30,6 +29,6 @@ export const AddPublicationButton = ({
     data-testid="add-publication-btn"
     {...props}
   >
-    {TEXT.ADD_ADVERTISEMENT}
+    {TEXT.ADD_PUBLICATION}
   </Button>
 );

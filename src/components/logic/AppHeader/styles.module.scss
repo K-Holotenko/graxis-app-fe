@@ -1,45 +1,56 @@
 @use 'src/assets/styles/variables.scss';
 
 .appHeader {
-  padding-top: 16px;
+  height: 80px;
 }
+
 .avatarLarge {
   cursor: pointer;
   background-color: variables.$success;
   height: 48px;
   width: 48px;
 }
+
 .dropdownMenu {
   text-align: center;
 }
 
-@media (max-width: 1400px) {
-  .app-header-section {
-    .container {
-      padding: 0 25px;
-    }
-  }
+.logo {
+  height: 14px !important;
 }
 
-@media (max-width: 1200px) {
+.publicationButton:hover {
+  cursor: pointer;
+}
+
+@media (min-width: 576px) {
   .logo {
-    height: 28px !important;
+    height: 14px !important;
   }
 }
 
-@media (max-width: 992px) {
+@media (min-width: 768px) {
+  .logo {
+    height: 18px !important;
+  }
+}
+
+@media (min-width: 992px) {
   .logo {
     height: 22px !important;
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 1200px) {
   .logo {
-    height: 18px !important;
+    height: 28px !important;
   }
 }
-@media (max-width: 576px) {
-  .logo {
-    height: 14px !important;
+
+@media (min-width: 1400px) {
+  .app-header-section {
+    .container {
+      padding: 0 25px;
+    }
   }
 }
