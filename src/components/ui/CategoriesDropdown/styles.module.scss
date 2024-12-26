@@ -1,15 +1,5 @@
 @use 'src/assets/styles/variables';
 
-@mixin small-font {
-  font-size: variables.$font-size-small;
-  letter-spacing: variables.$letter-spacing-narrow;
-}
-
-@mixin large-font {
-  font-size: variables.$font-size-18;
-  line-height: variables.$line-height-medium;
-}
-
 .formItemLabel {
   font-family: variables.$font-family-second;
   font-weight: variables.$font-weight-semibold;
@@ -23,61 +13,80 @@
 .categoriesDropdownTree {
   width: 100%;
   height: 46px;
+  font-size: variables.$font-size-small;
+  padding: 0;
+  display: flex;
+  align-items: center;
 
-  & :hover {
-    cursor: pointer !important;
+  .highlightedCategory {
+    background-color: variables.$hover-color;
+  }
+
+  .selectedCategory {
+    color: variables.$primary;
   }
 
   :global {
-    .ant-select-selector {
-      padding: 9px 0px 9px 24px !important;
-    }
-
     .ant-select-selection-item {
       padding-right: 60px !important;
     }
 
-    .ant-select-tree-treenode-switcher-close {
-      padding-left: 12px;
+    .ant-select-tree-indent-unit {
+      width: 24px !important;
     }
 
-    .ant-select-tree-node-content-wrapper {
-      padding-top: 13px !important;
-      padding-bottom: 13px !important;
-      margin-left: -20px !important;
-      padding-left: 30px !important;
-    }
-
-    .ant-select-arrow {
-      padding-right: 20px;
-    }
-
-    .ant-select-clear {
-      padding-right: 33px;
-    }
-
-    .ant-tree-select-dropdown {
-      padding-left: 20px;
-      padding-right: 24px;
-      inset: 46px auto auto 0px !important;
+    .popUp {
+      box-shadow:
+        inset -1px 0 0 0 variables.$hover-color,
+        0 3px 15px 0 variables.$shadow;
+      border: 1px solid variables.$outline;
 
       .ant-select-tree-switcher {
-        margin-top: 15px;
         right: 0px;
         position: absolute;
       }
     }
 
     .ant-select-selection-placeholder {
-      @include small-font;
-      color: variables.$N6;
+      font-size: variables.$font-size-small;
+      letter-spacing: variables.$letter-spacing-narrow;
+      color: variables.$light-gray;
+      margin-left: 16px;
     }
 
-    .ant-select-selection-item {
-      @include small-font;
-      color: variables.$text-primary;
+    .ant-select-tree-list-scrollbar {
+      margin-right: -20px;
     }
   }
+}
+
+.switcherIcon {
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.suffixIcon {
+  padding-right: 20px;
+  pointer-events: inherit !important;
+}
+
+.clearIcon {
+  transform: translateY(-7%);
+  right: 18px;
+  position: absolute;
+}
+
+.treeNode {
+  padding-left: 20px;
+  border-radius: 8px;
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.treeText {
+  font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -87,18 +96,15 @@
     margin-bottom: 12px;
   }
 
+  .treeText {
+    font-size: variables.$font-size-18;
+  }
+
   .categoriesDropdownTree {
     :global {
       .ant-select-selection-placeholder {
-        @include large-font;
-      }
-
-      .ant-select-selection-item {
-        @include large-font;
-      }
-
-      .ant-select-tree-title {
-        @include large-font;
+        font-size: variables.$font-size-18;
+        line-height: variables.$line-height-medium;
       }
     }
   }

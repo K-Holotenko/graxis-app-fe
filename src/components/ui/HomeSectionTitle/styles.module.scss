@@ -11,7 +11,6 @@
 
 @media (min-width: 768px) {
   .homeSectionTitle {
-    font-family: variables.$font-family;
     font-size: variables.$font-size-l;
     font-weight: variables.$font-weight-regular;
     line-height: variables.$line-height-tight;
@@ -21,7 +20,6 @@
 
 @media (min-width: 1400px) {
   .homeSectionTitle {
-    font-family: variables.$font-family-second;
     font-size: variables.$font-size-xxxl;
     font-weight: variables.$font-weight-semibold;
     margin-bottom: 80px;

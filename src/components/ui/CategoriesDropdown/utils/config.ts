@@ -4,184 +4,184 @@ export const CATEGORIES_DROP_DATA = [
   {
     value: 'energy',
     title: CATEGORIES_DROP_TEXT.energy,
-    disabled: true,
+    selectable: false,
     children: [
       {
         value: 'generators',
         title: CATEGORIES_DROP_TEXT.generators,
-        path: `${CATEGORIES_DROP_TEXT.generators}/${CATEGORIES_DROP_TEXT.energy}`,
+        path: `${CATEGORIES_DROP_TEXT.energy}/${CATEGORIES_DROP_TEXT.generators}`,
       },
       {
         value: 'stations',
         title: CATEGORIES_DROP_TEXT.stations,
-        path: `${CATEGORIES_DROP_TEXT.stations}/${CATEGORIES_DROP_TEXT.energy}`,
+        path: `${CATEGORIES_DROP_TEXT.energy}/${CATEGORIES_DROP_TEXT.stations}`,
       },
       {
         value: 'lighting',
         title: CATEGORIES_DROP_TEXT.lighting,
-        path: `${CATEGORIES_DROP_TEXT.lighting}/${CATEGORIES_DROP_TEXT.energy}`,
+        path: `${CATEGORIES_DROP_TEXT.energy}/${CATEGORIES_DROP_TEXT.lighting}`,
       },
     ],
   },
   {
     value: 'tech',
     title: CATEGORIES_DROP_TEXT.tech,
-    disabled: true,
+    selectable: false,
     children: [
       {
         value: 'photoVideo',
         title: CATEGORIES_DROP_TEXT.photoVideo,
-        disabled: true,
+        selectable: false,
         children: [
           {
             value: 'cameras',
             title: CATEGORIES_DROP_TEXT.cameras,
-            path: `${CATEGORIES_DROP_TEXT.cameras}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.cameras}`,
           },
           {
             value: 'videoCameras',
             title: CATEGORIES_DROP_TEXT.videoCameras,
             path:
-              `${CATEGORIES_DROP_TEXT.videoCameras}/` +
+              `${CATEGORIES_DROP_TEXT.tech}/` +
               `${CATEGORIES_DROP_TEXT.photoVideo}/` +
-              `${CATEGORIES_DROP_TEXT.tech}`,
+              `${CATEGORIES_DROP_TEXT.videoCameras}`,
           },
           {
             value: 'actionCameras',
             title: CATEGORIES_DROP_TEXT.actionCameras,
             path:
-              `${CATEGORIES_DROP_TEXT.actionCameras}/` +
+              `${CATEGORIES_DROP_TEXT.tech}/` +
               `${CATEGORIES_DROP_TEXT.photoVideo}/` +
-              `${CATEGORIES_DROP_TEXT.tech}`,
+              `${CATEGORIES_DROP_TEXT.actionCameras}`,
           },
           {
             value: 'lenses',
             title: CATEGORIES_DROP_TEXT.lenses,
-            path: `${CATEGORIES_DROP_TEXT.lenses}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.lenses}`,
           },
           {
             value: 'tripods',
             title: CATEGORIES_DROP_TEXT.tripods,
-            path: `${CATEGORIES_DROP_TEXT.tripods}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.tripods}`,
           },
           {
             value: 'flashes',
             title: CATEGORIES_DROP_TEXT.flashes,
-            path: `${CATEGORIES_DROP_TEXT.flashes}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.flashes}`,
           },
           {
             value: 'accessories',
             title: CATEGORIES_DROP_TEXT.accessories,
-            path: `${CATEGORIES_DROP_TEXT.accessories}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.accessories}`,
           },
           {
             value: 'optics',
             title: CATEGORIES_DROP_TEXT.optics,
-            path: `${CATEGORIES_DROP_TEXT.optics}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.photoVideo}/${CATEGORIES_DROP_TEXT.optics}`,
           },
         ],
       },
       {
         value: 'audio',
         title: CATEGORIES_DROP_TEXT.audio,
-        disabled: true,
+        selectable: false,
         children: [
           {
             value: 'mp3Players',
             title: CATEGORIES_DROP_TEXT.mp3Players,
-            path: `${CATEGORIES_DROP_TEXT.mp3Players}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.mp3Players}`,
           },
           {
             value: 'boomboxes',
             title: CATEGORIES_DROP_TEXT.boomboxes,
-            path: `${CATEGORIES_DROP_TEXT.boomboxes}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.boomboxes}`,
           },
           {
             value: 'musicCenters',
             title: CATEGORIES_DROP_TEXT.musicCenters,
-            path: `${CATEGORIES_DROP_TEXT.musicCenters}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.musicCenters}`,
           },
           {
             value: 'speakers',
             title: CATEGORIES_DROP_TEXT.speakers,
-            path: `${CATEGORIES_DROP_TEXT.speakers}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.speakers}`,
           },
           {
             value: 'headphones',
             title: CATEGORIES_DROP_TEXT.headphones,
-            path: `${CATEGORIES_DROP_TEXT.headphones}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.headphones}`,
           },
           {
             value: 'radios',
             title: CATEGORIES_DROP_TEXT.radios,
-            path: `${CATEGORIES_DROP_TEXT.radios}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.radios}`,
           },
           {
             value: 'portableSpeakers',
             title: CATEGORIES_DROP_TEXT.portableSpeakers,
-            path: `${CATEGORIES_DROP_TEXT.portableSpeakers}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.portableSpeakers}`,
           },
           {
             value: 'amplifiers',
             title: CATEGORIES_DROP_TEXT.amplifiers,
-            path: `${CATEGORIES_DROP_TEXT.amplifiers}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.amplifiers}`,
           },
           {
             value: 'otherAudio',
             title: CATEGORIES_DROP_TEXT.otherAudio,
-            path: `${CATEGORIES_DROP_TEXT.otherAudio}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.tech}`,
+            path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.audio}/${CATEGORIES_DROP_TEXT.otherAudio}`,
           },
         ],
       },
       {
         value: 'consoles',
         title: CATEGORIES_DROP_TEXT.consoles,
-        disabled: true,
+        selectable: false,
         children: [
           {
             value: 'tvConsoles',
             title: CATEGORIES_DROP_TEXT.tvConsoles,
             path:
-              `${CATEGORIES_DROP_TEXT.tvConsoles}/` +
+              `${CATEGORIES_DROP_TEXT.tech}/` +
               `${CATEGORIES_DROP_TEXT.consoles}/` +
-              `${CATEGORIES_DROP_TEXT.tech}`,
+              `${CATEGORIES_DROP_TEXT.tvConsoles}`,
           },
           {
             value: 'gamingConsoles',
             title: CATEGORIES_DROP_TEXT.gamingConsoles,
             path:
-              `${CATEGORIES_DROP_TEXT.gamingConsoles}/` +
+              `${CATEGORIES_DROP_TEXT.tech}/` +
               `${CATEGORIES_DROP_TEXT.consoles}/` +
-              `${CATEGORIES_DROP_TEXT.tech}`,
+              `${CATEGORIES_DROP_TEXT.gamingConsoles}`,
           },
         ],
       },
       {
         value: 'projectors',
         title: CATEGORIES_DROP_TEXT.projectors,
-        path: `${CATEGORIES_DROP_TEXT.projectors}/${CATEGORIES_DROP_TEXT.tech}`,
+        path: `${CATEGORIES_DROP_TEXT.tech}/${CATEGORIES_DROP_TEXT.projectors}`,
       },
     ],
   },
   {
     value: 'other',
     title: CATEGORIES_DROP_TEXT.other,
-    disabled: true,
+    selectable: false,
     children: [
       {
         value: 'books',
         title: CATEGORIES_DROP_TEXT.books,
-        path: `${CATEGORIES_DROP_TEXT.books}/${CATEGORIES_DROP_TEXT.other}`,
+        path: `${CATEGORIES_DROP_TEXT.other}/${CATEGORIES_DROP_TEXT.books}`,
       },
       {
         value: 'games',
         title: CATEGORIES_DROP_TEXT.games,
-        path: `${CATEGORIES_DROP_TEXT.games}/${CATEGORIES_DROP_TEXT.other}`,
+        path: `${CATEGORIES_DROP_TEXT.other}/${CATEGORIES_DROP_TEXT.games}`,
       },
       {
         value: 'kidsProducts',
         title: CATEGORIES_DROP_TEXT.kids,
-        path: `${CATEGORIES_DROP_TEXT.kids}/${CATEGORIES_DROP_TEXT.other}`,
+        path: `${CATEGORIES_DROP_TEXT.other}/${CATEGORIES_DROP_TEXT.kids}`,
       },
     ],
   },

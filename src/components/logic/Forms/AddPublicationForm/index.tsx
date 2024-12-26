@@ -15,8 +15,12 @@ export const AddPublicationForm = () => {
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      requiredMark={false}
     >
       <Row gutter={[0, 40]}>
+        <Col span={24}>
+          <CategoriesDropdown />
+        </Col>
         <Col span={24}>
           <TextAreaFormItem
             name="name"
@@ -37,9 +41,6 @@ export const AddPublicationForm = () => {
             showCount
             rules={[VALIDATION_CONDITION.REQUIRED]}
           />
-        </Col>
-        <Col span={24}>
-          <CategoriesDropdown />
         </Col>
       </Row>
     </Form>

@@ -1,4 +1,6 @@
+import { useCallback, useState } from 'react';
 import { ConfigProvider, Form, TreeSelect } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 import { ReactComponent as ClearIcon } from 'src/assets/icons/clear-icon.svg';
 import { TEXT } from 'src/config/constants';
@@ -7,11 +9,42 @@ import { theme } from 'src/config/theme';
 import styles from './styles.module.scss';
 import { CATEGORIES_DROP_DATA } from './utils/config';
 
+interface Category {
+  title: string;
+  value: string;
+  children?: Category[];
+}
+
+const findCategoryPath = (category: Category, tree: Category[]): string[] => {
+  for (const node of tree) {
+    if (node.value === category.value) {
+      return [node.value];
+    }
+
+    if (node.children) {
+      const childPath = findCategoryPath(category, node.children);
+
+      if (childPath.length > 0) {
+        return [node.value, ...childPath];
+      }
+    }
+  }
+
+  return [];
+};
+
 export const CategoriesDropdown = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [highlightedPath, setHighlightedPath] = useState<string[]>([]);
+  const [treeData, setTreeData] = useState(CATEGORIES_DROP_DATA);
+  const [treeKey, setTreeKey] = useState(0);
+
   const handleTreeNodeClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const target = e.target as HTMLElement;
-    const parentNode = target.closest('.ant-select-tree-treenode');
+    const parentNode = target.closest(
+      '.ant-select-tree-treenode'
+    ) as HTMLElement;
 
     if (parentNode) {
       const switcher = parentNode.querySelector('.ant-select-tree-switcher');
@@ -22,37 +55,101 @@ export const CategoriesDropdown = () => {
     }
   };
 
+  const handleNodeClick = useCallback((nodeData: Category) => {
+    if (!nodeData.children?.length) {
+      setSelectedCategory(nodeData.value);
+
+      const newHighlightedPath = findCategoryPath(
+        nodeData,
+        CATEGORIES_DROP_DATA
+      );
+
+      setHighlightedPath(newHighlightedPath);
+    } else {
+      setHighlightedPath((prevPath) => {
+        if (prevPath.includes(nodeData.value)) {
+          return prevPath.filter((item) => item !== nodeData.value);
+        }
+
+        return [...prevPath, nodeData.value];
+      });
+    }
+  }, []);
+
+  const treeTitleRender = (nodeData: Category) => {
+    const isHighlighted = highlightedPath.includes(nodeData.value);
+    const isSelected =
+      selectedCategory === nodeData.value && !nodeData.children?.length;
+
+    return (
+      <div
+        onClick={() => handleNodeClick(nodeData)}
+        className={`${styles.treeNode} ${
+          isSelected ? styles.selectedCategory : ''
+        } ${
+          isHighlighted && nodeData.children?.length
+            ? styles.highlightedCategory
+            : ''
+        }`}
+      >
+        <p className={styles.treeText}>{nodeData.title}</p>
+      </div>
+    );
+  };
+
+  const handleClear = () => {
+    setSelectedCategory(null);
+    setHighlightedPath([]);
+    setTreeData([]);
+    setTreeData(CATEGORIES_DROP_DATA);
+    setTreeKey((prev) => prev + 1);
+  };
+
+  const treeTheme = {
+    components: {
+      TreeSelect: {
+        controlItemBgHover: theme.hovercolor,
+        titleHeight: 46,
+        controlItemBgActive: theme.lightGreenColor,
+      },
+    },
+  };
+
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          TreeSelect: {
-            controlItemBgActive: theme.lightGreenColor,
-            controlItemBgHover: theme.hovercolor,
-            colorBgTextActive: theme.primaryColor,
-            colorTextDisabled: theme.textPrimaryColor,
-          },
-        },
-      }}
-    >
+    <ConfigProvider theme={treeTheme}>
       <Form.Item
         label={
           <span className={styles.formItemLabel}>{TEXT.CHOOSE_CATEGORY}</span>
         }
         name="category"
-        layout="vertical"
         rules={[{ required: true, message: TEXT.CHOOSE_CATEGORY }]}
       >
         <TreeSelect
+          onClear={handleClear}
+          dropdownStyle={{
+            paddingBottom: 0,
+            paddingTop: 0,
+            paddingLeft: 8,
+            paddingRight: 14,
+          }}
+          popupClassName="popUp"
           className={styles.categoriesDropdownTree}
-          treeData={CATEGORIES_DROP_DATA}
+          treeData={treeData}
           placeholder={TEXT.CHOOSE_CATEGORY}
           getPopupContainer={(triggerNode) => triggerNode.parentNode}
           onClick={handleTreeNodeClick}
-          treeNodeLabelProp="path"
           allowClear={{
-            clearIcon: <ClearIcon />,
+            clearIcon: <ClearIcon className={styles.clearIcon} />,
           }}
+          switcherIcon={
+            <DownOutlined
+              className={styles.switcherIcon}
+              data-switcher="true"
+            />
+          }
+          suffixIcon={<DownOutlined className={styles.suffixIcon} />}
+          treeTitleRender={treeTitleRender}
+          key={treeKey}
         />
       </Form.Item>
     </ConfigProvider>
