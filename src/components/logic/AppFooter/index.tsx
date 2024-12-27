@@ -15,14 +15,7 @@ const { Link, Text } = Typography;
 export const AppFooter = () => (
   <section className={styles.appFooterSection}>
     <div className="container">
-      <ConfigProvider
-        theme={{
-          token: {
-            colorText: theme.primaryColor,
-            colorLink: theme.primaryColor,
-          },
-        }}
-      >
+      <ConfigProvider theme={localTheme}>
         <Row className={styles.footerRow}>
           <Col span={24} xl={{ span: 10 }} className={styles.footerColLogo}>
             <Logo />
@@ -62,7 +55,6 @@ export const AppFooter = () => (
           </Col>
         </Row>
       </ConfigProvider>
-
       <Row>
         <Col span={24} className={styles.footerRights}>
           {TEXT.RIGHTS}
@@ -71,3 +63,10 @@ export const AppFooter = () => (
     </div>
   </section>
 );
+
+const localTheme = {
+  token: {
+    colorText: theme.primaryColor,
+    colorLink: theme.primaryColor,
+  },
+};
