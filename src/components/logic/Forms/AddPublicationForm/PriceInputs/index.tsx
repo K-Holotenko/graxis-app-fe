@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Form, Input, ConfigProvider } from 'antd';
+import clsx from 'clsx';
 
 import { ReactComponent as HryvniaIcon } from 'src/assets/icons/hryvnia.svg';
 import { TEXT } from 'src/config/constants';
@@ -80,13 +81,14 @@ export function PriceInputs() {
             },
           }}
         >
-          {inputs.map(({ label, name }) => (
+          {inputs.map(({ label, name }, i) => (
             <Form.Item
               key={name}
               label={<span className={s.label}>{label}</span>}
               name={name}
               rules={[priceInputValidator]}
               validateStatus={showRequiredErr ? 'error' : undefined}
+              className={clsx({ [s.middleFormItem]: i === 1 })}
             >
               <Input
                 type="number"

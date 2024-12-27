@@ -14,6 +14,7 @@
   height: 48px;
   max-width: 187px;
   width: 100%;
+  font-size: variables.$font-size-small;
 }
 
 .middleFormItem label::after {
@@ -29,6 +30,10 @@
 @media (min-width: variables.$breakpoint-md) {
   .priceInputsRow {
     column-gap: 19px;
+  }
+
+  .priceInput {
+    font-size: variables.$font-size-medium;
   }
 }
 

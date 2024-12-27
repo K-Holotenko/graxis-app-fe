@@ -69,7 +69,7 @@ export const TEXT = {
   HRYVNIAS_PER_DAY: 'грн/день',
   HRYVNIAS_PER_WEEK: 'грн/тиждень',
   HRYVNIAS_PER_MONTH: 'грн/місяць',
-  SET_AT_LEAST_ONE_PRICE: 'Принаймі одна ціна має бути вказана',
+  SET_AT_LEAST_ONE_PRICE: 'Принаймні одна ціна має бути вказана',
   MIN_VALUE: (minValue: number | string) => `Мінімальне значення ${minValue}`,
   MAX_VALUE: (maxValue: number | string) => `Максимальне значення ${maxValue}`,
 };
