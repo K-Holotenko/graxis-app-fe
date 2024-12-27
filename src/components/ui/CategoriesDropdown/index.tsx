@@ -105,18 +105,18 @@ export const CategoriesDropdown = () => {
     setTreeKey((prev) => prev + 1);
   };
 
-  const treeTheme = {
-    components: {
-      TreeSelect: {
-        controlItemBgHover: theme.hoverColor,
-        titleHeight: 46,
-        controlItemBgActive: theme.lightGreenColor,
-      },
-    },
-  };
-
   return (
-    <ConfigProvider theme={treeTheme}>
+    <ConfigProvider
+      theme={{
+        components: {
+          TreeSelect: {
+            controlItemBgHover: theme.hoverColor,
+            controlItemBgActive: theme.lightGreenColor,
+            titleHeight: 46,
+          },
+        },
+      }}
+    >
       <Form.Item
         label={
           <span className={styles.formItemLabel}>{TEXT.CHOOSE_CATEGORY}</span>
@@ -141,12 +141,7 @@ export const CategoriesDropdown = () => {
           allowClear={{
             clearIcon: <ClearIcon className={styles.clearIcon} />,
           }}
-          switcherIcon={
-            <DownOutlined
-              className={styles.switcherIcon}
-              data-switcher="true"
-            />
-          }
+          switcherIcon={<DownOutlined className={styles.switcherIcon} />}
           suffixIcon={<DownOutlined className={styles.suffixIcon} />}
           treeTitleRender={treeTitleRender}
           key={treeKey}

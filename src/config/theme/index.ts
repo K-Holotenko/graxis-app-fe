@@ -30,4 +30,5 @@ export const theme = {
   lightGrey: '#979797',
   outline: '#eaeaea',
   shadow: '#0000001a',
+  fontSize14: 14,
 };
