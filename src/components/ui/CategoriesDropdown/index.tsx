@@ -106,17 +106,7 @@ export const CategoriesDropdown = () => {
   };
 
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          TreeSelect: {
-            controlItemBgHover: theme.hoverColor,
-            controlItemBgActive: theme.lightGreenColor,
-            titleHeight: 46,
-          },
-        },
-      }}
-    >
+    <ConfigProvider theme={localTheme}>
       <Form.Item
         label={
           <span className={styles.formItemLabel}>{TEXT.CHOOSE_CATEGORY}</span>
@@ -149,4 +139,14 @@ export const CategoriesDropdown = () => {
       </Form.Item>
     </ConfigProvider>
   );
+};
+
+const localTheme = {
+  components: {
+    TreeSelect: {
+      controlItemBgHover: theme.hoverColor,
+      titleHeight: 46,
+      controlItemBgActive: theme.lightGreenColor,
+    },
+  },
 };
