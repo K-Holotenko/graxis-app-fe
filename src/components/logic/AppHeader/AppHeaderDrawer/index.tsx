@@ -52,18 +52,7 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
       {!isAuthorized && (
         <Row>
           <Col span={24}>
-            <ConfigProvider
-              theme={{
-                components: {
-                  Button: {
-                    colorPrimary: theme.lightGreenColor,
-                    colorText: theme.lightGreenColor,
-                    colorBgContainer: theme.primaryColor,
-                    colorBorder: theme.lightGreenColor,
-                  },
-                },
-              }}
-            >
+            <ConfigProvider theme={localTheme}>
               <SignInButton onClick={() => {}} icon={<UserIconDark />} />
             </ConfigProvider>
           </Col>
@@ -95,4 +84,15 @@ export const AppHeaderDrawer = ({ open, onClose }: AppHeaderDrawerProps) => {
       </Row>
     </Drawer>
   );
+};
+
+const localTheme = {
+  components: {
+    Button: {
+      colorPrimary: theme.lightGreenColor,
+      colorText: theme.lightGreenColor,
+      colorBgContainer: theme.primaryColor,
+      colorBorder: theme.lightGreenColor,
+    },
+  },
 };
