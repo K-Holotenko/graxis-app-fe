@@ -9,16 +9,16 @@ import { VALIDATION_CONDITION } from 'src/config/validation';
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import { PriceInputs } from './PriceInputs';
 
-type AddPublicationInputs = {
+interface AddPublicationInputs {
   priceDay: string;
   priceWeek: string;
   priceMonth: string;
-};
+}
 
-type AddPublicationFormProps = {
+interface AddPublicationFormProps {
   onFinish?: () => void;
   onFinishFailed?: () => void;
-};
+}
 
 export const AddPublicationForm = (props: AddPublicationFormProps) => {
   const [form] = Form.useForm();

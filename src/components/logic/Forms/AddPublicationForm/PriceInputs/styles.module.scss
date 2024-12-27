@@ -23,8 +23,11 @@
 
 .inputsError {
   position: absolute;
-  color: #ff4d4f;
+  color: variables.$error;
   bottom: 0;
+  font-size: variables.$font-size-small;
+  font-weight: variables.$font-weight-semibold;
+  line-height: variables.$line-height-large;
 }
 
 @media (min-width: variables.$breakpoint-md) {

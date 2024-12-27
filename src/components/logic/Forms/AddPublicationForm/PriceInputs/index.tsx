@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Form, Input, ConfigProvider } from 'antd';
 import clsx from 'clsx';
 
-import { ReactComponent as HryvniaIcon } from 'src/assets/icons/hryvnia.svg';
 import { TEXT } from 'src/config/constants';
 import { toFixedWithoutRounding } from 'src/utils/toFixedWithoutRounding';
+import { theme as sharedTheme } from 'src/config/theme';
 
 import type { RuleRender } from 'rc-field-form/lib/interface';
-import s from './styles.module.scss';
+import styles from './styles.module.scss';
 
 export const inputs = [
   { label: TEXT.HRYVNIAS_PER_DAY, name: 'priceDay' },
@@ -15,7 +15,7 @@ export const inputs = [
   { label: TEXT.HRYVNIAS_PER_MONTH, name: 'priceMonth' },
 ];
 
-export function PriceInputs() {
+export const PriceInputs = () => {
   const [showRequiredErr, setShowRequiredErr] = useState(false);
   const form = Form.useFormInstance();
 
@@ -60,7 +60,11 @@ export function PriceInputs() {
         return Promise.reject(new Error(TEXT.MIN_VALUE(minValue)));
       }
 
-      if (inputs.every((input) => !getFieldValue(input.name))) {
+      const areInputsEmpty = inputs.every(
+        (input) => !getFieldValue(input.name)
+      );
+
+      if (areInputsEmpty) {
         setShowRequiredErr(true);
 
         return Promise.reject();
@@ -73,28 +77,22 @@ export function PriceInputs() {
   return (
     <>
       <h4 className="addPublicationLabel">{TEXT.COST}</h4>
-      <div className={s.priceInputsRow}>
-        <ConfigProvider
-          theme={{
-            components: {
-              InputNumber: { inputFontSize: 16, lineHeight: 1.5 },
-            },
-          }}
-        >
+      <div className={styles.priceInputsRow}>
+        <ConfigProvider theme={theme}>
           {inputs.map(({ label, name }, i) => (
             <Form.Item
               key={name}
-              label={<span className={s.label}>{label}</span>}
+              label={<span className={styles.label}>{label}</span>}
               name={name}
               rules={[priceInputValidator]}
               validateStatus={showRequiredErr ? 'error' : undefined}
-              className={clsx({ [s.middleFormItem]: i === 1 })}
+              className={clsx({ [styles.middleFormItem]: i === 1 })}
             >
               <Input
                 type="number"
-                prefix={<HryvniaIcon />}
+                prefix="₴"
                 placeholder="0.00"
-                className={s.priceInput}
+                className={styles.priceInput}
                 onChange={() => onChange(name)}
                 onBlur={() => onBlur(name)}
               />
@@ -102,11 +100,18 @@ export function PriceInputs() {
           ))}
         </ConfigProvider>
         {showRequiredErr && (
-          <p className={`${s.inputsError} ant-form-item-explain-error`}>
-            {TEXT.SET_AT_LEAST_ONE_PRICE}
-          </p>
+          <p className={styles.inputsError}>{TEXT.SET_AT_LEAST_ONE_PRICE}</p>
         )}
       </div>
     </>
   );
-}
+};
+
+const theme = {
+  components: {
+    InputNumber: {
+      inputFontSize: sharedTheme.fontSize16,
+      lineHeight: sharedTheme.lineHeightLarge,
+    },
+  },
+};
