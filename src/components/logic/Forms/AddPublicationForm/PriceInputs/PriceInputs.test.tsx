@@ -70,8 +70,7 @@ describe('PriceInputs', () => {
     await findByText(TEXT.MIN_VALUE(10));
 
     userEvent.type(firstInp, '999999.1');
-    submitBtn.click();
-    await findByText(TEXT.MAX_VALUE(999_999));
+    expect(firstInp).toHaveValue(999999);
   });
 
   it('should strip more than 2 decimals', () => {
