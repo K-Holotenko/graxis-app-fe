@@ -66,6 +66,13 @@ export const TEXT = {
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
   SETTINGS: 'Налаштування',
   SUBMIT: 'Продовжити',
+  COST: 'Вартість',
+  HRYVNIAS_PER_DAY: 'грн/день',
+  HRYVNIAS_PER_WEEK: 'грн/тиждень',
+  HRYVNIAS_PER_MONTH: 'грн/місяць',
+  SET_AT_LEAST_ONE_PRICE: 'Принаймні одна ціна має бути вказана',
+  MIN_VALUE: (minValue: number | string) => `Мінімальне значення ${minValue}`,
+  MAX_VALUE: (maxValue: number | string) => `Максимальне значення ${maxValue}`,
 };
 
 export const FORMS = {

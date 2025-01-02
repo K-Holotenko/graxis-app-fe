@@ -1,0 +1,50 @@
+@use 'src/assets/styles/variables.scss';
+
+.priceInputsRow {
+  position: relative;
+  display: flex;
+  column-gap: 8px;
+}
+
+.label {
+  color: variables.$text-secondary;
+}
+
+.priceInput {
+  height: 48px;
+  max-width: 187px;
+  width: 100%;
+  font-size: variables.$font-size-small;
+  border-radius: 8px;
+  border-color: #eaeaea;
+  color: variables.$text-primary;
+}
+
+.middleFormItem label::after {
+  content: none !important;
+}
+
+.inputsError {
+  position: absolute;
+  color: variables.$error;
+  bottom: 0;
+  font-size: variables.$font-size-small;
+  font-weight: variables.$font-weight-semibold;
+  line-height: variables.$line-height-large;
+}
+
+@media (min-width: variables.$breakpoint-md) {
+  .priceInputsRow {
+    column-gap: 19px;
+  }
+
+  .priceInput {
+    font-size: variables.$font-size-medium;
+  }
+}
+
+@media (min-width: variables.$breakpoint-xl) {
+  .priceInputsRow {
+    column-gap: 24px;
+  }
+}
