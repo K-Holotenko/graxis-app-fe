@@ -1,0 +1,15 @@
+@use 'src/assets/styles/variables';
+
+.addPublicationLabel {
+  font-size: variables.$font-size-18;
+  font-family: variables.$font-family-second;
+  font-weight: variables.$font-weight-semibold;
+  margin-bottom: 20px;
+  color: variables.$text-primary;
+}
+
+@media (min-width: variables.$breakpoint-md) {
+  .addPublicationLabel {
+    font-size: variables.$font-size-xl;
+  }
+}

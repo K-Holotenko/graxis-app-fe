@@ -23,7 +23,9 @@ export const TextAreaFormItem = ({
   rows = 1,
 }: TextAreaFormItemProps) => (
   <Form.Item
-    label={<p className={styles.formItemLabel}>{label}</p>}
+    label={
+      <p className={`${styles.formItemLabel} addPublicationLabel`}>{label}</p>
+    }
     name={name}
     rules={rules}
     required={false}

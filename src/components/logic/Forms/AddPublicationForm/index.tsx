@@ -1,19 +1,47 @@
-import { Col, Form, Row } from 'antd';
+import './styles.scss';
 
-import { TextAreaFormItem } from 'src/components/ui/FormItems/TextAreaFormItem';
+import { Form, Col, Row } from 'antd';
+
 import { FORMS, TEXT } from 'src/config/constants';
+import { TextAreaFormItem } from 'src/components/ui/FormItems/TextAreaFormItem';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 
-export const AddPublicationForm = () => {
-  const onFinish = () => {};
-  const onFinishFailed = () => {};
+import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
+import { PriceInputs } from './PriceInputs';
+
+interface AddPublicationInputs {
+  priceDay: string;
+  priceWeek: string;
+  priceMonth: string;
+}
+
+interface AddPublicationFormProps {
+  onFinish?: () => void;
+  onFinishFailed?: () => void;
+}
+
+export const AddPublicationForm = (props: AddPublicationFormProps) => {
+  const [form] = Form.useForm();
+
+  const onFinish = (values: AddPublicationInputs) => {
+    // eslint-disable-next-line no-console
+    console.log('Success:', { values });
+  };
+
+  const onFinishFailed = (
+    errorInfo: ValidateErrorEntity<AddPublicationInputs>
+  ) => {
+    // eslint-disable-next-line no-console
+    console.log('Failed:', { errorInfo });
+  };
 
   return (
     <Form
+      form={form}
       name={FORMS.ADD_PUBLICATION_FORM}
       layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      onFinish={props.onFinish || onFinish}
+      onFinishFailed={props.onFinishFailed || onFinishFailed}
     >
       <Row gutter={[0, 40]}>
         <Col span={24}>
@@ -36,6 +64,9 @@ export const AddPublicationForm = () => {
             showCount
             rules={[VALIDATION_CONDITION.REQUIRED]}
           />
+        </Col>
+        <Col span={24}>
+          <PriceInputs />
         </Col>
       </Row>
     </Form>
