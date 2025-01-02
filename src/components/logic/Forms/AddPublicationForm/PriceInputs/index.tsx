@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import { TEXT } from 'src/config/constants';
 import { toFixedWithoutRounding } from 'src/utils/toFixedWithoutRounding';
-import { theme as sharedTheme } from 'src/config/theme';
+import { theme } from 'src/config/theme';
 
 import type { RuleRender } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
@@ -78,7 +78,7 @@ export const PriceInputs = () => {
     <>
       <h4 className="addPublicationLabel">{TEXT.COST}</h4>
       <div className={styles.priceInputsRow}>
-        <ConfigProvider theme={theme}>
+        <ConfigProvider theme={localTheme}>
           {inputs.map(({ label, name }, i) => (
             <Form.Item
               key={name}
@@ -107,11 +107,11 @@ export const PriceInputs = () => {
   );
 };
 
-const theme = {
+const localTheme = {
   components: {
     InputNumber: {
-      inputFontSize: sharedTheme.fontSize16,
-      lineHeight: sharedTheme.lineHeightLarge,
+      inputFontSize: theme.fontSize16,
+      lineHeight: theme.lineHeightLarge,
     },
   },
 };
