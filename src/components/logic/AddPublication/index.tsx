@@ -1,5 +1,3 @@
-import { Col } from 'antd';
-
 import { AddPublicationForm } from 'src/components/logic/Forms/AddPublicationForm';
 import { TEXT } from 'src/config/constants';
 
@@ -8,8 +6,6 @@ import styles from './styles.module.scss';
 export const AddPublication = () => (
   <section className={styles.section}>
     <h1 className={styles.header}>{TEXT.ADD_ANNOUNCEMENT}</h1>
-    <Col span={24}>
-      <AddPublicationForm />
-    </Col>
+    <AddPublicationForm />
   </section>
 );

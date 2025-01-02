@@ -15,8 +15,6 @@
   height: 46px;
   font-size: variables.$font-size-small;
   padding: 0;
-  display: flex;
-  align-items: center;
   color: variables.$text-primary;
 
   .highlightedCategory {
@@ -28,6 +26,11 @@
   }
 
   :global {
+    .ant-select-selector {
+      border: 1px solid variables.$outline !important;
+      border-radius: 12px;
+    }
+
     .ant-select-tree-indent-unit {
       width: 24px !important;
     }
@@ -37,6 +40,8 @@
         inset -1px 0 0 0 variables.$hover-color,
         0 3px 15px 0 variables.$shadow;
       border: 1px solid variables.$outline;
+      border-radius: 12px;
+      padding: 0 14px 0 8px;
 
       .ant-select-tree-switcher {
         right: 0px;
@@ -92,7 +97,7 @@
   font-size: variables.$font-size-14;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 576px) {
   .formItemLabel {
     font-size: variables.$font-size-xl;
     line-height: variables.$line-height-medium;

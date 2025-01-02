@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useState, type Key } from 'react';
 import { ConfigProvider, Form, TreeSelect } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
-import { ReactComponent as ClearIcon } from 'src/assets/icons/clear-icon.svg';
 import { TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
+import { ReactComponent as ClearIcon } from 'src/assets/icons/clear-icon.svg';
 
 import styles from './styles.module.scss';
 import { CATEGORIES_DROP_DATA } from './utils/config';
@@ -15,94 +15,57 @@ interface Category {
   children?: Category[];
 }
 
-const findCategoryPath = (category: Category, tree: Category[]): string[] => {
-  for (const node of tree) {
-    if (node.value === category.value) {
-      return [node.value];
-    }
-
-    if (node.children) {
-      const childPath = findCategoryPath(category, node.children);
-
-      if (childPath.length > 0) {
-        return [node.value, ...childPath];
-      }
-    }
-  }
-
-  return [];
-};
-
 export const CategoriesDropdown = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [highlightedPath, setHighlightedPath] = useState<string[]>([]);
-  const [treeData, setTreeData] = useState(CATEGORIES_DROP_DATA);
-  const [treeKey, setTreeKey] = useState(0);
+  const [treeValue, setTreeValue] = useState<string | null>(null);
+  const [treeExpandedKeys, setTreeExpandedKeys] = useState<Key[]>([]);
 
-  const handleTreeNodeClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    const target = e.target as HTMLElement;
-    const parentNode = target.closest(
-      '.ant-select-tree-treenode'
-    ) as HTMLElement;
-
-    if (parentNode) {
-      const switcher = parentNode.querySelector('.ant-select-tree-switcher');
-
-      if (switcher) {
-        (switcher as HTMLElement).click();
+  const findParentPath = (value: string, tree: Category[]): string[] => {
+    for (const category of tree) {
+      if (category.value === value) {
+        return [category.value];
       }
+      if (category.children) {
+        const path = findParentPath(value, category.children);
+
+        if (path.length) {
+          return [category.value, ...path];
+        }
+      }
+    }
+
+    return [];
+  };
+
+  const handleChange = (value: string | null) => {
+    setTreeValue(value);
+
+    if (value) {
+      const path = findParentPath(value, CATEGORIES_DROP_DATA);
+
+      setTreeExpandedKeys(path);
     }
   };
 
-  const handleNodeClick = useCallback((nodeData: Category) => {
-    if (!nodeData.children?.length) {
-      setSelectedCategory(nodeData.value);
-
-      const newHighlightedPath = findCategoryPath(
-        nodeData,
-        CATEGORIES_DROP_DATA
-      );
-
-      setHighlightedPath(newHighlightedPath);
-    } else {
-      setHighlightedPath((prevPath) => {
-        if (prevPath.includes(nodeData.value)) {
-          return prevPath.filter((item) => item !== nodeData.value);
-        }
-
-        return [...prevPath, nodeData.value];
-      });
+  const treeTitleRender = (category: string | null | Category) => {
+    if (typeof category === 'string' || category === null) {
+      return <span>{category}</span>;
     }
-  }, []);
 
-  const treeTitleRender = (nodeData: Category) => {
-    const isHighlighted = highlightedPath.includes(nodeData.value);
+    const hasNoChildren = !category.children || category.children.length === 0;
+    const isHighlighted = treeExpandedKeys.includes(category.value);
     const isSelected =
-      selectedCategory === nodeData.value && !nodeData.children?.length;
+      treeValue === category.value && !category.children?.length;
 
     return (
       <div
-        onClick={() => handleNodeClick(nodeData)}
+        onClick={() => handleChange(category.value)}
         className={`${styles.treeNode} ${
           isSelected ? styles.selectedCategory : ''
-        } ${
-          isHighlighted && nodeData.children?.length
-            ? styles.highlightedCategory
-            : ''
-        }`}
+        } ${isHighlighted && !hasNoChildren ? styles.highlightedCategory : ''}`}
       >
-        <p className={styles.treeText}>{nodeData.title}</p>
+        <p className={styles.treeText}>{category.title}</p>
       </div>
     );
-  };
-
-  const handleClear = () => {
-    setSelectedCategory(null);
-    setHighlightedPath([]);
-    setTreeData([]);
-    setTreeData(CATEGORIES_DROP_DATA);
-    setTreeKey((prev) => prev + 1);
   };
 
   return (
@@ -115,26 +78,21 @@ export const CategoriesDropdown = () => {
         rules={[{ required: true, message: TEXT.CHOOSE_CATEGORY }]}
       >
         <TreeSelect
-          onClear={handleClear}
-          dropdownStyle={{
-            paddingBottom: 0,
-            paddingTop: 0,
-            paddingLeft: 8,
-            paddingRight: 14,
-          }}
-          popupClassName="popUp"
           className={styles.categoriesDropdownTree}
-          treeData={treeData}
+          popupClassName="popUp"
+          value={treeValue}
+          treeTitleRender={treeTitleRender}
+          treeExpandedKeys={treeExpandedKeys}
+          treeData={CATEGORIES_DROP_DATA}
           placeholder={TEXT.CHOOSE_CATEGORY}
-          getPopupContainer={(triggerNode) => triggerNode.parentNode}
-          onClick={handleTreeNodeClick}
+          onTreeExpand={(expandedKeys) => setTreeExpandedKeys(expandedKeys)}
+          onClear={() => setTreeExpandedKeys([])}
           allowClear={{
             clearIcon: <ClearIcon className={styles.clearIcon} />,
           }}
           switcherIcon={<DownOutlined className={styles.switcherIcon} />}
           suffixIcon={<DownOutlined className={styles.suffixIcon} />}
-          treeTitleRender={treeTitleRender}
-          key={treeKey}
+          getPopupContainer={(triggerNode) => triggerNode.parentNode}
         />
       </Form.Item>
     </ConfigProvider>
