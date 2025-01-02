@@ -1,12 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { HomePage } from 'src/pages/HomePage';
-import { LoginPage } from 'src/pages/LoginPage';
-import { RegistrationPage } from 'src/pages/RegistrationPage';
+import { LoginPage } from 'src/pages/LoginPage/LoginPage';
+import { RegistrationPage } from 'src/pages/RegistrationPage/RegistrationPage';
 import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
-import { PublicationsPage } from 'src/pages/PublicationsPage';
-import { SettingsPage } from 'src/pages/SettingsPage';
 import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 
 import { PrivateRoute } from './PrivateRoute';
@@ -32,14 +30,6 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.VERIFICATION_CODE,
     element: <VerificationPage />,
-  },
-  {
-    path: ROUTES.PUBLICATIONS,
-    element: <PublicationsPage />,
-  },
-  {
-    path: ROUTES.SETTINGS,
-    element: <SettingsPage />,
   },
   {
     path: ROUTES.ADD_PUBLICATION,

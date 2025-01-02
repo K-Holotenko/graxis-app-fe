@@ -1,4 +1,4 @@
-import { AuthForms } from 'src/components/logic/AuthForms';
+import { AuthForms } from 'src/components/AuthForms';
 import { EmailRegistrationForm } from 'src/components/logic/Forms/EmailRegistrationForm';
 import { PhoneRegistrationForm } from 'src/components/logic/Forms/PhoneRegistrationForm';
 import { PageContainer } from 'src/components/ui/PageContainer';

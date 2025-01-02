@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { AuthForms } from 'src/components/logic/AuthForms';
+import { AuthForms } from 'src/components/AuthForms';
 import { EmailLoginForm } from 'src/components/logic/Forms/EmailLoginForm';
 import { PhoneLoginForm } from 'src/components/logic/Forms/PhoneLoginForm';
 import { PageContainer } from 'src/components/ui/PageContainer';
