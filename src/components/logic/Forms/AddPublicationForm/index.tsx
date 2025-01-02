@@ -5,6 +5,7 @@ import { Form, Col, Row } from 'antd';
 import { FORMS, TEXT } from 'src/config/constants';
 import { TextAreaFormItem } from 'src/components/ui/FormItems/TextAreaFormItem';
 import { VALIDATION_CONDITION } from 'src/config/validation';
+import { CategoriesDropdown } from 'src/components/ui/CategoriesDropdown';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import { PriceInputs } from './PriceInputs';
@@ -44,6 +45,9 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
       onFinishFailed={props.onFinishFailed || onFinishFailed}
     >
       <Row gutter={[0, 40]}>
+        <Col span={24}>
+          <CategoriesDropdown />
+        </Col>
         <Col span={24}>
           <TextAreaFormItem
             name="name"

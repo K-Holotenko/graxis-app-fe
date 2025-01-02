@@ -1,0 +1,119 @@
+@use 'src/assets/styles/variables';
+
+.formItemLabel {
+  font-family: variables.$font-family-second;
+  font-weight: variables.$font-weight-semibold;
+  font-size: variables.$font-size-18;
+  line-height: variables.$line-height-tight;
+  letter-spacing: variables.$letter-spacing-narrow;
+  color: variables.$text-primary;
+  margin-bottom: 4px;
+}
+
+.categoriesDropdownTree {
+  width: 100%;
+  height: 46px;
+  font-size: variables.$font-size-small;
+  padding: 0;
+  color: variables.$text-primary;
+
+  .highlightedCategory {
+    background-color: variables.$hover-color;
+  }
+
+  .selectedCategory {
+    color: variables.$primary;
+  }
+
+  :global {
+    .ant-select-selector {
+      border: 1px solid variables.$outline !important;
+      border-radius: 12px;
+    }
+
+    .ant-select-tree-indent-unit {
+      width: 24px !important;
+    }
+
+    .popUp {
+      box-shadow:
+        inset -1px 0 0 0 variables.$hover-color,
+        0 3px 15px 0 variables.$shadow;
+      border: 1px solid variables.$outline;
+      border-radius: 12px;
+      padding: 0 14px 0 8px;
+
+      .ant-select-tree-switcher {
+        right: 0px;
+        position: absolute;
+        z-index: 1;
+
+        &:not(.ant-select-tree-switcher-noop):hover:before {
+          background-color: transparent !important;
+        }
+      }
+    }
+
+    .ant-select-selection-placeholder {
+      font-size: variables.$font-size-small;
+      letter-spacing: variables.$letter-spacing-narrow;
+      color: variables.$light-grey;
+      margin-left: 16px;
+    }
+
+    .ant-select-tree-list-scrollbar {
+      margin-right: -20px;
+    }
+  }
+}
+
+.switcherIcon {
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.suffixIcon {
+  padding-right: 20px;
+  pointer-events: inherit !important;
+}
+
+.clearIcon {
+  transform: translateY(-7%);
+  right: 18px;
+  position: absolute;
+}
+
+.treeNode {
+  padding-left: 20px;
+  border-radius: 8px;
+  margin-left: -4px;
+  margin-right: -4px;
+  color: variables.$text-primary;
+}
+
+.treeText {
+  font-size: variables.$font-size-14;
+}
+
+@media (min-width: 576px) {
+  .formItemLabel {
+    font-size: variables.$font-size-xl;
+    line-height: variables.$line-height-medium;
+    margin-bottom: 12px;
+  }
+
+  .treeText {
+    font-size: variables.$font-size-18;
+  }
+
+  .categoriesDropdownTree {
+    :global {
+      .ant-select-selection-placeholder {
+        font-size: variables.$font-size-18;
+        line-height: variables.$line-height-medium;
+      }
+    }
+  }
+}

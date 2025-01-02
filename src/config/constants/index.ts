@@ -14,6 +14,7 @@ export const TEXT = {
 
   CATEGORIES: 'Категорії',
   CATEGORIES_SECTION_TITLE: 'Категорії товарів',
+  CHOOSE_CATEGORY: 'Виберіть категорію',
   CHOOSE_LOCATION: 'Виберіть локацію',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
   CONTACT_US: 'Звʼяжіться з нами',
@@ -162,4 +163,44 @@ export const CATEGORIES_CARD_NAME = {
   TECH: 'Техніка та електроніка',
   OTHER: 'Інше',
   SUGGESTION: 'Запропонуйте категорію',
+};
+
+export const CATEGORIES_DROP_TEXT = {
+  energy: 'Енергозабезпечення',
+  generators: 'Генератори',
+  stations: 'Зарядні станції',
+  lighting: 'Освітлення',
+
+  tech: 'Техніка та електроніка',
+  photoVideo: 'Фото/Відео',
+  cameras: 'Цифрові фотоапарати',
+  videoCameras: 'Відеокамери',
+  actionCameras: 'Екшн-камери',
+  lenses: "Об'єктиви",
+  tripods: 'Штативи / моноподи',
+  flashes: 'Фотоспалахи',
+  accessories: 'Аксесуари для фото / відеокамер',
+  optics: 'Телескопи / біноклі',
+
+  audio: 'Аудіотехніка',
+  mp3Players: 'Mp3 плеєри',
+  boomboxes: 'Магнітоли',
+  musicCenters: 'Музичні центри',
+  speakers: 'Акустичні системи',
+  headphones: 'Навушники',
+  radios: 'Радіоприймачі',
+  portableSpeakers: 'Портативна акустика',
+  amplifiers: 'Підсилювачі / ресивери',
+  otherAudio: 'Інша аудіотехніка',
+
+  consoles: 'Приставки',
+  tvConsoles: 'TV',
+  gamingConsoles: 'Ігрові',
+
+  projectors: 'Проектори',
+
+  other: 'Інше',
+  books: 'Книги',
+  games: 'Ігри',
+  kids: 'Дитячі товари',
 };
