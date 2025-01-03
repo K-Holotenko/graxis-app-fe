@@ -1,0 +1,35 @@
+@use 'src/assets/styles/variables';
+
+.socialMediaButton {
+  height: 44px;
+}
+
+.registerStyle {
+  font-family: variables.$font-family;
+  font-weight: 600;
+  color: variables.$primary;
+}
+
+.registerStyle:hover {
+  color: #074a5e;
+}
+
+.authorizeStyle {
+  font-family: variables.$font-family;
+  font-weight: 600;
+  color: variables.$primary;
+}
+
+.authorizeStyle:hover {
+  color: #074a5e;
+}
+
+.link {
+  font-family: variables.$font-family;
+  font-weight: 500;
+  color: variables.$primary;
+}
+
+.link:hover {
+  color: #074a5e;
+}

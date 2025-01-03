@@ -1,9 +1,8 @@
 import { Col, Row } from 'antd';
 import { ReactNode } from 'react';
 
-import { AppHeader } from 'src/components/logic/AppHeader';
-import { AppFooter } from 'src/components/logic/AppFooter';
-import { MainContainer } from 'src/components/ui/MainContainer';
+import { AppHeader } from 'src/components/Header';
+import { Footer } from 'src/components/Footer';
 import { ROUTES } from 'src/router/routes';
 
 import styles from './styles.module.scss';
@@ -25,12 +24,12 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
       </Row>
       <Row className={isAddPublicationPage ? styles.greyBackground : ''}>
         <Col span={24}>
-          <MainContainer>{children}</MainContainer>
+          <main className={styles.mainContainer}>{children}</main>
         </Col>
       </Row>
       <Row>
         <Col span={24}>
-          <AppFooter />
+          <Footer />
         </Col>
       </Row>
     </div>

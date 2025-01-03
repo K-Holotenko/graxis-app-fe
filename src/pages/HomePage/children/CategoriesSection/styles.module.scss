@@ -1,0 +1,56 @@
+@use 'src/assets/styles/variables';
+
+.categoriesSection {
+  margin-bottom: 80px;
+}
+
+.categoriesList {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.heading {
+  font-weight: variables.$font-weight-semibold;
+  color: variables.$primary;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .categoriesSection {
+    margin-bottom: 100px;
+  }
+
+  .categoriesList {
+    gap: 24px;
+  }
+
+  .heading {
+    font-size: variables.$font-size-l;
+    font-weight: variables.$font-weight-regular;
+    line-height: variables.$line-height-tight;
+  }
+}
+
+@media (min-width: 992px) {
+  .categoriesList {
+    grid-template-columns: repeat(4, 1fr);
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 1400px) {
+  .categoriesSection {
+    margin-top: 134px;
+    margin-bottom: 160px;
+  }
+
+  .heading {
+    font-size: variables.$font-size-xxxl;
+    font-weight: variables.$font-weight-semibold;
+    margin-bottom: 80px;
+  }
+}

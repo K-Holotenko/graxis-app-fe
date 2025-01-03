@@ -1,6 +1,6 @@
-import { PageContainer } from 'src/components/ui/PageContainer';
+import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
-import { AddPublication } from 'src/components/logic/AddPublication';
+import { AddPublication } from 'src/pages/AddPublicationPage/children/AddPublication';
 
 import { ADD_PUBLICATION_PAGE_CONFIG } from './utils/config';
 

@@ -1,7 +1,7 @@
 import { Col, Image, Row } from 'antd';
 import { ReactNode } from 'react';
 
-import { Logo } from 'src/components/ui/Logo';
+import { Logo } from 'src/components/Logo';
 
 import './styles.scss';
 

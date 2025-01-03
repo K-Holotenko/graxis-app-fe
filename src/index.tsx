@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 
 import App from './App';
-import { ConfigProvider } from './components/ui/ConfigProvider';
+import { GlobalConfigProvider } from './GlobalConfigProvider';
 
 import './index.scss';
 
@@ -14,9 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <HelmetProvider>
-      <ConfigProvider>
+      <GlobalConfigProvider>
         <App />
-      </ConfigProvider>
+      </GlobalConfigProvider>
     </HelmetProvider>
   </StrictMode>
 );

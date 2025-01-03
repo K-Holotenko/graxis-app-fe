@@ -5,7 +5,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 
-import { RegistrationPage } from './RegistrationPage';
+import { RegistrationPage } from '.';
 import { REGISTRATION_PAGE_CONFIG } from './utils/config';
 
 describe('RegistrationPage', () => {

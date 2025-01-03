@@ -1,0 +1,73 @@
+@use 'src/assets/styles/variables.scss';
+@use 'src/assets/styles/fonts.scss';
+
+.popular-goods {
+  display: grid;
+  gap: 24px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.popular-goods-title {
+  font-family: variables.$font-family-second;
+  font-size: 48px;
+  margin-bottom: 80px;
+  text-align: center;
+  font-weight: 500;
+  color: variables.$primary;
+}
+
+.heading {
+  font-family: variables.$font-family-second;
+  font-size: variables.$font-size-18;
+  font-weight: variables.$font-weight-semibold;
+  color: variables.$primary;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: variables.$font-size-l;
+    font-weight: variables.$font-weight-regular;
+    line-height: variables.$line-height-tight;
+    letter-spacing: variables.$letter-spacing-narrow;
+  }
+}
+
+@media (min-width: 1400px) {
+  .heading {
+    font-size: variables.$font-size-xxxl;
+    font-weight: variables.$font-weight-semibold;
+    margin-bottom: 80px;
+  }
+}
+
+@media (min-width: 576px) {
+  .popular-goods {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  .card-name {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 769px) {
+  .popular-goods {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (min-width: 992px) {
+  .popular-goods {
+    grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .popular-goods {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

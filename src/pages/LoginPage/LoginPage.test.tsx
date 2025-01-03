@@ -5,7 +5,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 
-import { LoginPage } from './LoginPage';
+import { LoginPage } from '.';
 import { LOGIN_PAGE_CONFIG } from './utils/config';
 
 describe('LoginPage', () => {
