@@ -1,0 +1,41 @@
+@use 'src/assets/styles/variables';
+
+.headerDrawer {
+  .drawerCloseBtn:hover {
+    cursor: pointer;
+  }
+
+  .addPublicationButton {
+    background-color: variables.$light-green-color;
+    color: variables.$primary;
+    padding: 12px 25px;
+    height: 48px;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+.avatarLarge {
+  cursor: pointer;
+  background-color: variables.$success;
+}
+
+.avatarSection {
+  text-align: center;
+}
+
+.userSection {
+  color: variables.$success;
+  height: 48px;
+  text-align: center;
+  border: 1px solid variables.$success;
+  border-radius: 12px;
+}
+
+.userSectionUsername {
+  padding-left: 10px;
+}
+
+.userSection:hover {
+  cursor: pointer;
+}

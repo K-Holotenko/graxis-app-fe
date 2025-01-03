@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { AuthForms } from 'src/components/logic/AuthForms';
-import { EmailLoginForm } from 'src/components/logic/Forms/EmailLoginForm';
-import { PhoneLoginForm } from 'src/components/logic/Forms/PhoneLoginForm';
-import { PageContainer } from 'src/components/ui/PageContainer';
+import { AuthForms } from 'src/components/AuthForms';
+import { EmailLoginForm } from 'src/pages/LoginPage/children/EmailLoginForm';
+import { PhoneLoginForm } from 'src/pages/LoginPage/children/PhoneLoginForm';
+import { PageContainer } from 'src/layouts/PageContainer';
 import { AuthLayout } from 'src/layouts/AuthLayout';
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';

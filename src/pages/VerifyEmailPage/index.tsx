@@ -2,7 +2,7 @@ import { Row, Typography, Col } from 'antd';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { PageContainer } from 'src/components/ui/PageContainer';
+import { PageContainer } from 'src/layouts/PageContainer';
 import { AuthLayout } from 'src/layouts/AuthLayout';
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';

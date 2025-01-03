@@ -1,7 +1,7 @@
-import { AuthForms } from 'src/components/logic/AuthForms';
-import { EmailRegistrationForm } from 'src/components/logic/Forms/EmailRegistrationForm';
-import { PhoneRegistrationForm } from 'src/components/logic/Forms/PhoneRegistrationForm';
-import { PageContainer } from 'src/components/ui/PageContainer';
+import { AuthForms } from 'src/components/AuthForms';
+import { EmailRegistrationForm } from 'src/pages/RegistrationPage/children/EmailRegistrationForm';
+import { PhoneRegistrationForm } from 'src/pages/RegistrationPage/children/PhoneRegistrationForm';
+import { PageContainer } from 'src/layouts/PageContainer';
 import { AuthLayout } from 'src/layouts/AuthLayout';
 
 import { REGISTRATION_PAGE_CONFIG } from './utils/config';

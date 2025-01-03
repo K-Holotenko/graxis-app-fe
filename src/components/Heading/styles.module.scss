@@ -1,0 +1,26 @@
+@use 'src/assets/styles/variables.scss';
+
+.h1 {
+  font-family: variables.$font-family-second;
+  font-size: 56px;
+  color: #000;
+}
+
+.h2 {
+  font-family: variables.$font-family;
+  font-weight: 500;
+  font-size: 48px;
+  color: #000;
+}
+
+.h3 {
+}
+
+.h4 {
+}
+
+.h5 {
+}
+
+.h6 {
+}

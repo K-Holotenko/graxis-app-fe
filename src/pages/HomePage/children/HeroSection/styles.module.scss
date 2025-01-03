@@ -1,0 +1,124 @@
+@use 'src/assets/styles/variables.scss';
+
+.heroSectionContainer {
+  background-image: url('../../../../assets/images/Group.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 47% auto;
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+.heroSection {
+  .heading {
+    font-family: variables.$font-family-second;
+    font-size: 56px;
+    color: variables.$primary;
+    margin-bottom: 40px;
+    line-height: 150%;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 48px;
+    font-family: variables.$font-family;
+    color: variables.$text-primary;
+    margin-bottom: 30px;
+    font-weight: 500;
+    margin-bottom: 90px;
+  }
+}
+
+.heroContent {
+  max-width: 55%;
+  padding-right: 8px;
+  padding-top: 200px;
+}
+
+.heroSectionInput {
+  height: 45px;
+  border-color: variables.$text-secondary;
+  margin-bottom: 80px;
+  border-radius: 10px;
+}
+
+@media (max-width: 1286px) {
+  .heroSectionContainer {
+    .heroSection {
+      .heading {
+        font-size: 40px;
+        margin-bottom: 42px;
+      }
+      p {
+        font-size: 33px;
+        font-weight: 500;
+        margin-bottom: 30px;
+      }
+    }
+    .heroContent {
+      padding-top: 100px;
+    }
+
+    .heroSectionInput {
+      height: 46px;
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 1080px) {
+  .heroSectionContainer {
+    .heroSection {
+      padding-bottom: 50px;
+      .heading {
+        font-size: 32px;
+        margin-bottom: 32px;
+      }
+
+      p {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .heroSectionInput {
+      margin-right: 20px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .heroSectionContainer {
+    background-size: 210px 210px;
+    height: auto;
+    background-position: top;
+
+    .heroSection {
+      padding: 0;
+      .heading {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      p {
+        font-size: 20px;
+        margin-top: 40px 24px 44px 64px;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+    }
+
+    .heroContent {
+      padding-top: 201px;
+      padding-right: 0;
+      max-width: 100%;
+    }
+
+    .heroSectionInput {
+      height: 35px;
+      font-size: 16px;
+    }
+  }
+}

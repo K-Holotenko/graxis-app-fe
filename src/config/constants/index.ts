@@ -57,7 +57,7 @@ export const TEXT = {
   POPULAR_NOW: 'Популярне зараз',
 
   REGISTER: 'Зареєструватися',
-  RIGHTS: '© 2024 Graxis. Всі права захищено. Політика конфіденційності',
+  RIGHTS: '© 2025 Graxis. Всі права захищено. Політика конфіденційності',
 
   SEC: 'c',
 
@@ -105,6 +105,7 @@ export const CITY_LIST = [
 export enum ButtonTypes {
   primary = 'primary',
   default = 'default',
+  link = 'link',
 }
 
 export enum ThemeMode {
