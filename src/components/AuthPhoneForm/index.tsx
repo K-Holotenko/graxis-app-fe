@@ -1,5 +1,5 @@
-import { Alert, Form, Typography } from 'antd';
-import { useCallback, useState } from 'react';
+import { Form, Typography } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -7,37 +7,41 @@ import {
   VALIDATION_MESSAGE,
 } from 'src/config/validation';
 import { FORMS, TEXT } from 'src/config/constants';
-import { useAuthPhoneErrorCheck } from 'src/hooks/useAuthPhoneErrorCheck';
 import { useRecaptcha } from 'src/hooks/useRecaptcha';
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
 import { handlePhoneAuth } from 'src/utils/handlePhoneAuth';
 import { Button } from 'src/components/Button';
 import { Input, InputType } from 'src/components/Input';
+import { Checkbox } from 'src/components/Checkbox/index';
 
-interface PhoneLoginFormValuesProps {
-  phone: string;
+import styles from './styles.module.scss';
+
+interface AuthPhoneFormProps {
+  route: string;
 }
 
-export const PhoneLoginForm = () => {
+export const AuthPhoneForm = ({ route }: AuthPhoneFormProps) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const { loginWithPhoneNumber } = useAuthStore();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { isPhoneInvalid, onFieldsChange } = useAuthPhoneErrorCheck(form);
+  const [, setErrorMessage] = useState<string | null>(null);
+  const [isValid, setIsValid] = useState(false);
 
   const handleInputChange = useCallback(
-    () => (e: React.ChangeEvent<HTMLInputElement>) => {
-      form.setFieldValue('phone', e.target.value.replace(/\D/g, ''));
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const sanitizedValue = e.target.value.replace(/\D/g, '');
+
+      form.setFieldValue('phone', sanitizedValue);
     },
     [form]
   );
 
-  useRecaptcha({ buttonId: 'phone-login-btn' });
+  useRecaptcha({ buttonId: 'phone-auth-button' });
 
-  const onFinish = (values: PhoneLoginFormValuesProps) => {
+  const onFinish = (values: { phone: string }) => {
     const navigateToVerification = () => {
-      navigate(`${ROUTES.VERIFICATION_CODE}?from=${ROUTES.LOGIN}`);
+      navigate(`${ROUTES.VERIFICATION_CODE}?from=${route}`);
     };
 
     handlePhoneAuth(
@@ -56,19 +60,28 @@ export const PhoneLoginForm = () => {
     },
   ];
 
+  const allValues = Form.useWatch([], form);
+
+  useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setIsValid(true))
+      .catch(() => setIsValid(false));
+  }, [form, allValues]);
+
+  const isRegistration = route === ROUTES.REGISTRATION;
+
   return (
     <Form
-      name={FORMS.PHONE_LOGIN_FORM}
+      name={FORMS.PHONE_AUTH_FORM}
       layout="vertical"
       onFinish={onFinish}
-      onFieldsChange={onFieldsChange}
-      className="phone-form"
       requiredMark={false}
       form={form}
     >
       <Form.Item
         label={TEXT.PHONE}
-        className="phone-input"
+        className={styles.formItemPhone}
         name="phone"
         validateTrigger="onBlur"
         rules={rules}
@@ -77,25 +90,31 @@ export const PhoneLoginForm = () => {
           type={InputType.TEL}
           maxLength={9}
           addonBefore="+380"
+          className={styles.phoneInput}
           placeholder={TEXT.INPUT_PHONE}
           onChange={handleInputChange}
         />
       </Form.Item>
-      {!isPhoneInvalid && (
-        <Typography.Text className="phone-sms-text">
-          {TEXT.SEND_SMS}
-        </Typography.Text>
-      )}
-      {errorMessage && (
-        <Alert message={errorMessage} type="error" banner showIcon={false} />
+      <Typography.Paragraph className={styles.helperText}>
+        {TEXT.SEND_SMS}
+      </Typography.Paragraph>
+      {isRegistration && (
+        <Form.Item
+          valuePropName="checked"
+          name="agreement"
+          rules={[VALIDATION_CONDITION.REQUIRED]}
+          className={styles.agreement}
+        >
+          <Checkbox label={TEXT.ALLOW_DATA_PROCESSING} />
+        </Form.Item>
       )}
       <button
         className="display-none"
-        id="phone-login-btn"
+        id="phone-auth-button"
         aria-hidden="true"
       />
       <Form.Item>
-        <Button label={TEXT.SUBMIT} className="mt-20" />
+        <Button htmlType="submit" isDisabled={!isValid} label={TEXT.SUBMIT} />
       </Form.Item>
     </Form>
   );

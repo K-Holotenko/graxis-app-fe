@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
 
 import { CREATE_PASSWORD_VALIDATION_CONDITIONS } from './utils';
+import styles from './styles.module.scss';
 
 interface EmailRegistrationFormValues {
   email: string;
@@ -23,7 +24,19 @@ interface EmailRegistrationFormValues {
 export const EmailRegistrationForm = () => {
   const navigate = useNavigate();
   const { registerWithEmail } = useAuthStore();
-  const form = Form.useFormInstance();
+  const [isValid, setIsValid] = useState(false);
+
+  const [form] = Form.useForm();
+
+  // Watch all values
+  const allValues = Form.useWatch([], form);
+
+  useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setIsValid(true))
+      .catch(() => setIsValid(false));
+  }, [form, allValues]);
 
   const onChange = useCallback(
     () => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,25 +61,35 @@ export const EmailRegistrationForm = () => {
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      form={form}
     >
       <Form.Item
         label={TEXT.EMAIL}
         name="email"
         rules={[VALIDATION_CONDITION.EMAIL]}
+        validateTrigger="onBlur"
+        validateStatus={isValid ? 'success' : undefined}
       >
-        <Input onChange={onChange} />
+        <Input placeholder={TEXT.INPUT_EMAIL} onChange={onChange} />
       </Form.Item>
       <Form.Item
         name="password"
         label={TEXT.PASSWORD}
         rules={CREATE_PASSWORD_VALIDATION_CONDITIONS}
-        validateFirst
+        validateTrigger="onBlur"
+        validateStatus={isValid ? 'success' : undefined}
       >
-        <Input placeholder={TEXT.INPUT_PASSWORD} type={InputType.PASSWORD} />
+        <Input
+          placeholder={TEXT.INPUT_PASSWORD}
+          type={InputType.PASSWORD}
+          id="password"
+        />
       </Form.Item>
       <Form.Item
         name="confirmationPassword"
         label={TEXT.CONFIRMATION_PASSWORD}
+        validateTrigger="onBlur"
+        validateStatus={isValid ? 'success' : undefined}
         rules={[
           VALIDATION_CONDITION.REQUIRED,
           ({ getFieldValue }) => ({
@@ -83,7 +106,11 @@ export const EmailRegistrationForm = () => {
         ]}
         validateFirst
       >
-        <Input placeholder={TEXT.INPUT_PASSWORD} />
+        <Input
+          placeholder={TEXT.INPUT_PASSWORD}
+          type={InputType.PASSWORD}
+          id="duplicated-password"
+        />
       </Form.Item>
       <Form.Item
         valuePropName="checked"
@@ -93,7 +120,12 @@ export const EmailRegistrationForm = () => {
         <Checkbox label={TEXT.ALLOW_DATA_PROCESSING} />
       </Form.Item>
       <Form.Item>
-        <Button label={TEXT.SUBMIT} className="mt-20" />
+        <Button
+          htmlType="submit"
+          isDisabled={!isValid}
+          label={TEXT.SUBMIT}
+          className={styles.buttonMargin}
+        />
       </Form.Item>
     </Form>
   );

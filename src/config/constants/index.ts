@@ -77,9 +77,8 @@ export const TEXT = {
 
 export const FORMS = {
   EMAIL_LOGIN_FORM: 'emailLoginForm',
-  PHONE_LOGIN_FORM: 'phoneLoginForm',
+  PHONE_AUTH_FORM: 'phoneAuthForm',
   EMAIL_REGISTRATION_FORM: 'emailRegistrationForm',
-  PHONE_REGISTRATION_FORM: 'phoneRegistrationForm',
   SELECT_LOCATION_FORM: 'selectLocationForm',
   VERIFICATION_FORM: 'verificationForm',
   ADD_PUBLICATION_FORM: 'addPublicationForm',

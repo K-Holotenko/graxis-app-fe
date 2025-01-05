@@ -10,7 +10,7 @@ export const VALIDATION_MESSAGE = {
     'Данний номер телефону вже зареєстрованно або цей номер не є дійсним',
 
   NOT_REGISTERED_PHONE: 'Данний номер не зареєстровано',
-  REQUIRED: 'Заповніть поле!',
+  REQUIRED: 'Заповніть поле',
 };
 
 export const VALIDATION_CONDITION = {
@@ -18,12 +18,13 @@ export const VALIDATION_CONDITION = {
   EMAIL: {
     required: true,
     message: VALIDATION_MESSAGE.EMAIL,
-    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
   },
   PHONE_INPUT: {
     pattern: /^\d{9}$/,
   },
   VERIFICATION_CODE: {
-    pattern: /\D/g,
+    required: true,
+    message: VALIDATION_MESSAGE.REQUIRED,
   },
 };

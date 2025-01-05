@@ -3,11 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { AuthForms } from 'src/components/AuthForms';
 import { EmailLoginForm } from 'src/pages/LoginPage/children/EmailLoginForm';
-import { PhoneLoginForm } from 'src/pages/LoginPage/children/PhoneLoginForm';
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AuthLayout } from 'src/layouts/AuthLayout';
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
+import { AuthPhoneForm } from 'src/components/AuthPhoneForm';
 
 import { LOGIN_PAGE_CONFIG } from './utils/config';
 
@@ -20,7 +20,7 @@ const tabItems = [
   {
     label: LOGIN_PAGE_CONFIG.FORM.PHONE_TAB.TITLE,
     key: LOGIN_PAGE_CONFIG.FORM.PHONE_TAB.KEY,
-    children: <PhoneLoginForm />,
+    children: <AuthPhoneForm route={ROUTES.LOGIN} />,
   },
 ];
 
@@ -39,7 +39,7 @@ export const LoginPage = () => {
 
   return (
     <PageContainer pageTitle={LOGIN_PAGE_CONFIG.PAGE_TITLE}>
-      <AuthLayout imageSrc={LOGIN_PAGE_CONFIG.IMAGE_SRC}>
+      <AuthLayout>
         <AuthForms
           items={tabItems}
           defaultActiveTabKey={LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.KEY}
