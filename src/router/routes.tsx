@@ -2,7 +2,7 @@ export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   REGISTRATION: '/registration',
-  VERIFICATION_CODE: '/verification',
+  VERIFICATION_CODE: '/verify-mobile',
   VERIFY_EMAIL: '/verify-email',
   SETTINGS: '/settings',
   PUBLICATIONS: '/publications',

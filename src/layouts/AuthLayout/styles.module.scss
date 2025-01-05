@@ -1,0 +1,46 @@
+.logoRow {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+}
+
+.authLayoutRow {
+  height: 100vh;
+}
+
+.authImageContainer {
+  height: 100vh;
+  background-image: url('../../assets/images/man-on-bike.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.verifyPage {
+  margin-top: 80px;
+}
+
+.logoCol {
+  text-align: center;
+}
+
+.logo {
+  height: auto;
+  width: auto;
+}
+
+.chldrenContainer {
+  max-width: 490px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .logoCol {
+    text-align: left;
+  }
+
+  .logo {
+    height: 16px;
+    width: auto;
+  }
+}

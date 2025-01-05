@@ -9,22 +9,6 @@ import { RegistrationPage } from '.';
 import { REGISTRATION_PAGE_CONFIG } from './utils/config';
 
 describe('RegistrationPage', () => {
-  it('renders PageContainer with the correct photo', () => {
-    const { getByAltText } = render(
-      <HelmetProvider>
-        <MemoryRouter>
-          <RegistrationPage />
-        </MemoryRouter>
-      </HelmetProvider>
-    );
-    const mainPhoto = getByAltText('Auth image');
-
-    expect(mainPhoto).toHaveAttribute(
-      'src',
-      REGISTRATION_PAGE_CONFIG.IMAGE_SRC
-    );
-  });
-
   it('renders PageContainer with the correct title Registration page', async () => {
     render(
       <HelmetProvider>

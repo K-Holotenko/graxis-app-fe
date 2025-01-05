@@ -9,19 +9,6 @@ import { LoginPage } from '.';
 import { LOGIN_PAGE_CONFIG } from './utils/config';
 
 describe('LoginPage', () => {
-  it('renders PageContainer with the correct photo', () => {
-    const { getByAltText } = render(
-      <HelmetProvider>
-        <MemoryRouter>
-          <LoginPage />
-        </MemoryRouter>
-      </HelmetProvider>
-    );
-    const mainPhoto = getByAltText('Auth image');
-
-    expect(mainPhoto).toHaveAttribute('src', LOGIN_PAGE_CONFIG.IMAGE_SRC);
-  });
-
   it('renders PageContainer with the correct title Login page', async () => {
     render(
       <HelmetProvider>

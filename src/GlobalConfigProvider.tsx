@@ -16,6 +16,8 @@ const defaultData = {
       borderRadius: theme.buttonBorderRadius,
       fontSize: theme.fontSize16,
       controlOutline: 'none',
+      colorBgContainerDisabled: '#EAEAEA',
+      colorTextDisabled: '#4F4F4F',
     },
     Link: {
       colorLinkHover: theme.primaryColor,
@@ -26,9 +28,14 @@ const defaultData = {
       colorPrimary: theme.primaryColor,
     },
     Input: {
-      colorPrimary: theme.textSecondaryColor,
+      hoverBorderColor: '#B8B2B2',
+      hoverBg: '#FCFFE8',
+      colorPrimary: '#1D1617',
       colorPrimaryHover: '#B8B2B2',
       controlOutline: 'none',
+      activeBg: '#fcffe8',
+      activeBorderColor: '#4F4F4F',
+      controlHeight: 48,
     },
     Tabs: {
       colorPrimary: theme.textPrimaryColor,

@@ -1,5 +1,7 @@
 import { Input as AntInput } from 'antd';
 
+import styles from './styles.module.scss';
+
 export enum InputType {
   TEL = 'tel',
   PASSWORD = 'password',
@@ -11,8 +13,11 @@ interface InputProps {
   maxLength?: number;
   addonBefore?: string;
   placeholder?: string;
+  value?: string;
   className?: string;
-  onChange?: () => void;
+  id?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
 }
 
 export const Input = ({
@@ -20,21 +25,36 @@ export const Input = ({
   maxLength,
   addonBefore,
   placeholder,
+  value,
   className,
+  id,
   onChange,
+  onBlur,
 }: InputProps) => {
   switch (type) {
     case InputType.PASSWORD:
-      return <AntInput.Password placeholder={placeholder} />;
+      return (
+        <AntInput.Password
+          className={`${styles.input} ${className}`}
+          placeholder={placeholder}
+          value={value}
+          id={id}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+      );
     default:
       return (
         <AntInput
+          className={`${styles.input} ${className}`}
           type={type}
           maxLength={maxLength}
           addonBefore={addonBefore}
           placeholder={placeholder}
-          className={className}
+          value={value}
+          id={id}
           onChange={onChange}
+          onBlur={onBlur}
         />
       );
   }

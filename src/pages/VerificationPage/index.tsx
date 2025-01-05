@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Row, Space, Typography, Image } from 'antd';
-import Title from 'antd/es/typography/Title';
+import { Row, Typography, Image, Col } from 'antd';
 
 import { PageContainer } from 'src/layouts/PageContainer';
 import { VERIFICATION_PAGE_CONSTANTS } from 'src/pages/VerificationPage/utils/constants';
@@ -10,7 +9,7 @@ import { VerificationForm } from 'src/pages/VerificationPage/children/Verificati
 import { TEXT } from 'src/config/constants';
 import EditSrc from 'src/assets/icons/edit-icon.svg';
 
-import './styles.scss';
+import styles from './styles.module.scss';
 
 export const VerificationPage = () => {
   const location = useLocation();
@@ -21,22 +20,21 @@ export const VerificationPage = () => {
 
   return (
     <PageContainer pageTitle={VERIFICATION_PAGE_CONSTANTS.PAGE_TITLE}>
-      <AuthLayout imageSrc={VERIFICATION_PAGE_CONSTANTS.IMAGE_SRC}>
-        <Row className="verif-code-row" align="middle">
-          <Space
-            direction="vertical"
-            align="center"
-            size={0}
-            className="verif-code-space"
-          >
-            <Title level={2}>{VERIFICATION_PAGE_CONSTANTS.TITLE}</Title>
-            <Typography className="verif-code-text">{TEXT.SENT_SMS}</Typography>
+      <AuthLayout>
+        <Row className={styles.verifyCodeRow} align="middle" justify="center">
+          <Col>
+            <Typography.Title level={2} className={styles.verifyCodeTitle}>
+              {VERIFICATION_PAGE_CONSTANTS.TITLE}
+            </Typography.Title>
+            <Typography className={styles.verifyCodeText}>
+              {TEXT.SENT_SMS}
+            </Typography>
             <VerificationForm />
-            <Link to={fromPage} className="phone-link">
+            <Link to={fromPage} className={styles.phoneLink}>
               {phone}
               <Image src={EditSrc} alt="Edit" preview={false} />
             </Link>
-          </Space>
+          </Col>
         </Row>
       </AuthLayout>
     </PageContainer>

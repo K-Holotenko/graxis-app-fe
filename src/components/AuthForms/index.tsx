@@ -3,7 +3,7 @@ import { Divider, Row, Col, Typography, Tabs } from 'antd';
 import { ReactNode, useState } from 'react';
 
 import { ROUTES } from 'src/router/routes';
-import { TEXT } from 'src/config/constants';
+import { ButtonTypes, TEXT } from 'src/config/constants';
 import { LOGIN_PAGE_CONFIG } from 'src/pages/LoginPage/utils/config';
 import { ReactComponent as GoogleIcon } from 'src/assets/icons/google-icon.svg';
 import { useAuthStore } from 'src/stores/authStore';
@@ -44,14 +44,16 @@ export const AuthForms = ({
 
   return (
     <>
-      <Title level={2} className="auth-page-title">
+      <Title level={2} className={styles.authPageTitle}>
         {title}
       </Title>
       <Tabs
         defaultActiveKey={defaultActiveTabKey}
         centered
         items={items}
+        size="large"
         onChange={(key) => setActiveTabKey(key)}
+        className={styles.tabs}
       />
       {isEmailTabActive && (
         <Row justify="end">
@@ -65,6 +67,7 @@ export const AuthForms = ({
         <Col span={14} offset={5}>
           <Button
             icon={<GoogleIcon />}
+            type={ButtonTypes.default}
             className={styles.socialMediaButton}
             onClick={onGoogleClick}
           />
@@ -72,14 +75,14 @@ export const AuthForms = ({
       </Row>
       <Row justify="center">
         {location.pathname === ROUTES.LOGIN ? (
-          <span>
+          <span className={styles.authorizeLink}>
             {TEXT.NO_ACCOUNT}{' '}
             <Link to={ROUTES.REGISTRATION} className={styles.registerStyle}>
               {TEXT.REGISTER}
             </Link>
           </span>
         ) : (
-          <span>
+          <span className={styles.authorizeLink}>
             {TEXT.ALREADY_HAVE_ACCOUNT}{' '}
             <Link to={ROUTES.LOGIN} className={styles.authorizeStyle}>
               {TEXT.AUTHORIZE}

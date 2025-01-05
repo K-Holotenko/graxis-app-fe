@@ -1,5 +1,15 @@
 @use 'src/assets/styles/variables';
 
+.tabs {
+  font-size: 20px;
+}
+
+.authPageTitle {
+  text-align: center;
+  color: #1d1617;
+  font-size: 32px;
+}
+
 .socialMediaButton {
   height: 44px;
 }
@@ -30,6 +40,16 @@
   color: variables.$primary;
 }
 
+.authorizeLink {
+  margin-bottom: 10px;
+}
+
 .link:hover {
   color: #074a5e;
+}
+
+:global {
+  .ant-tabs-nav {
+    margin-bottom: 40px !important;
+  }
 }

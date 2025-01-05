@@ -7,6 +7,7 @@ import { TextArea } from 'src/components/TextArea';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { CategoriesDropdown } from 'src/pages/AddPublicationPage/children/CategoriesDropdown';
 import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
+import { Input } from 'src/components/Input';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 
@@ -49,25 +50,29 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
           <CategoriesDropdown />
         </Col>
         <Col span={24}>
-          <TextArea
-            name="name"
+          <Form.Item
             label={TEXT.NAME}
-            placeholder={TEXT.INPUT_PUBLICATION_NAME}
-            maxLength={150}
-            showCount
+            name="name"
             rules={[VALIDATION_CONDITION.REQUIRED]}
-          />
+            required={false}
+          >
+            <Input placeholder={TEXT.INPUT_PUBLICATION_NAME} maxLength={150} />
+          </Form.Item>
         </Col>
         <Col span={24}>
-          <TextArea
+          <Form.Item
+            label={<p className="addPublicationLabel">{TEXT.DESCRIPTION}</p>}
             name="description"
-            label={TEXT.DESCRIPTION}
-            placeholder={TEXT.INPUT_PUBLICATION_DESCRIPTION}
-            maxLength={1000}
-            rows={8}
-            showCount
             rules={[VALIDATION_CONDITION.REQUIRED]}
-          />
+            required={false}
+          >
+            <TextArea
+              placeholder={TEXT.INPUT_PUBLICATION_DESCRIPTION}
+              showCount
+              maxLength={1000}
+              rows={8}
+            />
+          </Form.Item>
         </Col>
         <Col span={24}>
           <PriceInputs />

@@ -6,7 +6,7 @@ export const LOGIN_PAGE_CONFIG = {
   FORM: {
     TITLE: 'Авторизація',
     EMAIL_TAB: {
-      TITLE: 'Електронна пошта',
+      TITLE: 'Ел. пошта',
       KEY: 'emailLoginTab',
     },
     PHONE_TAB: {
