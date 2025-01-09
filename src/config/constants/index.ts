@@ -5,6 +5,7 @@ import TikTokIcon from 'src/assets/icons/tiktok-icon-dark.svg';
 import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
+  ADD_PHOTO: 'Додайте фото',
   ADD_PUBLICATION: 'Додати оголошення',
   ADD_ANNOUNCEMENT: 'Додайте оголошення',
   ALLOW_DATA_PROCESSING:

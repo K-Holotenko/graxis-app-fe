@@ -1,0 +1,48 @@
+@use 'src/assets/styles/variables';
+
+.formItemLabel {
+  font-family: variables.$font-family-second;
+  font-weight: variables.$font-weight-semibold;
+  font-size: variables.$font-size-18;
+  color: variables.$text-primary;
+  line-height: variables.$line-height-medium;
+}
+
+.uploadItem {
+  height: 88px;
+  padding-top: 3px;
+  padding-right: 10px;
+}
+
+@media (min-width: 576px) {
+  .formItemLabel {
+    font-size: variables.$font-size-l;
+    letter-spacing: variables.$letter-spacing-narrow;
+  }
+
+  .uploadList {
+    div {
+      display: flex;
+      align-items: center;
+      gap: 30px !important;
+      justify-content: center;
+    }
+
+    span {
+      width: 100%;
+    }
+
+    :global {
+      .slick-slide {
+        padding-right: 8px;
+        padding-left: 8px;
+      }
+    }
+  }
+
+  .uploadItem {
+    height: 160px;
+    padding: 0;
+    margin-top: 24px;
+  }
+}
