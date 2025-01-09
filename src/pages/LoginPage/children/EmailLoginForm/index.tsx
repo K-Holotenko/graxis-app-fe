@@ -1,13 +1,13 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Form } from 'antd';
 
 import { FORMS, REGEXS, TEXT } from 'src/config/constants';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button/index';
-import { Input } from 'src/components/Input';
+import { Input, InputType } from 'src/components/Input';
 
-import './styles.css';
+import styles from './styles.module.scss';
 
 interface EmailLoginFormValues {
   email: string;
@@ -16,7 +16,18 @@ interface EmailLoginFormValues {
 
 export const EmailLoginForm = () => {
   const { loginWithEmail } = useAuthStore();
-  const form = Form.useFormInstance();
+  const [form] = Form.useForm();
+  const [isValid, setIsValid] = useState(false);
+
+  // Watch all values
+  const allValues = Form.useWatch([], form);
+
+  useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setIsValid(true))
+      .catch(() => setIsValid(false));
+  }, [form, allValues]);
 
   const onChange = useCallback(
     () => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,24 +50,32 @@ export const EmailLoginForm = () => {
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      form={form}
     >
       <Form.Item
         label={TEXT.EMAIL}
         name="email"
         rules={[VALIDATION_CONDITION.EMAIL]}
+        validateTrigger="onBlur"
+        className={styles.marginBottm}
       >
-        <Input onChange={onChange} />
+        <Input
+          onChange={onChange}
+          type={InputType.EMAIL}
+          placeholder={TEXT.INPUT_EMAIL}
+        />
       </Form.Item>
       <Form.Item
         name="password"
         label={TEXT.PASSWORD}
         rules={[VALIDATION_CONDITION.REQUIRED]}
-        validateFirst
+        validateTrigger="onBlur"
+        validateStatus={isValid ? 'success' : undefined}
       >
-        <Input placeholder={TEXT.INPUT_PASSWORD} />
+        <Input type={InputType.PASSWORD} placeholder={TEXT.INPUT_PASSWORD} />
       </Form.Item>
-      <Form.Item>
-        <Button label={TEXT.SUBMIT} className="mt-20" />
+      <Form.Item className={styles.buttonMargin}>
+        <Button htmlType="submit" isDisabled={!isValid} label={TEXT.SUBMIT} />
       </Form.Item>
     </Form>
   );

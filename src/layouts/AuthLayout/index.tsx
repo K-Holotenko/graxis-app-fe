@@ -1,34 +1,48 @@
-import { Col, Image, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { ReactNode } from 'react';
 
+import { useWindowSize } from 'src/hooks/useWindowSize';
 import { Logo } from 'src/components/Logo';
 
-import './styles.scss';
+import styles from './styles.module.scss';
 
 interface AuthLayoutProps {
-  imageSrc: string;
   children: ReactNode;
 }
 
-export const AuthLayout = ({ imageSrc, children }: AuthLayoutProps) => (
-  <Row justify="center" className="auth-layout">
-    <Col sm={6} md={8} lg={10} className="auth-image-col">
-      <div className="auth-image-container">
-        <Image
-          src={imageSrc}
-          alt="Auth image"
-          preview={false}
-          className="auth-image"
-        />
-      </div>
-    </Col>
-    <Col sm={18} md={16} lg={14} className="auth-form-col">
-      <Col md={{ span: 12, offset: 6 }}>
-        <Row justify="center" className="auth-logo-row">
-          <Logo />
-        </Row>
-        {children}
-      </Col>
-    </Col>
-  </Row>
-);
+export const AuthLayout = ({ children }: AuthLayoutProps) => {
+  const { width, height } = useWindowSize();
+  const isMobile = width < 768;
+  const isSmallHeight = height < 900;
+  const isHiddenMobile = !isSmallHeight || isMobile;
+
+  return (
+    <>
+      <Row className={styles.logoRow}>
+        <Col
+          xs={{ span: 20, offset: 2 }}
+          md={{ span: 10, offset: isSmallHeight ? 7 : 11 }}
+          lg={{ span: 8, offset: isSmallHeight ? 8 : 13 }}
+          className={styles.logoCol}
+        >
+          <Logo className={styles.logo} />
+        </Col>
+      </Row>
+      <Row align="middle" className={styles.authLayoutRow}>
+        {isHiddenMobile && (
+          <Col md={8} lg={10}>
+            <div className={styles.authImageContainer}></div>
+          </Col>
+        )}
+        <Col
+          xs={{ span: 20, offset: 2 }}
+          md={{ span: 10, offset: isSmallHeight ? 7 : 3 }}
+          lg={{ span: 8, offset: isSmallHeight ? 8 : 3 }}
+          className={isSmallHeight ? styles.verifyPage : ''}
+        >
+          <div className={styles.chldrenContainer}>{children}</div>
+        </Col>
+      </Row>
+    </>
+  );
+};
