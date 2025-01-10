@@ -1,4 +1,4 @@
-@use 'src/assets/styles/variables.scss';
+@use 'src/styles/variables';
 
 .appHeader {
   height: 80px;
@@ -9,6 +9,10 @@
   background-color: variables.$success;
   height: 48px;
   width: 48px;
+}
+
+.buttonMaxWidth {
+  width: 242px !important;
 }
 
 .dropdownMenu {

@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { Logo } from 'src/components/Logo';
+import { SCREEN_WIDTH } from 'src/config/constants';
 
 import styles from './styles.module.scss';
 
@@ -12,7 +13,7 @@ interface AuthLayoutProps {
 
 export const AuthLayout = ({ children }: AuthLayoutProps) => {
   const { width, height } = useWindowSize();
-  const isMobile = width < 768;
+  const isMobile = width < SCREEN_WIDTH.MD;
   const isSmallHeight = height < 900;
   const isHiddenMobile = !isSmallHeight || isMobile;
 

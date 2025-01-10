@@ -1,4 +1,4 @@
-@use 'src/assets/styles/variables';
+@use 'src/styles/variables';
 
 .tabs {
   font-size: 20px;
@@ -42,6 +42,11 @@
 
 .authorizeLink {
   margin-bottom: 10px;
+}
+
+.buttonMargins {
+  margin-bottom: 34px;
+  margin-top: 34px;
 }
 
 .link:hover {

@@ -1,0 +1,115 @@
+@use 'src/styles/variables';
+
+.productCard {
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  box-shadow: none !important;
+}
+
+.productCard {
+  :global {
+    .ant-card-cover {
+      width: 100%;
+    }
+
+    .ant-card-body {
+      padding: 0;
+      width: 100%;
+    }
+  }
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.cardDescription {
+  margin-top: 20px;
+}
+
+.cardBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  width: 100%;
+}
+
+.price {
+  font-family: variables.$font-family;
+  font-weight: variables.$font-weight-bold;
+  color: variables.$primary;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.cardName {
+  font-size: 18px;
+}
+
+.cardInfo {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding-bottom: 16px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating span {
+  font-size: 18px;
+}
+
+.starIcon {
+  font-size: variables.$font-size-small;
+  color: variables.$primary;
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.ratingValue {
+  font-size: variables.$font-size-small;
+  color: variables.$primary;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+@media (min-width: 576px) {
+  .cardName {
+    font-size: 22px;
+  }
+
+  .price {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 756px) {
+  .cardName {
+    font-size: 18px;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cardName {
+    font-size: 22px;
+  }
+
+  .price {
+    font-size: 24px;
+  }
+}

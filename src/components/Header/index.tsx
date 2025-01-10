@@ -10,10 +10,10 @@ import { Logo } from 'src/components/Logo';
 import { useAuthStore } from 'src/stores/authStore';
 import { ReactComponent as DrawerIcon } from 'src/assets/icons/drawer-icon.svg';
 import {
-  HEADER_MOBILE_WIDTH,
   IMAGE_DESCRIPTION,
   ButtonTypes,
   TEXT,
+  SCREEN_WIDTH,
 } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ROUTES } from 'src/router/routes';
@@ -30,22 +30,25 @@ export const AppHeader = () => {
   const { isAuthorized } = useAuthStore();
   const [hasNotifications] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
-  const [isDesktop, setDesktop] = useState(false);
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
-  useEffect(() => {
-    setDesktop(width > HEADER_MOBILE_WIDTH);
-  }, [width]);
+  const isDesktop = width > SCREEN_WIDTH.MD;
 
   const onAddPublicationBtnClick = () => {
     navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
   };
 
+  useEffect(() => {
+    if (isDesktop) {
+      setShowDrawer(false);
+    }
+  }, [isDesktop]);
+
   return (
     <>
       <header className={`container ${styles.headerContainer}`}>
-        <Row className={styles.appHeader} justify={'space-between'}>
+        <Row className={styles.appHeader} justify="space-between">
           <Row gutter={16} align="middle">
             {!isDesktop && (
               <Col>
@@ -71,7 +74,6 @@ export const AppHeader = () => {
                     src={notificationIconSrc}
                     alt={IMAGE_DESCRIPTION.LOGO}
                     preview={false}
-                    className="notification-icon"
                   />
                 </Badge>
               </Col>
@@ -85,6 +87,7 @@ export const AppHeader = () => {
                   onClick={onAddPublicationBtnClick}
                   dataTestId="add-publication-btn"
                   label={TEXT.ADD_PUBLICATION}
+                  className={styles.buttonMaxWidth}
                 />
               </Col>
             )}
@@ -97,6 +100,7 @@ export const AppHeader = () => {
                   onClick={() => navigate(ROUTES.LOGIN)}
                   dataTestId="authorize-btn"
                   label={TEXT.AUTHORIZE}
+                  className={styles.buttonMaxWidth}
                 />
               </Col>
             )}

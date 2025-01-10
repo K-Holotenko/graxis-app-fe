@@ -1,4 +1,5 @@
 import { Input as AntInput } from 'antd';
+import { ReactNode } from 'react';
 
 import styles from './styles.module.scss';
 
@@ -16,6 +17,7 @@ interface InputProps {
   value?: string;
   className?: string;
   id?: string;
+  prefix?: ReactNode;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
 }
@@ -28,6 +30,7 @@ export const Input = ({
   value,
   className,
   id,
+  prefix,
   onChange,
   onBlur,
 }: InputProps) => {
@@ -51,6 +54,7 @@ export const Input = ({
           maxLength={maxLength}
           addonBefore={addonBefore}
           placeholder={placeholder}
+          prefix={prefix}
           value={value}
           id={id}
           onChange={onChange}

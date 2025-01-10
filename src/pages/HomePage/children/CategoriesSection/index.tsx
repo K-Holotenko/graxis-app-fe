@@ -10,9 +10,7 @@ export const CategoriesSection = () => (
     className={styles.categoriesSection}
     data-testid="categories-section"
   >
-    <Heading level={2} className={styles.heading}>
-      {TEXT.CATEGORIES_SECTION_TITLE}
-    </Heading>
+    <Heading level={2}>{TEXT.CATEGORIES_SECTION_TITLE}</Heading>
     <div className={styles.categoriesList}>
       {CATEGORIES_SECTION_CARD.map((categories, index) => (
         <CategoriesSectionCard

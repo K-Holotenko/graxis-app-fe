@@ -1,4 +1,4 @@
-@use 'src/assets/styles/variables';
+@use 'src/styles/variables';
 
 .headerDrawer {
   .drawerCloseBtn:hover {
@@ -11,8 +11,22 @@
     padding: 12px 25px;
     height: 48px;
     width: 100%;
-    margin-top: 20px;
+    // margin-top: 20px;
   }
+}
+
+.verticalPadding {
+  margin-top: 12px;
+}
+
+.drawerVerticalPadding {
+  margin-top: 4px;
+}
+
+.locationTitle {
+  color: #fff;
+  font-size: 14px;
+  line-height: 150%;
 }
 
 .avatarLarge {

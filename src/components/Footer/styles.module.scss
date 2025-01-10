@@ -1,29 +1,35 @@
-@use 'src/assets/styles/variables.scss';
+@use 'src/styles/variables';
 
-.appFooterSection {
-  background-image: url('../../assets/images/footer-bg.jpg');
-  background-repeat: no-repeat;
-  background-position: right bottom;
+.footer {
+  position: relative;
+  overflow: hidden;
 }
 
 .footerRow {
-  min-height: 183px;
   color: variables.$primary !important;
-  max-width: 1720px;
-  margin-right: 300px;
-  padding-top: 59px;
+  max-width: 1440px;
 }
 
-.footerColLogo {
-  margin: auto 0;
-  padding-right: 10px;
+.footerImg {
+  position: absolute;
+  z-index: -1;
+  right: -60px;
+  bottom: 105px;
+  height: 126px;
+  width: auto;
+}
+
+.logo {
+  align-self: center;
+  margin-bottom: 36px;
 }
 
 .footerCol {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   align-items: flex-start;
+  margin-bottom: 16px;
 }
 
 .footerEmailBlock {
@@ -46,36 +52,62 @@
 
 .title {
   font-weight: 600;
+  font-size: 14px;
 }
 
-@media (max-width: 1200px) {
-  .appFooterSection {
-    background-size: 40% auto;
+.link {
+  font-size: 12px;
+}
+
+.footerRights {
+  font-size: 12px;
+  justify-content: start;
+}
+
+@media (min-width: 576px) {
+  footer {
+    overflow: visible;
   }
-  .footerRow {
-    margin-right: 150px;
+
+  .link {
+    font-size: 16px;
   }
+
+  .title {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .logo {
+    margin-bottom: 56px;
+  }
+
   .footerCol {
-    margin-top: 56px;
+    gap: 16px;
   }
-  .footerRights {
-    justify-content: start;
+
+  .footerImg {
+    right: 0;
   }
 }
-@media (max-width: 576px) {
-  .appFooterSection {
-    background-position: right center;
-    background-size: 60% auto;
-  }
-  .footerRow {
-    margin-right: 150px;
-  }
+
+@media (min-width: 768px) {
   .footerCol {
-    margin-top: 56px;
-    gap: 8px;
+    margin-bottom: 0;
   }
+
+  .footerImg {
+    bottom: 10px;
+  }
+}
+
+@media (min-width: 992px) {
   .footerRights {
-    justify-content: start;
-    font-size: 12px;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .logo {
+    margin-bottom: 0;
   }
 }

@@ -63,7 +63,7 @@ export const AuthForms = ({
         </Row>
       )}
       <Divider plain>{TEXT.OR}</Divider>
-      <Row justify="space-between" className="mb-34 mt-34" gutter={40}>
+      <Row justify="space-between" className={styles.buttonMargins} gutter={40}>
         <Col span={14} offset={5}>
           <Button
             icon={<GoogleIcon />}

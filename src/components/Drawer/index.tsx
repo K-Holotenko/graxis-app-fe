@@ -54,26 +54,16 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
       style={{ backgroundColor: theme.primaryColor }}
     >
       {isAuthorized && (
-        <Row>
+        <Row className={styles.userSection} align="middle" justify="center">
           <Col span={24}>
-            <Row className={styles.userSection} align="middle" justify="center">
-              <Col span={24}>
-                <Dropdown
-                  overlay={<Menu />}
-                  placement="bottom"
-                  trigger={['click']}
-                >
-                  <div className={styles.avatarSection}>
-                    <Avatar size="large" className={styles.avatarLarge}>
-                      {usernameABBR}
-                    </Avatar>
-                    <span className={styles.userSectionUsername}>
-                      {username}
-                    </span>
-                  </div>
-                </Dropdown>
-              </Col>
-            </Row>
+            <Dropdown overlay={<Menu />} placement="bottom" trigger={['click']}>
+              <div className={styles.avatarSection}>
+                <Avatar size="large" className={styles.avatarLarge}>
+                  {usernameABBR}
+                </Avatar>
+                <span className={styles.userSectionUsername}>{username}</span>
+              </div>
+            </Dropdown>
           </Col>
         </Row>
       )}
@@ -85,7 +75,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 type={ButtonTypes.default}
                 icon={<UserIconDark />}
                 iconPosition="start"
-                onClick={() => {}}
+                onClick={() => navigate(ROUTES.LOGIN)}
                 label={TEXT.AUTHORIZE}
               />
             </ConfigProvider>
@@ -93,7 +83,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
         </Row>
       )}
       {shouldShowAddPublicationButton && (
-        <Row>
+        <Row className={styles.verticalPadding}>
           <Col span={24}>
             <Button
               type={ButtonTypes.primary}
@@ -107,14 +97,14 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
           </Col>
         </Row>
       )}
-      <Row>
+      <Row className={styles.verticalPadding}>
         <Col span={24}>
-          <Typography style={{ fontSize: 13 }} className="pt-12 pb-12">
+          <Typography className={styles.locationTitle}>
             {TEXT.CHOOSE_LOCATION}
           </Typography>
         </Col>
       </Row>
-      <Row>
+      <Row className={styles.drawerVerticalPadding}>
         <Col span={24}>
           <SelectLocation />
         </Col>

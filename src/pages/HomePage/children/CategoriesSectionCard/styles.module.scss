@@ -1,132 +1,118 @@
-@use 'src/assets/styles/variables';
+@use 'src/styles/variables';
 
 .categoriesLink {
   display: block;
   text-decoration: none;
-  transition: transform 250ms linear;
-
-  &:hover,
-  &:focus {
-    transform: scale(1.01);
-    outline: none;
-  }
 }
 
 .categoriesCard {
+  position: relative;
   background-color: variables.$primary;
-  border-radius: variables.$category-card-radius;
-  padding: 45px 0 24px 0;
+  border-radius: 24px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  aspect-ratio: 1 / 1;
+  justify-content: center;
+  aspect-ratio: 1;
+}
 
-  .categoriesTitle {
-    font-size: variables.$font-size-small;
-    color: variables.$color-white;
-    line-height: variables.$line-height-medium;
-    margin-bottom: 0;
-    text-align: center;
-  }
+@mixin commonTitleStyles {
+  font-family: variables.$font-family;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 300;
+  line-height: 150%;
+  text-align: center;
+  margin-bottom: 0 !important;
+}
 
-  .categoriesTitleLast {
-    width: 92px;
-  }
+.categoriesTitle {
+  @include commonTitleStyles;
+  position: absolute;
+  bottom: 24px;
+}
+
+.suggestCategoryTitle {
+  @include commonTitleStyles;
+  margin-right: 10px;
+}
+
+.categoriesWrap {
+  position: absolute;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .categoriesImg {
   display: block;
-  margin: auto 0;
-  width: 66px;
-  height: 60px;
+  width: 50%;
+  height: auto;
 }
 
-.lastCard .categoriesImg {
-  width: 38px;
-  height: 38px;
+.addIcon {
+  width: 30px;
+  height: 30px;
 }
 
-.categoriesWrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
+.telegramIcon {
+  width: 30px;
+  height: 30px;
 }
 
 @media (min-width: 576px) {
-  .categoriesCard {
-    padding-top: 65px;
-
-    .categoriesTitle {
-      font-size: variables.$font-size-medium;
-    }
-
-    .categoriesTitleLast {
-      width: 162px;
-      text-align: start;
-    }
+  .categoriesTitle {
+    font-size: 16px;
+    font-weight: 400;
   }
 
-  .categoriesImg {
-    width: 134px;
-    height: 130px;
+  .suggestCategoryTitle {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .addIcon {
+    width: 50px;
+    height: 50px;
   }
 }
 
 @media (min-width: 768px) {
-  .categoriesCard {
-    padding-top: 80px;
-    min-height: 270px;
-
-    .categoriesTitle {
-      font-size: variables.$font-size-l;
-      line-height: variables.$line-height-tight;
-      letter-spacing: variables.$letter-spacing-narrow;
-    }
-
-    .categoriesTitleLast {
-      width: 192px;
-      text-align: start;
-    }
+  .categoriesTitle {
+    font-size: 22px;
   }
-
-  .categoriesImg {
-    width: 154px;
-    height: 150px;
-  }
-
-  .categoriesWrap {
-    justify-content: center;
-    gap: 50px;
-  }
-
-  .telegramIcon {
-    width: 26px;
-    height: 26px;
+  .suggestCategoryTitle {
+    font-size: 22px;
   }
 }
 
 @media (min-width: 992px) {
-  .categoriesCard {
-    min-height: 320px;
-    padding-top: 40px;
+  .categoriesTitle {
+    font-size: 16px;
+  }
+  .suggestCategoryTitle {
+    font-size: 16px;
+  }
+}
 
-    .categoriesTitle {
-      font-family: variables.$font-family-second;
-      font-size: variables.$font-size-ml;
-      font-weight: variables.$font-weight-semibold;
-      line-height: variables.$line-height-medium;
-    }
-
-    .categoriesTitleLast {
-      width: 180px;
-      text-align: center;
-    }
+@media (min-width: 1200px) {
+  .categoriesTitle {
+    font-size: 20px;
   }
 
-  .lastCard .categoriesImg {
-    margin-top: 95px;
+  .suggestCategoryTitle {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .categoriesTitle {
+    font-size: 22px;
+  }
+
+  .suggestCategoryTitle {
+    font-size: 22px;
   }
 }

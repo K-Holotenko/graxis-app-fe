@@ -36,6 +36,7 @@ const defaultData = {
       activeBg: '#fcffe8',
       activeBorderColor: '#4F4F4F',
       controlHeight: 48,
+      fontSize: 16,
     },
     Tabs: {
       colorPrimary: theme.textPrimaryColor,
