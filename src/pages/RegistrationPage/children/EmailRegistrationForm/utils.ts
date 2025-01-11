@@ -5,11 +5,11 @@ export const CREATE_PASSWORD_VALIDATION_CONDITIONS = [
   VALIDATION_CONDITION.REQUIRED,
   {
     pattern: REGEXS.upperCaseLetter,
-    message: 'Пароль має містити принаймні одну велику літеру',
+    message: 'Пароль має містити принаймні одну велику латинську літеру',
   },
   {
     pattern: REGEXS.lowerCaseLetter,
-    message: 'Пароль має містити принаймні одну малу літеру',
+    message: 'Пароль має містити принаймні одну малу латинську літеру',
   },
   {
     pattern: REGEXS.digit,

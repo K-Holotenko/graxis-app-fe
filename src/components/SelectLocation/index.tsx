@@ -21,7 +21,7 @@ export const SelectLocation = () => {
 
   return (
     <Row align="middle">
-      <Col xs={2}>
+      <Col xs={2} md={3}>
         <Image
           src={src}
           alt={IMAGE_DESCRIPTION.LOGO}
@@ -29,7 +29,7 @@ export const SelectLocation = () => {
           className="map-pin-icon"
         />
       </Col>
-      <Col xs={22}>
+      <Col xs={22} md={10}>
         <Form
           name={FORMS.SELECT_LOCATION_FORM}
           layout="vertical"
@@ -38,32 +38,15 @@ export const SelectLocation = () => {
         >
           <Form.Item name="location" rules={[]} noStyle={true}>
             <ConfigProvider
-              theme={{
-                components: {
-                  Select: {
-                    optionSelectedFontWeight: 'regular',
-                    optionFontSize: 16,
-                    optionHeight: 32,
-                    optionLineHeight: 2,
-                    colorTextQuaternary: 'white',
-                    optionSelectedColor: 'white',
-                    colorText: 'white',
-                    colorBgElevated: '#094658',
-                    optionPadding: '0px 16px',
-                    optionActiveBg: '#074A5E',
-                    colorTextPlaceholder: 'white',
-                    paddingXXS: 8,
-                    optionSelectedBg: '#003342',
-                  },
-                },
-              }}
+              theme={isTablet ? tabletLocalTheme : desktopLocalTheme}
             >
               <Select
-                // open={true}
                 size="large"
                 showSearch
                 variant="borderless"
-                popupClassName={styles.selectPopup}
+                popupClassName={
+                  isTablet ? styles.selectPopup : styles.selectPopupDesktop
+                }
                 options={CITY_LIST}
                 popupMatchSelectWidth={false}
                 defaultValue={CITY_LIST?.[0]?.value}
@@ -78,4 +61,45 @@ export const SelectLocation = () => {
       </Col>
     </Row>
   );
+};
+
+const tabletLocalTheme = {
+  components: {
+    Select: {
+      optionSelectedFontWeight: 'regular',
+      optionFontSize: 16,
+      optionHeight: 32,
+      optionLineHeight: 2,
+      colorTextQuaternary: 'white',
+      optionSelectedColor: 'white',
+      colorText: 'white',
+      colorBgElevated: '#094658',
+      optionPadding: '0px 16px',
+      optionActiveBg: '#074A5E',
+      colorTextPlaceholder: 'white',
+      paddingXXS: 8,
+      optionSelectedBg: '#003342',
+    },
+  },
+};
+
+const desktopLocalTheme = {
+  components: {
+    Select: {
+      optionSelectedFontWeight: 'regular',
+      optionFontSize: 16,
+      optionHeight: 32,
+      optionLineHeight: 2,
+      colorTextQuaternary: '#1D1617',
+      colorText: '#1D1617',
+      colorBgElevated: '#FFFFFF',
+      optionPadding: '0px 16px',
+
+      optionSelectedColor: '#1D1617',
+      optionActiveBg: '#F5F5F5',
+      colorTextPlaceholder: '#1D1617',
+      paddingXXS: 8,
+      optionSelectedBg: '#F5F5F5',
+    },
+  },
 };

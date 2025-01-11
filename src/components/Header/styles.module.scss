@@ -11,12 +11,22 @@
   width: 48px;
 }
 
-.buttonMaxWidth {
-  width: 242px !important;
+.buttonPaddingCall {
+  padding: 0 8px !important;
 }
 
-.dropdownMenu {
-  text-align: center;
+.buttonPadding {
+  padding: 12px 10px !important;
+}
+
+.dropdownRoot {
+  width: 256px;
+
+  :global {
+    .ant-dropdown-menu-item-active:active {
+      background-color: #c0d32c !important;
+    }
+  }
 }
 
 .logo {
@@ -35,13 +45,21 @@
 
 @media (min-width: 768px) {
   .logo {
-    height: 18px !important;
+    height: 16px !important;
   }
 }
 
 @media (min-width: 992px) {
   .logo {
     height: 22px !important;
+  }
+
+  .buttonPadding {
+    padding: 12px 20px !important;
+  }
+
+  .buttonPadding {
+    padding: 0 20px !important;
   }
 }
 

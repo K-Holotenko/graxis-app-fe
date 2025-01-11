@@ -39,9 +39,10 @@ const defaultData = {
       fontSize: 16,
     },
     Tabs: {
-      colorPrimary: theme.textPrimaryColor,
-      colorPrimaryHover: theme.primaryColor,
-      colorPrimaryActive: theme.primaryColor,
+      itemColor: '#4F4F4F',
+      colorPrimary: '#1d1617',
+      colorPrimaryHover: '#003342',
+      colorPrimaryActive: '#003342',
     },
     Select: {
       fontSize: theme.fontSize16,

@@ -1,17 +1,18 @@
 @use 'src/styles/variables';
 
 .tabs {
-  font-size: 20px;
+  // font-size: 12px !important;
+  color: #1d1617 !important;
 }
 
 .authPageTitle {
   text-align: center;
-  color: #1d1617;
-  font-size: 32px;
+  color: #1d1617 !important;
+  font-size: 24px !important;
 }
 
 .socialMediaButton {
-  height: 44px;
+  height: 48px;
 }
 
 .registerStyle {
@@ -56,5 +57,17 @@
 :global {
   .ant-tabs-nav {
     margin-bottom: 40px !important;
+  }
+}
+
+@media (min-width: 576px) {
+  .authPageTitle {
+    font-size: 30px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .authPageTitle {
+    font-size: 32px !important;
   }
 }

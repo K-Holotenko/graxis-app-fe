@@ -26,7 +26,7 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
           lg={{ span: 8, offset: isSmallHeight ? 8 : 13 }}
           className={styles.logoCol}
         >
-          <Logo className={styles.logo} />
+          <Logo className={styles.logo} height={28} />
         </Col>
       </Row>
       <Row align="middle" className={styles.authLayoutRow}>
@@ -41,7 +41,7 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
           lg={{ span: 8, offset: isSmallHeight ? 8 : 3 }}
           className={isSmallHeight ? styles.verifyPage : ''}
         >
-          <div className={styles.chldrenContainer}>{children}</div>
+          <div className={styles.childrenContainer}>{children}</div>
         </Col>
       </Row>
     </>
