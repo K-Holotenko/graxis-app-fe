@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Image,
-  message,
   Upload,
   UploadFile,
   UploadProps,
@@ -11,44 +10,40 @@ import {
 
 import { ReactComponent as CameraIcon } from 'src/assets/icons/camera-icon.svg';
 import { theme } from 'src/config/theme';
+import { useWindowSize } from 'src/hooks/useWindowSize';
 
+import { beforeUpload, getBase64 } from './utils/config';
 import styles from './styles.module.scss';
 
 interface UploadItemProps {
   onChange: (files: UploadFile) => void;
   onRemove: (file: UploadFile) => void;
+  uploadStates: UploadFile[];
   file: UploadFile;
+  index: number;
 }
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
-
-const getBase64 = (file: FileType): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-
-const beforeUpload = (file: FileType) => {
-  if (file.size > 2 * 1024 * 1024) {
-    message.error('Image must smaller than 2MB');
-
-    return Upload.LIST_IGNORE;
-  }
-
-  return false;
-};
 
 export const UploadItem: React.FC<UploadItemProps> = ({
   onChange,
   onRemove,
   file,
+  uploadStates,
+  index,
 }) => {
+  const { width } = useWindowSize();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  useEffect(() => {
+    if (uploadStates[index]) {
+      setFileList([uploadStates[index]]);
+    } else {
+      setFileList([]);
+    }
+  }, [uploadStates, index, width]);
 
   const handlePreview = async () => {
     if (!file.url && !file.preview) {
@@ -74,20 +69,8 @@ export const UploadItem: React.FC<UploadItemProps> = ({
   );
 
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Upload: {
-            colorBgMask: 'transparent',
-            colorPrimary: 'transparent',
-            colorBorder: 'transparent',
-            colorFillAlter: theme.whiteColor,
-            paddingXS: 0,
-          },
-        },
-      }}
-    >
-      <div className={styles.upLoadWrap}>
+    <ConfigProvider theme={localTheme}>
+      <div className={styles.uploadContainer}>
         <Upload
           className={styles.upLoad}
           listType="picture-card"
@@ -98,7 +81,7 @@ export const UploadItem: React.FC<UploadItemProps> = ({
           fileList={fileList}
           accept="image/png, image/jpeg, image/heic, image/heif, image/webp"
         >
-          {uploadButton}
+          {fileList.length === 1 ? null : uploadButton}
         </Upload>
         {previewImage && (
           <Image
@@ -114,4 +97,15 @@ export const UploadItem: React.FC<UploadItemProps> = ({
       </div>
     </ConfigProvider>
   );
+};
+
+const localTheme = {
+  components: {
+    Upload: {
+      colorPrimary: 'transparent',
+      colorBorder: 'transparent',
+      colorFillAlter: theme.whiteColor,
+      paddingXS: 0,
+    },
+  },
 };

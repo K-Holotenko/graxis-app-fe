@@ -1,6 +1,6 @@
 @use 'src/assets/styles/variables';
 
-.upLoadWrap {
+.uploadContainer {
   :global {
     .ant-tooltip {
       display: none !important;
@@ -32,8 +32,8 @@
   }
 }
 
-@media (min-width: 576px) {
-  .upLoadWrap {
+@media (min-width: variables.$breakpoint-tablet) {
+  .uploadContainer {
     .button {
       height: 154px;
     }
