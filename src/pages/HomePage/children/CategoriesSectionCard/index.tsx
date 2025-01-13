@@ -34,14 +34,13 @@ export const CategoriesSectionCard = ({
       <img
         alt={categories.title}
         src={categories.image}
-        className={styles.categoriesImg}
+        className={`${styles.categoriesImg} ${isLast ? styles.addIcon : ''}`}
       />
       {categories.icon ? (
         <div className={styles.categoriesWrap}>
-          <Paragraph
-            className={`${styles.categoriesTitle} ${styles.categoriesTitleLast}`}
-          >
-            {categories.title}
+          <Paragraph className={styles.suggestCategoryTitle}>
+            Запропонуйте <br />
+            категорію
           </Paragraph>
           <img
             alt={categories.title}

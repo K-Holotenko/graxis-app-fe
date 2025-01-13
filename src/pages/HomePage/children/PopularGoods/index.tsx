@@ -6,10 +6,11 @@ import image5 from 'src/assets/images/fifth_card.jpg';
 import image6 from 'src/assets/images/sixth_card.jpg';
 import image7 from 'src/assets/images/seventh_card.jpg';
 import image8 from 'src/assets/images/eighth_card.jpg';
-import './styles.scss';
 import { PopularGoodCard } from 'src/pages/HomePage/children/PopularGoodCard';
 import { TEXT } from 'src/config/constants';
 import { Heading } from 'src/components/Heading';
+
+import styles from './styles.module.scss';
 
 // TEMPORARY, should be stored in store
 const goods = [
@@ -73,10 +74,8 @@ const goods = [
 
 export const PopularGoods = () => (
   <>
-    <Heading level={2} className="heading">
-      {TEXT.POPULAR_GOODS}
-    </Heading>
-    <div className="popular-goods">
+    <Heading level={2}>{TEXT.POPULAR_GOODS}</Heading>
+    <section className={styles.popularGoodsSection}>
       {goods.map((good) => (
         <PopularGoodCard
           key={good.id}
@@ -86,6 +85,6 @@ export const PopularGoods = () => (
           price={good.price}
         />
       ))}
-    </div>
+    </section>
   </>
 );

@@ -1,18 +1,45 @@
-@use 'src/assets/styles/variables';
+@use 'src/styles/variables';
 
-.headerDrawer {
-  .drawerCloseBtn:hover {
-    cursor: pointer;
-  }
+.drawerCloseBtn:hover {
+  cursor: pointer;
+}
 
-  .addPublicationButton {
-    background-color: variables.$light-green-color;
-    color: variables.$primary;
-    padding: 12px 25px;
-    height: 48px;
-    width: 100%;
-    margin-top: 20px;
+.dropdownRoot {
+  border: 1px solid #c0d32c;
+  border-radius: 16px;
+
+  :global {
+    .ant-dropdown-menu-item-active {
+      color: #1d1617 !important;
+    }
+
+    .ant-dropdown-menu-light {
+      padding: 8px;
+    }
   }
+}
+
+.addPublicationButton {
+  color: variables.$primary;
+}
+
+.addPublicationButton:hover,
+.addPublicationButton:active {
+  color: variables.$primary !important;
+}
+
+.verticalPadding {
+  margin-top: 12px;
+}
+
+.drawerVerticalPadding {
+  margin-top: 4px;
+}
+
+.locationTitle {
+  color: #fff;
+  font-size: 14px;
+  line-height: 150%;
 }
 
 .avatarLarge {
@@ -25,10 +52,10 @@
 }
 
 .userSection {
-  color: variables.$success;
+  color: #c0d32c;
   height: 48px;
   text-align: center;
-  border: 1px solid variables.$success;
+  border: 1px solid #c0d32c;
   border-radius: 12px;
 }
 
