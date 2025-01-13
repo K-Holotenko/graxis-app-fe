@@ -63,21 +63,25 @@ export const SelectLocation = () => {
   );
 };
 
+const commonSelectTheme = {
+  optionSelectedFontWeight: 'regular',
+  optionFontSize: 16,
+  optionHeight: 32,
+  optionLineHeight: 2,
+  paddingXXS: 8,
+  optionPadding: '0px 16px',
+};
+
 const tabletLocalTheme = {
   components: {
     Select: {
-      optionSelectedFontWeight: 'regular',
-      optionFontSize: 16,
-      optionHeight: 32,
-      optionLineHeight: 2,
-      colorTextQuaternary: 'white',
-      optionSelectedColor: 'white',
-      colorText: 'white',
+      ...commonSelectTheme,
+      colorTextQuaternary: '#ffffff',
+      optionSelectedColor: '#ffffff',
+      colorText: '#ffffff',
       colorBgElevated: '#094658',
-      optionPadding: '0px 16px',
       optionActiveBg: '#074A5E',
-      colorTextPlaceholder: 'white',
-      paddingXXS: 8,
+      colorTextPlaceholder: '#ffffff',
       optionSelectedBg: '#003342',
     },
   },
@@ -86,19 +90,13 @@ const tabletLocalTheme = {
 const desktopLocalTheme = {
   components: {
     Select: {
-      optionSelectedFontWeight: 'regular',
-      optionFontSize: 16,
-      optionHeight: 32,
-      optionLineHeight: 2,
+      ...commonSelectTheme,
       colorTextQuaternary: '#1D1617',
       colorText: '#1D1617',
-      colorBgElevated: '#FFFFFF',
-      optionPadding: '0px 16px',
-
+      colorBgElevated: '#ffffff',
       optionSelectedColor: '#1D1617',
       optionActiveBg: '#F5F5F5',
       colorTextPlaceholder: '#1D1617',
-      paddingXXS: 8,
       optionSelectedBg: '#F5F5F5',
     },
   },

@@ -6,9 +6,10 @@ import { theme } from 'src/config/theme';
 const defaultData = {
   token: {
     fontFamily: theme.fontFamily,
+    colorError: '#EA2A2A',
+    colorLinkHover: '#074A5E',
   },
   components: {
-    colorLinkHover: '#074A5E',
     Button: {
       colorPrimaryHover: '#074A5E',
       colorPrimaryActive: theme.primaryColor,
@@ -26,6 +27,7 @@ const defaultData = {
     Checkbox: {
       colorPrimaryHover: theme.primaryColor,
       colorPrimary: theme.primaryColor,
+      colorText: '#4F4F4F',
     },
     Input: {
       hoverBorderColor: '#B8B2B2',

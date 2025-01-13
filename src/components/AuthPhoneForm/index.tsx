@@ -1,4 +1,4 @@
-import { Form, Typography } from 'antd';
+import { ConfigProvider, Form, Typography } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -72,50 +72,60 @@ export const AuthPhoneForm = ({ route }: AuthPhoneFormProps) => {
   const isRegistration = route === ROUTES.REGISTRATION;
 
   return (
-    <Form
-      name={FORMS.PHONE_AUTH_FORM}
-      layout="vertical"
-      onFinish={onFinish}
-      requiredMark={false}
-      form={form}
-    >
-      <Form.Item
-        label={TEXT.PHONE}
-        className={styles.formItemPhone}
-        name="phone"
-        validateTrigger="onBlur"
-        rules={rules}
+    <ConfigProvider theme={localTheme}>
+      <Form
+        name={FORMS.PHONE_AUTH_FORM}
+        layout="vertical"
+        onFinish={onFinish}
+        requiredMark={false}
+        form={form}
       >
-        <Input
-          type={InputType.TEL}
-          maxLength={9}
-          addonBefore="+380"
-          className={styles.phoneInput}
-          placeholder={TEXT.INPUT_PHONE}
-          onChange={handleInputChange}
-        />
-      </Form.Item>
-      <Typography.Paragraph className={styles.helperText}>
-        {TEXT.SEND_SMS}
-      </Typography.Paragraph>
-      {isRegistration && (
         <Form.Item
-          valuePropName="checked"
-          name="agreement"
-          rules={[VALIDATION_CONDITION.REQUIRED]}
-          className={styles.agreement}
+          label={TEXT.PHONE}
+          className={styles.formItemPhone}
+          name="phone"
+          validateTrigger="onBlur"
+          rules={rules}
         >
-          <Checkbox label={TEXT.ALLOW_DATA_PROCESSING} />
+          <Input
+            type={InputType.TEL}
+            maxLength={9}
+            addonBefore="+380"
+            className={styles.phoneInput}
+            placeholder={TEXT.INPUT_PHONE}
+            onChange={handleInputChange}
+          />
         </Form.Item>
-      )}
-      <button
-        className="display-none"
-        id="phone-auth-button"
-        aria-hidden="true"
-      />
-      <Form.Item>
-        <Button htmlType="submit" isDisabled={!isValid} label={TEXT.SUBMIT} />
-      </Form.Item>
-    </Form>
+        <Typography.Paragraph className={styles.helperText}>
+          {TEXT.SEND_SMS}
+        </Typography.Paragraph>
+        {isRegistration && (
+          <Form.Item
+            valuePropName="checked"
+            name="agreement"
+            rules={[VALIDATION_CONDITION.REQUIRED]}
+            className={styles.agreement}
+          >
+            <Checkbox label={TEXT.ALLOW_DATA_PROCESSING} />
+          </Form.Item>
+        )}
+        <button
+          className="display-none"
+          id="phone-auth-button"
+          aria-hidden="true"
+        />
+        <Form.Item>
+          <Button htmlType="submit" isDisabled={!isValid} label={TEXT.SUBMIT} />
+        </Form.Item>
+      </Form>
+    </ConfigProvider>
   );
+};
+
+const localTheme = {
+  components: {
+    Form: {
+      labelColor: '#4F4F4F',
+    },
+  },
 };

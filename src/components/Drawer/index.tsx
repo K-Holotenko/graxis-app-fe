@@ -20,7 +20,6 @@ import { useAuthStore } from 'src/stores/authStore';
 import { SelectLocation } from 'src/components/SelectLocation';
 import { ButtonTypes, TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
-// import { Menu } from 'src/components/Menu';
 import { Button } from 'src/components/Button';
 
 import styles from './styles.module.scss';
