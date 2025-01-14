@@ -8,7 +8,6 @@ import { Input } from 'src/components/Input';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { CategoriesDropdown } from 'src/pages/AddPublicationPage/children/CategoriesDropdown';
 import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
-
 import AddPublicationButton from 'src/pages/AddPublicationPage/children/AddPublicationButton';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
