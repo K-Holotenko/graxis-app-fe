@@ -5,11 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import successIconSrc from 'src/assets/icons/success_icon.svg';
 import { Button } from 'src/components/Button';
 import { Heading } from 'src/components/Heading';
-import { IMAGE_DESCRIPTION } from 'src/config/constants';
-import { TEXT } from 'src/config/constants';
+import { TEXT, IMAGE_DESCRIPTION } from 'src/config/constants';
 
-import styles from './styles.module.scss';
 import { ROUTES } from 'src/router/routes';
+import styles from './styles.module.scss';
 
 const AddPublicationButton: React.FC = () => {
   const navigate = useNavigate();
