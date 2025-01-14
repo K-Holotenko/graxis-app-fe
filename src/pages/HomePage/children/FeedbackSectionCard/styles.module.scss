@@ -1,6 +1,6 @@
-@use 'src/assets/styles/variables';
+@use 'src/styles/variables';
 
-@mixin text-styles(
+@mixin textStyles(
   $color: variables.$color-white,
   $line-height: variables.$line-height-medium
 ) {
@@ -18,41 +18,41 @@
   margin-left: 12px;
   padding: 16px;
   height: 100%;
+}
 
-  .feedbackRate {
-    color: variables.$light-green-color;
+.feedbackRate {
+  color: variables.$light-green-color;
 
-    :global {
-      .ant-rate-star {
-        margin-inline-end: 2px;
-      }
-    }
-
-    svg {
-      width: 18px;
-      height: 18px;
+  :global {
+    .ant-rate-star {
+      margin-inline-end: 2px;
     }
   }
 
-  .feedbackDate {
-    @include text-styles(variables.$secondary, variables.$line-height-large);
-    font-weight: variables.$font-weight-bold;
+  svg {
+    width: 18px;
+    height: 18px;
   }
+}
 
-  .feedbackTitle {
-    @include text-styles(variables.$secondary, variables.$line-height-large);
-    font-weight: variables.$font-weight-bold;
-    margin-top: 19px;
-  }
+.feedbackDate {
+  @include textStyles(variables.$secondary, variables.$line-height-large);
+  font-weight: variables.$font-weight-bold;
+}
 
-  .feedbackReview {
-    @include text-styles(variables.$color-white, variables.$line-height-large);
-  }
+.feedbackTitle {
+  @include textStyles(variables.$secondary, variables.$line-height-large);
+  font-weight: variables.$font-weight-bold;
+  margin-top: 19px;
+}
 
-  .feedbackName {
-    @include text-styles(variables.$color-white);
-    font-size: variables.$font-size-18;
-  }
+.feedbackReview {
+  @include textStyles(variables.$color-white, variables.$line-height-large);
+}
+
+.feedbackName {
+  @include textStyles(variables.$color-white);
+  font-size: variables.$font-size-18;
 }
 
 .feedbackDescriptionWrapper {

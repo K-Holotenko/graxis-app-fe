@@ -1,8 +1,9 @@
 import { Card } from 'antd';
 import { StarFilled } from '@ant-design/icons';
 
-import './styles.scss';
 import { TEXT } from 'src/config/constants';
+
+import styles from './styles.module.scss';
 
 export interface PopularGoodCardProps {
   image: string;
@@ -18,23 +19,23 @@ export const PopularGoodCard = ({
   price,
 }: PopularGoodCardProps) => (
   <Card
-    className="product-card"
+    className={styles.productCard}
     hoverable
-    cover={<img src={image} alt={name} className="product-image" />}
+    cover={<img src={image} alt={name} className={styles.productImage} />}
   >
-    <section className="card-description">
-      <div className="card-info">
-        <span className="card-name">{name}</span>
-        <div className="rating">
-          <StarFilled className="star-icon" />
-          <span className="rating-value">{rating.toFixed(1)}</span>
+    <div className={styles.cardDescription}>
+      <div className={styles.cardInfo}>
+        <span className={styles.cardName}>{name}</span>
+        <div className={styles.rating}>
+          <StarFilled className={styles.starIcon} />
+          <span className={styles.ratingValue}>{rating.toFixed(1)}</span>
         </div>
       </div>
-      <div className="card-bottom">
-        <span className="price">
+      <div className={styles.cardBottom}>
+        <span className={styles.price}>
           {price} {TEXT.CURRENCY_PER_TIME}
         </span>
       </div>
-    </section>
+    </div>
   </Card>
 );

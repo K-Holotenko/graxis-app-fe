@@ -18,7 +18,7 @@ describe('PopularGoodCard', () => {
 
     expect(getByText('Test Product')).toBeInTheDocument();
     expect(getByText('4.8')).toBeInTheDocument();
-    expect(getByText('400 грн / год')).toBeInTheDocument();
+    expect(getByText('400 грн / день')).toBeInTheDocument();
 
     const img = getByAltText('Test Product');
 

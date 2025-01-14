@@ -1,56 +1,34 @@
-@use 'src/assets/styles/variables';
+@use 'src/styles/variables';
 
 .categoriesSection {
-  margin-bottom: 80px;
+  margin-bottom: 40px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .categoriesList {
-  list-style-type: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
 
-.heading {
-  font-weight: variables.$font-weight-semibold;
-  color: variables.$primary;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
 @media (min-width: 768px) {
   .categoriesSection {
-    margin-bottom: 100px;
-  }
-
-  .categoriesList {
-    gap: 24px;
-  }
-
-  .heading {
-    font-size: variables.$font-size-l;
-    font-weight: variables.$font-weight-regular;
-    line-height: variables.$line-height-tight;
+    margin-left: 26px;
+    margin-right: 26px;
+    margin-bottom: 80px;
   }
 }
 
 @media (min-width: 992px) {
   .categoriesList {
     grid-template-columns: repeat(4, 1fr);
-    overflow-y: hidden;
-    overflow-x: auto;
+    gap: 24px;
   }
-}
 
-@media (min-width: 1400px) {
   .categoriesSection {
-    margin-top: 134px;
-    margin-bottom: 160px;
-  }
-
-  .heading {
-    font-size: variables.$font-size-xxxl;
-    font-weight: variables.$font-weight-semibold;
-    margin-bottom: 80px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 140px;
   }
 }

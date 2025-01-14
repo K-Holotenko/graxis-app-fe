@@ -1,4 +1,4 @@
-@use 'src/assets/styles/variables.scss';
+@use 'src/styles/variables';
 
 .appHeader {
   height: 80px;
@@ -11,8 +11,22 @@
   width: 48px;
 }
 
-.dropdownMenu {
-  text-align: center;
+.buttonPaddingCall {
+  padding: 0 8px !important;
+}
+
+.buttonPadding {
+  padding: 12px 10px !important;
+}
+
+.dropdownRoot {
+  width: 256px;
+
+  :global {
+    .ant-dropdown-menu-item-active:active {
+      background-color: #c0d32c !important;
+    }
+  }
 }
 
 .logo {
@@ -31,13 +45,21 @@
 
 @media (min-width: 768px) {
   .logo {
-    height: 18px !important;
+    height: 16px !important;
   }
 }
 
 @media (min-width: 992px) {
   .logo {
     height: 22px !important;
+  }
+
+  .buttonPadding {
+    padding: 12px 20px !important;
+  }
+
+  .buttonPadding {
+    padding: 0 20px !important;
   }
 }
 

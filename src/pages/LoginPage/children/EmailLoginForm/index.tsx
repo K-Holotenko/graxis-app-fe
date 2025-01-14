@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Form } from 'antd';
+import { ConfigProvider, Form } from 'antd';
 
 import { FORMS, REGEXS, TEXT } from 'src/config/constants';
 import { VALIDATION_CONDITION } from 'src/config/validation';
@@ -45,38 +45,51 @@ export const EmailLoginForm = () => {
   const onFinishFailed = () => {};
 
   return (
-    <Form
-      name={FORMS.EMAIL_LOGIN_FORM}
-      layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      form={form}
-    >
-      <Form.Item
-        label={TEXT.EMAIL}
-        name="email"
-        rules={[VALIDATION_CONDITION.EMAIL]}
-        validateTrigger="onBlur"
-        className={styles.marginBottm}
+    <ConfigProvider theme={localTheme}>
+      <Form
+        name={FORMS.EMAIL_LOGIN_FORM}
+        layout="vertical"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        form={form}
+        requiredMark={false}
       >
-        <Input
-          onChange={onChange}
-          type={InputType.EMAIL}
-          placeholder={TEXT.INPUT_EMAIL}
-        />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        label={TEXT.PASSWORD}
-        rules={[VALIDATION_CONDITION.REQUIRED]}
-        validateTrigger="onBlur"
-        validateStatus={isValid ? 'success' : undefined}
-      >
-        <Input type={InputType.PASSWORD} placeholder={TEXT.INPUT_PASSWORD} />
-      </Form.Item>
-      <Form.Item className={styles.buttonMargin}>
-        <Button htmlType="submit" isDisabled={!isValid} label={TEXT.SUBMIT} />
-      </Form.Item>
-    </Form>
+        <Form.Item
+          label={TEXT.EMAIL}
+          name="email"
+          rules={[VALIDATION_CONDITION.EMAIL]}
+          validateTrigger="onBlur"
+          className={styles.marginBottm}
+        >
+          <Input
+            onChange={onChange}
+            type={InputType.EMAIL}
+            placeholder={TEXT.INPUT_EMAIL}
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label={TEXT.PASSWORD}
+          rules={[VALIDATION_CONDITION.REQUIRED]}
+          validateTrigger="onBlur"
+          validateStatus={isValid ? 'success' : undefined}
+          className={styles.marginBottom}
+        >
+          <Input type={InputType.PASSWORD} placeholder={TEXT.INPUT_PASSWORD} />
+        </Form.Item>
+        <Form.Item className={styles.buttonMargin}>
+          <Button htmlType="submit" isDisabled={!isValid} label={TEXT.SUBMIT} />
+        </Form.Item>
+      </Form>
+    </ConfigProvider>
   );
+};
+
+const localTheme = {
+  components: {
+    Form: {
+      labelColor: '#4F4F4F',
+      itemMarginBottom: 12,
+    },
+  },
 };

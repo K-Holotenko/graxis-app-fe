@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Avatar, Dropdown, Badge, Image } from 'antd';
+import {
+  Row,
+  Col,
+  Avatar,
+  Dropdown,
+  Badge,
+  Image,
+  MenuProps,
+  ConfigProvider,
+} from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 import notificationIconSrc from 'src/assets/icons/notification-icon.svg';
@@ -10,42 +19,75 @@ import { Logo } from 'src/components/Logo';
 import { useAuthStore } from 'src/stores/authStore';
 import { ReactComponent as DrawerIcon } from 'src/assets/icons/drawer-icon.svg';
 import {
-  HEADER_MOBILE_WIDTH,
   IMAGE_DESCRIPTION,
   ButtonTypes,
   TEXT,
+  SCREEN_WIDTH,
 } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ROUTES } from 'src/router/routes';
-import { Menu } from 'src/components/Menu/index';
 import { Drawer } from 'src/components/Drawer';
 import { Button } from 'src/components/Button';
 
 import styles from './styles.module.scss';
 
+const menuItems = [
+  {
+    key: '1',
+    label: TEXT.MY_PUBLICATIONS,
+  },
+  {
+    key: '2',
+    label: TEXT.SETTINGS,
+  },
+  {
+    key: '3',
+    label: TEXT.LOGOUT,
+  },
+];
+
 export const AppHeader = () => {
   const { width } = useWindowSize();
   const navigate = useNavigate();
+  const authStore = useAuthStore();
 
   const { isAuthorized } = useAuthStore();
   const [hasNotifications] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
-  const [isDesktop, setDesktop] = useState(false);
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
-  useEffect(() => {
-    setDesktop(width > HEADER_MOBILE_WIDTH);
-  }, [width]);
+  const isDesktop = width > SCREEN_WIDTH.MD;
 
   const onAddPublicationBtnClick = () => {
     navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
   };
 
+  useEffect(() => {
+    if (isDesktop) {
+      setShowDrawer(false);
+    }
+  }, [isDesktop]);
+
+  const handleMenuClick: MenuProps['onClick'] = (e) => {
+    const actions: { [key: string]: () => void } = {
+      '1': () => navigate(ROUTES.PUBLICATIONS),
+      '2': () => navigate(ROUTES.SETTINGS),
+      '3': () => authStore.signOut(),
+    };
+
+    actions[e.key]();
+  };
+
+  const menu = {
+    items: menuItems,
+    onClick: handleMenuClick,
+  };
+
   return (
     <>
       <header className={`container ${styles.headerContainer}`}>
-        <Row className={styles.appHeader} justify={'space-between'}>
+        <Row className={styles.appHeader} justify="space-between" wrap={false}>
           <Row gutter={16} align="middle">
             {!isDesktop && (
               <Col>
@@ -63,7 +105,7 @@ export const AppHeader = () => {
               </Col>
             )}
           </Row>
-          <Row gutter={30} align="middle">
+          <Row gutter={30} align="middle" wrap={false}>
             {isAuthorized && (
               <Col>
                 <Badge dot={hasNotifications}>
@@ -71,13 +113,12 @@ export const AppHeader = () => {
                     src={notificationIconSrc}
                     alt={IMAGE_DESCRIPTION.LOGO}
                     preview={false}
-                    className="notification-icon"
                   />
                 </Badge>
               </Col>
             )}
             {isDesktop && shouldShowAddPublicationButton && (
-              <Col>
+              <Col className={styles.buttonPaddingCall}>
                 <Button
                   type={ButtonTypes.primary}
                   icon={<PlusIcon />}
@@ -89,22 +130,24 @@ export const AppHeader = () => {
               </Col>
             )}
             {!isAuthorized && isDesktop && (
-              <Col>
+              <Col className={styles.buttonPaddingCall}>
                 <Button
                   type={ButtonTypes.default}
                   icon={<UserIcon />}
                   iconPosition="start"
                   onClick={() => navigate(ROUTES.LOGIN)}
                   dataTestId="authorize-btn"
+                  className={styles.buttonPadding}
                   label={TEXT.AUTHORIZE}
                 />
               </Col>
             )}
             {isAuthorized && isDesktop && (
               <Col>
-                <div className={styles.dropdownMenu}>
+                <ConfigProvider theme={localTheme}>
                   <Dropdown
-                    overlay={<Menu />}
+                    rootClassName={styles.dropdownRoot}
+                    menu={menu}
                     placement="bottom"
                     trigger={['click']}
                   >
@@ -112,7 +155,7 @@ export const AppHeader = () => {
                       BC
                     </Avatar>
                   </Dropdown>
-                </div>
+                </ConfigProvider>
               </Col>
             )}
           </Row>
@@ -123,4 +166,15 @@ export const AppHeader = () => {
       )}
     </>
   );
+};
+
+const localTheme = {
+  components: {
+    Dropdown: {
+      controlItemBgHover: '#EAEAEA',
+      borderRadiusLG: 16,
+      controlPaddingHorizontal: 16,
+      paddingBlock: 9,
+    },
+  },
 };

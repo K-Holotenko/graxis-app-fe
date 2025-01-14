@@ -1,5 +1,5 @@
-@import './assets/styles/variables';
-@import './assets/styles/fonts';
+@import 'src/styles/variables';
+@import 'src/styles/fonts';
 
 * {
   box-sizing: border-box;
@@ -13,45 +13,19 @@ body {
   min-width: 375px;
 }
 
-.mt-20 {
-  margin-top: 20px;
-}
-
-.mb-34 {
-  margin-bottom: 34px;
-}
-
-.mt-34 {
-  margin-top: 34px;
-}
-
-.pt-12 {
-  padding-top: 12px;
-}
-
-.pb-12 {
-  padding-bottom: 12px;
-}
-
-.fs-16 {
-  font-size: 16px;
-}
-
 .container {
-  max-width: 1400px;
-  padding: 0 24px;
+  max-width: 1440px;
+  padding: 0 16px;
   width: 100%;
   margin: 0 auto;
 }
 
+@media (min-width: 576px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
 .display-none {
   display: none;
-}
-
-.centered {
-  text-align: center;
-}
-
-.w100 {
-  width: 100%;
 }
