@@ -10,7 +10,7 @@ import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
 import { Input } from 'src/components/Input';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
-import AddPublicationButton from '../AddPublicationButton';
+import AddPublicationButton from 'src/pages/AddPublicationPage/children/AddPublicationButton';
 
 interface AddPublicationInputs {
   priceDay: string;
