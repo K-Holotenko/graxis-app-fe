@@ -10,6 +10,7 @@ import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
 import { Input } from 'src/components/Input';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
+import AddPublicationButton from '../AddPublicationButton';
 
 interface AddPublicationInputs {
   priceDay: string;
@@ -76,6 +77,9 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
         </Col>
         <Col span={24}>
           <PriceInputs />
+        </Col>
+        <Col span={6} offset={18}>
+          <AddPublicationButton />
         </Col>
       </Row>
     </Form>

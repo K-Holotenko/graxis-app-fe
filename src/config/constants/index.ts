@@ -28,6 +28,8 @@ export const TEXT = {
   FEEDBACKS: 'Відгуки',
   FORGOT_PASSWORD: 'Забули пароль?',
 
+  GOODS_PUBLISHED: 'Ваш товар опубліковано.',
+
   HELPER_TEXT_EMAIL: 'Дотримуйтесь шаблону youremil@gmail.com',
   HELPER_TEXT_PASSWORD:
     'Пароль може містити тільки A p # 4 і бути не менше 8 символів',
@@ -49,12 +51,14 @@ export const TEXT = {
   NAME: 'Назва',
   NO_ACCOUNT: 'Немає акаунту?',
 
+  OK: 'ОК',
   OR: 'Або',
 
   PASSWORD: 'Пароль',
   PHONE: 'Номер телефону',
   POPULAR_GOODS: 'Популярні товари',
   POPULAR_NOW: 'Популярне зараз',
+  PUBLISH: 'Опублікувати',
 
   REGISTER: 'Зареєструватися',
   RIGHTS: '© 2025 Graxis. Всі права захищено. Політика конфіденційності',
@@ -65,6 +69,7 @@ export const TEXT = {
   SEND_SMS_AGAIN: 'Надіслати повторно',
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
   SETTINGS: 'Налаштування',
+  SUCCESS: 'Успішно!',
   SUBMIT: 'Продовжити',
   COST: 'Вартість',
   HRYVNIAS_PER_DAY: 'грн/день',
@@ -93,6 +98,7 @@ export const IMAGE_DESCRIPTION = {
   NOTIFICATION_ICON: 'Notification icon',
   USER_ICON: 'User icon',
   PLUS_ICON: 'Plus icon',
+  SUCCESS: 'Success icon',
 };
 
 export const CITY_LIST = [
