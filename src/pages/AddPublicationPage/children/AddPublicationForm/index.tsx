@@ -7,6 +7,7 @@ import { TextArea } from 'src/components/TextArea';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { CategoriesDropdown } from 'src/pages/AddPublicationPage/children/CategoriesDropdown';
 import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
+import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
 import { Input } from 'src/components/Input';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
@@ -73,6 +74,9 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               rows={8}
             />
           </Form.Item>
+        </Col>
+        <Col span={24}>
+          <UploadList />
         </Col>
         <Col span={24}>
           <PriceInputs />
