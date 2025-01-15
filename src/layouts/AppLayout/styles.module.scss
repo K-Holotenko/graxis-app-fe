@@ -1,15 +1,20 @@
-@use 'src/assets/styles/variables';
+@use 'src/styles/variables';
 
 .greyBackground {
   background-color: variables.$add-publication-page-background;
 }
 
 .mainContainer {
-  max-width: 1400px;
+  max-width: 1440px;
   width: 100%;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: 0 16px;
   margin: 0 auto;
+}
+
+@media (min-width: 576px) {
+  .mainContainer {
+    padding: 0 24px;
+  }
 }
 
 @media (max-width: 576px) {

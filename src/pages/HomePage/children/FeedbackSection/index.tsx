@@ -7,9 +7,7 @@ import styles from './styles.module.scss';
 export const FeedbackSection = () => (
   <section className={styles.feedbackSection} data-testid="feedback-section">
     <div className={styles.feedbackWrap}>
-      <Heading level={2} className={styles.heading}>
-        {TEXT.FEEDBACKS}
-      </Heading>
+      <Heading level={2}>{TEXT.FEEDBACKS}</Heading>
       <FeedbackSectionCarousel />
     </div>
   </section>

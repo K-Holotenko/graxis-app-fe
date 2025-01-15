@@ -1,0 +1,43 @@
+@use 'src/styles/variables';
+
+.addPublicationLabel {
+  font-family: variables.$font-family-second;
+  font-weight: variables.$font-weight-semibold;
+  font-size: variables.$font-size-18;
+  color: variables.$text-primary;
+  line-height: variables.$line-height-medium;
+}
+
+.uploadItem {
+  height: 88px;
+  padding-top: 3px;
+  padding-right: 10px;
+}
+
+@media (min-width: variables.$breakpoint-tablet) {
+  .addPublicationLabel {
+    font-size: variables.$font-size-l;
+    letter-spacing: variables.$letter-spacing-narrow;
+  }
+
+  .uploadListDesktop {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .uploadItem {
+    height: 154px;
+    padding: 0;
+  }
+}
+
+@media (min-width: variables.$breakpoint-desk) {
+  .uploadListDesktop {
+    max-width: 742px;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

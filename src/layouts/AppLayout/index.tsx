@@ -16,13 +16,16 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
     window.location.pathname === ROUTES.ADD_PUBLICATION;
 
   return (
-    <div className="app-layout">
+    <div>
       <Row>
         <Col span={24}>
           <AppHeader />
         </Col>
       </Row>
-      <Row className={isAddPublicationPage ? styles.greyBackground : ''}>
+      <Row
+        justify="center"
+        className={isAddPublicationPage ? styles.greyBackground : ''}
+      >
         <Col span={24}>
           <main className={styles.mainContainer}>{children}</main>
         </Col>

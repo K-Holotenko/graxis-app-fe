@@ -6,9 +6,10 @@ import { theme } from 'src/config/theme';
 const defaultData = {
   token: {
     fontFamily: theme.fontFamily,
+    colorError: '#EA2A2A',
+    colorLinkHover: '#074A5E',
   },
   components: {
-    colorLinkHover: '#074A5E',
     Button: {
       colorPrimaryHover: '#074A5E',
       colorPrimaryActive: theme.primaryColor,
@@ -26,6 +27,7 @@ const defaultData = {
     Checkbox: {
       colorPrimaryHover: theme.primaryColor,
       colorPrimary: theme.primaryColor,
+      colorText: '#4F4F4F',
     },
     Input: {
       hoverBorderColor: '#B8B2B2',
@@ -36,11 +38,13 @@ const defaultData = {
       activeBg: '#fcffe8',
       activeBorderColor: '#4F4F4F',
       controlHeight: 48,
+      fontSize: 16,
     },
     Tabs: {
-      colorPrimary: theme.textPrimaryColor,
-      colorPrimaryHover: theme.primaryColor,
-      colorPrimaryActive: theme.primaryColor,
+      itemColor: '#4F4F4F',
+      colorPrimary: '#1d1617',
+      colorPrimaryHover: '#003342',
+      colorPrimaryActive: '#003342',
     },
     Select: {
       fontSize: theme.fontSize16,

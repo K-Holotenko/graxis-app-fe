@@ -5,6 +5,7 @@ import TikTokIcon from 'src/assets/icons/tiktok-icon-dark.svg';
 import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
+  ADD_PHOTO: 'Додайте фото',
   ADD_PUBLICATION: 'Додати оголошення',
   ADD_ANNOUNCEMENT: 'Додайте оголошення',
   ALLOW_DATA_PROCESSING:
@@ -18,7 +19,7 @@ export const TEXT = {
   CHOOSE_LOCATION: 'Виберіть локацію',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
   CONTACT_US: 'Звʼяжіться з нами',
-  CURRENCY_PER_TIME: 'грн / год',
+  CURRENCY_PER_TIME: 'грн / день',
 
   DESCRIPTION: 'Опис',
 
@@ -90,7 +91,6 @@ export const FORMS = {
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };
-export const HEADER_MOBILE_WIDTH = SCREEN_WIDTH.LG;
 
 export const IMAGE_DESCRIPTION = {
   LOGO: 'Logo',

@@ -1,0 +1,50 @@
+@use 'src/styles/variables';
+
+.uploadContainer {
+  :global {
+    .ant-tooltip {
+      display: none !important;
+    }
+
+    .ant-upload-list-item {
+      border: 1px solid variables.$light-green-color !important;
+    }
+
+    .ant-upload-list-item-actions,
+    .ant-upload-list-item-action {
+      opacity: 1 !important;
+    }
+  }
+
+  .button {
+    width: 100%;
+    height: 82px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    box-shadow: 0 3px 15px 0 variables.$shadow;
+    cursor: pointer;
+  }
+
+  div {
+    height: 82px !important;
+    width: 100% !important;
+  }
+}
+
+@media (min-width: variables.$breakpoint-tablet) {
+  .uploadContainer {
+    .button {
+      height: 154px;
+    }
+
+    div {
+      height: 154px !important;
+    }
+
+    .cameraIcon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

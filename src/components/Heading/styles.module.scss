@@ -1,4 +1,4 @@
-@use 'src/assets/styles/variables.scss';
+@use 'src/styles/variables';
 
 .h1 {
   font-family: variables.$font-family-second;
@@ -9,8 +9,11 @@
 .h2 {
   font-family: variables.$font-family-second;
   font-weight: 500;
-  font-size: 48px;
-  color: #000;
+  color: variables.$primary;
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 125%;
 }
 
 .h3 {
@@ -27,4 +30,19 @@
 }
 
 .h6 {
+}
+
+@media (min-width: 576px) {
+  .h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    line-height: 125%;
+  }
+}
+
+@media (min-width: 992px) {
+  .h2 {
+    font-size: 48px;
+    margin-bottom: 80px;
+  }
 }
