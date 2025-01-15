@@ -1,14 +1,18 @@
 import './styles.scss';
 
 import { Form, Col, Row } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
+import { ROUTES } from 'src/router/routes';
 import { FORMS, TEXT } from 'src/config/constants';
 import { TextArea } from 'src/components/TextArea';
 import { Input } from 'src/components/Input';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { CategoriesDropdown } from 'src/pages/AddPublicationPage/children/CategoriesDropdown';
 import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
-import AddPublicationButton from 'src/pages/AddPublicationPage/children/AddPublicationButton';
+import { SuccessModal } from 'src/pages/AddPublicationPage/children/SuccessModal';
+import { Button } from 'src/components/Button';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 
@@ -25,6 +29,19 @@ interface AddPublicationFormProps {
 
 export const AddPublicationForm = (props: AddPublicationFormProps) => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+
+    navigate(ROUTES.HOME);
+  };
 
   const onFinish = (values: AddPublicationInputs) => {
     // eslint-disable-next-line no-console
@@ -79,7 +96,11 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
           <PriceInputs />
         </Col>
         <Col span={6} offset={18}>
-          <AddPublicationButton />
+          <Button onClick={showModal} label={TEXT.PUBLISH} />
+          <SuccessModal
+            isModalOpen={isModalOpen}
+            handleClose={handleModalClose}
+          />
         </Col>
       </Row>
     </Form>
