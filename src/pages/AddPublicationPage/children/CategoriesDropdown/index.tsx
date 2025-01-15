@@ -1,7 +1,8 @@
 import { useState, type Key } from 'react';
-import { ConfigProvider, Form, TreeSelect } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { ConfigProvider, TreeSelect, Form } from 'antd';
+import Icon from '@ant-design/icons';
 
+import { ReactComponent as ArrowDown } from 'src/assets/icons/arrow-down.svg';
 import { TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { ReactComponent as ClearIcon } from 'src/assets/icons/clear-icon.svg';
@@ -9,13 +10,20 @@ import { ReactComponent as ClearIcon } from 'src/assets/icons/clear-icon.svg';
 import styles from './styles.module.scss';
 import { CATEGORIES_DROP_DATA } from './utils/config';
 
+interface CategoriesDropdownProps {
+  labelStyles?: string;
+}
+
 interface Category {
   title: string;
   value: string;
   children?: Category[];
+  labelStyles?: string;
 }
 
-export const CategoriesDropdown = () => {
+export const CategoriesDropdown = ({
+  labelStyles,
+}: CategoriesDropdownProps) => {
   const [treeValue, setTreeValue] = useState<string | null>(null);
   const [treeExpandedKeys, setTreeExpandedKeys] = useState<Key[]>([]);
 
@@ -24,12 +32,15 @@ export const CategoriesDropdown = () => {
       if (category.value === value) {
         return [category.value];
       }
-      if (category.children) {
-        const path = findParentPath(value, category.children);
 
-        if (path.length) {
-          return [category.value, ...path];
-        }
+      if (!category.children) {
+        return [];
+      }
+
+      const path = findParentPath(value, category.children);
+
+      if (path.length) {
+        return [category.value, ...path];
       }
     }
 
@@ -71,9 +82,8 @@ export const CategoriesDropdown = () => {
   return (
     <ConfigProvider theme={localTheme}>
       <Form.Item
-        label={
-          <span className={styles.formItemLabel}>{TEXT.CHOOSE_CATEGORY}</span>
-        }
+        label={TEXT.CHOOSE_CATEGORY}
+        className={labelStyles}
         name="category"
         rules={[{ required: true, message: TEXT.CHOOSE_CATEGORY }]}
       >
@@ -90,8 +100,18 @@ export const CategoriesDropdown = () => {
           allowClear={{
             clearIcon: <ClearIcon className={styles.clearIcon} />,
           }}
-          switcherIcon={<DownOutlined className={styles.switcherIcon} />}
-          suffixIcon={<DownOutlined className={styles.suffixIcon} />}
+          switcherIcon={
+            <Icon
+              component={() => <ArrowDown />}
+              className={styles.switcherIcon}
+            />
+          }
+          suffixIcon={
+            <Icon
+              component={() => <ArrowDown />}
+              className={styles.suffixIcon}
+            />
+          }
           getPopupContainer={(triggerNode) => triggerNode.parentNode}
         />
       </Form.Item>
@@ -100,10 +120,22 @@ export const CategoriesDropdown = () => {
 };
 
 const localTheme = {
+  token: {
+    borderRadius: 8,
+    colorPrimaryHover: '#B8B2B2',
+    colorPrimary: '#1D1617',
+    boxShadow: 'none',
+    boxShadowSecondary: 'none',
+    boxShadowTertiary: 'none',
+    controlOutline: 'none',
+    controlInteractiveSize: 48,
+  },
   components: {
     TreeSelect: {
+      activeBg: '#fcffe8',
+      controlOutline: 'none',
       controlItemBgHover: theme.hoverColor,
-      titleHeight: 46,
+      titleHeight: 48,
       controlItemBgActive: theme.lightGreenColor,
     },
   },

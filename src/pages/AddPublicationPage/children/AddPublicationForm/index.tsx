@@ -1,13 +1,10 @@
-import './styles.scss';
-
-import { Form, Col, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Form, Col, Row, ConfigProvider } from 'antd';
 
 import { ROUTES } from 'src/router/routes';
 import { FORMS, TEXT } from 'src/config/constants';
 import { TextArea } from 'src/components/TextArea';
-import { Input } from 'src/components/Input';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { CategoriesDropdown } from 'src/pages/AddPublicationPage/children/CategoriesDropdown';
 import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
@@ -16,6 +13,7 @@ import { Button } from 'src/components/Button';
 import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
+import styles from './styles.module.scss';
 
 interface AddPublicationInputs {
   priceDay: string;
@@ -26,6 +24,7 @@ interface AddPublicationInputs {
 interface AddPublicationFormProps {
   onFinish?: () => void;
   onFinishFailed?: () => void;
+  className?: string;
 }
 
 export const AddPublicationForm = (props: AddPublicationFormProps) => {
@@ -57,56 +56,112 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
   };
 
   return (
-    <Form
-      form={form}
-      name={FORMS.ADD_PUBLICATION_FORM}
-      layout="vertical"
-      onFinish={props.onFinish || onFinish}
-      onFinishFailed={props.onFinishFailed || onFinishFailed}
-    >
-      <Row gutter={[0, 40]}>
-        <Col span={24}>
-          <CategoriesDropdown />
-        </Col>
-        <Col span={24}>
-          <Form.Item
-            label={TEXT.NAME}
-            name="name"
-            rules={[VALIDATION_CONDITION.REQUIRED]}
-            required={false}
-          >
-            <Input placeholder={TEXT.INPUT_PUBLICATION_NAME} maxLength={150} />
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Form.Item
-            label={<p className="addPublicationLabel">{TEXT.DESCRIPTION}</p>}
-            name="description"
-            rules={[VALIDATION_CONDITION.REQUIRED]}
-            required={false}
-          >
-            <TextArea
-              placeholder={TEXT.INPUT_PUBLICATION_DESCRIPTION}
-              showCount
-              maxLength={1000}
-              rows={8}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <UploadList />
-        </Col>
-        <Col span={24}>
-          <PriceInputs />
-        </Col>
-        <Col span={6} offset={18}>
-          <Button onClick={showModal} label={TEXT.PUBLISH} />
-          <SuccessModal
-            isModalOpen={isModalOpen}
-            handleClose={handleModalClose}
-          />
-        </Col>
-      </Row>
-    </Form>
+    <ConfigProvider theme={formTheme}>
+      <Form
+        form={form}
+        name={FORMS.ADD_PUBLICATION_FORM}
+        layout="vertical"
+        requiredMark={false}
+        onFinish={props.onFinish || onFinish}
+        onFinishFailed={props.onFinishFailed || onFinishFailed}
+      >
+        <Row>
+          <Col span={24}>
+            <CategoriesDropdown labelStyles={styles.label} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <ConfigProvider theme={textAreaTheme}>
+              <Form.Item
+                label={TEXT.NAME}
+                name="name"
+                rules={[VALIDATION_CONDITION.REQUIRED]}
+                className={styles.label}
+              >
+                <TextArea
+                  placeholder={TEXT.INPUT_PUBLICATION_NAME}
+                  showCount
+                  autoSize={{ minRows: 1, maxRows: 2 }}
+                  maxLength={150}
+                  rows={1}
+                  className={styles.textArea}
+                />
+              </Form.Item>
+            </ConfigProvider>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <ConfigProvider theme={textAreaTheme}>
+              <Form.Item
+                label={TEXT.DESCRIPTION}
+                name="description"
+                className={styles.label}
+                rules={[VALIDATION_CONDITION.REQUIRED]}
+              >
+                <TextArea
+                  placeholder={TEXT.INPUT_PUBLICATION_DESCRIPTION}
+                  showCount
+                  maxLength={1000}
+                  rows={8}
+                  className={styles.textArea}
+                />
+              </Form.Item>
+            </ConfigProvider>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Form.Item
+              className={styles.label}
+              label={TEXT.ADD_PHOTO}
+              name="photo"
+              rules={[{ required: true, message: TEXT.ADD_PHOTO }]}
+            >
+              <UploadList />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Form.Item
+              className={styles.label}
+              label={TEXT.COST}
+              name="price"
+              rules={[{ required: true, message: TEXT.SET_AT_LEAST_ONE_PRICE }]}
+            >
+              <PriceInputs />
+            </Form.Item>
+          </Col>
+          <Col span={6} offset={18}>
+            <Button onClick={showModal} label={TEXT.PUBLISH} />
+          </Col>
+        </Row>
+      </Form>
+      <SuccessModal isModalOpen={isModalOpen} handleClose={handleModalClose} />
+    </ConfigProvider>
   );
+};
+
+const formTheme = {
+  components: {
+    Form: {
+      labelColor: '#1D1617',
+      itemMarginBottom: 40,
+      labelFontSize: 26,
+      verticalLabelPadding: 0,
+    },
+    Input: {
+      paddingInline: 12,
+    },
+  },
+};
+
+const textAreaTheme = {
+  components: {
+    Input: {
+      paddingBlock: 12,
+    },
+  },
 };

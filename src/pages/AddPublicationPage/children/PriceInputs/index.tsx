@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Form, Input, ConfigProvider } from 'antd';
-import clsx from 'clsx';
 
 import { TEXT } from 'src/config/constants';
 import { toFixedWithoutRounding } from 'src/utils/toFixedWithoutRounding';
@@ -75,35 +74,36 @@ export const PriceInputs = () => {
   });
 
   return (
-    <>
-      <h4 className="addPublicationLabel">{TEXT.COST}</h4>
-      <div className={styles.priceInputsRow}>
-        <ConfigProvider theme={localTheme}>
-          {inputs.map(({ label, name }, i) => (
-            <Form.Item
-              key={name}
-              label={<span className={styles.label}>{label}</span>}
-              name={name}
-              rules={[priceInputValidator]}
-              validateStatus={showRequiredErr ? 'error' : undefined}
-              className={clsx({ [styles.middleFormItem]: i === 1 })}
-            >
-              <Input
-                type="number"
-                prefix="₴"
-                placeholder="0.00"
-                className={styles.priceInput}
-                onChange={() => onChange(name)}
-                onBlur={() => onBlur(name)}
-              />
-            </Form.Item>
-          ))}
-        </ConfigProvider>
-        {showRequiredErr && (
-          <p className={styles.inputsError}>{TEXT.SET_AT_LEAST_ONE_PRICE}</p>
-        )}
-      </div>
-    </>
+    <div className={styles.priceInputsRow}>
+      <ConfigProvider theme={localTheme}>
+        {inputs.map(({ label, name }, i) => (
+          <Form.Item
+            key={name}
+            label={label}
+            name={name}
+            rules={[priceInputValidator]}
+            validateStatus={showRequiredErr ? 'error' : undefined}
+            className={
+              i === 1
+                ? `${styles.middleFormItem} ${styles.priceLabel}`
+                : styles.priceLabel
+            }
+          >
+            <Input
+              type="number"
+              prefix="₴"
+              placeholder="0.00"
+              className={styles.priceInput}
+              onChange={() => onChange(name)}
+              onBlur={() => onBlur(name)}
+            />
+          </Form.Item>
+        ))}
+      </ConfigProvider>
+      {showRequiredErr && (
+        <p className={styles.inputsError}>{TEXT.SET_AT_LEAST_ONE_PRICE}</p>
+      )}
+    </div>
   );
 };
 

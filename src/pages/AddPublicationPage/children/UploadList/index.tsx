@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Carousel, ConfigProvider, Form, UploadFile } from 'antd';
+import { Carousel, UploadFile } from 'antd';
 
 import { UploadItem } from 'src/pages/AddPublicationPage/children/UploadItem/index';
-import { TEXT, SCREEN_WIDTH } from 'src/config/constants';
+import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import styles from './styles.module.scss';
@@ -45,38 +45,18 @@ export const UploadList = () => {
       );
     });
 
-  return (
-    <ConfigProvider theme={localTheme}>
-      <Form.Item
-        label={
-          <span className={styles.addPublicationLabel}>{TEXT.ADD_PHOTO}</span>
-        }
-        name="photo"
-        rules={[{ required: true, message: TEXT.ADD_PHOTO }]}
-      >
-        {isMobile ? (
-          <Carousel
-            className={styles.uploadList}
-            dots={false}
-            draggable
-            slidesToShow={3}
-            centerPadding="10px"
-            infinite={false}
-          >
-            {renderUploadItems()}
-          </Carousel>
-        ) : (
-          <div className={styles.uploadListDesktop}>{renderUploadItems()}</div>
-        )}
-      </Form.Item>
-    </ConfigProvider>
+  return isMobile ? (
+    <Carousel
+      className={styles.uploadList}
+      dots={false}
+      draggable
+      slidesToShow={3}
+      centerPadding="10px"
+      infinite={false}
+    >
+      {renderUploadItems()}
+    </Carousel>
+  ) : (
+    <div className={styles.uploadListDesktop}>{renderUploadItems()}</div>
   );
-};
-
-const localTheme = {
-  components: {
-    Form: {
-      itemMarginBottom: 0,
-    },
-  },
 };

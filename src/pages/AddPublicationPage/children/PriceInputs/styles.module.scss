@@ -6,8 +6,11 @@
   column-gap: 8px;
 }
 
-.label {
-  color: variables.$text-secondary;
+.priceLabel {
+  label {
+    color: #4f4f4f !important;
+    font-size: 14px !important;
+  }
 }
 
 .priceInput {

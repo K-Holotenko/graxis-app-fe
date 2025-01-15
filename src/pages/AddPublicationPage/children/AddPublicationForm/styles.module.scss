@@ -1,0 +1,32 @@
+@use 'src/styles/variables';
+
+.label {
+  :global {
+    .ant-form-item-required {
+      font-size: 18px !important;
+      font-family: variables.$font-family-second !important;
+      font-weight: variables.$font-weight-semibold;
+      margin-bottom: 20px !important;
+    }
+  }
+}
+
+.textArea {
+  font-size: 12px;
+}
+
+@media (min-width: 576px) {
+  .textArea {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: variables.$breakpoint-md) {
+  .label {
+    :global {
+      .ant-form-item-required {
+        font-size: 26px !important;
+      }
+    }
+  }
+}

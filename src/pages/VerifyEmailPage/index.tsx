@@ -25,8 +25,8 @@ export const VerifyEmailPage = () => {
     <PageContainer pageTitle={VERIFY_EMAIL_PAGE_CONSTANTS.PAGE_TITLE}>
       <AuthLayout>
         <Row justify="center">
-          <Col>
-            <Typography.Text>
+          <Col xs={{ span: 20, offset: 2 }}>
+            <Typography.Text className={styles.firstPartMes}>
               {firstPartMes}
               <Typography.Link
                 href={`mailto:${emailText}`}
