@@ -11,6 +11,10 @@
   width: 48px;
 }
 
+.drawerIcon {
+  cursor: pointer;
+}
+
 .buttonPaddingCall {
   padding: 0 8px !important;
 }
@@ -54,10 +58,6 @@
   .logo {
     height: 22px !important;
   }
-
-  // .buttonPadding {
-  //   padding: 12px 20px !important;
-  // }
 
   .buttonPadding {
     padding: 0 20px !important;
