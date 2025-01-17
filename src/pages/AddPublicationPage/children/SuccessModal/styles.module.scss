@@ -1,0 +1,82 @@
+@use 'src/styles/variables';
+
+.img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 28px;
+}
+
+.headingLevel2 {
+  font-size: variables.$font-size-l;
+  line-height: 125%;
+  font-weight: variables.$font-weight-semibold;
+  margin-bottom: 24px;
+}
+
+.description {
+  line-height: 125%;
+  font-size: 18px;
+  color: #1d1617;
+  margin-bottom: 40px;
+}
+
+.buttonOk {
+  width: 169px !important;
+  font-size: 16px;
+}
+
+.modalWindow {
+  max-width: 343px !important;
+  width: 100% !important;
+}
+
+.modalContent {
+  height: 362px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 576px) {
+  .modalWindow {
+    max-width: 556px !important;
+  }
+
+  .modalContent {
+    height: 703px !important;
+  }
+
+  .img {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 40px;
+  }
+
+  .headingLevel2 {
+    font-size: 48px;
+    margin-bottom: 32px;
+  }
+
+  .description {
+    margin-bottom: 100px;
+  }
+
+  .buttonOk {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 992px) {
+  .modalWindow {
+    max-width: 876px !important;
+  }
+
+  .modalContent {
+    height: 783px !important;
+  }
+
+  .buttonOk {
+    font-size: 16px;
+  }
+}
