@@ -33,14 +33,12 @@ export const CategoriesDropdown = ({
         return [category.value];
       }
 
-      if (!category.children) {
-        return [];
-      }
+      if (category.children) {
+        const path = findParentPath(value, category.children);
 
-      const path = findParentPath(value, category.children);
-
-      if (path.length) {
-        return [category.value, ...path];
+        if (path.length) {
+          return [category.value, ...path];
+        }
       }
     }
 

@@ -37,6 +37,7 @@ const defaultData = {
       hoverBorderColor: '#B8B2B2',
       hoverBg: '#FCFFE8',
       colorPrimary: '#1D1617',
+      colorText: '#1D1617',
       colorPrimaryHover: '#B8B2B2',
       controlOutline: 'none',
       activeBg: '#fcffe8',

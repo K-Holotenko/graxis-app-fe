@@ -84,7 +84,6 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
                   showCount
                   autoSize={{ minRows: 1, maxRows: 2 }}
                   maxLength={150}
-                  rows={1}
                   className={styles.textArea}
                 />
               </Form.Item>
