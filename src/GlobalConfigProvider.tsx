@@ -40,6 +40,10 @@ const defaultData = {
       controlHeight: 48,
       fontSize: 16,
     },
+    Modal: {
+      borderRadiusLG: 12,
+      colorBgMask: 'rgba(0,0,0,0.50)',
+    },
     Tabs: {
       itemColor: '#4F4F4F',
       colorPrimary: '#1d1617',

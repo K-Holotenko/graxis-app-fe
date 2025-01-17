@@ -1,35 +1,41 @@
-.center {
-  text-align: center;
-}
+@use 'src/styles/variables';
 
 .img {
-  margin-top: 20px;
-  margin-bottom: 28px;
   width: 100px;
   height: 100px;
+  margin-bottom: 28px;
 }
 
 .headingLevel2 {
+  font-size: variables.$font-size-l;
+  line-height: 125%;
+  font-weight: variables.$font-weight-semibold;
   margin-bottom: 24px;
-  font-size: 26px;
-  line-height: normal;
 }
 
 .description {
-  margin-bottom: 40px;
-  line-height: normal;
+  line-height: 125%;
   font-size: 18px;
+  color: #1d1617;
+  margin-bottom: 40px;
 }
 
-.buttonWidth {
+.buttonOk {
   width: 169px !important;
-  margin-bottom: 20px;
+  font-size: 16px;
 }
 
 .modalWindow {
   max-width: 343px !important;
   width: 100% !important;
-  top: 20px !important;
+}
+
+.modalContent {
+  height: 362px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 576px) {
@@ -37,25 +43,27 @@
     max-width: 556px !important;
   }
 
+  .modalContent {
+    height: 703px !important;
+  }
+
   .img {
-    margin-top: 100px;
-    margin-bottom: 40px;
     width: 160px;
     height: 160px;
+    margin-bottom: 40px;
   }
 
   .headingLevel2 {
-    margin-bottom: 32px;
     font-size: 48px;
+    margin-bottom: 32px;
   }
 
   .description {
     margin-bottom: 100px;
-    line-height: normal;
   }
 
-  .buttonWidth {
-    margin-bottom: 100px;
+  .buttonOk {
+    font-size: 12px;
   }
 }
 
@@ -64,12 +72,11 @@
     max-width: 876px !important;
   }
 
-  .img {
-    margin-top: 140px;
-    margin-bottom: 40px;
+  .modalContent {
+    height: 783px !important;
   }
 
-  .buttonWidth {
-    margin-bottom: 140px;
+  .buttonOk {
+    font-size: 16px;
   }
 }
