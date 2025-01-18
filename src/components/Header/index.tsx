@@ -91,7 +91,10 @@ export const AppHeader = () => {
           <Row gutter={16} align="middle">
             {!isDesktop && (
               <Col>
-                <DrawerIcon onClick={() => setShowDrawer(true)} />
+                <DrawerIcon
+                  onClick={() => setShowDrawer(true)}
+                  className={styles.drawerIcon}
+                />
               </Col>
             )}
             <Col>

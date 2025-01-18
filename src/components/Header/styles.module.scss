@@ -11,12 +11,17 @@
   width: 48px;
 }
 
+.drawerIcon {
+  cursor: pointer;
+}
+
 .buttonPaddingCall {
   padding: 0 8px !important;
 }
 
 .buttonPadding {
   padding: 12px 10px !important;
+  color: #1d1617;
 }
 
 .dropdownRoot {
@@ -52,10 +57,6 @@
 @media (min-width: 992px) {
   .logo {
     height: 22px !important;
-  }
-
-  .buttonPadding {
-    padding: 12px 20px !important;
   }
 
   .buttonPadding {

@@ -8,8 +8,12 @@ const defaultData = {
     fontFamily: theme.fontFamily,
     colorError: '#EA2A2A',
     colorLinkHover: '#074A5E',
+    colorTextPlaceholder: '#B8B2B2',
   },
   components: {
+    Divider: {
+      colorText: '#B8B2B2',
+    },
     Button: {
       colorPrimaryHover: '#074A5E',
       colorPrimaryActive: theme.primaryColor,
@@ -33,12 +37,14 @@ const defaultData = {
       hoverBorderColor: '#B8B2B2',
       hoverBg: '#FCFFE8',
       colorPrimary: '#1D1617',
+      colorText: '#1D1617',
       colorPrimaryHover: '#B8B2B2',
       controlOutline: 'none',
       activeBg: '#fcffe8',
       activeBorderColor: '#4F4F4F',
       controlHeight: 48,
       fontSize: 16,
+      borderRadius: 8,
     },
     Modal: {
       borderRadiusLG: 12,

@@ -18,6 +18,7 @@ interface InputProps {
   className?: string;
   id?: string;
   prefix?: ReactNode;
+  showCount?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
 }
@@ -31,6 +32,7 @@ export const Input = ({
   className,
   id,
   prefix,
+  showCount,
   onChange,
   onBlur,
 }: InputProps) => {
@@ -57,6 +59,7 @@ export const Input = ({
           prefix={prefix}
           value={value}
           id={id}
+          showCount={showCount}
           onChange={onChange}
           onBlur={onBlur}
         />

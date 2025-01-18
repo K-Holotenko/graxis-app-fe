@@ -5,16 +5,17 @@
   align-items: center;
   padding-left: 30px;
   padding-right: 30px;
+}
 
-  .verifyCodeText {
-    font-size: 12px;
-    line-height: 1.5;
-  }
+.verifyCodeText {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #1d1617 !important;
 }
 
 .verifyCodeTitle {
   text-align: center;
-  color: #1d1617;
+  color: #1d1617 !important;
   font-size: 32px;
 }
 
