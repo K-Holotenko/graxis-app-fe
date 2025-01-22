@@ -1,27 +1,27 @@
 @use 'src/styles/variables';
 
 .homeSectionTitle {
-  font-family: variables.$font-family-second;
-  font-size: variables.$font-size-18;
-  font-weight: variables.$font-weight-semibold;
+  font-family: variables.$font-body-second;
+  font-size: 18px;
+  font-weight: 600;
   color: variables.$primary;
   margin-bottom: 40px;
   text-align: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-xs) {
   .homeSectionTitle {
-    font-size: variables.$font-size-l;
-    font-weight: variables.$font-weight-regular;
-    line-height: variables.$line-height-tight;
-    letter-spacing: variables.$letter-spacing-narrow;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: variables.$media-xxl) {
   .homeSectionTitle {
-    font-size: variables.$font-size-xxxl;
-    font-weight: variables.$font-weight-semibold;
+    font-size: 48px;
+    font-weight: 600;
     margin-bottom: 80px;
   }
 }

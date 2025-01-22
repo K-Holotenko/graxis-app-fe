@@ -12,7 +12,7 @@
   gap: 16px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-xs) {
   .categoriesSection {
     margin-left: 26px;
     margin-right: 26px;
@@ -20,7 +20,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: variables.$media-lg) {
   .categoriesList {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;

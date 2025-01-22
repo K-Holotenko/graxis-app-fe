@@ -1,3 +1,5 @@
+@use 'src/styles/variables';
+
 .logoRow {
   position: absolute;
   top: 20px;
@@ -29,7 +31,7 @@
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: variables.$media-xs) {
   .logoCol {
     text-align: left;
   }

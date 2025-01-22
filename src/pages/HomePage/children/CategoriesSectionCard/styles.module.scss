@@ -18,9 +18,9 @@
 }
 
 @mixin commonTitleStyles {
-  font-family: variables.$font-family;
+  font-family: variables.$font-body;
   font-size: 12px;
-  color: #fff;
+  color: variables.$N1;
   font-weight: 300;
   line-height: 150%;
   text-align: center;
@@ -62,7 +62,7 @@
   height: 30px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-xs) {
   .categoriesTitle {
     font-size: 16px;
     font-weight: 400;
@@ -79,7 +79,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-xs) {
   .categoriesTitle {
     font-size: 22px;
   }
@@ -88,7 +88,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: variables.$media-lg) {
   .categoriesTitle {
     font-size: 16px;
   }
@@ -97,7 +97,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: variables.$media-xl) {
   .categoriesTitle {
     font-size: 20px;
   }
@@ -107,7 +107,7 @@
   }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: variables.$media-xxl) {
   .categoriesTitle {
     font-size: 22px;
   }

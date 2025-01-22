@@ -6,6 +6,7 @@ import { VALIDATION_CONDITION } from 'src/config/validation';
 import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
+import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
 
@@ -88,7 +89,7 @@ export const EmailLoginForm = () => {
 const localTheme = {
   components: {
     Form: {
-      labelColor: '#4F4F4F',
+      labelColor: theme.N5,
       itemMarginBottom: 12,
     },
   },

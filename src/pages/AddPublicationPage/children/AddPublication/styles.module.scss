@@ -11,7 +11,7 @@
 .header {
   margin: 0;
   padding-bottom: 32px;
-  font-family: variables.$font-family-second;
+  font-family: variables.$font-heading;
   font-weight: 500;
   font-size: 22px;
   line-height: 150%;
@@ -19,9 +19,9 @@
   text-align: center;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-xs) {
   .section {
-    background-color: #ffffff;
+    background-color: variables.$N1;
     margin-top: 140px;
     margin-bottom: 140px;
     padding: 80px 100px;
@@ -32,13 +32,13 @@
   .header {
     font-size: 28px;
     line-height: 125%;
-    font-family: variables.$font-family-second;
+    font-family: variables.$font-heading;
     font-weight: 500;
     margin-bottom: 40px;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-xs) {
   .header {
     font-size: 48px;
   }

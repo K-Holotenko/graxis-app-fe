@@ -104,7 +104,7 @@ const localTheme = {
     Upload: {
       colorPrimary: 'transparent',
       colorBorder: 'transparent',
-      colorFillAlter: theme.whiteColor,
+      colorFillAlter: theme.N1,
       paddingXS: 0,
     },
   },

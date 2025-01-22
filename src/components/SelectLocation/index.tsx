@@ -9,6 +9,7 @@ import {
   SCREEN_WIDTH,
 } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
+import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
 
@@ -76,13 +77,13 @@ const tabletLocalTheme = {
   components: {
     Select: {
       ...commonSelectTheme,
-      colorTextQuaternary: '#ffffff',
-      optionSelectedColor: '#ffffff',
-      colorText: '#ffffff',
-      colorBgElevated: '#094658',
-      optionActiveBg: '#074A5E',
-      colorTextPlaceholder: '#ffffff',
-      optionSelectedBg: '#003342',
+      colorTextQuaternary: theme.N1,
+      optionSelectedColor: theme.N1,
+      colorText: theme.N1,
+      colorBgElevated: theme.primaryHover,
+      controlItemBgHover: theme.primary,
+      colorTextPlaceholder: theme.N1,
+      optionSelectedBg: theme.primary,
     },
   },
 };
@@ -91,13 +92,13 @@ const desktopLocalTheme = {
   components: {
     Select: {
       ...commonSelectTheme,
-      colorTextQuaternary: '#1D1617',
-      colorText: '#1D1617',
-      colorBgElevated: '#ffffff',
-      optionSelectedColor: '#1D1617',
-      optionActiveBg: '#F5F5F5',
-      colorTextPlaceholder: '#1D1617',
-      optionSelectedBg: '#F5F5F5',
+      colorTextQuaternary: theme.N6,
+      colorText: theme.N6,
+      colorBgElevated: theme.N1,
+      optionSelectedColor: theme.N6,
+      optionActiveBg: theme.N2,
+      colorTextPlaceholder: theme.N6,
+      optionSelectedBg: theme.N2,
     },
   },
 };

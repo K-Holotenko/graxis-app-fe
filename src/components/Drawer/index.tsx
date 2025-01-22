@@ -84,7 +84,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
       extra={<CloseIcon onClick={onClose} className={styles.drawerCloseBtn} />}
       title={<Logo />}
       style={{
-        backgroundColor: theme.primaryColor,
+        backgroundColor: theme.primary,
       }}
     >
       {isAuthorized && (
@@ -159,11 +159,11 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
 const localThemeAuth = {
   components: {
     Button: {
-      colorPrimaryHover: '#B3C332',
-      colorPrimary: theme.lightGreenColor,
-      colorText: theme.lightGreenColor,
-      colorBgContainer: theme.primaryColor,
-      colorBorder: theme.lightGreenColor,
+      colorPrimaryHover: theme.secondaryHover,
+      colorPrimary: theme.secondary,
+      colorText: theme.secondary,
+      colorBgContainer: theme.primary,
+      colorBorder: theme.secondary,
     },
   },
 };
@@ -171,9 +171,9 @@ const localThemeAuth = {
 const localThemeAddPublication = {
   components: {
     Button: {
-      colorPrimaryHover: '#B3C332',
-      colorPrimary: '#C0D32C',
-      colorPrimaryActive: '#B3C332',
+      colorPrimaryHover: theme.secondaryHover,
+      colorPrimary: theme.secondary,
+      colorPrimaryActive: theme.secondaryHover,
     },
   },
 };
@@ -181,12 +181,12 @@ const localThemeAddPublication = {
 const localThemeDropdown = {
   components: {
     Dropdown: {
-      controlItemBgHover: '#EAEAEA',
+      controlItemBgHover: theme.N3,
       controlPaddingHorizontal: 16,
       borderRadiusLG: 16,
       paddingBlock: 9,
-      colorText: '#fff',
-      colorBgElevated: '#003342',
+      colorText: theme.N1,
+      colorBgElevated: theme.primary,
     },
   },
 };

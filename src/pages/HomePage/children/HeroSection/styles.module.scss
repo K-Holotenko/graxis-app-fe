@@ -12,9 +12,8 @@
 }
 
 .heading {
-  font-family: variables.$font-family-second;
+  font-family: variables.$font-heading;
   font-size: 24px;
-  color: variables.$primary;
   margin-bottom: 20px;
   line-height: 150%;
   font-weight: 500;
@@ -24,8 +23,8 @@
 
 .paragraph {
   font-size: 18px;
-  font-family: variables.$font-family;
-  color: #1d1617;
+  font-family: variables.$font-body;
+  color: variables.$N6;
   margin-bottom: 30px;
   font-weight: 400;
   line-height: 125%;
@@ -38,7 +37,7 @@
   padding-top: 200px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-xs) {
   .heading {
     font-size: 32px;
     margin-bottom: 24px;
@@ -64,13 +63,13 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-xs) {
   .image {
     margin-bottom: 0;
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: variables.$media-xl) {
   .heading {
     font-size: 56px;
     margin-bottom: 40px;

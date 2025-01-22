@@ -1,7 +1,7 @@
 @use 'src/styles/variables';
 
 .greyBackground {
-  background-color: variables.$add-publication-page-background;
+  background-color: variables.$N2;
 }
 
 .mainContainer {
@@ -11,14 +11,14 @@
   margin: 0 auto;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-xs) {
   .mainContainer {
     padding: 0 24px;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: variables.$media-xs) {
   .greyBackground {
-    background-color: #ffff;
+    background-color: variables.$N1;
   }
 }

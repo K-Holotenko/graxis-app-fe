@@ -120,8 +120,8 @@ export const CategoriesDropdown = ({
 const localTheme = {
   token: {
     borderRadius: 8,
-    colorPrimaryHover: '#B8B2B2',
-    colorPrimary: '#1D1617',
+    colorPrimaryHover: theme.N4,
+    colorPrimary: theme.N6,
     boxShadow: 'none',
     boxShadowSecondary: 'none',
     boxShadowTertiary: 'none',
@@ -130,11 +130,11 @@ const localTheme = {
   },
   components: {
     TreeSelect: {
-      activeBg: '#fcffe8',
+      activeBg: theme.secondaryLight,
       controlOutline: 'none',
-      controlItemBgHover: theme.hoverColor,
+      controlItemBgHover: theme.N2,
       titleHeight: 48,
-      controlItemBgActive: theme.lightGreenColor,
+      controlItemBgActive: theme.secondary,
     },
   },
 };

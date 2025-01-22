@@ -3,16 +3,16 @@
 .categoriesDropdownTree {
   width: 100%;
   height: 46px;
-  font-size: variables.$font-size-small;
+  font-size: 12px;
   padding: 0;
-  color: variables.$text-primary;
+  color: variables.$N6;
 
   .highlightedCategory {
-    background-color: variables.$hover-color;
+    background-color: variables.$N2;
   }
 
   .selectedCategory {
-    color: #1d1617;
+    color: variables.$N6;
   }
 
   :global {
@@ -32,7 +32,7 @@
     }
 
     .popUp {
-      border: 1px solid variables.$outline;
+      border: 1px solid variables.$N3;
       border-radius: 12px;
       padding: 0 14px 0 8px;
 
@@ -48,9 +48,9 @@
     }
 
     .ant-select-selection-placeholder {
-      font-size: variables.$font-size-small;
-      letter-spacing: variables.$letter-spacing-narrow;
-      color: variables.$light-grey;
+      font-size: 12px;
+      letter-spacing: -0.02em;
+      color: variables.$N4;
       margin-left: 12px;
     }
 
@@ -86,16 +86,16 @@
   border-radius: 8px;
   margin-left: -4px;
   margin-right: -4px;
-  color: variables.$text-primary;
+  color: variables.$N6;
 }
 
 .treeText {
-  font-size: variables.$font-size-14;
+  font-size: 14px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-xs) {
   .treeText {
-    font-size: variables.$font-size-18;
+    font-size: 18px;
   }
 
   .suffixIcon {
@@ -109,8 +109,8 @@
   .categoriesDropdownTree {
     :global {
       .ant-select-selection-placeholder {
-        font-size: variables.$font-size-18;
-        line-height: variables.$line-height-medium;
+        font-size: 18px;
+        line-height: 1.25;
       }
 
       .ant-select-selector,

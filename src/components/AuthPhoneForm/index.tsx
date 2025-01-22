@@ -14,6 +14,7 @@ import { handlePhoneAuth } from 'src/utils/handlePhoneAuth';
 import { Button } from 'src/components/Button';
 import { Input, InputType } from 'src/components/Input';
 import { Checkbox } from 'src/components/Checkbox/index';
+import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
 
@@ -125,7 +126,7 @@ export const AuthPhoneForm = ({ route }: AuthPhoneFormProps) => {
 const localTheme = {
   components: {
     Form: {
-      labelColor: '#4F4F4F',
+      labelColor: theme.N5,
     },
   },
 };

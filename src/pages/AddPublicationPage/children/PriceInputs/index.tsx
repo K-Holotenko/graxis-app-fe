@@ -3,7 +3,6 @@ import { Form, Input, ConfigProvider } from 'antd';
 
 import { TEXT } from 'src/config/constants';
 import { toFixedWithoutRounding } from 'src/utils/toFixedWithoutRounding';
-import { theme } from 'src/config/theme';
 
 import type { RuleRender } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
@@ -110,8 +109,8 @@ export const PriceInputs = () => {
 const localTheme = {
   components: {
     InputNumber: {
-      inputFontSize: theme.fontSize16,
-      lineHeight: theme.lineHeightLarge,
+      inputFontSize: 16,
+      lineHeight: 1.5,
     },
   },
 };

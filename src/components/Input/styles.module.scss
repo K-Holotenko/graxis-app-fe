@@ -1,3 +1,5 @@
+@use 'src/styles/variables';
+
 .input {
   border-radius: 8px;
   transition: all 0.3s;
@@ -7,6 +9,6 @@
 :global {
   .ant-form-item-has-success input,
   .ant-input-status-success {
-    border-color: #75aa12;
+    border-color: variables.$success;
   }
 }

@@ -1,11 +1,11 @@
 @use 'src/styles/variables';
 
 .addPublicationLabel {
-  font-family: variables.$font-family-second;
-  font-weight: variables.$font-weight-semibold;
-  font-size: variables.$font-size-18;
-  color: variables.$text-primary;
-  line-height: variables.$line-height-medium;
+  font-family: variables.$font-heading;
+  font-weight: 600;
+  font-size: 18px;
+  color: variables.$N6;
+  line-height: 1.25;
 }
 
 .uploadItem {
@@ -14,10 +14,10 @@
   padding-right: 10px;
 }
 
-@media (min-width: variables.$breakpoint-tablet) {
+@media (min-width: variables.$media-xs) {
   .addPublicationLabel {
-    font-size: variables.$font-size-l;
-    letter-spacing: variables.$letter-spacing-narrow;
+    font-size: 26px;
+    letter-spacing: -0.02em;
   }
 
   .uploadListDesktop {
@@ -34,7 +34,7 @@
   }
 }
 
-@media (min-width: variables.$breakpoint-desk) {
+@media (min-width: variables.$media-lg) {
   .uploadListDesktop {
     max-width: 742px;
     margin: 0 auto;
