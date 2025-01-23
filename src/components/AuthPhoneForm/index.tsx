@@ -103,7 +103,7 @@ export const AuthPhoneForm = ({ route }: AuthPhoneFormProps) => {
           <Form.Item
             valuePropName="checked"
             name="agreement"
-            rules={[VALIDATION_CONDITION.REQUIRED]}
+            rules={[VALIDATION_CONDITION.CHECKED]}
             className={styles.agreement}
           >
             <Checkbox label={TEXT.ALLOW_DATA_PROCESSING} />

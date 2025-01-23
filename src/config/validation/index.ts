@@ -14,6 +14,10 @@ export const VALIDATION_MESSAGE = {
 };
 
 export const VALIDATION_CONDITION = {
+  CHECKED: {
+    validator: (_: unknown, value: boolean) =>
+      value ? Promise.resolve() : Promise.reject(),
+  },
   REQUIRED: { required: true, message: VALIDATION_MESSAGE.REQUIRED },
   EMAIL: {
     required: true,
