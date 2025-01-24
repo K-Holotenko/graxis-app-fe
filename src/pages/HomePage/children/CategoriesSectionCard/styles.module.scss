@@ -62,7 +62,7 @@
   height: 30px;
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-sm) {
   .categoriesTitle {
     font-size: 16px;
     font-weight: 400;
@@ -79,7 +79,7 @@
   }
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-md) {
   .categoriesTitle {
     font-size: 22px;
   }

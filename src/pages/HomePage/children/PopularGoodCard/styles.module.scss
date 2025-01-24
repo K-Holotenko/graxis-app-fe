@@ -84,7 +84,7 @@
   font-size: 14px;
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-sm) {
   .cardName {
     font-size: 22px;
   }
@@ -94,7 +94,7 @@
   }
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-md) {
   .cardName {
     font-size: 18px;
   }

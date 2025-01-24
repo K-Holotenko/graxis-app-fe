@@ -11,13 +11,13 @@
   margin: 0 auto;
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-sm) {
   .mainContainer {
     padding: 0 24px;
   }
 }
 
-@media (max-width: variables.$media-xs) {
+@media (max-width: variables.$media-sm) {
   .greyBackground {
     background-color: variables.$N1;
   }

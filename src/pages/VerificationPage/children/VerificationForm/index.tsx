@@ -38,6 +38,12 @@ export const VerificationForm = () => {
     }
   };
 
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement, Element>) => {
+    const target = e.target as HTMLInputElement;
+
+    form.setFieldsValue(target);
+  };
+
   const label = isDisabled
     ? `${TEXT.SEND_SMS_AGAIN} (${timer}${TEXT.SEC})`
     : TEXT.SEND_SMS_AGAIN;
@@ -76,7 +82,11 @@ export const VerificationForm = () => {
         className={styles.formItemCode}
         rules={[VALIDATION_CONDITION.VERIFICATION_CODE]}
       >
-        <Input.OTP inputMode="numeric" formatter={sanitizeCode} />
+        <Input.OTP
+          inputMode="numeric"
+          formatter={sanitizeCode}
+          onBlur={handleBlur}
+        />
       </Form.Item>
       {errorMessage && (
         <Alert message={errorMessage} type="error" banner showIcon={false} />

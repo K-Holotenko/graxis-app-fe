@@ -19,7 +19,7 @@
   text-align: center;
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-sm) {
   .section {
     background-color: variables.$N1;
     margin-top: 140px;
@@ -38,7 +38,7 @@
   }
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-md) {
   .header {
     font-size: 48px;
   }

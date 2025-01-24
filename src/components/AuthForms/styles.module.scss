@@ -60,13 +60,13 @@
   }
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-sm) {
   .authPageTitle {
     font-size: 30px !important;
   }
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-sm) {
   .authPageTitle {
     font-size: 32px !important;
   }

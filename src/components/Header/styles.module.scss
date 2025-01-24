@@ -42,13 +42,13 @@
   cursor: pointer;
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-sm) {
   .logo {
     height: 14px !important;
   }
 }
 
-@media (min-width: variables.$media-xs) {
+@media (min-width: variables.$media-md) {
   .logo {
     height: 16px !important;
   }
