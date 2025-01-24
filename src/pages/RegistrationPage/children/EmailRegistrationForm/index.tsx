@@ -117,7 +117,7 @@ export const EmailRegistrationForm = () => {
         <Form.Item
           valuePropName="checked"
           name="agreement"
-          rules={[VALIDATION_CONDITION.REQUIRED]}
+          rules={[VALIDATION_CONDITION.CHECKED]}
           className={styles.marginBottom}
         >
           <Checkbox label={TEXT.ALLOW_DATA_PROCESSING} />
