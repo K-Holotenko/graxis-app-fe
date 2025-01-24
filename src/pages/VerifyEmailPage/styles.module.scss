@@ -1,9 +1,11 @@
+@use 'src/styles/variables';
+
 .link {
   text-decoration: 'underline';
   font-size: 18px;
 }
 
 .firstPartMes {
-  color: #1d1617;
+  color: variables.$N6;
   font-size: 18px;
 }

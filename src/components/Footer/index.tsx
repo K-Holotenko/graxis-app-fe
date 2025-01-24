@@ -68,7 +68,7 @@ export const Footer = () => (
 
 const localTheme = {
   token: {
-    colorText: theme.primaryColor,
-    colorLink: theme.primaryColor,
+    colorText: theme.primary,
+    colorLink: theme.primary,
   },
 };

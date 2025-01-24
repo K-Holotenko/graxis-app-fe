@@ -1,12 +1,12 @@
 @use 'src/styles/variables';
 
 .tabs {
-  color: #1d1617 !important;
+  color: variables.$N6 !important;
 }
 
 .authPageTitle {
   text-align: center;
-  color: #1d1617 !important;
+  color: variables.$N6 !important;
   font-size: 24px !important;
 }
 
@@ -15,34 +15,34 @@
 }
 
 .registerStyle {
-  font-family: variables.$font-family;
+  font-family: variables.$font-body;
   font-weight: 600;
   color: variables.$primary;
 }
 
 .registerStyle:hover {
-  color: #074a5e;
+  color: variables.$primary-hover;
 }
 
 .authorizeStyle {
-  font-family: variables.$font-family;
+  font-family: variables.$font-body;
   font-weight: 600;
   color: variables.$primary;
 }
 
 .authorizeStyle:hover {
-  color: #074a5e;
+  color: variables.$primary-hover;
 }
 
 .link {
-  font-family: variables.$font-family;
+  font-family: variables.$font-body;
   font-weight: 500;
   color: variables.$primary;
 }
 
 .authorizeLink {
   margin-bottom: 10px;
-  color: #4f4f4f;
+  color: variables.$N5;
 }
 
 .buttonMargins {
@@ -51,7 +51,7 @@
 }
 
 .link:hover {
-  color: #074a5e;
+  color: variables.$primary-hover;
 }
 
 :global {
@@ -60,13 +60,13 @@
   }
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-sm) {
   .authPageTitle {
     font-size: 30px !important;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-md) {
   .authPageTitle {
     font-size: 32px !important;
   }

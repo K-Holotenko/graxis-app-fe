@@ -5,12 +5,12 @@
 }
 
 .dropdownRoot {
-  border: 1px solid #c0d32c;
+  border: 1px solid variables.$secondary;
   border-radius: 16px;
 
   :global {
     .ant-dropdown-menu-item-active {
-      color: #1d1617 !important;
+      color: variables.$N6 !important;
     }
 
     .ant-dropdown-menu-light {
@@ -37,7 +37,7 @@
 }
 
 .locationTitle {
-  color: #fff;
+  color: variables.$N1;
   font-size: 14px;
   line-height: 150%;
 }
@@ -52,10 +52,10 @@
 }
 
 .userSection {
-  color: #c0d32c;
+  color: variables.$secondary;
   height: 48px;
   text-align: center;
-  border: 1px solid #c0d32c;
+  border: 1px solid variables.$secondary;
   border-radius: 12px;
 }
 

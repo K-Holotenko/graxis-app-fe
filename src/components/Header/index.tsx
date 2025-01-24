@@ -28,6 +28,7 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ROUTES } from 'src/router/routes';
 import { Drawer } from 'src/components/Drawer';
 import { Button } from 'src/components/Button';
+import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
 
@@ -174,7 +175,7 @@ export const AppHeader = () => {
 const localTheme = {
   components: {
     Dropdown: {
-      controlItemBgHover: '#EAEAEA',
+      controlItemBgHover: theme.N3,
       borderRadiusLG: 16,
       controlPaddingHorizontal: 16,
       paddingBlock: 9,

@@ -43,8 +43,8 @@
 }
 
 .price {
-  font-family: variables.$font-family;
-  font-weight: variables.$font-weight-bold;
+  font-family: variables.$font-body;
+  font-weight: 700;
   color: variables.$primary;
   font-style: normal;
   font-size: 24px;
@@ -71,20 +71,20 @@
 }
 
 .starIcon {
-  font-size: variables.$font-size-small;
+  font-size: 12px;
   color: variables.$primary;
   margin-right: 5px;
   font-size: 14px;
 }
 
 .ratingValue {
-  font-size: variables.$font-size-small;
+  font-size: 12px;
   color: variables.$primary;
   font-weight: 700;
   font-size: 14px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-sm) {
   .cardName {
     font-size: 22px;
   }
@@ -94,7 +94,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-md) {
   .cardName {
     font-size: 18px;
   }
@@ -104,7 +104,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: variables.$media-xl) {
   .cardName {
     font-size: 22px;
   }

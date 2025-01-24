@@ -7,7 +7,7 @@
     }
 
     .ant-upload-list-item {
-      border: 1px solid variables.$light-green-color !important;
+      border: 1px solid variables.$secondary !important;
     }
 
     .ant-upload-list-item-actions,
@@ -22,7 +22,7 @@
     border: 0;
     border-radius: 10px;
     background: none;
-    box-shadow: 0 3px 15px 0 variables.$shadow;
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
     cursor: pointer;
   }
 
@@ -32,7 +32,7 @@
   }
 }
 
-@media (min-width: variables.$breakpoint-tablet) {
+@media (min-width: variables.$media-sm) {
   .uploadContainer {
     .button {
       height: 154px;

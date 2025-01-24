@@ -8,8 +8,8 @@
 }
 
 body {
-  background-color: #ffffff;
-  font-family: $font-family, sans-serif;
+  background-color: $N1;
+  font-family: $font-body;
   min-width: 375px;
 }
 
@@ -24,7 +24,7 @@ body {
   padding: 0 !important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: $media-sm) {
   .container {
     padding: 0 24px;
   }

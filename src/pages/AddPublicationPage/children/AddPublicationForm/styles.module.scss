@@ -4,8 +4,8 @@
   :global {
     .ant-form-item-required {
       font-size: 18px !important;
-      font-family: variables.$font-family-second !important;
-      font-weight: variables.$font-weight-semibold;
+      font-family: variables.$font-heading !important;
+      font-weight: 600;
       margin-bottom: 20px !important;
     }
   }
@@ -15,13 +15,13 @@
   font-size: 12px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-sm) {
   .textArea {
     font-size: 18px;
   }
 }
 
-@media (min-width: variables.$breakpoint-md) {
+@media (min-width: variables.$media-md) {
   .label {
     :global {
       .ant-form-item-required {

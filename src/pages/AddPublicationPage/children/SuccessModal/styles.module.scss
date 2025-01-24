@@ -7,16 +7,16 @@
 }
 
 .headingLevel2 {
-  font-size: variables.$font-size-l;
+  font-size: 26px;
   line-height: 125%;
-  font-weight: variables.$font-weight-semibold;
+  font-weight: 600;
   margin-bottom: 24px;
 }
 
 .description {
   line-height: 125%;
   font-size: 18px;
-  color: #1d1617;
+  color: variables.$N6;
   margin-bottom: 40px;
 }
 
@@ -38,7 +38,7 @@
   justify-content: center;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-sm) {
   .modalWindow {
     max-width: 556px !important;
   }
@@ -67,7 +67,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: variables.$media-lg) {
   .modalWindow {
     max-width: 876px !important;
   }

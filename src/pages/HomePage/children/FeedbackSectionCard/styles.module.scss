@@ -1,14 +1,11 @@
 @use 'src/styles/variables';
 
-@mixin textStyles(
-  $color: variables.$color-white,
-  $line-height: variables.$line-height-medium
-) {
-  font-family: variables.$font-family;
-  font-size: variables.$font-size-medium;
+@mixin textStyles($color: variables.$N1, $line-height: 1.25) {
+  font-family: variables.$font-body;
+  font-size: 16px;
   color: $color;
   line-height: $line-height;
-  letter-spacing: variables.$letter-spacing-narrow;
+  letter-spacing: -0.02em;
   margin-bottom: 0;
 }
 
@@ -21,7 +18,7 @@
 }
 
 .feedbackRate {
-  color: variables.$light-green-color;
+  color: variables.$secondary;
 
   :global {
     .ant-rate-star {
@@ -36,23 +33,23 @@
 }
 
 .feedbackDate {
-  @include textStyles(variables.$secondary, variables.$line-height-large);
-  font-weight: variables.$font-weight-bold;
+  @include textStyles(variables.$secondary-light, 1.5);
+  font-weight: 700;
 }
 
 .feedbackTitle {
-  @include textStyles(variables.$secondary, variables.$line-height-large);
-  font-weight: variables.$font-weight-bold;
+  @include textStyles(variables.$secondary-light, 1.5);
+  font-weight: 700;
   margin-top: 19px;
 }
 
 .feedbackReview {
-  @include textStyles(variables.$color-white, variables.$line-height-large);
+  @include textStyles(variables.$N1, 1.5);
 }
 
 .feedbackName {
-  @include textStyles(variables.$color-white);
-  font-size: variables.$font-size-18;
+  @include textStyles(variables.$N1);
+  font-size: 18px;
 }
 
 .feedbackDescriptionWrapper {
@@ -64,7 +61,7 @@
   height: 44px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-md) {
   .feedbackCard {
     margin-left: 16px;
   }

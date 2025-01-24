@@ -10,17 +10,17 @@
 .verifyCodeText {
   font-size: 12px;
   line-height: 1.5;
-  color: #1d1617 !important;
+  color: variables.$N6 !important;
 }
 
 .verifyCodeTitle {
   text-align: center;
-  color: #1d1617 !important;
+  color: variables.$N6 !important;
   font-size: 32px;
 }
 
 .phoneLink {
-  color: variables.$text-primary;
+  color: variables.$N6;
   font-size: 16px;
   font-weight: 500;
   display: flex;
@@ -29,7 +29,7 @@
   gap: 4px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-md) {
   .verifyCodeRow {
     padding-left: 0px;
     padding-right: 0px;

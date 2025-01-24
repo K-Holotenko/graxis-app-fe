@@ -11,6 +11,7 @@ import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
 import { SuccessModal } from 'src/pages/AddPublicationPage/children/SuccessModal';
 import { Button } from 'src/components/Button';
 import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
+import { theme } from 'src/config/theme';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
@@ -146,7 +147,7 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
 const formTheme = {
   components: {
     Form: {
-      labelColor: '#1D1617',
+      labelColor: theme.N6,
       itemMarginBottom: 40,
       labelFontSize: 26,
       verticalLabelPadding: 0,

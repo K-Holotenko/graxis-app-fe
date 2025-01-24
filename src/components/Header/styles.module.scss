@@ -21,7 +21,7 @@
 
 .buttonPadding {
   padding: 12px 10px !important;
-  color: #1d1617;
+  color: variables.$N6;
 }
 
 .dropdownRoot {
@@ -29,7 +29,7 @@
 
   :global {
     .ant-dropdown-menu-item-active:active {
-      background-color: #c0d32c !important;
+      background-color: variables.$secondary !important;
     }
   }
 }
@@ -42,19 +42,19 @@
   cursor: pointer;
 }
 
-@media (min-width: 576px) {
+@media (min-width: variables.$media-sm) {
   .logo {
     height: 14px !important;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: variables.$media-md) {
   .logo {
     height: 16px !important;
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: variables.$media-lg) {
   .logo {
     height: 22px !important;
   }
@@ -64,13 +64,13 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: variables.$media-xl) {
   .logo {
     height: 28px !important;
   }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: variables.$media-xxl) {
   .app-header-section {
     .container {
       padding: 0 25px;

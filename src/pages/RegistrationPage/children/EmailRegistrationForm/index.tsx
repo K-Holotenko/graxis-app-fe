@@ -12,6 +12,7 @@ import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
+import { theme } from 'src/config/theme';
 
 import { CREATE_PASSWORD_VALIDATION_CONDITIONS } from './utils';
 import styles from './styles.module.scss';
@@ -138,7 +139,7 @@ export const EmailRegistrationForm = () => {
 const localTheme = {
   components: {
     Form: {
-      labelColor: '#4F4F4F',
+      labelColor: theme.N5,
       itemMarginBottom: 12,
     },
   },
