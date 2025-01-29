@@ -9,6 +9,7 @@ import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
+import { ItemPage } from 'src/pages/ItemPage';
 
 export const router = createBrowserRouter([
   {
@@ -38,5 +39,9 @@ export const router = createBrowserRouter([
         <AddPublicationPage />
       </PrivateRoute>
     ),
+  },
+  {
+    path: ROUTES.ITEM,
+    element: <ItemPage />,
   },
 ]);

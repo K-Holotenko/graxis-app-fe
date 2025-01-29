@@ -1,0 +1,53 @@
+.topContentContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 68px;
+  row-gap: 68px;
+  margin-top: 100px;
+}
+
+.leftContentSection {
+  height: 1204px;
+  background-color: #bcccdc;
+}
+
+.rightContentSection {
+  height: 1204px;
+  width: 412px;
+  background-color: #bcccdc;
+  flex: 1;
+}
+
+.bottomContentContainer {
+  margin-top: 80px;
+}
+
+.bottomContentSection {
+  height: 498px;
+  width: 1500px;
+  background-color: #bcccdc;
+  margin-bottom: 140px;
+}
+
+@media (max-width: 1200px) {
+  .bottomContentSection {
+    margin-bottom: 80px;
+  }
+  .topContentContainer {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width: 576px) {
+  .topContentContainer {
+    row-gap: 40px;
+    margin-top: 4px;
+  }
+  .bottomContentContainer {
+    margin-top: 40px;
+  }
+  .bottomContentSection {
+    margin-bottom: 40px;
+  }
+}

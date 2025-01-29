@@ -7,4 +7,5 @@ export const ROUTES = {
   SETTINGS: '/settings',
   PUBLICATIONS: '/publications',
   ADD_PUBLICATION: '/add-publication',
+  ITEM: '/item/:id',
 };
