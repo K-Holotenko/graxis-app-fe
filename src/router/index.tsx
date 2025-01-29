@@ -6,10 +6,10 @@ import { RegistrationPage } from 'src/pages/RegistrationPage';
 import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { AddPublicationPage } from 'src/pages/AddPublicationPage';
+import { ItemPage } from 'src/pages/ItemPage';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
-import { ItemPage } from 'src/pages/ItemPage';
 
 export const router = createBrowserRouter([
   {
