@@ -1,10 +1,9 @@
+@use 'src/styles/variables';
+
 .topContentContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  column-gap: 68px;
-  row-gap: 68px;
-  margin-top: 100px;
+  margin-top: 4px;
+  column-gap: 40px;
+  row-gap: 40px;
 }
 
 .leftContentSection {
@@ -14,40 +13,40 @@
 
 .rightContentSection {
   height: 1204px;
-  width: 412px;
   background-color: #bcccdc;
   flex: 1;
 }
 
 .bottomContentContainer {
-  margin-top: 80px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .bottomContentSection {
   height: 498px;
   width: 1500px;
   background-color: #bcccdc;
-  margin-bottom: 140px;
 }
 
-@media (max-width: 1200px) {
-  .bottomContentSection {
-    margin-bottom: 80px;
-  }
+@media (min-width: variables.$media-sm) {
   .topContentContainer {
     margin-top: 80px;
+    row-gap: 80px;
+  }
+
+  .bottomContentContainer {
+    margin-top: 80px;
+    margin-bottom: 80px;
   }
 }
 
-@media (max-width: 576px) {
+@media (min-width: variables.$media-xl) {
   .topContentContainer {
-    row-gap: 40px;
-    margin-top: 4px;
+    margin-top: 100px;
+    column-gap: 68px;
   }
+
   .bottomContentContainer {
-    margin-top: 40px;
-  }
-  .bottomContentSection {
-    margin-bottom: 40px;
+    margin-bottom: 140px;
   }
 }
