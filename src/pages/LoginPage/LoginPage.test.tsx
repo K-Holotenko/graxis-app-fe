@@ -8,6 +8,20 @@ import { ROUTES } from 'src/router/routes';
 import { LoginPage } from '.';
 import { LOGIN_PAGE_CONFIG } from './utils/config';
 
+vi.mock('firebase/auth', async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    AuthErrorCodes: {
+      INVALID_IDP_RESPONSE: 'auth/invalid-idp-response',
+      EMAIL_EXISTS: 'auth/email-already-in-use',
+      INVALID_CODE: 'auth/invalid-verification-code',
+    },
+    getAuth: vi.fn(() => ({})),
+  };
+});
+
 describe('LoginPage', () => {
   it('renders PageContainer with the correct title Login page', async () => {
     render(

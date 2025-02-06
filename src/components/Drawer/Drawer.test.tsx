@@ -14,6 +14,19 @@ vi.mock('react-router-dom', async () => ({
 }));
 const mockNavigate = vi.fn();
 
+vi.mock('firebase/auth', async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    AuthErrorCodes: {
+      INVALID_IDP_RESPONSE: 'auth/invalid-idp-response',
+      EMAIL_EXISTS: 'auth/email-already-in-use',
+      INVALID_CODE: 'auth/invalid-verification-code',
+    },
+    getAuth: vi.fn(() => ({})),
+  };
+});
 vi.mocked(useNavigate).mockImplementation(() => mockNavigate);
 
 describe('Drawer', () => {
