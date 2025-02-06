@@ -21,6 +21,7 @@ import { SelectLocation } from 'src/components/SelectLocation';
 import { ButtonTypes, TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 
@@ -48,6 +49,8 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { isAuthorized } = useAuthStore();
   const authStore = useAuthStore();
 
+  const { openNotification } = useNotification();
+
   const navigate = useNavigate();
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
@@ -59,11 +62,15 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
     navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
   };
 
+  const showError = (description: string) => {
+    openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
+
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
       '1': () => navigate(ROUTES.PUBLICATIONS),
       '2': () => navigate(ROUTES.SETTINGS),
-      '3': () => authStore.signOut(),
+      '3': () => authStore.signOut(showError),
     };
 
     actions[e.key]();

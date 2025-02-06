@@ -7,6 +7,7 @@ import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
 import { theme } from 'src/config/theme';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 
@@ -19,6 +20,12 @@ export const EmailLoginForm = () => {
   const { loginWithEmail } = useAuthStore();
   const [form] = Form.useForm();
   const [isValid, setIsValid] = useState(false);
+
+  const { openNotification } = useNotification();
+
+  const triggerNotification = (description: string) => {
+    openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
 
   // Watch all values
   const allValues = Form.useWatch([], form);
@@ -41,9 +48,8 @@ export const EmailLoginForm = () => {
   );
 
   const onFinish = (values: EmailLoginFormValues) => {
-    loginWithEmail(values.email, values.password);
+    loginWithEmail(values.email, values.password, triggerNotification);
   };
-  const onFinishFailed = () => {};
 
   return (
     <ConfigProvider theme={localTheme}>
@@ -51,7 +57,6 @@ export const EmailLoginForm = () => {
         name={FORMS.EMAIL_LOGIN_FORM}
         layout="vertical"
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         form={form}
         requiredMark={false}
       >

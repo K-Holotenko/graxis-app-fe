@@ -10,11 +10,11 @@ import { FORMS, TEXT } from 'src/config/constants';
 import { useRecaptcha } from 'src/hooks/useRecaptcha';
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
-import { handlePhoneAuth } from 'src/utils/handlePhoneAuth';
 import { Button } from 'src/components/Button';
 import { Input, InputType } from 'src/components/Input';
 import { Checkbox } from 'src/components/Checkbox/index';
 import { theme } from 'src/config/theme';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 
@@ -26,8 +26,13 @@ export const AuthPhoneForm = ({ route }: AuthPhoneFormProps) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const { loginWithPhoneNumber } = useAuthStore();
-  const [, setErrorMessage] = useState<string | null>(null);
   const [isValid, setIsValid] = useState(false);
+
+  const { openNotification } = useNotification();
+
+  const triggerNotification = (err: string) => {
+    openNotification(NotificationType.ERROR, 'Помилка', err);
+  };
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,17 +45,18 @@ export const AuthPhoneForm = ({ route }: AuthPhoneFormProps) => {
 
   useRecaptcha({ buttonId: 'phone-auth-button' });
 
-  const onFinish = (values: { phone: string }) => {
-    const navigateToVerification = () => {
-      navigate(`${ROUTES.VERIFICATION_CODE}?from=${route}`);
-    };
+  const onFinish = async (values: { phone: string }) => {
+    const phoneNumber = `+380${values.phone}`;
 
-    handlePhoneAuth(
-      values.phone,
-      loginWithPhoneNumber,
-      navigateToVerification,
-      setErrorMessage
-    );
+    sessionStorage.setItem('phone', phoneNumber);
+
+    await loginWithPhoneNumber(phoneNumber, triggerNotification)
+      .then(() => {
+        navigate(`${ROUTES.VERIFICATION_CODE}?from=${route}`);
+      })
+      .catch(() => {
+        form.resetFields(['phone']);
+      });
   };
 
   const rules = [

@@ -9,6 +9,7 @@ import { ReactComponent as GoogleIcon } from 'src/assets/icons/google-icon.svg';
 import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button';
 import { useWindowSize } from 'src/hooks/useWindowSize';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 
@@ -39,8 +40,14 @@ export const AuthForms = ({
   const navigate = useNavigate();
   const { loginWithGoogle } = useAuthStore();
 
+  const { openNotification } = useNotification();
+
+  const triggerNotification = (description: string) => {
+    openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
+
   const onGoogleClick = async () => {
-    await loginWithGoogle();
+    await loginWithGoogle(triggerNotification);
     navigate(ROUTES.HOME);
   };
 

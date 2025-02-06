@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   ConfirmationResult,
   createUserWithEmailAndPassword,
-  FacebookAuthProvider,
   GoogleAuthProvider,
   sendEmailVerification,
   signInWithEmailAndPassword,
@@ -20,73 +18,46 @@ export const AuthService = {
     email: string,
     password: string
   ): Promise<User | null> => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        firebaseAuth,
-        email,
-        password
-      );
-      const user: User = userCredential.user;
+    const userCredential = await signInWithEmailAndPassword(
+      firebaseAuth,
+      email,
+      password
+    );
+    const user: User = userCredential.user;
 
-      return user;
-    } catch {
-      //TODO. Add proper error handling later
-      return null;
-    }
+    return user;
   },
 
   registerWithEmail: async (
     email: string,
     password: string
   ): Promise<unknown> => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        firebaseAuth,
-        email,
-        password
-      );
-      const user = userCredential.user;
+    const userCredential = await createUserWithEmailAndPassword(
+      firebaseAuth,
+      email,
+      password
+    );
+    const user = userCredential.user;
 
-      const actionCodeSettings = {
-        url: EMAIL_VERIFICATION_REDIRECT_LINK,
-        handleCodeInApp: true,
-      };
+    const actionCodeSettings = {
+      url: EMAIL_VERIFICATION_REDIRECT_LINK,
+      handleCodeInApp: true,
+    };
 
-      await sendEmailVerification(user, actionCodeSettings);
+    await sendEmailVerification(user, actionCodeSettings);
 
-      return user;
-    } catch {
-      //TODO. Add proper error handling later
-    }
+    return user;
   },
 
   loginWithGoogle: async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const userCredential = await signInWithPopup(firebaseAuth, provider);
+    const provider = new GoogleAuthProvider();
+    const userCredential = await signInWithPopup(firebaseAuth, provider);
 
-      const user = userCredential.user;
+    const user = userCredential.user;
 
-      return user;
-    } catch {
-      //TODO. Add proper error handling later
-    }
+    return user;
   },
 
-  loginWithFacebook: async () => {
-    try {
-      const provider = new FacebookAuthProvider();
-      const userCredential = await signInWithPopup(firebaseAuth, provider);
-
-      const user = userCredential.user;
-
-      return user;
-    } catch {
-      //TODO. Add proper error handling later
-    }
-  },
-
-  // TODO Handle different types of authentication errors
   loginWithPhoneNumber: async (
     phoneNumber: string
   ): Promise<ConfirmationResult | undefined> => {
@@ -99,7 +70,6 @@ export const AuthService = {
     return confirmationResult;
   },
 
-  // TODO Handle different types of authentication errors
   verifyCode: async (
     confirmationResult: ConfirmationResult,
     code: string
@@ -111,10 +81,6 @@ export const AuthService = {
   },
 
   signOut: async () => {
-    try {
-      await signOut(firebaseAuth);
-    } catch {
-      //TODO. Add proper error handling later
-    }
+    await signOut(firebaseAuth);
   },
 };

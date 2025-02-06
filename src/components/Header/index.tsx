@@ -29,6 +29,8 @@ import { ROUTES } from 'src/router/routes';
 import { Drawer } from 'src/components/Drawer';
 import { Button } from 'src/components/Button';
 import { theme } from 'src/config/theme';
+import { useCountdown } from 'src/hooks/useCountdown';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 
@@ -51,6 +53,15 @@ export const AppHeader = () => {
   const { width } = useWindowSize();
   const navigate = useNavigate();
   const authStore = useAuthStore();
+  const { timer, startCountdown } = useCountdown(5);
+
+  const { openNotification } = useNotification();
+
+  useEffect(() => {
+    if (timer === 0) {
+      navigate(ROUTES.LOGIN);
+    }
+  }, [navigate, timer]);
 
   const { isAuthorized } = useAuthStore();
   const [hasNotifications] = useState(true);
@@ -60,8 +71,30 @@ export const AppHeader = () => {
 
   const isDesktop = width > SCREEN_WIDTH.MD;
 
-  const onAddPublicationBtnClick = () => {
-    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
+  const showError = (description: string) => {
+    openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
+
+  const onAddPublicationBtnClick = (): void => {
+    if (isAuthorized) {
+      navigate(ROUTES.ADD_PUBLICATION);
+
+      return;
+    }
+
+    startCountdown();
+
+    openNotification(
+      NotificationType.INFO,
+      'Будь ласка, авторизуйтесь',
+      'Авторизуйтеся, щоб продовжити. Автоперехід через 5 секунд...',
+      <Button
+        label="Авторизуватися"
+        type={ButtonTypes.link}
+        className={styles.notificationButtonPadding}
+        onClick={() => navigate(ROUTES.LOGIN)}
+      />
+    );
   };
 
   useEffect(() => {
@@ -74,7 +107,7 @@ export const AppHeader = () => {
     const actions: { [key: string]: () => void } = {
       '1': () => navigate(ROUTES.PUBLICATIONS),
       '2': () => navigate(ROUTES.SETTINGS),
-      '3': () => authStore.signOut(),
+      '3': () => authStore.signOut(showError),
     };
 
     actions[e.key]();

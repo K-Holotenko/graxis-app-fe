@@ -42,6 +42,11 @@
   cursor: pointer;
 }
 
+.notificationButtonPadding {
+  padding: 0 10px;
+  height: 20px;
+}
+
 @media (min-width: variables.$media-sm) {
   .logo {
     height: 14px !important;
