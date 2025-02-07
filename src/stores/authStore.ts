@@ -59,6 +59,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
+        throw err;
       }
     }
   },
@@ -72,7 +73,6 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
       }
-
       throw err;
     }
   },

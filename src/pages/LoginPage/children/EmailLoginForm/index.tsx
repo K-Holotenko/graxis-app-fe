@@ -48,7 +48,11 @@ export const EmailLoginForm = () => {
   );
 
   const onFinish = (values: EmailLoginFormValues) => {
-    loginWithEmail(values.email, values.password, triggerNotification);
+    loginWithEmail(values.email, values.password, triggerNotification).catch(
+      () => {
+        form.resetFields(['password']);
+      }
+    );
   };
 
   return (
