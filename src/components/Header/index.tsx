@@ -54,12 +54,14 @@ export const AppHeader = () => {
   const navigate = useNavigate();
   const authStore = useAuthStore();
   const { timer, startCountdown } = useCountdown(5);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const { openNotification } = useNotification();
 
   useEffect(() => {
     if (timer === 0) {
       navigate(ROUTES.LOGIN);
+      setIsNotificationOpen(false);
     }
   }, [navigate, timer]);
 
@@ -82,8 +84,12 @@ export const AppHeader = () => {
       return;
     }
 
-    startCountdown();
+    if (isNotificationOpen) {
+      return;
+    }
 
+    startCountdown();
+    setIsNotificationOpen(true);
     openNotification(
       NotificationType.INFO,
       'Будь ласка, авторизуйтесь',
