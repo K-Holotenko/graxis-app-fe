@@ -3,16 +3,20 @@ import { useEffect, useState } from 'react';
 interface UseCountdownReturn {
   timer: number;
   isDisabled: boolean;
-  resetCountdown: () => void;
+  startCountdown: () => void;
 }
 
 export const useCountdown = (initialTime: number): UseCountdownReturn => {
   const [timer, setTimer] = useState(initialTime);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isCounting, setIsCounting] = useState(false);
 
   useEffect(() => {
+    if (!isCounting) return;
+
     if (timer === 0) {
       setIsDisabled(false);
+      setIsCounting(false);
 
       return;
     }
@@ -22,12 +26,13 @@ export const useCountdown = (initialTime: number): UseCountdownReturn => {
     }, 1000);
 
     return () => clearInterval(countdown);
-  }, [timer]);
+  }, [timer, isCounting]);
 
-  const resetCountdown = (): void => {
+  const startCountdown = (): void => {
     setTimer(initialTime);
     setIsDisabled(true);
+    setIsCounting(true);
   };
 
-  return { timer, isDisabled, resetCountdown };
+  return { timer, isDisabled, startCountdown };
 };

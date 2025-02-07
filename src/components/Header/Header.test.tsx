@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
@@ -13,6 +13,31 @@ vi.mock('react-router-dom', async () => ({
   useNavigate: vi.fn(),
 }));
 const mockNavigate = vi.fn();
+
+vi.mock('firebase/auth', async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    AuthErrorCodes: {
+      INVALID_IDP_RESPONSE: 'auth/invalid-idp-response',
+      EMAIL_EXISTS: 'auth/email-already-in-use',
+      INVALID_CODE: 'auth/invalid-verification-code',
+    },
+    getAuth: vi.fn(() => ({})),
+  };
+});
+
+vi.mock('src/hooks/useNotification', async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    useNotification: () => ({
+      openNotification: vi.fn(),
+    }),
+  };
+});
 
 vi.mocked(useNavigate).mockImplementation(() => mockNavigate);
 
@@ -33,7 +58,7 @@ describe('AppHeader', () => {
     expect(mockNavigate).toHaveBeenCalledWith(ROUTES.ADD_PUBLICATION);
   });
 
-  it('should redirect to login on button click if unauthorized', () => {
+  it('should redirect to login on button click if unauthorized', async () => {
     vi.mocked(useAuthStore).mockReturnValue({
       isAuthorized: false,
     });
@@ -46,6 +71,11 @@ describe('AppHeader', () => {
     const addPublicationBtn = getByTestId('add-publication-btn');
 
     addPublicationBtn.click();
-    expect(mockNavigate).toHaveBeenCalledWith(ROUTES.LOGIN);
-  });
+    await waitFor(
+      () => {
+        expect(mockNavigate).toHaveBeenCalledWith(ROUTES.LOGIN);
+      },
+      { timeout: 6000 }
+    );
+  }, 6000);
 });

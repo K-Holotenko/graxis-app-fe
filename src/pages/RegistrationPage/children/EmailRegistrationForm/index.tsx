@@ -13,6 +13,7 @@ import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
 import { theme } from 'src/config/theme';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import { CREATE_PASSWORD_VALIDATION_CONDITIONS } from './utils';
 import styles from './styles.module.scss';
@@ -26,6 +27,7 @@ export const EmailRegistrationForm = () => {
   const navigate = useNavigate();
   const { registerWithEmail } = useAuthStore();
   const [isValid, setIsValid] = useState(false);
+  const { openNotification } = useNotification();
 
   const [form] = Form.useForm();
 
@@ -49,12 +51,17 @@ export const EmailRegistrationForm = () => {
     [form]
   );
 
-  const onFinish = (values: EmailRegistrationFormValues) => {
-    registerWithEmail(values.email, values.password).then(() =>
-      navigate(ROUTES.VERIFY_EMAIL)
-    );
+  const triggerNotification = (description: string) => {
+    openNotification(NotificationType.ERROR, 'Помилка', description);
   };
-  const onFinishFailed = () => {};
+
+  const onFinish = (values: EmailRegistrationFormValues) => {
+    registerWithEmail(values.email, values.password, triggerNotification)
+      .then(() => navigate(ROUTES.VERIFY_EMAIL))
+      .catch(() => {
+        form.resetFields(['email']);
+      });
+  };
 
   return (
     <ConfigProvider theme={localTheme}>
@@ -62,7 +69,6 @@ export const EmailRegistrationForm = () => {
         name={FORMS.EMAIL_REGISTRATION_FORM}
         layout="vertical"
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         form={form}
         requiredMark={false}
       >
