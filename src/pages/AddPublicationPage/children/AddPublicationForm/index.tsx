@@ -12,6 +12,7 @@ import { SuccessModal } from 'src/pages/AddPublicationPage/children/SuccessModal
 import { Button } from 'src/components/Button';
 import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
 import { theme } from 'src/config/theme';
+import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
@@ -26,6 +27,12 @@ interface AddPublicationFormProps {
   onFinish?: () => void;
   onFinishFailed?: () => void;
   className?: string;
+}
+
+interface Location {
+  lat: number;
+  lng: number;
+  address: string;
 }
 
 export const AddPublicationForm = (props: AddPublicationFormProps) => {
@@ -54,6 +61,11 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
   ) => {
     // eslint-disable-next-line no-console
     console.log('Failed:', { errorInfo });
+  };
+
+  const handleLocationChange = (location: Location) => {
+    // eslint-disable-next-line no-console
+    console.log('Selected place:', location);
   };
 
   return (
@@ -132,6 +144,16 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               rules={[{ required: true, message: TEXT.SET_AT_LEAST_ONE_PRICE }]}
             >
               <PriceInputs />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              className={styles.label}
+              label="Локація"
+              name="location"
+              rules={[{ required: true, message: 'Enter location' }]}
+            >
+              <LocationAutocomplete onChange={handleLocationChange} />
             </Form.Item>
           </Col>
           <Col span={6} offset={18}>
