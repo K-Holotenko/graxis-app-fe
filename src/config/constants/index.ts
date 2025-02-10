@@ -5,6 +5,7 @@ import TikTokIcon from 'src/assets/icons/tiktok-icon-dark.svg';
 import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
+  ABOUT_USER: 'Про власника',
   ADD_PHOTO: 'Додайте фото',
   ADD_PUBLICATION: 'Додати оголошення',
   ADD_ANNOUNCEMENT: 'Додайте оголошення',
@@ -22,10 +23,27 @@ export const TEXT = {
   CURRENCY_PER_TIME: 'грн / день',
 
   DESCRIPTION: 'Опис',
+  DESCRIPTION_TEXT:
+    'Ігрова приставка Sony PlayStation 4 Slim 500 ГБ з ОЗУ 8 ГБ. ' +
+    "Консоль має роз'єми: USB, HDMI, RJ-45. " +
+    'У комплект входить: кабель живлення, кабель HDMI, бездротова панель DualShock 4, кабель USB. ' +
+    'Lorem ipsum dolor sit amet consectetur. ' +
+    'Eget vulputate placerat ac tristique molestie orci imperdiet. ' +
+    'Mauris phasellus amet scelerisque non nunc mauris. ' +
+    'Senectus elit turpis mauris laoreet platea elementum scelerisque. ' +
+    'Semper convallis volutpat nullam ante gravida libero amet dui. ' +
+    'Quis praesent justo morbi vitae praesent ornare rutrum. ' +
+    'In mollis maecenas egestas id ut ornare orci posuere. ' +
+    'Nisl elit enim consequat justo. ' +
+    'Interdum sagittis bibendum orci mauris congue fusce a. ' +
+    'Eu lobortis nulla enim lacus quisque nibh. ' +
+    'Tellus sit est pretium cum nibh. ' +
+    'Neque facilisi ac vulputate vestibulum neque vitae neque arcu pellentesque.',
 
   EMAIL: 'Пошта',
 
   FAST_LINKS: 'Швидкі посилання',
+  FEEDBACK_AMOUNT: 'відгуків',
   FEEDBACKS: 'Відгуки',
   FORGOT_PASSWORD: 'Забули пароль?',
 
@@ -45,8 +63,11 @@ export const TEXT = {
   INPUT_PUBLICATION_NAME: 'Введіть назву оголошення',
   INPUT_SEARCH: 'Пошук товару',
 
+  LESS: 'Менше',
   LOGIN: 'Увійти',
   LOGOUT: 'Вийти',
+
+  MORE: 'Більше',
   MY_PUBLICATIONS: 'Мої оголошення',
 
   NAME: 'Назва',
@@ -79,6 +100,10 @@ export const TEXT = {
   SET_AT_LEAST_ONE_PRICE: 'Принаймні одна ціна має бути вказана',
   MIN_VALUE: (minValue: number | string) => `Мінімальне значення ${minValue}`,
   MAX_VALUE: (maxValue: number | string) => `Максимальне значення ${maxValue}`,
+
+  USER_NAME: 'Василь Симоненко',
+
+  WITH_US: 'місяці з Graxis',
 };
 
 export const FORMS = {
