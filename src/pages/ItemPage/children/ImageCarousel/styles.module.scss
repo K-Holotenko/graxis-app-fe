@@ -1,0 +1,59 @@
+@use 'src/styles/variables';
+
+.itemPage {
+  text-align: center;
+}
+
+.carouselMainImage {
+  max-height: 380px;
+}
+
+.carouselPreviewImage {
+  border: 1px solid variables.$N4;
+  border-radius: 12px;
+  width: 116px;
+  height: auto;
+}
+
+.carouselPreviewImages {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-top: 26px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .carouselMainImage {
+    border-radius: 12px;
+    width: 100%;
+    max-height: 450px;
+  }
+
+  .carouselPreviewImages {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .carouselPreviewImage {
+    max-height: 140px !important;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .carouselMainImage {
+    max-height: 597px;
+    width: 800px;
+  }
+
+  .carouselPreviewImages {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-top: 26px;
+  }
+
+  .carouselPreviewImage {
+    width: 116px;
+    height: 96px !important;
+  }
+}

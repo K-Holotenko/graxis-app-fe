@@ -11,9 +11,17 @@
   margin: 0 auto;
 }
 
+.noPadding .mainContainer {
+  padding: 0px;
+}
+
 @media (min-width: variables.$media-sm) {
   .mainContainer {
     padding: 0 24px;
+  }
+
+  .noPadding .mainContainer {
+    padding: 0 16px;
   }
 }
 
