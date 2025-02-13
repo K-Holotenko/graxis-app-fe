@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Form, Col, Row, ConfigProvider } from 'antd';
+import { APIProvider } from '@vis.gl/react-google-maps';
 
 import { ROUTES } from 'src/router/routes';
 import { FORMS, TEXT } from 'src/config/constants';
@@ -12,7 +13,9 @@ import { SuccessModal } from 'src/pages/AddPublicationPage/children/SuccessModal
 import { Button } from 'src/components/Button';
 import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
 import { theme } from 'src/config/theme';
-import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
+import { PlacesAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
+
+// import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
 
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
@@ -29,11 +32,13 @@ interface AddPublicationFormProps {
   className?: string;
 }
 
-interface Location {
-  lat: number;
-  lng: number;
-  address: string;
-}
+// interface Location {
+//   lat: number;
+//   lng: number;
+//   address: string;
+// }
+
+const API_KEY = 'AIzaSyAY5d1dKnJHgBvCR6EbzFUnzuUPLC9b2qQ';
 
 export const AddPublicationForm = (props: AddPublicationFormProps) => {
   const [form] = Form.useForm();
@@ -63,7 +68,9 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
     console.log('Failed:', { errorInfo });
   };
 
-  const handleLocationChange = (location: Location) => {
+  const handleLocationChange = (
+    location: google.maps.places.PlaceResult | null
+  ) => {
     // eslint-disable-next-line no-console
     console.log('Selected place:', location);
   };
@@ -153,7 +160,10 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               name="location"
               rules={[{ required: true, message: 'Enter location' }]}
             >
-              <LocationAutocomplete onChange={handleLocationChange} />
+              <APIProvider apiKey={API_KEY} libraries={['places']}>
+                <PlacesAutocomplete onPlaceSelect={handleLocationChange} />
+              </APIProvider>
+              {/* <LocationAutocomplete onChange={handleLocationChange} /> */}
             </Form.Item>
           </Col>
           <Col span={6} offset={18}>
