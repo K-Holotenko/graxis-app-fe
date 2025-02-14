@@ -11,16 +11,19 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import styles from './styles.module.scss';
 
+const MAX_TEXT_LENGTH = 500;
+
 export const UserDescription = () => {
   const { width } = useWindowSize();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const descriptionText = TEXT.DESCRIPTION_TEXT;
 
-  const showShortText = width < SCREEN_WIDTH.SM && descriptionText.length > 500;
+  const showShortText =
+    width < SCREEN_WIDTH.SM && descriptionText.length > MAX_TEXT_LENGTH;
   const displayedText =
     showShortText && !isExpanded
-      ? `${descriptionText.slice(0, 500)}...`
+      ? `${descriptionText.slice(0, MAX_TEXT_LENGTH)}...`
       : descriptionText;
 
   return (
@@ -35,7 +38,7 @@ export const UserDescription = () => {
             className={styles.moreButton}
             onClick={() => setIsExpanded(!isExpanded)}
           >
-            {isExpanded ? `${TEXT.LESS}` : `${TEXT.MORE}`}
+            {isExpanded ? TEXT.LESS : TEXT.MORE}
           </button>
         )}
       </div>
@@ -43,7 +46,7 @@ export const UserDescription = () => {
         <Heading level={4} className={styles.heading}>
           {TEXT.ABOUT_USER}
         </Heading>
-        <Link to={'/user/:id'} className={styles.infoWrap}>
+        <Link to="/user/:id" className={styles.infoWrap}>
           <Avatar
             size={{ xs: 82, sm: 98, md: 98, lg: 98, xl: 98, xxl: 98 }}
             src={userAvatar}
