@@ -9,10 +9,9 @@ import styles from './styles.module.scss';
 
 interface AppLayoutProps {
   children: ReactNode;
-  className?: string;
 }
 
-export const AppLayout = ({ children, className }: AppLayoutProps) => {
+export const AppLayout = ({ children }: AppLayoutProps) => {
   const isAddPublicationPage =
     window.location.pathname === ROUTES.ADD_PUBLICATION;
 
@@ -25,12 +24,10 @@ export const AppLayout = ({ children, className }: AppLayoutProps) => {
       </Row>
       <Row
         justify="center"
-        className={`${isAddPublicationPage ? styles.greyBackground : ''}${className}`}
+        className={isAddPublicationPage ? styles.greyBackground : ''}
       >
         <Col span={24}>
-          <main className={`${styles.mainContainer} ${className}`}>
-            {children}
-          </main>
+          <main className={styles.mainContainer}>{children}</main>
         </Col>
       </Row>
       <Row>

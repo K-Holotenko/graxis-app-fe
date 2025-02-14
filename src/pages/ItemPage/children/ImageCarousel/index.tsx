@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Carousel, ConfigProvider, Image } from 'antd';
 import { CarouselRef } from 'antd/es/carousel';
 
@@ -15,7 +15,7 @@ import { SCREEN_WIDTH } from 'src/config/constants';
 import styles from './styles.module.scss';
 
 export const ImageCarousel = () => {
-  const carouselRef = React.useRef<CarouselRef>(null);
+  const carouselRef = useRef<CarouselRef>(null);
 
   const [images] = useState([
     { id: 'image01', src: image01 },
@@ -32,18 +32,21 @@ export const ImageCarousel = () => {
   return (
     <div className={styles.itemPage}>
       <ConfigProvider theme={isMobile ? mobileLocalTheme : desktopLocalTheme}>
-        <div className={styles.carouselContainer}>
+        <div className={styles.mainWrapperContainer}>
           <Carousel ref={carouselRef}>
             {images.map((image) => (
-              <Image
-                key={image.id}
-                src={image.src}
-                preview={false}
-                className={styles.carouselMainImage}
-              />
+              <div className={styles.imageWrapper} key={image.id}>
+                <Image
+                  key={image.id}
+                  src={image.src}
+                  preview={false}
+                  className={styles.carouselMainImage}
+                />
+              </div>
             ))}
           </Carousel>
         </div>
+
         {!isMobile && (
           <div className={styles.carouselPreviewImages}>
             {images.map((image, index) => (
