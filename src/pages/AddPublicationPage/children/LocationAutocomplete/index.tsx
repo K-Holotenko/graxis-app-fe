@@ -1,24 +1,24 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
-import { Select } from 'antd';
+import { AutoComplete, ConfigProvider } from 'antd';
 
+import logo from 'src/assets/images/google_on_white.png';
+import { ReactComponent as MapIcon } from 'src/assets/icons/map-pin-icon-autocomplete.svg';
 import { useDebounce } from 'src/hooks/useDebounce';
+import { theme } from 'src/config/theme';
+import { TEXT } from 'src/config/constants';
 
-interface PlacesAutocompleteProps {
+import styles from './styles.module.scss';
+
+interface LocationAutocompleteProps {
   onPlaceSelect: (place: google.maps.places.PlaceResult | null) => void;
 }
 
-interface PlacesAutocompleteProps {
-  onPlaceSelect: (place: google.maps.places.PlaceResult | null) => void;
-  style?: React.CSSProperties;
-}
+const { Option } = AutoComplete;
 
-const { Option } = Select;
-
-export const PlacesAutocomplete = ({
+export const LocationAutocomplete = ({
   onPlaceSelect,
-  style,
-}: PlacesAutocompleteProps) => {
+}: LocationAutocompleteProps) => {
   const [searchValue, setSearchValue] = useState('');
   const [predictions, setPredictions] = useState<
     google.maps.places.AutocompletePrediction[]
@@ -33,10 +33,8 @@ export const PlacesAutocomplete = ({
     document.createElement('div')
   );
 
-  // Add debounced search value
   const debouncedSearch = useDebounce(searchValue, 300);
 
-  // Initialize services
   useEffect(() => {
     if (!placesLib) return;
 
@@ -47,7 +45,6 @@ export const PlacesAutocomplete = ({
     );
   }, [placesLib]);
 
-  // Handle search with debounce
   useEffect(() => {
     const fetchPredictions = async () => {
       if (!autocompleteService.current || debouncedSearch.length < 3) {
@@ -60,6 +57,7 @@ export const PlacesAutocomplete = ({
         input: debouncedSearch,
         sessionToken: sessionToken.current || undefined,
         componentRestrictions: { country: 'ua' },
+        language: 'uk',
       };
 
       try {
@@ -76,13 +74,11 @@ export const PlacesAutocomplete = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch, autocompleteService.current]);
 
-  // Handle select
   const handleSelect = useCallback(
     (
       value: string,
       option: { key: string; label: string } | { key: string; label: string }[]
     ) => {
-      // Handle both single and array cases
       const selectedOption = Array.isArray(option) ? option[0] : option;
 
       if (!placesService.current || !selectedOption) return;
@@ -91,12 +87,26 @@ export const PlacesAutocomplete = ({
         placeId: selectedOption.key,
         sessionToken: sessionToken.current || undefined,
         fields: ['name', 'formatted_address', 'geometry', 'place_id'],
+        language: 'uk',
       };
 
       placesService.current.getDetails(request, (place, status) => {
         if (status === 'OK' && place) {
-          setSearchValue(place.formatted_address || '');
-          onPlaceSelect(place);
+          setSearchValue(place.formatted_address || value);
+          const location = place.geometry?.location;
+
+          onPlaceSelect({
+            ...place,
+            geometry: {
+              location: {
+                lat: location?.lat(),
+                lng: location?.lng(),
+              },
+            },
+          } as google.maps.places.PlaceResult & {
+            geometry: { location: { lat: number; lng: number } };
+          });
+
           sessionToken.current =
             new google.maps.places.AutocompleteSessionToken();
         }
@@ -107,22 +117,58 @@ export const PlacesAutocomplete = ({
   );
 
   return (
-    <Select
-      showSearch
-      value={searchValue}
-      placeholder="Search address in Ukraine..."
-      onSearch={setSearchValue}
-      onChange={handleSelect}
-      style={style}
-      filterOption={false}
-      notFoundContent={null}
-      loading={debouncedSearch !== searchValue} // Show loading during debounce
-    >
-      {predictions.map((prediction) => (
-        <Option key={prediction.place_id} value={prediction.description}>
-          {prediction.description}
-        </Option>
-      ))}
-    </Select>
+    <ConfigProvider theme={localTheme}>
+      <AutoComplete
+        className={styles.searchBox}
+        popupClassName={styles.popUp}
+        value={searchValue}
+        showSearch
+        placeholder={TEXT.LOCATION_NAME}
+        suffixIcon={<MapIcon />}
+        onSearch={setSearchValue}
+        onSelect={handleSelect}
+        filterOption={false}
+      >
+        {predictions.map((prediction) => (
+          <Option key={prediction.place_id} value={prediction.description}>
+            {prediction.description}
+          </Option>
+        ))}
+        {predictions.length > 0 && (
+          <Option
+            key="powered-by-google"
+            disabled
+            className={styles.googleLogo}
+          >
+            <div className={styles.googleAttribution}>
+              <span>powered by</span>
+              <img
+                className={styles.googleLogoImg}
+                src={logo}
+                alt="Powered by Google"
+              />
+            </div>
+          </Option>
+        )}
+      </AutoComplete>
+    </ConfigProvider>
   );
+};
+
+const localTheme = {
+  components: {
+    Select: {
+      borderRadius: 8,
+      colorBorder: theme.N3,
+      hoverBorderColor: theme.N4,
+      fontSize: 12,
+      colorPrimary: theme.N5,
+      controlOutline: 'none',
+      colorText: theme.N6,
+      optionHeight: 39,
+      optionPadding: '10px 12px',
+      optionActiveBg: theme.N2,
+      optionSelectedFontWeight: 400,
+    },
+  },
 };

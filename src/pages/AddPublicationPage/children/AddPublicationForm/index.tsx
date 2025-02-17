@@ -13,7 +13,7 @@ import { SuccessModal } from 'src/pages/AddPublicationPage/children/SuccessModal
 import { Button } from 'src/components/Button';
 import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
 import { theme } from 'src/config/theme';
-import { PlacesAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
+import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
 
 // import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
 
@@ -161,7 +161,7 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               rules={[{ required: true, message: 'Enter location' }]}
             >
               <APIProvider apiKey={API_KEY} libraries={['places']}>
-                <PlacesAutocomplete onPlaceSelect={handleLocationChange} />
+                <LocationAutocomplete onPlaceSelect={handleLocationChange} />
               </APIProvider>
               {/* <LocationAutocomplete onChange={handleLocationChange} /> */}
             </Form.Item>

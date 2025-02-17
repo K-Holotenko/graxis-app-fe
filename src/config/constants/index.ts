@@ -64,6 +64,7 @@ export const TEXT = {
   INPUT_SEARCH: 'Пошук товару',
 
   LESS: 'Менше',
+  LOCATION_NAME: 'Введіть назву локаціїї',
   LOGIN: 'Увійти',
   LOGOUT: 'Вийти',
 
