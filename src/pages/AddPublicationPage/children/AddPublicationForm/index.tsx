@@ -15,8 +15,6 @@ import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
 import { theme } from 'src/config/theme';
 import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
 
-// import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
-
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
 
@@ -31,12 +29,6 @@ interface AddPublicationFormProps {
   onFinishFailed?: () => void;
   className?: string;
 }
-
-// interface Location {
-//   lat: number;
-//   lng: number;
-//   address: string;
-// }
 
 const API_KEY = 'AIzaSyAY5d1dKnJHgBvCR6EbzFUnzuUPLC9b2qQ';
 
@@ -163,7 +155,6 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               <APIProvider apiKey={API_KEY} libraries={['places']}>
                 <LocationAutocomplete onPlaceSelect={handleLocationChange} />
               </APIProvider>
-              {/* <LocationAutocomplete onChange={handleLocationChange} /> */}
             </Form.Item>
           </Col>
           <Col span={6} offset={18}>
