@@ -27,25 +27,23 @@ export const ImageCarousel = () => {
   ]);
 
   const { width } = useWindowSize();
-  const isMobile = width < SCREEN_WIDTH.SM;
+  const isMobile = width < SCREEN_WIDTH.MD;
 
   return (
     <div className={styles.itemPage}>
       <ConfigProvider theme={isMobile ? mobileLocalTheme : desktopLocalTheme}>
-        <div className={styles.mainWrapperContainer}>
-          <Carousel ref={carouselRef}>
-            {images.map((image) => (
-              <div className={styles.imageWrapper} key={image.id}>
-                <Image
-                  key={image.id}
-                  src={image.src}
-                  preview={false}
-                  className={styles.carouselMainImage}
-                />
-              </div>
-            ))}
-          </Carousel>
-        </div>
+        <Carousel ref={carouselRef}>
+          {images.map((image) => (
+            <div className={styles.imageWrapper} key={image.id}>
+              <Image
+                key={image.id}
+                src={image.src}
+                preview={false}
+                className={styles.carouselMainImage}
+              />
+            </div>
+          ))}
+        </Carousel>
 
         {!isMobile && (
           <div className={styles.carouselPreviewImages}>
