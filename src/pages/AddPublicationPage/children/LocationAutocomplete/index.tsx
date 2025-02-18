@@ -123,7 +123,7 @@ export const LocationAutocomplete = ({
         popupClassName={styles.popUp}
         value={searchValue}
         showSearch
-        placeholder={TEXT.LOCATION_NAME}
+        placeholder={TEXT.ENTER_LOCATION}
         suffixIcon={<MapIcon />}
         onSearch={setSearchValue}
         onSelect={handleSelect}

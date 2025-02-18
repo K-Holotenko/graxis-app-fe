@@ -30,7 +30,7 @@ interface AddPublicationFormProps {
   className?: string;
 }
 
-const API_KEY = 'AIzaSyAY5d1dKnJHgBvCR6EbzFUnzuUPLC9b2qQ';
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '';
 
 export const AddPublicationForm = (props: AddPublicationFormProps) => {
   const [form] = Form.useForm();
@@ -148,7 +148,7 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
           <Col span={24}>
             <Form.Item
               className={styles.label}
-              label="Локація"
+              label={TEXT.LOCATION_NAME}
               name="location"
               rules={[{ required: true, message: 'Enter location' }]}
             >
