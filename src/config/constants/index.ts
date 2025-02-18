@@ -41,6 +41,7 @@ export const TEXT = {
     'Neque facilisi ac vulputate vestibulum neque vitae neque arcu pellentesque.',
 
   EMAIL: 'Пошта',
+  ENTER_LOCATION: 'Введіть назву локаціїї',
 
   FAST_LINKS: 'Швидкі посилання',
   FEEDBACK_AMOUNT: 'відгуків',
@@ -64,6 +65,7 @@ export const TEXT = {
   INPUT_SEARCH: 'Пошук товару',
 
   LESS: 'Менше',
+  LOCATION_NAME: 'Локація',
   LOGIN: 'Увійти',
   LOGOUT: 'Вийти',
 
