@@ -1,3 +1,5 @@
+import { Col, Row } from 'antd';
+
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { ItemLayout } from 'src/layouts/ItemLayout';
@@ -5,7 +7,6 @@ import { UserDescription } from 'src/pages/ItemPage/children/UserDescription';
 
 import { ITEM_PAGE_CONFIG } from './utils/config';
 import { ImageCarousel } from './children/ImageCarousel';
-import { Col, Row } from 'antd';
 
 export const ItemPage = () => (
   <PageContainer pageTitle={ITEM_PAGE_CONFIG.PAGE_TITLE}>
