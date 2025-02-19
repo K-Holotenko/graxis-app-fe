@@ -23,6 +23,8 @@ const defaultData = {
       controlOutline: 'none',
       colorBgContainerDisabled: theme.N3,
       colorTextDisabled: theme.N5,
+      colorLink: theme.primary,
+      colorLinkActive: theme.primaryHover,
     },
     Link: {
       colorLinkHover: theme.primary,
@@ -58,6 +60,9 @@ const defaultData = {
     },
     Select: {
       fontSize: 16,
+    },
+    Notification: {
+      paddingContentHorizontalLG: 20,
     },
   },
 };

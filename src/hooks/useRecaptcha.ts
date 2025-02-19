@@ -1,5 +1,5 @@
 import { RecaptchaVerifier } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { firebaseAuth } from 'src/config/firebase';
 
@@ -8,15 +8,11 @@ interface UseRecaptchaProps {
 }
 
 export const useRecaptcha = ({ buttonId }: UseRecaptchaProps): void => {
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    if (mounted) return;
-
     window.recaptchaVerifier = new RecaptchaVerifier(firebaseAuth, buttonId, {
       size: 'invisible',
       callback: () => {
-        //  @ts-expect-error Cannot find name 'grecaptcha'
+        // @ts-expect-error Cannot find name 'grecaptcha'
         grecaptcha.reset();
       },
       'expired-callback': () => {
@@ -30,7 +26,6 @@ export const useRecaptcha = ({ buttonId }: UseRecaptchaProps): void => {
         grecaptcha.reset();
       },
     });
-
-    setMounted(true);
-  }, [mounted, buttonId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 };

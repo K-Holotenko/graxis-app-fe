@@ -1,0 +1,75 @@
+@use 'src/styles/variables';
+
+.searchBox {
+  height: 48px;
+
+  input {
+    letter-spacing: -0.02em;
+    font-size: 12px !important;
+    line-height: 1.5;
+    padding-right: 14px !important;
+  }
+
+  :global {
+    .ant-select-selector:hover,
+    .ant-select-selector:focus-within {
+      background-color: variables.$secondary-light;
+    }
+
+    .ant-select-dropdown .ant-select-item {
+      border-radius: 8px !important;
+    }
+  }
+}
+
+.popUp {
+  border: 1px solid variables.$N6;
+  box-shadow: none;
+  letter-spacing: -0.02em;
+
+  :global {
+    .rc-virtual-list-scrollbar {
+      width: 3px !important;
+    }
+  }
+}
+
+.googleLogo {
+  min-height: 14px !important;
+  padding: 0 !important;
+}
+
+.googleAttribution {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 8px;
+  height: 19px;
+  padding: 0 12px 5px 0;
+  font-size: 12px;
+}
+
+.googleLogoImg {
+  height: 14px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .searchBox {
+    :global {
+      .ant-select-selection-placeholder,
+      .ant-select-selection-search-input,
+      .ant-select-selection-item {
+        font-size: 18px !important;
+        line-height: 1.25;
+      }
+    }
+  }
+
+  .popUp {
+    :global {
+      .ant-select-item {
+        font-size: 18px !important;
+      }
+    }
+  }
+}
