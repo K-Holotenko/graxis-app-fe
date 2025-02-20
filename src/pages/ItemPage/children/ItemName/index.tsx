@@ -1,6 +1,7 @@
 import { Heading } from 'src/components/Heading';
 import { ReactComponent as Star } from 'src/assets/icons/star-icon.svg';
 import { ReactComponent as Circle } from 'src/assets/icons/yellow-circle-icon.svg';
+import { TEXT } from 'src/config/constants';
 
 import styles from './styles.module.scss';
 
@@ -29,7 +30,7 @@ export const ItemName = ({ productData }: ItemNameProps) => (
       <div className={styles.description}>
         <Circle />
         <span className={styles.feedback}>
-          {productData.feedbackCount} відгуків
+          {productData.feedbackCount} {TEXT.FEEDBACK_AMOUNT}
         </span>
       </div>
     </div>
