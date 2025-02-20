@@ -18,10 +18,13 @@ export const TEXT = {
   CATEGORIES_SECTION_TITLE: 'Категорії товарів',
   CHOOSE_CATEGORY: 'Виберіть категорію',
   CHOOSE_LOCATION: 'Виберіть локацію',
+  CHOOSE_RENT_PERIOD: 'Виберіть період оренди',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
   CONTACT_US: 'Звʼяжіться з нами',
   CURRENCY_PER_TIME: 'грн / день',
 
+  DAYS_PERIOD: 'днів (включно з комісією',
+  DELETE_DATE: 'Видалити дати',
   DESCRIPTION: 'Опис',
   DESCRIPTION_TEXT:
     'Ігрова приставка Sony PlayStation 4 Slim 500 ГБ з ОЗУ 8 ГБ. ' +
@@ -41,11 +44,13 @@ export const TEXT = {
     'Neque facilisi ac vulputate vestibulum neque vitae neque arcu pellentesque.',
 
   EMAIL: 'Пошта',
+  EMPTY_SELECTION_TEXT: 'Ви поки нічого не обрали',
   ENTER_LOCATION: 'Введіть назву локаціїї',
 
   FAST_LINKS: 'Швидкі посилання',
   FEEDBACK_AMOUNT: 'відгуків',
   FEEDBACKS: 'Відгуки',
+  FOR: 'На',
   FORGOT_PASSWORD: 'Забули пароль?',
 
   GOODS_PUBLISHED: 'Ваш товар опубліковано.',
@@ -82,13 +87,16 @@ export const TEXT = {
   PHONE: 'Номер телефону',
   POPULAR_GOODS: 'Популярні товари',
   POPULAR_NOW: 'Популярне зараз',
+  PRODUCT_CATEGORY: 'Ігрові приставки',
+  PRODUCT_NAME: 'Приставка ігрова Sony PlayStation4',
   PUBLISH: 'Опублікувати',
 
   REGISTER: 'Зареєструватися',
+  RESERVATION_COST: 'грн за бронювання)',
   RIGHTS: '© 2025 Graxis. Всі права захищено. Політика конфіденційності',
 
   SEC: 'c',
-
+  SEND_REQUEST: 'Відправити запит',
   SEND_SMS: 'Ми надішлемо смс для підтвердження номера',
   SEND_SMS_AGAIN: 'Надіслати повторно',
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
@@ -103,6 +111,7 @@ export const TEXT = {
   MIN_VALUE: (minValue: number | string) => `Мінімальне значення ${minValue}`,
   MAX_VALUE: (maxValue: number | string) => `Максимальне значення ${maxValue}`,
 
+  UAH: 'грн',
   USER_NAME: 'Василь Симоненко',
 
   WITH_US: 'місяці з Graxis',
@@ -237,3 +246,9 @@ export const CATEGORIES_DROP_TEXT = {
   games: 'Ігри',
   kids: 'Дитячі товари',
 };
+
+export const PRICES = [
+  { amount: 100, period: '1 день' },
+  { amount: 500, period: '7 днів' },
+  { amount: 1600, period: '30 днів' },
+];

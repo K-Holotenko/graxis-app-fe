@@ -1,0 +1,73 @@
+@use 'src/styles/variables';
+
+@mixin common-text-style {
+  color: variables.$N6;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.itemNameWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.itemName {
+  color: variables.$N6;
+  font-weight: 600;
+  margin-bottom: 0;
+  text-align: start;
+}
+
+.category,
+.rate {
+  @include common-text-style;
+}
+
+.rate {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.feedback {
+  color: variables.$N6;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.descriptionWrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .itemNameWrap {
+    margin-bottom: 40px;
+  }
+
+  .itemName {
+    font-size: 48px;
+    line-height: 1.25;
+  }
+
+  .feedback {
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .itemNameWrap {
+    margin-bottom: 24px;
+  }
+}
