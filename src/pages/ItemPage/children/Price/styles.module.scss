@@ -1,0 +1,111 @@
+@use 'src/styles/variables';
+
+@mixin textDefault {
+  color: variables.$N6;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.title {
+  font-size: 18px;
+  text-align: center;
+}
+
+.priceList {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 16px auto 40px auto;
+}
+
+.priceItem {
+  border: 1px solid variables.$N4;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.priceAmount {
+  @include textDefault;
+  font-family: variables.$font-heading;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+.pricePeriod {
+  @include textDefault;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.pickerWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+  padding-top: 9px;
+  padding-bottom: 16px;
+  box-shadow:
+    0 6px 8px 0 rgba(80, 86, 94, 0.12),
+    0 3px 25px 0 rgba(80, 86, 94, 0.12),
+    0 9px 14px 0 rgba(80, 86, 94, 0.02);
+  border-radius: 12px;
+  margin: 24px auto 0 auto;
+  width: 298px;
+}
+
+.periodWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+.price {
+  font-family: variables.$font-heading;
+  color: variables.$N6;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.period {
+  @include textDefault;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.priceBtn:disabled {
+  width: 240px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .title {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+
+  .priceList {
+    gap: 15px;
+    max-width: 522px;
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .priceAmount {
+    font-size: 32px;
+    line-height: 1.25;
+    width: 100%;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .title.start {
+    text-align: start;
+  }
+
+  .priceList {
+    max-width: 100%;
+  }
+}

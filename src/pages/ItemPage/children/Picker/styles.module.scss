@@ -1,0 +1,95 @@
+@use 'src/styles/variables';
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.picker {
+  display: none;
+}
+
+.datePicker {
+  position: static !important;
+
+  :global(.ant-picker-ranges) {
+    display: none !important;
+  }
+
+  :global(.ant-picker-header-view) {
+    pointer-events: none;
+  }
+}
+
+.isSelected {
+  border-radius: 50% !important;
+  width: 28px;
+  height: 28px;
+  color: variables.$primary;
+}
+
+.isToday {
+  @include flexCenter;
+  border: 1px solid variables.$primary;
+  border-radius: 8px;
+  padding: 1px;
+  width: 28px;
+  height: 28px;
+  color: variables.$N6;
+}
+
+.inRange {
+  @include flexCenter;
+  background-color: variables.$secondary;
+  width: 100%;
+  height: 28px;
+  color: variables.$primary;
+}
+
+.isEnd,
+.isStart {
+  @include flexCenter;
+  background-color: variables.$secondary;
+  color: variables.$primary;
+  height: 28px;
+}
+
+.isStart {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.isEnd {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.deleteBtnWrapper {
+  border-bottom: 1px solid variables.$N3;
+}
+
+.deleteBtn {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: variables.$primary;
+  line-height: 1.5;
+  margin: 0 auto;
+  display: block;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.deleteBtn:disabled {
+  color: variables.$N4;
+}
+
+.isToday.isStart {
+  border: transparent;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
