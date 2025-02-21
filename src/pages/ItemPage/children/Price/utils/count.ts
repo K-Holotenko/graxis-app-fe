@@ -5,12 +5,16 @@ interface PriceItem {
   period: string;
 }
 
+const FEE_PERCENT = 20;
+const WEEK = 7;
+const MONTH = 30;
+
 export const calculatePrice = (
   selectedRange: [Dayjs | null, Dayjs | null],
   prices: PriceItem[]
-): { totalPrice: number; commission: number; days: number } | 0 => {
+): { totalPrice: number; commission: number; days: number } => {
   if (!selectedRange[0]) {
-    return 0;
+    return { totalPrice: 0, commission: 0, days: 0 };
   }
 
   const endDate = selectedRange[1] || selectedRange[0];
@@ -19,35 +23,30 @@ export const calculatePrice = (
   const weekPrice = prices.find((p) => p.period === '7 днів')?.amount || 0;
   const monthPrice = prices.find((p) => p.period === '30 днів')?.amount || 0;
 
-  let totalPriceWithoutTax = 0;
+  let totalPriceWithoutFee = 0;
 
-  if (days <= 6) {
-    totalPriceWithoutTax = days * dayPrice;
-  } else if (days === 7) {
-    totalPriceWithoutTax = weekPrice;
-  } else if (days > 7 && days < 30) {
-    const weeks = Math.floor(days / 7);
+  if (days < WEEK) {
+    totalPriceWithoutFee = days * dayPrice;
+  } else if (days === WEEK) {
+    totalPriceWithoutFee = weekPrice;
+  } else if (days > WEEK && days < MONTH) {
+    const weeks = Math.floor(days / WEEK);
 
-    totalPriceWithoutTax = weeks * weekPrice;
-    const remainingDays = days % 7;
-
-    totalPriceWithoutTax += remainingDays * dayPrice;
-  } else if (days === 30) {
-    totalPriceWithoutTax = monthPrice;
+    totalPriceWithoutFee = weeks * weekPrice + (days % WEEK) * dayPrice;
+  } else if (days === MONTH) {
+    totalPriceWithoutFee = monthPrice;
   } else {
-    const months = Math.floor(days / 30);
-    const remainingDaysAfterMonths = days % 30;
+    const months = Math.floor(days / MONTH);
+    const remainingDays = days % MONTH;
+    const weeks = Math.floor(remainingDays / WEEK);
+    const extraDays = remainingDays % WEEK;
 
-    totalPriceWithoutTax += months * monthPrice;
-    const weeks = Math.floor(remainingDaysAfterMonths / 7);
-    const remainingDays = remainingDaysAfterMonths % 7;
-
-    totalPriceWithoutTax += weeks * weekPrice;
-    totalPriceWithoutTax += remainingDays * dayPrice;
+    totalPriceWithoutFee =
+      months * monthPrice + weeks * weekPrice + extraDays * dayPrice;
   }
 
-  const totalPriceWithTax = totalPriceWithoutTax * 1.2;
-  const commission = totalPriceWithTax - totalPriceWithoutTax;
+  const commission = Math.round((totalPriceWithoutFee * FEE_PERCENT) / 100);
+  const totalPrice = Math.round(totalPriceWithoutFee + commission);
 
-  return { totalPrice: totalPriceWithTax, commission, days };
+  return { totalPrice, commission, days };
 };

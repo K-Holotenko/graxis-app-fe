@@ -1,12 +1,6 @@
 @use 'src/styles/variables';
 
-@mixin common-text-style {
-  color: variables.$N6;
-  line-height: 1.5;
-  letter-spacing: -0.02em;
-}
-
-.itemNameWrap {
+.itemNameWrapper {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -20,15 +14,18 @@
   text-align: start;
 }
 
-.category,
-.rate {
-  @include common-text-style;
+.category {
+  color: variables.$N6;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
 }
 
 .rate {
+  color: variables.$N6;
   font-weight: 700;
   font-size: 24px;
   line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 .feedback {
@@ -37,7 +34,7 @@
   line-height: 1.25;
 }
 
-.descriptionWrap {
+.descriptionWrapper {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -50,7 +47,7 @@
 }
 
 @media (min-width: variables.$media-sm) {
-  .itemNameWrap {
+  .itemNameWrapper {
     margin-bottom: 40px;
   }
 
@@ -67,7 +64,7 @@
 }
 
 @media (min-width: variables.$media-xl) {
-  .itemNameWrap {
+  .itemNameWrapper {
     margin-bottom: 24px;
   }
 }

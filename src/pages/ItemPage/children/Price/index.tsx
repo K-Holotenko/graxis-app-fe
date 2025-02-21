@@ -22,37 +22,35 @@ export const Price: React.FC<PriceProps> = ({ prices }) => {
   const [selectedRange, setSelectedRange] = useState<
     [Dayjs | null, Dayjs | null]
   >([null, null]);
+  const [, setPriceData] = useState<null | {
+    firstDay: string;
+    lastDay: string;
+    totalDays: number;
+    totalCost: number;
+  }>(null);
 
-  const priceDetails = useMemo(
+  const isRangeSelected = selectedRange[0] !== null;
+  const { totalPrice, days, commission } = useMemo(
     () => calculatePrice(selectedRange, prices),
     [selectedRange, prices]
   );
 
-  const isButtonDisabled = !selectedRange[0] || priceDetails === 0;
-
   const handleButtonClick = () => {
-    if (selectedRange[0] && priceDetails !== 0) {
-      const firstDay = selectedRange[0].format('DD/MM/YYYY');
-      const lastDay = selectedRange[1]
-        ? selectedRange[1].format('DD/MM/YYYY')
-        : firstDay;
-      const totalDays = selectedRange[1] ? priceDetails.days : 1;
-      const totalCost = priceDetails.totalPrice;
+    if (isRangeSelected) {
+      const firstDay = selectedRange[0]?.format('DD/MM/YYYY') || '';
+      const lastDay = selectedRange[1]?.format('DD/MM/YYYY') || firstDay;
 
-      const priceData = {
+      setPriceData({
         firstDay,
         lastDay,
-        totalDays,
-        totalCost,
-      };
-
-      // eslint-disable-next-line no-console
-      console.log(priceData);
+        totalDays: selectedRange[1] ? days : 1,
+        totalCost: totalPrice,
+      });
     }
   };
 
   return (
-    <section className={styles.bookWrap}>
+    <section>
       <Heading level={3} className={`${styles.title} ${styles.start}`}>
         {TEXT.COST}
       </Heading>
@@ -67,22 +65,22 @@ export const Price: React.FC<PriceProps> = ({ prices }) => {
       <Heading level={3} className={styles.title}>
         {TEXT.CHOOSE_RENT_PERIOD}
       </Heading>
-      <div className={styles.pickerWrap}>
+      <div className={styles.pickerWrapper}>
         <Picker onDateChange={setSelectedRange} />
-        <div className={styles.totalPriceWrap}>
-          {selectedRange[0] && priceDetails !== 0 ? (
-            <div className={styles.periodWrap}>
+        <div>
+          {isRangeSelected ? (
+            <div className={styles.periodWrapper}>
               <span className={styles.price}>
-                {Math.round(priceDetails.totalPrice)} {TEXT.UAH}
+                {totalPrice} {TEXT.UAH}
               </span>
               <span className={styles.period}>
-                {TEXT.FOR} {priceDetails.days} {TEXT.DAYS_PERIOD}
+                {TEXT.FOR} {days} {TEXT.DAYS_PERIOD}
                 <br />
-                {Math.round(priceDetails.commission)} {TEXT.RESERVATION_COST}
+                {commission} {TEXT.RESERVATION_COST}
               </span>
             </div>
           ) : (
-            <div className={styles.periodWrap}>
+            <div className={styles.periodWrapper}>
               <span className={styles.price}>0 {TEXT.UAH}</span>
               <span className={styles.period}>{TEXT.EMPTY_SELECTION_TEXT}</span>
             </div>
@@ -90,7 +88,7 @@ export const Price: React.FC<PriceProps> = ({ prices }) => {
           <Button
             className={`${styles.button} ${styles.priceBtn}`}
             label={TEXT.SEND_REQUEST}
-            isDisabled={isButtonDisabled}
+            isDisabled={!isRangeSelected}
             onClick={handleButtonClick}
           />
         </div>

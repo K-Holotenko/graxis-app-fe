@@ -22,6 +22,8 @@ export const Picker: React.FC<{
     null,
   ]);
 
+  const shouldStartNewRange = !range[0] || (range[0] && range[1]);
+
   const clearDates = () => {
     setRange([null, null]);
     onDateChange([null, null]);
@@ -30,7 +32,7 @@ export const Picker: React.FC<{
   const handleSelect = (date: Dayjs) => {
     let newRange: [Dayjs | null, Dayjs | null];
 
-    if (!range[0] || (range[0] && range[1])) {
+    if (shouldStartNewRange) {
       newRange = [date, null];
     } else {
       newRange = [range[0], date].sort(
@@ -46,7 +48,7 @@ export const Picker: React.FC<{
     current && current < dayjs().startOf('day');
 
   const deleteButton = () => (
-    <div className={styles.deleteBtnWrap}>
+    <div className={styles.deleteBtnWrapper}>
       <button
         disabled={!range[0] && !range[1]}
         className={styles.deleteBtn}
@@ -64,21 +66,28 @@ export const Picker: React.FC<{
       range[0] &&
       range[1] &&
       currentDate.isBetween(range[0], range[1], 'day', '[]');
-    const isStart = range[0] && currentDate.isSame(range[0], 'day');
-    const isEnd = range[1] && currentDate.isSame(range[1], 'day');
+    const isStartDay = range[0] && currentDate.isSame(range[0], 'day');
+    const isEndDay = range[1] && currentDate.isSame(range[1], 'day');
     const isToday = currentDate.isSame(dayjs(), 'day');
 
     const isSelected =
       range[0] && !range[1] && currentDate.isSame(range[0], 'day');
+    const rangeStyles = isInRange ? styles.inRange : '';
+    const startStyles = isStartDay ? styles.isStart : '';
+    const endStyles = isEndDay ? styles.isEnd : '';
+    const todayStyles = isToday ? styles.isToday : '';
+    const selectedStyles = isSelected ? styles.isSelected : '';
 
     return (
       <div
         className={`
-          ${styles.dayWrapper} ${isInRange ? styles.inRange : ''} 
-          ${isStart ? styles.isStart : ''} 
-          ${isEnd ? styles.isEnd : ''} ${isToday ? styles.isToday : ''} 
-          ${isSelected ? styles.isSelected : ''} 
-        `}
+        ${styles.dayWrapper} 
+        ${rangeStyles} 
+        ${startStyles} 
+        ${endStyles} 
+        ${todayStyles} 
+        ${selectedStyles}
+      `}
       >
         {currentDate.date()}
       </div>

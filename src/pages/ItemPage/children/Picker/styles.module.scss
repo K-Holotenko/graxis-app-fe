@@ -7,27 +7,18 @@
 }
 
 .picker {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  clip: rect(0 0 0 0);
+  display: none;
 }
 
 .datePicker {
   position: static !important;
 
-  :global {
-    .ant-picker-ranges {
-      display: none !important;
-    }
+  :global(.ant-picker-ranges) {
+    display: none !important;
+  }
 
-    .ant-picker-header-view {
-      pointer-events: none;
-    }
+  :global(.ant-picker-header-view) {
+    pointer-events: none;
   }
 }
 
@@ -40,7 +31,7 @@
 
 .isToday {
   @include flexCenter;
-  border: 1.42px solid variables.$primary;
+  border: 1px solid variables.$primary;
   border-radius: 8px;
   padding: 1px;
   width: 28px;
@@ -74,7 +65,7 @@
   border-bottom-right-radius: 8px;
 }
 
-.deleteBtnWrap {
+.deleteBtnWrapper {
   border-bottom: 1px solid variables.$N3;
 }
 

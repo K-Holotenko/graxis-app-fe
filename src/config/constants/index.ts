@@ -88,7 +88,7 @@ export const TEXT = {
   POPULAR_GOODS: 'Популярні товари',
   POPULAR_NOW: 'Популярне зараз',
   PRODUCT_CATEGORY: 'Ігрові приставки',
-  PRODUCT_NAME: 'Приставка ігрова Sony PlayStation4',
+  PRODUCT_NAME: 'Приставка ігрова Sony PlayStation 4',
   PUBLISH: 'Опублікувати',
 
   REGISTER: 'Зареєструватися',
@@ -247,7 +247,7 @@ export const CATEGORIES_DROP_TEXT = {
   kids: 'Дитячі товари',
 };
 
-export const PRICES = [
+export const MOCKED_PRICES = [
   { amount: 100, period: '1 день' },
   { amount: 500, period: '7 днів' },
   { amount: 1600, period: '30 днів' },

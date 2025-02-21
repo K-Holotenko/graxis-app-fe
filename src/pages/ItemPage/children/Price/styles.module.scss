@@ -1,6 +1,6 @@
 @use 'src/styles/variables';
 
-@mixin text-default {
+@mixin textDefault {
   color: variables.$N6;
   letter-spacing: -0.02em;
   text-align: center;
@@ -25,7 +25,7 @@
 }
 
 .priceAmount {
-  @include text-default;
+  @include textDefault;
   font-family: variables.$font-heading;
   font-weight: 600;
   font-size: 26px;
@@ -33,12 +33,12 @@
 }
 
 .pricePeriod {
-  @include text-default;
+  @include textDefault;
   font-size: 16px;
   line-height: 1.5;
 }
 
-.pickerWrap {
+.pickerWrapper {
   display: flex;
   align-items: center;
   flex-direction: column-reverse;
@@ -53,7 +53,7 @@
   width: 298px;
 }
 
-.periodWrap {
+.periodWrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -71,7 +71,7 @@
 }
 
 .period {
-  @include text-default;
+  @include textDefault;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -96,6 +96,7 @@
   .priceAmount {
     font-size: 32px;
     line-height: 1.25;
+    width: 100%;
   }
 }
 
@@ -105,7 +106,6 @@
   }
 
   .priceList {
-    gap: 38px;
     max-width: 100%;
   }
 }

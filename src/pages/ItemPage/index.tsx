@@ -4,12 +4,12 @@ import { ItemLayout } from 'src/layouts/ItemLayout';
 import { UserDescription } from 'src/pages/ItemPage/children/UserDescription';
 import { ItemName } from 'src/pages/ItemPage/children/ItemName';
 import { Price } from 'src/pages/ItemPage/children/Price';
-import { PRICES, SCREEN_WIDTH, TEXT } from 'src/config/constants';
+import { MOCKED_PRICES, SCREEN_WIDTH, TEXT } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import { ITEM_PAGE_CONFIG } from './utils/config';
 
-const productData = {
+const mockedProductData = {
   title: TEXT.PRODUCT_NAME,
   category: TEXT.PRODUCT_CATEGORY,
   rating: '4,5',
@@ -26,14 +26,16 @@ export const ItemPage = () => {
         <ItemLayout
           leftContent={
             <>
-              {isMobileOrTablet && <ItemName productData={productData} />}
+              {isMobileOrTablet && <ItemName productData={mockedProductData} />}
               <UserDescription />
             </>
           }
           rightContent={
             <>
-              {!isMobileOrTablet && <ItemName productData={productData} />}
-              <Price prices={PRICES} />
+              {!isMobileOrTablet && (
+                <ItemName productData={mockedProductData} />
+              )}
+              <Price prices={MOCKED_PRICES} />
             </>
           }
           bottomContent={undefined}

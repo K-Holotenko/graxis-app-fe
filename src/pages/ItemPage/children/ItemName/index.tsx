@@ -17,12 +17,12 @@ interface ItemNameProps {
 }
 
 export const ItemName = ({ productData }: ItemNameProps) => (
-  <section className={styles.itemNameWrap}>
+  <section className={styles.itemNameWrapper}>
     <Heading level={2} className={styles.itemName}>
       {productData.title}
     </Heading>
     <p className={styles.category}>{productData.category}</p>
-    <div className={styles.descriptionWrap}>
+    <div className={styles.descriptionWrapper}>
       <div className={styles.description}>
         <Star />
         <span className={styles.rate}>{productData.rating}</span>
