@@ -128,6 +128,13 @@ export const LocationAutocomplete = ({
         onSearch={setSearchValue}
         onSelect={handleSelect}
         filterOption={false}
+        onChange={(value) => {
+          setSearchValue(value);
+
+          if (!value.trim()) {
+            onPlaceSelect(null);
+          }
+        }}
       >
         {predictions.map((prediction) => (
           <Option key={prediction.place_id} value={prediction.description}>

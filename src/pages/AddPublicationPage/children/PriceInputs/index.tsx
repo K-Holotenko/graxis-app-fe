@@ -58,14 +58,16 @@ export const PriceInputs = () => {
         return Promise.reject(new Error(TEXT.MIN_VALUE(minValue)));
       }
 
+      const isDirty = form.isFieldsTouched(inputs.map((input) => input.name));
+
       const areInputsEmpty = inputs.every(
         (input) => !getFieldValue(input.name)
       );
 
-      if (areInputsEmpty) {
-        setShowRequiredErr(true);
+      setShowRequiredErr(isDirty && areInputsEmpty);
 
-        return Promise.reject();
+      if (areInputsEmpty && isDirty) {
+        return Promise.reject(new Error(''));
       }
 
       return Promise.resolve();

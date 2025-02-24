@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { Form, Col, Row, ConfigProvider } from 'antd';
+import { useEffect, useState } from 'react';
+import { Form, Col, Row, ConfigProvider, UploadFile } from 'antd';
 import { APIProvider } from '@vis.gl/react-google-maps';
 
 import { ROUTES } from 'src/router/routes';
@@ -18,10 +18,21 @@ import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/Loca
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
 
+interface Location {
+  street: string;
+  latitude: number;
+  longitude: number;
+}
+
 interface AddPublicationInputs {
+  category: string;
+  name: string;
+  description: string;
+  photo: UploadFile[];
   priceDay: string;
   priceWeek: string;
   priceMonth: string;
+  location: Location;
 }
 
 interface AddPublicationFormProps {
@@ -37,6 +48,19 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+  const [locationFilled, setLocationFilled] = useState(false);
+
+  const allValues = Form.useWatch([], form);
+
+  useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => {
+        setIsValid(locationFilled);
+      })
+      .catch(() => setIsValid(false));
+  }, [form, allValues, locationFilled]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -49,8 +73,20 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
   };
 
   const onFinish = (values: AddPublicationInputs) => {
+    const publicationData = {
+      category: values.category,
+      name: values.name,
+      description: values.description,
+      photo: values.photo,
+      day: values.priceDay,
+      week: values.priceWeek,
+      month: values.priceMonth,
+      location: values.location,
+    };
+
     // eslint-disable-next-line no-console
-    console.log('Success:', { values });
+    console.log(publicationData);
+    showModal();
   };
 
   const onFinishFailed = (
@@ -61,10 +97,26 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
   };
 
   const handleLocationChange = (
-    location: google.maps.places.PlaceResult | null
+    place: google.maps.places.PlaceResult | null
   ) => {
-    // eslint-disable-next-line no-console
-    console.log('Selected place:', location);
+    if (place) {
+      const location = place.geometry?.location;
+
+      if (location) {
+        const locationData = {
+          street: place.formatted_address || '',
+          latitude: location.lat,
+          longitude: location.lng,
+        };
+
+        form.setFieldsValue({ location: locationData });
+
+        setLocationFilled(true);
+      }
+    } else {
+      setLocationFilled(false);
+      form.setFieldsValue({ location: undefined });
+    }
   };
 
   return (
@@ -74,7 +126,7 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
         name={FORMS.ADD_PUBLICATION_FORM}
         layout="vertical"
         requiredMark={false}
-        onFinish={props.onFinish || onFinish}
+        onFinish={onFinish}
         onFinishFailed={props.onFinishFailed || onFinishFailed}
       >
         <Row>
@@ -97,6 +149,9 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
                   autoSize={{ minRows: 1, maxRows: 2 }}
                   maxLength={150}
                   className={styles.textArea}
+                  onChange={(e) =>
+                    form.setFieldsValue({ name: e.target.value })
+                  }
                 />
               </Form.Item>
             </ConfigProvider>
@@ -117,6 +172,9 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
                   maxLength={1000}
                   rows={8}
                   className={styles.textArea}
+                  onChange={(e) =>
+                    form.setFieldsValue({ name: e.target.value })
+                  }
                 />
               </Form.Item>
             </ConfigProvider>
@@ -130,7 +188,7 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               name="photo"
               rules={[{ required: true, message: TEXT.ADD_PHOTO }]}
             >
-              <UploadList />
+              <UploadList form={form} />
             </Form.Item>
           </Col>
         </Row>
@@ -139,7 +197,6 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
             <Form.Item
               className={styles.label}
               label={TEXT.COST}
-              name="price"
               rules={[{ required: true, message: TEXT.SET_AT_LEAST_ONE_PRICE }]}
             >
               <PriceInputs />
@@ -158,7 +215,11 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
             </Form.Item>
           </Col>
           <Col span={6} offset={18}>
-            <Button onClick={showModal} label={TEXT.PUBLISH} />
+            <Button
+              htmlType="submit"
+              label={TEXT.PUBLISH}
+              isDisabled={!isValid}
+            />
           </Col>
         </Row>
       </Form>
