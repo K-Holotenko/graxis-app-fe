@@ -7,7 +7,6 @@ import { TEXT } from 'src/config/constants';
 import { inputs, PriceInputs } from '.';
 
 const onFinish = vi.fn();
-const onFinishFailed = vi.fn();
 
 afterEach(() => {
   vi.clearAllMocks();
