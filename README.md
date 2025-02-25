@@ -3,6 +3,7 @@
 ## Description
 
 Garxis is an online peer-2-peer sharing platform
+Dev - [dev.graxis.net](https://dev.graxis.net/)
 
 ## Getting started
 
@@ -11,4 +12,7 @@ Garxis is an online peer-2-peer sharing platform
 - `cd` into the repo folder ans execute `nvm install`. This will install the required verion of Node.js
 - Use the installed version of Node.js with `nvm use` and install depedndencies with `npm i`.
 - Execute `npm start` to run the project locally
-- Execute `npm test`
+
+## Set up proxy
+
+[Follow these steps](https://graxis-web.atlassian.net/wiki/spaces/GW/pages/155942936/HTTP+Toolkit+setup)
