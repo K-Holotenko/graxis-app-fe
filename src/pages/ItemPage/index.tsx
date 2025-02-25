@@ -11,12 +11,18 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import { ITEM_PAGE_CONFIG } from './utils/config';
 import { ImageCarousel } from './children/ImageCarousel';
+import { LocationMap } from './children/LocationMap';
 
 const mockedProductData = {
   title: TEXT.PRODUCT_NAME,
   category: TEXT.PRODUCT_CATEGORY,
   rating: '4,5',
   feedbackCount: 12,
+};
+
+const mockedLocationData = {
+  name: TEXT.LOCATION_NAME_MAP,
+  coordinates: { lat: 50.4501, lng: 30.5234 },
 };
 
 export const ItemPage = () => {
@@ -54,7 +60,16 @@ export const ItemPage = () => {
               </Col>
             </Row>
           }
-          bottomContent={undefined}
+          bottomContent={
+            <Row>
+              <Col span={24}>
+                <LocationMap
+                  locationName={mockedLocationData.name}
+                  coordinates={mockedLocationData.coordinates}
+                />
+              </Col>
+            </Row>
+          }
         />
       </AppLayout>
     </PageContainer>
