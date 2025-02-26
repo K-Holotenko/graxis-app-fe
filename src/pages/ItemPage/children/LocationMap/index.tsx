@@ -47,8 +47,8 @@ export const LocationMap = ({
     scale: 2,
     paths: [
       {
-        color: '0xF1B150',
-        fillcolor: '0xF1B150',
+        color: '0xC0D32C45',
+        fillcolor: '0xC0D32C45',
         weight: 1,
         coordinates: circleCoordinates,
       },
