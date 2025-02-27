@@ -125,16 +125,15 @@ export const LocationAutocomplete = ({
         showSearch
         placeholder={TEXT.ENTER_LOCATION}
         suffixIcon={<MapIcon />}
-        onSearch={setSearchValue}
-        onSelect={handleSelect}
-        filterOption={false}
-        onChange={(value) => {
+        onSearch={(value) => {
           setSearchValue(value);
 
           if (!value.trim()) {
             onPlaceSelect(null);
           }
         }}
+        onSelect={handleSelect}
+        filterOption={false}
       >
         {predictions.map((prediction) => (
           <Option key={prediction.place_id} value={prediction.description}>

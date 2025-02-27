@@ -11,7 +11,7 @@ interface UploadListProps {
   form: FormInstance;
 }
 
-export const UploadList: React.FC<UploadListProps> = ({ form }) => {
+export const UploadList = ({ form }: UploadListProps) => {
   const { width } = useWindowSize();
   const [uploadStates, setUploadStates] = useState<UploadFile[]>([]);
 
@@ -32,6 +32,10 @@ export const UploadList: React.FC<UploadListProps> = ({ form }) => {
       const updatedFiles = prev.filter((file) => file.uid !== fileToRemove.uid);
 
       form.setFieldsValue({ photo: updatedFiles });
+
+      setTimeout(() => {
+        setUploadStates(updatedFiles);
+      }, 100);
 
       return updatedFiles;
     });

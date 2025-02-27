@@ -86,6 +86,7 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
 
     // eslint-disable-next-line no-console
     console.log(publicationData);
+
     showModal();
   };
 
@@ -99,24 +100,25 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
   const handleLocationChange = (
     place: google.maps.places.PlaceResult | null
   ) => {
-    if (place) {
-      const location = place.geometry?.location;
-
-      if (location) {
-        const locationData = {
-          street: place.formatted_address || '',
-          latitude: location.lat,
-          longitude: location.lng,
-        };
-
-        form.setFieldsValue({ location: locationData });
-
-        setLocationFilled(true);
-      }
-    } else {
+    if (!place) {
       setLocationFilled(false);
       form.setFieldsValue({ location: undefined });
     }
+
+    const location = place?.geometry?.location;
+
+    if (!location) {
+      return null;
+    }
+
+    const locationData = {
+      street: place.formatted_address || '',
+      latitude: location.lat,
+      longitude: location.lng,
+    };
+
+    form.setFieldsValue({ location: locationData });
+    setLocationFilled(true);
   };
 
   return (
@@ -202,6 +204,8 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               <PriceInputs />
             </Form.Item>
           </Col>
+        </Row>
+        <Row>
           <Col span={24}>
             <Form.Item
               className={styles.label}
@@ -214,8 +218,16 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               </APIProvider>
             </Form.Item>
           </Col>
-          <Col span={6} offset={18}>
+        </Row>
+        <Row>
+          <Col
+            xs={24}
+            sm={{ span: 10, offset: 14 }}
+            md={{ span: 7, offset: 17 }}
+            xl={{ span: 6, offset: 18 }}
+          >
             <Button
+              className={styles.submitButton}
               htmlType="submit"
               label={TEXT.PUBLISH}
               isDisabled={!isValid}
