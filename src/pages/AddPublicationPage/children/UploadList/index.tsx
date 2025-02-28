@@ -28,17 +28,12 @@ export const UploadList = ({ form }: UploadListProps) => {
   };
 
   const handleRemoveFile = (fileToRemove: UploadFile) => {
-    setUploadStates((prev) => {
-      const updatedFiles = prev.filter((file) => file.uid !== fileToRemove.uid);
-
-      form.setFieldsValue({ photo: updatedFiles });
-
-      setTimeout(() => {
-        setUploadStates(updatedFiles);
-      }, 100);
-
-      return updatedFiles;
-    });
+    const updatedFiles = uploadStates.filter(
+      (file) => file.uid !== fileToRemove.uid
+    );
+    setTimeout(() => {
+      setUploadStates(updatedFiles);
+    }, 100);
   };
 
   const renderUploadItems = () =>
