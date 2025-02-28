@@ -31,6 +31,7 @@ export const UploadList = ({ form }: UploadListProps) => {
     const updatedFiles = uploadStates.filter(
       (file) => file.uid !== fileToRemove.uid
     );
+
     setTimeout(() => {
       setUploadStates(updatedFiles);
     }, 100);
