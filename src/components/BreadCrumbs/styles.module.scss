@@ -1,0 +1,11 @@
+@use 'src/styles/variables';
+
+.wrapper {
+  margin-top: 24px;
+}
+
+@media (min-width: variables.$media-xl) {
+  .wrapper {
+    margin-top: 16px;
+  }
+}
