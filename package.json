@@ -19,7 +19,7 @@
     "zustand": "^5.0.0"
   },
   "scripts": {
-    "start": "BROWSER=none HTTPS=true react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "vitest --globals",
     "eject": "react-scripts eject",
