@@ -17,6 +17,8 @@ interface LocationMapProps {
 
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '';
 
+// TODO: Update logic to fetch the map image from the backend
+
 export const LocationMap = ({
   locationName,
   coordinates,
