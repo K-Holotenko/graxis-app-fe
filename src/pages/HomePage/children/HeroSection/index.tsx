@@ -15,9 +15,16 @@ export const HeroSection = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    if (searchQuery.trim()) {
-      navigate(`/search-results?q=${encodeURIComponent(searchQuery.trim())}`);
-    }
+    const trimmedQuery = searchQuery.trim();
+    if (!trimmedQuery) return;
+
+    const searchParams = new URLSearchParams();
+    searchParams.set('q', trimmedQuery);
+
+    navigate({
+      pathname: '/search-results',
+      search: searchParams.toString(),
+    });
   };
 
   return (
