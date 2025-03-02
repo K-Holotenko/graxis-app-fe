@@ -16,9 +16,11 @@ export const HeroSection = () => {
 
   const handleSearch = () => {
     const trimmedQuery = searchQuery.trim();
+
     if (!trimmedQuery) return;
 
     const searchParams = new URLSearchParams();
+
     searchParams.set('q', trimmedQuery);
 
     navigate({
