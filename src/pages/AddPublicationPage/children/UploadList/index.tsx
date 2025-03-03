@@ -21,7 +21,7 @@ export const UploadList = ({ form }: UploadListProps) => {
     setUploadStates((prev) => {
       const updatedFiles = [...prev, file];
 
-      form.setFieldsValue({ photo: updatedFiles });
+      form.setFieldsValue({ photos: updatedFiles });
 
       return updatedFiles;
     });
@@ -34,6 +34,7 @@ export const UploadList = ({ form }: UploadListProps) => {
 
     setTimeout(() => {
       setUploadStates(updatedFiles);
+      form.setFieldsValue({ photos: updatedFiles });
     }, 100);
   };
 

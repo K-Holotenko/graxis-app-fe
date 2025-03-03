@@ -74,6 +74,14 @@ export const LocationAutocomplete = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch, autocompleteService.current]);
 
+  const handleSearch = (value: string) => {
+    setSearchValue(value);
+
+    if (!value.trim()) {
+      onPlaceSelect(null);
+    }
+  };
+
   const handleSelect = useCallback(
     (
       value: string,
@@ -125,13 +133,7 @@ export const LocationAutocomplete = ({
         showSearch
         placeholder={TEXT.ENTER_LOCATION}
         suffixIcon={<MapIcon />}
-        onSearch={(value) => {
-          setSearchValue(value);
-
-          if (!value.trim()) {
-            onPlaceSelect(null);
-          }
-        }}
+        onSearch={handleSearch}
         onSelect={handleSelect}
         filterOption={false}
       >

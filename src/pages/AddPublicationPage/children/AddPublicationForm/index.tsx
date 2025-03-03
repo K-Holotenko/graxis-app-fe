@@ -53,14 +53,24 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
 
   const allValues = Form.useWatch([], form);
 
+  const photos = Form.useWatch('photos', form);
+
   useEffect(() => {
+    const priceDay = form.getFieldValue('priceDay');
+    const priceWeek = form.getFieldValue('priceWeek');
+    const priceMonth = form.getFieldValue('priceMonth');
+
     form
       .validateFields({ validateOnly: true })
       .then(() => {
-        setIsValid(locationFilled);
+        const isAtLeastOnePriceFilled = [priceDay, priceWeek, priceMonth].some(
+          (price) => price && +price > 0
+        );
+
+        setIsValid(locationFilled && photos?.length && isAtLeastOnePriceFilled);
       })
       .catch(() => setIsValid(false));
-  }, [form, allValues, locationFilled]);
+  }, [form, allValues, locationFilled, photos]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -133,17 +143,18 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
       >
         <Row>
           <Col span={24}>
-            <CategoriesDropdown labelStyles={styles.label} />
+            <CategoriesDropdown labelStyles={styles.formItemLabel} />
           </Col>
         </Row>
         <Row>
           <Col span={24}>
             <ConfigProvider theme={textAreaTheme}>
               <Form.Item
-                label={TEXT.NAME}
+                label={
+                  <label className={styles.formItemLabel}>{TEXT.NAME}</label>
+                }
                 name="name"
                 rules={[VALIDATION_CONDITION.REQUIRED]}
-                className={styles.label}
               >
                 <TextArea
                   placeholder={TEXT.INPUT_PUBLICATION_NAME}
@@ -163,9 +174,12 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
           <Col span={24}>
             <ConfigProvider theme={textAreaTheme}>
               <Form.Item
-                label={TEXT.DESCRIPTION}
+                label={
+                  <label className={styles.formItemLabel}>
+                    {TEXT.DESCRIPTION}
+                  </label>
+                }
                 name="description"
-                className={styles.label}
                 rules={[VALIDATION_CONDITION.REQUIRED]}
               >
                 <TextArea
@@ -185,9 +199,10 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
         <Row>
           <Col span={24}>
             <Form.Item
-              className={styles.label}
-              label={TEXT.ADD_PHOTO}
-              name="photo"
+              label={
+                <label className={styles.formItemLabel}>{TEXT.ADD_PHOTO}</label>
+              }
+              name="photos"
               rules={[{ required: true, message: TEXT.ADD_PHOTO }]}
             >
               <UploadList form={form} />
@@ -197,8 +212,10 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
         <Row>
           <Col span={24}>
             <Form.Item
+              label={
+                <label className={styles.formItemLabel}>{TEXT.COST}</label>
+              }
               className={styles.label}
-              label={TEXT.COST}
               rules={[{ required: true, message: TEXT.SET_AT_LEAST_ONE_PRICE }]}
             >
               <PriceInputs />
@@ -208,8 +225,11 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
         <Row>
           <Col span={24}>
             <Form.Item
-              className={styles.label}
-              label={TEXT.LOCATION_NAME}
+              label={
+                <label className={styles.formItemLabel}>
+                  {TEXT.LOCATION_NAME}
+                </label>
+              }
               name="location"
               rules={[{ required: true, message: 'Enter location' }]}
             >
