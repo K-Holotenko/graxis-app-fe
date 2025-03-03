@@ -6,7 +6,7 @@
 }
 
 .topContentSection {
-  height: 168px;
+  height: 208px;
   background-color: #bcccdc;
 }
 
@@ -31,7 +31,7 @@
 @media (min-width: variables.$media-sm) {
   .topContentContainer {
     margin-top: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
   }
 
   .centerContentContainer {
@@ -46,7 +46,7 @@
 @media (min-width: variables.$media-lg) {
   .topContentContainer {
     margin-top: 40px;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
   }
 
   .centerContentContainer {
