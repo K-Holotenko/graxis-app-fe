@@ -7,6 +7,7 @@ interface TextAreaProps {
   maxLength?: number;
   rows?: number;
   className?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export const TextArea = ({
@@ -16,6 +17,7 @@ export const TextArea = ({
   maxLength,
   rows = 1,
   className,
+  onChange,
 }: TextAreaProps) => (
   <Input.TextArea
     placeholder={placeholder}
@@ -24,5 +26,6 @@ export const TextArea = ({
     rows={rows}
     autoSize={autoSize}
     className={className}
+    onChange={onChange}
   />
 );

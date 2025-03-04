@@ -80,8 +80,7 @@ export const CategoriesDropdown = ({
   return (
     <ConfigProvider theme={localTheme}>
       <Form.Item
-        label={TEXT.CHOOSE_CATEGORY}
-        className={labelStyles}
+        label={<label className={labelStyles}>{TEXT.CHOOSE_CATEGORY}</label>}
         name="category"
         rules={[{ required: true, message: TEXT.CHOOSE_CATEGORY }]}
       >
