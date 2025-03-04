@@ -8,4 +8,5 @@ export const ROUTES = {
   PUBLICATIONS: '/publications',
   ADD_PUBLICATION: '/add-publication',
   ITEM: '/item/:id',
+  SEARCH_RESULTS: '/search-results',
 };
