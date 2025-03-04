@@ -54,6 +54,7 @@ export const ItemPage = () => {
               </Col>
             </Row>
           }
+          // TODO: Add LocationMap component after backend implementation
           bottomContent={undefined}
         />
       </AppLayout>
