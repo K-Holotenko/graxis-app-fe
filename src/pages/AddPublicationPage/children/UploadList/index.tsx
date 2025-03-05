@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Carousel, UploadFile } from 'antd';
+import { Carousel, UploadFile, FormInstance } from 'antd';
 
 import { UploadItem } from 'src/pages/AddPublicationPage/children/UploadItem/index';
 import { SCREEN_WIDTH } from 'src/config/constants';
@@ -7,14 +7,24 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import styles from './styles.module.scss';
 
-export const UploadList = () => {
+interface UploadListProps {
+  form: FormInstance;
+}
+
+export const UploadList = ({ form }: UploadListProps) => {
   const { width } = useWindowSize();
   const [uploadStates, setUploadStates] = useState<UploadFile[]>([]);
 
   const isMobile = width < SCREEN_WIDTH.SM;
 
   const handleUpdateFiles = (file: UploadFile) => {
-    setUploadStates((prev) => [...prev, file]);
+    setUploadStates((prev) => {
+      const updatedFiles = [...prev, file];
+
+      form.setFieldsValue({ photos: updatedFiles });
+
+      return updatedFiles;
+    });
   };
 
   const handleRemoveFile = (fileToRemove: UploadFile) => {
@@ -24,6 +34,7 @@ export const UploadList = () => {
 
     setTimeout(() => {
       setUploadStates(updatedFiles);
+      form.setFieldsValue({ photos: updatedFiles });
     }, 100);
   };
 

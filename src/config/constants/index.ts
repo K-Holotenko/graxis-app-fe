@@ -72,6 +72,7 @@ export const TEXT = {
 
   LESS: 'Менше',
   LOCATION_NAME: 'Локація',
+  LOCATION_NAME_MAP: 'Київ, Україна',
   LOGIN: 'Увійти',
   LOGOUT: 'Вийти',
 

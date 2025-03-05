@@ -7,6 +7,7 @@ import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 import { ItemPage } from 'src/pages/ItemPage';
+import { SearchResultsPage } from 'src/pages/SearchResultsPage';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
@@ -43,5 +44,9 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.ITEM,
     element: <ItemPage />,
+  },
+  {
+    path: ROUTES.SEARCH_RESULTS,
+    element: <SearchResultsPage />,
   },
 ]);
