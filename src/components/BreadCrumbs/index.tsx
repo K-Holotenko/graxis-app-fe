@@ -1,50 +1,40 @@
 import { Breadcrumb, ConfigProvider } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
+import { GeneratedBreadcrumbItem } from 'src/components/BreadCrumbs/utils/generateBreadcrumbs';
 
 import styles from './styles.module.scss';
-import { Category, findBreadcrumbPath } from './utils/findBreadcrumbPath';
 
 interface BreadcrumbsProps {
-  currentCategory: string;
-  data: Category[];
-  showAllCategory?: boolean;
+  breadcrumbItems: GeneratedBreadcrumbItem[] | null;
   className?: string;
+  isMobile?: boolean;
 }
 
-export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
-  currentCategory,
-  data,
-  showAllCategory = false,
+export const BreadCrumbs = ({
+  breadcrumbItems,
   className,
-}) => {
-  const path = findBreadcrumbPath(data, currentCategory);
+  isMobile = false,
+}: BreadcrumbsProps) => {
+  if (!breadcrumbItems) return null;
 
-  if (!path) return null;
-
-  const fullPath = showAllCategory
-    ? [{ value: 'all', title: TEXT.ALL_CATEGORIES }, ...path]
-    : path;
-
-  const breadcrumbItems = fullPath.map((item) => ({
-    key: item.value,
-    title: (
-      <Link
-        to={item.value === 'all' ? '/category' : `/category/${item.value}`}
-        className={styles.link}
-      >
-        {item.title}
-      </Link>
-    ),
-  }));
+  const itemsToDisplay = isMobile
+    ? [breadcrumbItems[0], breadcrumbItems[breadcrumbItems.length - 1]]
+    : breadcrumbItems;
 
   return (
     <ConfigProvider theme={localTheme}>
       <Breadcrumb
         className={`${styles.wrapper} ${className}`}
-        items={breadcrumbItems}
+        items={itemsToDisplay.map(({ url, title, isLast, key }) => ({
+          title: (
+            <Link to={url} className={isLast ? styles.lastLink : ''}>
+              {title}
+            </Link>
+          ),
+          key,
+        }))}
       />
     </ConfigProvider>
   );
@@ -55,7 +45,7 @@ const localTheme = {
     Breadcrumb: {
       linkColor: theme.N4,
       separatorColor: theme.N4,
-      linkHoverColor: theme.N6,
+      linkHoverColor: theme.N5,
       colorBgTextHover: theme.N2,
     },
   },

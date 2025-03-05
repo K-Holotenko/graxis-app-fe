@@ -8,8 +8,9 @@ import { ItemName } from 'src/pages/ItemPage/children/ItemName';
 import { Price } from 'src/pages/ItemPage/children/Price';
 import { MOCKED_PRICES, SCREEN_WIDTH, TEXT } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { Breadcrumbs } from 'src/components/BreadCrumbs';
+import { BreadCrumbs } from 'src/components/BreadCrumbs';
 import { CATEGORIES_DROP_DATA } from 'src/pages/AddPublicationPage/children/CategoriesDropdown/utils/config';
+import { generateBreadcrumbs } from 'src/components/BreadCrumbs/utils/generateBreadcrumbs';
 
 import { ITEM_PAGE_CONFIG } from './utils/config';
 import { ImageCarousel } from './children/ImageCarousel';
@@ -24,22 +25,25 @@ const mockedProductData = {
 export const ItemPage = () => {
   const { width } = useWindowSize();
   const isMobileOrTablet = width <= SCREEN_WIDTH.XL;
-  const isTabletOrDesktop = width >= SCREEN_WIDTH.SM;
+  const isMobile = width < SCREEN_WIDTH.SM;
+
+  const breadcrumbItems = generateBreadcrumbs({
+    items: CATEGORIES_DROP_DATA,
+    currentItem: 'gamingConsoles',
+    showAllItems: true,
+  });
 
   return (
     <PageContainer pageTitle={ITEM_PAGE_CONFIG.PAGE_TITLE}>
       <AppLayout>
-        {isTabletOrDesktop && (
-          <Row>
-            <Col span={24}>
-              <Breadcrumbs
-                data={CATEGORIES_DROP_DATA}
-                currentCategory="gamingConsoles"
-                showAllCategory={true}
-              />
-            </Col>
-          </Row>
-        )}
+        <Row>
+          <Col span={24}>
+            <BreadCrumbs
+              breadcrumbItems={breadcrumbItems}
+              isMobile={isMobile}
+            />
+          </Col>
+        </Row>
         <ItemLayout
           leftContent={
             <Row gutter={[0, { xs: 32, sm: 32, md: 55, xl: 40 }]}>
