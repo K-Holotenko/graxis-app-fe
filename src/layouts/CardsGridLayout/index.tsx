@@ -7,5 +7,5 @@ interface CardsGridLayoutProps {
 }
 
 export const CardsGridLayout = ({ children }: CardsGridLayoutProps) => (
-  <section className={styles.cardsGridLayout}>{children}</section>
+  <div className={styles.cardsGridLayout}>{children}</div>
 );
