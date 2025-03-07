@@ -1,0 +1,72 @@
+@use 'src/styles/variables';
+
+@mixin textStyles($color: variables.$N1, $line-height: 1.25) {
+  font-family: variables.$font-body;
+  font-size: 16px;
+  color: $color;
+  line-height: $line-height;
+  letter-spacing: -0.02em;
+  margin-bottom: 0;
+}
+
+.feedbackCard {
+  background-color: variables.$primary;
+  border-radius: 20px;
+  margin-left: 12px;
+  padding: 16px;
+  height: 100%;
+}
+
+.feedbackRate {
+  color: variables.$secondary;
+
+  :global {
+    .ant-rate-star {
+      margin-inline-end: 2px;
+    }
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.feedbackDate {
+  @include textStyles(variables.$secondary-light, 1.5);
+  font-weight: 700;
+}
+
+.feedbackTitle {
+  @include textStyles(variables.$secondary-light, 1.5);
+  font-weight: 700;
+  margin-top: 19px;
+}
+
+.feedbackReview {
+  @include textStyles(variables.$N1, 1.5);
+}
+
+.feedbackName {
+  @include textStyles(variables.$N1);
+  font-size: 18px;
+}
+
+.feedbackDescriptionWrapper {
+  height: 278px;
+}
+
+.feedbackAvatar {
+  width: 44px;
+  height: 44px;
+}
+
+@media (min-width: variables.$media-md) {
+  .feedbackCard {
+    margin-left: 16px;
+  }
+
+  .feedbackDescriptionWrapper {
+    height: 209px;
+  }
+}

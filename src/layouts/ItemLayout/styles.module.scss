@@ -1,0 +1,50 @@
+@use 'src/styles/variables';
+
+.topContentContainer {
+  margin-top: 4px;
+  column-gap: 40px;
+  row-gap: 40px;
+}
+
+.leftContentSection {
+  height: auto;
+}
+
+.rightContentSection {
+  height: auto;
+  flex: 1;
+}
+
+.bottomContentContainer {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.bottomContentSection {
+  height: 498px;
+  width: 1500px;
+  background-color: #bcccdc;
+}
+
+@media (min-width: variables.$media-sm) {
+  .topContentContainer {
+    margin-top: 80px;
+    row-gap: 80px;
+  }
+
+  .bottomContentContainer {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .topContentContainer {
+    margin-top: 100px;
+    column-gap: 68px;
+  }
+
+  .bottomContentContainer {
+    margin-bottom: 140px;
+  }
+}

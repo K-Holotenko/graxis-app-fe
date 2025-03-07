@@ -1,0 +1,37 @@
+@use 'src/styles/variables';
+
+.verifySmsBtn {
+  margin-top: 20px;
+  font-size: 12px;
+  font-weight: 500;
+
+  &.verifySmsBtnActive {
+    color: variables.$primary;
+  }
+}
+
+.submitBtn {
+  width: 100%;
+}
+
+.formItemCode {
+  width: 100%;
+  margin-bottom: 48px;
+}
+
+.formItemCode {
+  :global {
+    #verificationForm_code {
+      display: flex !important;
+    }
+    input {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .verifySmsBtn {
+    font-size: 14px;
+  }
+}

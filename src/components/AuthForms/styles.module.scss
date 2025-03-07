@@ -1,0 +1,73 @@
+@use 'src/styles/variables';
+
+.tabs {
+  color: variables.$N6 !important;
+}
+
+.authPageTitle {
+  text-align: center;
+  color: variables.$N6 !important;
+  font-size: 24px !important;
+}
+
+.socialMediaButton {
+  height: 48px;
+}
+
+.registerStyle {
+  font-family: variables.$font-body;
+  font-weight: 600;
+  color: variables.$primary;
+}
+
+.registerStyle:hover {
+  color: variables.$primary-hover;
+}
+
+.authorizeStyle {
+  font-family: variables.$font-body;
+  font-weight: 600;
+  color: variables.$primary;
+}
+
+.authorizeStyle:hover {
+  color: variables.$primary-hover;
+}
+
+.link {
+  font-family: variables.$font-body;
+  font-weight: 500;
+  color: variables.$primary;
+}
+
+.authorizeLink {
+  margin-bottom: 10px;
+  color: variables.$N5;
+}
+
+.buttonMargins {
+  margin-bottom: 34px;
+  margin-top: 34px;
+}
+
+.link:hover {
+  color: variables.$primary-hover;
+}
+
+:global {
+  .ant-tabs-nav {
+    margin-bottom: 40px !important;
+  }
+}
+
+@media (min-width: variables.$media-sm) {
+  .authPageTitle {
+    font-size: 30px !important;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .authPageTitle {
+    font-size: 32px !important;
+  }
+}

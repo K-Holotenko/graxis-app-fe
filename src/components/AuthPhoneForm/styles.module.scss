@@ -1,0 +1,15 @@
+@use 'src/styles/variables';
+
+.formItemPhone {
+  margin-bottom: 6px;
+}
+
+.helperText {
+  font-size: 12px;
+  color: variables.$N5;
+  margin-bottom: 24px !important;
+}
+
+.agreement {
+  margin-bottom: 48px;
+}

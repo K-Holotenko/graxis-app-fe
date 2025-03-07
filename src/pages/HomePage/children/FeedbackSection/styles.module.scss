@@ -1,0 +1,11 @@
+@use 'src/styles/variables';
+
+.feedbackSection {
+  margin-bottom: 80px;
+}
+
+@media (min-width: variables.$media-lg) {
+  .feedbackSection {
+    margin-bottom: 140px;
+  }
+}

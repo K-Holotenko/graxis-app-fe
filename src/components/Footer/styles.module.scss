@@ -1,0 +1,115 @@
+@use 'src/styles/variables';
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding-top: 40px !important;
+}
+
+.footerRow {
+  color: variables.$primary !important;
+  max-width: 1440px;
+}
+
+.footerImg {
+  position: absolute;
+  z-index: -1;
+  right: -60px;
+  bottom: 105px;
+  height: 126px;
+  width: auto;
+}
+
+.logo {
+  align-self: center;
+  margin-bottom: 36px;
+}
+
+.footerCol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.footerEmailBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerMediaSection {
+  display: flex;
+  gap: 8px;
+}
+
+.footerRights {
+  color: variables.$N5;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  padding-top: 40px;
+  padding-bottom: 14px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.link {
+  font-size: 12px;
+}
+
+.footerRights {
+  font-size: 12px;
+  justify-content: start;
+}
+
+@media (min-width: variables.$media-sm) {
+  footer {
+    overflow: visible;
+  }
+
+  .link {
+    font-size: 16px;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .logo {
+    margin-bottom: 56px;
+  }
+
+  .footerCol {
+    gap: 16px;
+  }
+
+  .footerImg {
+    right: 0;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .footerCol {
+    margin-bottom: 0;
+  }
+
+  .footerImg {
+    bottom: 10px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .footerRights {
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .logo {
+    margin-bottom: 0;
+  }
+}

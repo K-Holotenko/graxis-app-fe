@@ -1,0 +1,41 @@
+@use 'src/styles/variables';
+
+.verifyCodeRow {
+  justify-content: center;
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.verifyCodeText {
+  font-size: 12px;
+  line-height: 1.5;
+  color: variables.$N6 !important;
+}
+
+.verifyCodeTitle {
+  text-align: center;
+  color: variables.$N6 !important;
+  font-size: 32px;
+}
+
+.phoneLink {
+  color: variables.$N6;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+@media (min-width: variables.$media-md) {
+  .verifyCodeRow {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .verifyCodeText {
+      font-size: 16px;
+    }
+  }
+}

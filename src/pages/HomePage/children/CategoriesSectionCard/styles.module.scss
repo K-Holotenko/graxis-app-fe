@@ -1,0 +1,118 @@
+@use 'src/styles/variables';
+
+.categoriesLink {
+  display: block;
+  text-decoration: none;
+}
+
+.categoriesCard {
+  position: relative;
+  background-color: variables.$primary;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+}
+
+@mixin commonTitleStyles {
+  font-family: variables.$font-body;
+  font-size: 12px;
+  color: variables.$N1;
+  font-weight: 300;
+  line-height: 150%;
+  text-align: center;
+  margin-bottom: 0 !important;
+}
+
+.categoriesTitle {
+  @include commonTitleStyles;
+  position: absolute;
+  bottom: 24px;
+}
+
+.suggestCategoryTitle {
+  @include commonTitleStyles;
+  margin-right: 10px;
+}
+
+.categoriesWrap {
+  position: absolute;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoriesImg {
+  display: block;
+  width: 50%;
+  height: auto;
+}
+
+.addIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.telegramIcon {
+  width: 30px;
+  height: 30px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .categoriesTitle {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .suggestCategoryTitle {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .addIcon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .categoriesTitle {
+    font-size: 22px;
+  }
+  .suggestCategoryTitle {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .categoriesTitle {
+    font-size: 16px;
+  }
+  .suggestCategoryTitle {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .categoriesTitle {
+    font-size: 20px;
+  }
+
+  .suggestCategoryTitle {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: variables.$media-xxl) {
+  .categoriesTitle {
+    font-size: 22px;
+  }
+
+  .suggestCategoryTitle {
+    font-size: 22px;
+  }
+}

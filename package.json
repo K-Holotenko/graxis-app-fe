@@ -1,0 +1,66 @@
+{
+  "name": "graxis-app-fe",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "format": "prettier --config .prettierrc.json \"src/**\" --write",
+    "lint": "eslint \"src/**\" --ignore-pattern \"src/assets/**\" --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview",
+    "test": "vitest --globals"
+  },
+  "dependencies": {
+    "@vis.gl/react-google-maps": "^1.5.1",
+    "antd": "^5.21.1",
+    "firebase": "^11.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.27.0",
+    "sass": "^1.85.1",
+    "web-vitals": "^2.1.4",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.8.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-no-relative-import-paths": "^1.5.5",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "happy-dom": "^17.2.2",
+    "husky": "^4.3.8",
+    "jsdom": "^26.0.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "sass-embedded": "^1.85.1",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.24.1",
+    "vite": "^6.2.0",
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^5.0.1",
+    "vitest": "^3.0.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

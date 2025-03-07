@@ -1,0 +1,68 @@
+@use 'src/styles/variables';
+
+.drawerCloseBtn:hover {
+  cursor: pointer;
+}
+
+.dropdownRoot {
+  border: 1px solid variables.$secondary;
+  border-radius: 16px;
+
+  :global {
+    .ant-dropdown-menu-item-active {
+      color: variables.$N6 !important;
+    }
+
+    .ant-dropdown-menu-light {
+      padding: 8px;
+    }
+  }
+}
+
+.addPublicationButton {
+  color: variables.$primary;
+}
+
+.addPublicationButton:hover,
+.addPublicationButton:active {
+  color: variables.$primary !important;
+}
+
+.verticalPadding {
+  margin-top: 12px;
+}
+
+.drawerVerticalPadding {
+  margin-top: 4px;
+}
+
+.locationTitle {
+  color: variables.$N1;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+.avatarLarge {
+  cursor: pointer;
+  background-color: variables.$success;
+}
+
+.avatarSection {
+  text-align: center;
+}
+
+.userSection {
+  color: variables.$secondary;
+  height: 48px;
+  text-align: center;
+  border: 1px solid variables.$secondary;
+  border-radius: 12px;
+}
+
+.userSectionUsername {
+  padding-left: 10px;
+}
+
+.userSection:hover {
+  cursor: pointer;
+}

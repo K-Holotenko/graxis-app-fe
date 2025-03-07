@@ -1,0 +1,45 @@
+@use 'src/styles/variables';
+
+.h1 {
+  font-family: variables.$font-heading;
+  font-size: 56px;
+  color: variables.$primary;
+}
+
+.h2 {
+  font-family: variables.$font-heading;
+  font-weight: 500;
+  color: variables.$primary;
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 125%;
+}
+
+.h3 {
+  font-family: variables.$font-heading;
+  font-weight: 600;
+  line-height: 125%;
+  color: variables.$N6;
+}
+
+.h4 {
+  font-family: variables.$font-heading;
+  font-weight: 600;
+  color: variables.$N6;
+}
+
+@media (min-width: variables.$media-sm) {
+  .h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    line-height: 125%;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .h2 {
+    font-size: 48px;
+    margin-bottom: 80px;
+  }
+}

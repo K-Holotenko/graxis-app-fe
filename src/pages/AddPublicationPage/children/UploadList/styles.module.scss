@@ -1,0 +1,43 @@
+@use 'src/styles/variables';
+
+.addPublicationLabel {
+  font-family: variables.$font-heading;
+  font-weight: 600;
+  font-size: 18px;
+  color: variables.$N6;
+  line-height: 1.25;
+}
+
+.uploadItem {
+  height: 88px;
+  padding-top: 3px;
+  padding-right: 10px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .addPublicationLabel {
+    font-size: 26px;
+    letter-spacing: -0.02em;
+  }
+
+  .uploadListDesktop {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .uploadItem {
+    height: 154px;
+    padding: 0;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .uploadListDesktop {
+    max-width: 742px;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

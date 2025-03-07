@@ -1,0 +1,35 @@
+@use 'src/styles/variables' as variables;
+@use 'src/styles/fonts' as fonts;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: variables.$N1;
+  // font-family: fonts.$font-body;
+  min-width: 375px;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 0 16px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ant-modal-content {
+  padding: 0 !important;
+}
+
+@media (min-width: variables.$media-sm) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+.display-none {
+  display: none;
+}

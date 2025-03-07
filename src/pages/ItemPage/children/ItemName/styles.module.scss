@@ -1,0 +1,65 @@
+@use 'src/styles/variables';
+
+.itemNameWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.itemName {
+  color: variables.$N6;
+  font-weight: 600;
+  margin-bottom: 0;
+  text-align: start;
+}
+
+.category {
+  color: variables.$N6;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.rate {
+  color: variables.$N6;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.feedback {
+  color: variables.$N6;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.descriptionWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .itemName {
+    font-size: 48px;
+    line-height: 1.25;
+  }
+
+  .feedback {
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .itemNameWrapper {
+    margin-bottom: 24px;
+  }
+}

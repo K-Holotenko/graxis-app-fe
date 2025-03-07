@@ -1,0 +1,84 @@
+@use 'src/styles/variables';
+
+.appHeader {
+  height: 80px;
+}
+
+.avatarLarge {
+  cursor: pointer;
+  background-color: variables.$success;
+  height: 48px;
+  width: 48px;
+}
+
+.drawerIcon {
+  cursor: pointer;
+}
+
+.buttonPaddingCall {
+  padding: 0 8px !important;
+}
+
+.buttonPadding {
+  padding: 12px 10px !important;
+  color: variables.$N6;
+}
+
+.dropdownRoot {
+  width: 256px;
+
+  :global {
+    .ant-dropdown-menu-item-active:active {
+      background-color: variables.$secondary !important;
+    }
+  }
+}
+
+.logo {
+  height: 14px !important;
+}
+
+.publicationButton:hover {
+  cursor: pointer;
+}
+
+.notificationButtonPadding {
+  padding: 0 10px;
+  height: 20px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .logo {
+    height: 14px !important;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .logo {
+    height: 16px !important;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .logo {
+    height: 22px !important;
+  }
+
+  .buttonPadding {
+    padding: 0 20px !important;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .logo {
+    height: 28px !important;
+  }
+}
+
+@media (min-width: variables.$media-xxl) {
+  .app-header-section {
+    .container {
+      padding: 0 25px;
+    }
+  }
+}

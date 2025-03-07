@@ -1,0 +1,124 @@
+@use 'src/styles/variables';
+
+.categoriesDropdownTree {
+  width: 100%;
+  height: 46px;
+  font-size: 12px;
+  padding: 0;
+  color: variables.$N6;
+
+  .highlightedCategory {
+    background-color: variables.$N2;
+  }
+
+  .selectedCategory {
+    color: variables.$N6;
+  }
+
+  :global {
+    .ant-select-selector {
+      padding: 0 !important;
+    }
+
+    .ant-select-selector,
+    .ant-select-selector > span,
+    .ant-select-selector input {
+      height: 40px !important;
+      line-height: 40px !important;
+    }
+
+    .ant-select-tree-indent-unit {
+      width: 24px !important;
+    }
+
+    .popUp {
+      border: 1px solid variables.$N3;
+      border-radius: 12px;
+      padding: 0 14px 0 8px;
+
+      .ant-select-tree-switcher {
+        right: 0px;
+        position: absolute;
+        z-index: 1;
+
+        &:not(.ant-select-tree-switcher-noop):hover:before {
+          background-color: transparent !important;
+        }
+      }
+    }
+
+    .ant-select-selection-placeholder {
+      font-size: 12px;
+      letter-spacing: -0.02em;
+      color: variables.$N4;
+      margin-left: 12px;
+    }
+
+    .ant-select-tree-list-scrollbar {
+      margin-right: -20px;
+    }
+  }
+}
+
+.switcherIcon {
+  transform: translateY(4px);
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.suffixIcon {
+  padding-right: 20px;
+  transform: translateY(-3px);
+  pointer-events: inherit !important;
+}
+
+.clearIcon {
+  right: 20px;
+  transform: translateY(-3px);
+  position: absolute;
+}
+
+.treeNode {
+  padding-left: 20px;
+  border-radius: 8px;
+  margin-left: -4px;
+  margin-right: -4px;
+  color: variables.$N6;
+}
+
+.treeText {
+  font-size: 14px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .treeText {
+    font-size: 18px;
+  }
+
+  .suffixIcon {
+    transform: translateY(0px);
+  }
+
+  .clearIcon {
+    transform: translateY(0);
+  }
+
+  .categoriesDropdownTree {
+    :global {
+      .ant-select-selection-placeholder {
+        font-size: 18px;
+        line-height: 1.25;
+      }
+
+      .ant-select-selector,
+      .ant-select-selector > span,
+      .ant-select-selector input {
+        height: 48px !important;
+        line-height: 48px !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+@use 'src/styles/variables';
+
+.priceInputsRow {
+  position: relative;
+  display: flex;
+  column-gap: 8px;
+}
+
+.priceLabel {
+  label {
+    color: variables.$N5 !important;
+    font-size: 14px !important;
+  }
+}
+
+.priceInput {
+  height: 48px;
+  max-width: 187px;
+  width: 100%;
+  font-size: 12px;
+  border-radius: 8px;
+  border-color: variables.$N3;
+  color: variables.$N6;
+}
+
+.middleFormItem label::after {
+  content: none !important;
+}
+
+.inputsError {
+  position: absolute;
+  color: variables.$error;
+  bottom: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@media (min-width: variables.$media-md) {
+  .priceInputsRow {
+    column-gap: 19px;
+  }
+
+  .priceInput {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .priceInputsRow {
+    column-gap: 24px;
+  }
+}
