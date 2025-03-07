@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "format": "prettier --config .prettierrc.json \"src/**\" --write",
     "lint": "eslint \"src/**\" --ignore-pattern \"src/assets/**\" --max-warnings=0",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit --project tsconfig.app.json",
     "preview": "vite preview",
     "test": "vitest --globals"
   },
