@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Carousel, ConfigProvider, Image } from 'antd';
 import { CarouselRef } from 'antd/es/carousel';
 
