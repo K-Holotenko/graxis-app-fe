@@ -66,7 +66,7 @@ export const AuthService = {
       phoneNumber,
       window.recaptchaVerifier
     );
-
+    console.log('confirmation');
     return confirmationResult;
   },
 
