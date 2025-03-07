@@ -58,6 +58,11 @@
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^3.0.7"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["prettier --write", "eslint \"src/**\" --ignore-pattern \"src/assets/**\" --max-warnings=0 --fix"],
+    "*.{css,scss,md}": ["prettier --write"],
+    "*.ts?(x)": ["tsc --noEmit --project tsconfig.app.json"]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
