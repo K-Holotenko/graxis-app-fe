@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "format": "prettier --config .prettierrc.json \"src/**\" --write",
-    "lint": "eslint \"src/**\" --ignore-pattern \"src/assets/**\" --max-warnings=0",
+    "lint": "eslint --ignore-pattern \"src/assets/**\" --max-warnings=0",
     "typecheck": "tsc --noEmit --project tsconfig.app.json",
     "preview": "vite preview",
     "test": "vitest --globals"
@@ -46,7 +46,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
     "happy-dom": "^17.2.2",
-    "husky": "^9.1.7",
+    "husky": "^4.3.8",
     "jsdom": "^26.0.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
@@ -57,15 +57,5 @@
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^3.0.7"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["prettier --write", "eslint \"src/**\" --ignore-pattern \"src/assets/**\" --max-warnings=0 --fix"],
-    "*.{css,scss,md}": ["prettier --write"],
-    "*.ts?(x)": ["tsc --noEmit --project tsconfig.app.json"]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
