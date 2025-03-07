@@ -67,6 +67,9 @@ export const AuthService = {
       window.recaptchaVerifier
     );
     console.log('confirmation');
+    console.log('confirmation');
+    console.log('confirmation');
+
     return confirmationResult;
   },
 
