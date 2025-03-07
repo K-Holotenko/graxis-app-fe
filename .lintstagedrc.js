@@ -1,8 +1,0 @@
-module.exports = {
-  '*.{js,jsx,ts,tsx}': [
-    'prettier --write',
-    'eslint --ignore-pattern "src/assets/**" --max-warnings=0 --fix',
-  ],
-  '*.{css,scss,md}': ['prettier --write'],
-  '*.ts?(x)': () => 'tsc --noEmit --project tsconfig.app.json',
-};
