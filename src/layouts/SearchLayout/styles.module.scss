@@ -1,0 +1,59 @@
+@use 'src/styles/variables';
+
+.topContentContainer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.topContentSection {
+  height: 208px;
+  background-color: #bcccdc;
+}
+
+.centerContentContainer {
+  margin-bottom: 40px;
+}
+
+.centerContentSection {
+  height: 1200px;
+  background-color: #bcccdc;
+}
+
+.bottomContentContainer {
+  margin-bottom: 40px;
+}
+
+.bottomContentSection {
+  height: 68px;
+  background-color: #bcccdc;
+}
+
+@media (min-width: variables.$media-sm) {
+  .topContentContainer {
+    margin-top: 40px;
+    margin-bottom: 24px;
+  }
+
+  .centerContentContainer {
+    margin-bottom: 40px;
+  }
+
+  .bottomContentContainer {
+    margin-bottom: 80px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .topContentContainer {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .centerContentContainer {
+    margin-bottom: 80px;
+  }
+
+  .bottomContentContainer {
+    margin-bottom: 140px;
+  }
+}
