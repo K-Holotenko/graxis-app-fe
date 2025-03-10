@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { PopularGoodCard } from './index';
 
 const mockedPopularGoodCardProps = {
-  key: 1,
+  id: 1,
   image: 'test-image.jpg',
   name: 'Test Product',
   rating: 4.8,
