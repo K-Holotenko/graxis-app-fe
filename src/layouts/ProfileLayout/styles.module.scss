@@ -1,0 +1,86 @@
+@use 'src/styles/variables';
+
+@media (min-width: variables.$media-sm) {
+  .headerContentContainer {
+    height: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background-color: #bcccdc;
+  }
+  .mainContentContainer {
+    display: flex;
+    flex-flow: row;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 80px;
+  }
+
+  .leftContentSection {
+    height: 542px;
+    background-color: #bcccdc;
+  }
+
+  .rightContentContainer {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    max-width: 480px;
+  }
+
+  .rightContentTopContainer,
+  .rightContentBottomContainer {
+    width: 100%;
+    background-color: #bcccdc;
+  }
+
+  .rightContentTopContainer {
+    height: 240px;
+  }
+
+  .rightContentBottomContainer {
+    height: 282px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .headerContentContainer {
+    height: 60px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    background-color: #bcccdc;
+  }
+
+  .mainContentContainer {
+    display: flex;
+    flex-flow: row;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 140px;
+  }
+
+  .leftContentSection {
+    height: 600px;
+    background-color: #bcccdc;
+  }
+
+  .rightContentContainer {
+    display: flex;
+    flex-flow: column;
+    gap: 24px;
+    max-width: 735px;
+  }
+
+  .rightContentTopContainer,
+  .rightContentBottomContainer {
+    max-width: 100%;
+    background-color: #bcccdc;
+  }
+
+  .rightContentTopContainer {
+    height: 280px;
+  }
+
+  .rightContentBottomContainer {
+    height: 296px;
+  }
+}
