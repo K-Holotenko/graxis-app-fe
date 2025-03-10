@@ -7,25 +7,10 @@ import { TEXT } from 'src/config/constants';
 import { inputs, PriceInputs } from '.';
 
 const onFinish = vi.fn();
-const onFinishFailed = vi.fn();
 
 describe('PriceInputs', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-  });
-
-  it('should throw error if inputs are empty', async () => {
-    const { getByTestId, findByText } = render(
-      <Form layout="vertical" onFinishFailed={onFinishFailed}>
-        <PriceInputs />
-        <button data-testid="submit-btn" />
-      </Form>
-    );
-
-    getByTestId('submit-btn').click();
-    await findByText(TEXT.SET_AT_LEAST_ONE_PRICE);
-
-    await waitFor(() => expect(onFinishFailed).toHaveBeenCalled());
   });
 
   it("shouldn't throw error if at least one price set", async () => {

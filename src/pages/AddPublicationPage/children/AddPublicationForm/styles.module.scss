@@ -1,18 +1,18 @@
 @use 'src/styles/variables';
 
-.label {
-  :global {
-    .ant-form-item-required {
-      font-size: 18px !important;
-      font-family: variables.$font-heading !important;
-      font-weight: 600;
-      margin-bottom: 20px !important;
-    }
-  }
+.formItemLabel {
+  font-size: 18px !important;
+  font-family: variables.$font-heading !important;
+  font-weight: 600;
+  margin-bottom: 20px !important;
 }
 
 .textArea {
   font-size: 12px;
+}
+
+.submitButton {
+  font-weight: 500;
 }
 
 @media (min-width: variables.$media-sm) {
@@ -22,11 +22,7 @@
 }
 
 @media (min-width: variables.$media-md) {
-  .label {
-    :global {
-      .ant-form-item-required {
-        font-size: 26px !important;
-      }
-    }
+  .formItemLabel {
+    font-size: 26px !important;
   }
 }
