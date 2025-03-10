@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { Form, Col, Row, ConfigProvider } from 'antd';
+import { useEffect, useState } from 'react';
+import { Form, Col, Row, ConfigProvider, UploadFile } from 'antd';
 import { APIProvider } from '@vis.gl/react-google-maps';
 
 import { ROUTES } from 'src/router/routes';
@@ -18,10 +18,21 @@ import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/Loca
 import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
 
+interface Location {
+  street: string;
+  latitude: number;
+  longitude: number;
+}
+
 interface AddPublicationInputs {
+  category: string;
+  name: string;
+  description: string;
+  photo: UploadFile[];
   priceDay: string;
   priceWeek: string;
   priceMonth: string;
+  location: Location;
 }
 
 interface AddPublicationFormProps {
@@ -30,13 +41,36 @@ interface AddPublicationFormProps {
   className?: string;
 }
 
-const API_KEY = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY || '';
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '';
 
 export const AddPublicationForm = (props: AddPublicationFormProps) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+  const [locationFilled, setLocationFilled] = useState(false);
+
+  const allValues = Form.useWatch([], form);
+
+  const photos = Form.useWatch('photos', form);
+
+  useEffect(() => {
+    const priceDay = form.getFieldValue('priceDay');
+    const priceWeek = form.getFieldValue('priceWeek');
+    const priceMonth = form.getFieldValue('priceMonth');
+
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => {
+        const isAtLeastOnePriceFilled = [priceDay, priceWeek, priceMonth].some(
+          (price) => price && +price > 0
+        );
+
+        setIsValid(locationFilled && photos?.length && isAtLeastOnePriceFilled);
+      })
+      .catch(() => setIsValid(false));
+  }, [form, allValues, locationFilled, photos]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -49,8 +83,21 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
   };
 
   const onFinish = (values: AddPublicationInputs) => {
+    const publicationData = {
+      category: values.category,
+      name: values.name,
+      description: values.description,
+      photo: values.photo,
+      day: values.priceDay,
+      week: values.priceWeek,
+      month: values.priceMonth,
+      location: values.location,
+    };
+
     // eslint-disable-next-line no-console
-    console.log('Success:', { values });
+    console.log(publicationData);
+
+    showModal();
   };
 
   const onFinishFailed = (
@@ -61,10 +108,27 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
   };
 
   const handleLocationChange = (
-    location: google.maps.places.PlaceResult | null
+    place: google.maps.places.PlaceResult | null
   ) => {
-    // eslint-disable-next-line no-console
-    console.log('Selected place:', location);
+    if (!place) {
+      setLocationFilled(false);
+      form.setFieldsValue({ location: undefined });
+    }
+
+    const location = place?.geometry?.location;
+
+    if (!location) {
+      return null;
+    }
+
+    const locationData = {
+      street: place.formatted_address || '',
+      latitude: location.lat,
+      longitude: location.lng,
+    };
+
+    form.setFieldsValue({ location: locationData });
+    setLocationFilled(true);
   };
 
   return (
@@ -74,22 +138,23 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
         name={FORMS.ADD_PUBLICATION_FORM}
         layout="vertical"
         requiredMark={false}
-        onFinish={props.onFinish || onFinish}
+        onFinish={onFinish}
         onFinishFailed={props.onFinishFailed || onFinishFailed}
       >
         <Row>
           <Col span={24}>
-            <CategoriesDropdown labelStyles={styles.label} />
+            <CategoriesDropdown labelStyles={styles.formItemLabel} />
           </Col>
         </Row>
         <Row>
           <Col span={24}>
             <ConfigProvider theme={textAreaTheme}>
               <Form.Item
-                label={TEXT.NAME}
+                label={
+                  <label className={styles.formItemLabel}>{TEXT.NAME}</label>
+                }
                 name="name"
                 rules={[VALIDATION_CONDITION.REQUIRED]}
-                className={styles.label}
               >
                 <TextArea
                   placeholder={TEXT.INPUT_PUBLICATION_NAME}
@@ -97,6 +162,9 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
                   autoSize={{ minRows: 1, maxRows: 2 }}
                   maxLength={150}
                   className={styles.textArea}
+                  onChange={(e) =>
+                    form.setFieldsValue({ name: e.target.value })
+                  }
                 />
               </Form.Item>
             </ConfigProvider>
@@ -106,9 +174,12 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
           <Col span={24}>
             <ConfigProvider theme={textAreaTheme}>
               <Form.Item
-                label={TEXT.DESCRIPTION}
+                label={
+                  <label className={styles.formItemLabel}>
+                    {TEXT.DESCRIPTION}
+                  </label>
+                }
                 name="description"
-                className={styles.label}
                 rules={[VALIDATION_CONDITION.REQUIRED]}
               >
                 <TextArea
@@ -117,6 +188,9 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
                   maxLength={1000}
                   rows={8}
                   className={styles.textArea}
+                  onChange={(e) =>
+                    form.setFieldsValue({ name: e.target.value })
+                  }
                 />
               </Form.Item>
             </ConfigProvider>
@@ -125,30 +199,37 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
         <Row>
           <Col span={24}>
             <Form.Item
-              className={styles.label}
-              label={TEXT.ADD_PHOTO}
-              name="photo"
+              label={
+                <label className={styles.formItemLabel}>{TEXT.ADD_PHOTO}</label>
+              }
+              name="photos"
               rules={[{ required: true, message: TEXT.ADD_PHOTO }]}
             >
-              <UploadList />
+              <UploadList form={form} />
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col span={24}>
             <Form.Item
+              label={
+                <label className={styles.formItemLabel}>{TEXT.COST}</label>
+              }
               className={styles.label}
-              label={TEXT.COST}
-              name="price"
               rules={[{ required: true, message: TEXT.SET_AT_LEAST_ONE_PRICE }]}
             >
               <PriceInputs />
             </Form.Item>
           </Col>
+        </Row>
+        <Row>
           <Col span={24}>
             <Form.Item
-              className={styles.label}
-              label={TEXT.LOCATION_NAME}
+              label={
+                <label className={styles.formItemLabel}>
+                  {TEXT.LOCATION_NAME}
+                </label>
+              }
               name="location"
               rules={[{ required: true, message: 'Enter location' }]}
             >
@@ -157,8 +238,20 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               </APIProvider>
             </Form.Item>
           </Col>
-          <Col span={6} offset={18}>
-            <Button onClick={showModal} label={TEXT.PUBLISH} />
+        </Row>
+        <Row>
+          <Col
+            xs={24}
+            sm={{ span: 10, offset: 14 }}
+            md={{ span: 7, offset: 17 }}
+            xl={{ span: 6, offset: 18 }}
+          >
+            <Button
+              className={styles.submitButton}
+              htmlType="submit"
+              label={TEXT.PUBLISH}
+              isDisabled={!isValid}
+            />
           </Col>
         </Row>
       </Form>
