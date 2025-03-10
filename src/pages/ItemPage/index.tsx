@@ -1,4 +1,5 @@
 import { Col, Row } from 'antd';
+import { useEffect } from 'react';
 
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
@@ -22,6 +23,10 @@ const mockedProductData = {
 export const ItemPage = () => {
   const { width } = useWindowSize();
   const isMobileOrTablet = width <= SCREEN_WIDTH.XL;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <PageContainer pageTitle={ITEM_PAGE_CONFIG.PAGE_TITLE}>
