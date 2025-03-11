@@ -15,7 +15,7 @@ interface LocationMapProps {
   };
 }
 
-const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '';
+const API_KEY = import.meta.env.REACT_APP_GOOGLE_MAPS_API_KEY || '';
 
 // TODO: Update logic to fetch the map image from the backend
 
