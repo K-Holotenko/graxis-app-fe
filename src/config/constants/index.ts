@@ -253,3 +253,10 @@ export const MOCKED_PRICES = [
   { amount: 500, period: '7 днів' },
   { amount: 1600, period: '30 днів' },
 ];
+
+export const PROFILE_PARAMS = {
+  PROFILE: 'profile',
+  PAYMENT: 'payment',
+  PRIVACY_POLICY: 'privacy-policy',
+  FAQ: 'faq',
+};
