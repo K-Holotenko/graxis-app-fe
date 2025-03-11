@@ -1,0 +1,26 @@
+@use 'src/styles/variables';
+
+.cardsGridLayout {
+  display: grid;
+  gap: 20px;
+  justify-content: center;
+}
+
+@media (min-width: variables.$media-sm) {
+  .cardsGridLayout {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .cardsGridLayout {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .cardsGridLayout {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px 20px;
+  }
+}
