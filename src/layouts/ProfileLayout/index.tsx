@@ -44,7 +44,7 @@ export const ProfileLayout = ({
     </Col>
   );
 
-  const isMobile = width < SCREEN_WIDTH.SM;
+  const isMobile = width < SCREEN_WIDTH.MD;
 
   return isMobile ? (
     <Row className={styles.mainContentContainer}>
