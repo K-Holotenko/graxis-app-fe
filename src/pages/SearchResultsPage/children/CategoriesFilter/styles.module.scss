@@ -1,0 +1,33 @@
+@use 'src/styles/variables';
+
+.cascader {
+  height: 48px;
+  max-width: 425px;
+  width: 100%;
+}
+
+.popup {
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: variables.$primary;
+  }
+
+  :global(.ant-cascader-menu) {
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: variables.$primary;
+    }
+  }
+}
+
+.expandIcon {
+  margin-top: 7px;
+}
