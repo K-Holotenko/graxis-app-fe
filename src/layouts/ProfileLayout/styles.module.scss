@@ -1,45 +1,54 @@
 @use 'src/styles/variables';
 
-@media (min-width: variables.$media-sm) {
-  .headerContentContainer {
-    height: 20px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    background-color: #bcccdc;
-  }
-  .mainContentContainer {
-    display: flex;
-    flex-flow: row;
-    gap: 20px;
-    justify-content: center;
-    margin-bottom: 80px;
-  }
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  .leftContentSection {
-    height: 542px;
-    background-color: #bcccdc;
-  }
+.headerContentContainer {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+  background-color: #bcccdc;
+}
 
-  .rightContentContainer {
-    display: flex;
-    flex-flow: column;
-    gap: 20px;
-    max-width: 480px;
-  }
+.mainContentContainer {
+  display: flex;
+  flex-flow: row;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto 80px;
+  padding: 0 20px;
+}
 
-  .rightContentTopContainer,
-  .rightContentBottomContainer {
-    width: 100%;
-    background-color: #bcccdc;
-  }
+.leftContentSection {
+  height: 542px;
+  background-color: #bcccdc;
+  padding: 10px;
+}
 
-  .rightContentTopContainer {
-    height: 240px;
-  }
+.rightContentContainer {
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+  max-width: 735px;
+  width: 100%;
+}
 
-  .rightContentBottomContainer {
-    height: 282px;
-  }
+.rightContentTopContainer,
+.rightContentBottomContainer {
+  width: 100%;
+  background-color: #bcccdc;
+  // padding: 10px;
+}
+
+.rightContentTopContainer {
+  height: 240px;
+}
+
+.rightContentBottomContainer {
+  height: 282px;
 }
 
 @media (min-width: variables.$media-lg) {
@@ -47,33 +56,19 @@
     height: 60px;
     margin-top: 60px;
     margin-bottom: 40px;
-    background-color: #bcccdc;
   }
 
   .mainContentContainer {
-    display: flex;
-    flex-flow: row;
     gap: 24px;
-    justify-content: center;
     margin-bottom: 140px;
   }
 
   .leftContentSection {
     height: 600px;
-    background-color: #bcccdc;
   }
 
   .rightContentContainer {
-    display: flex;
-    flex-flow: column;
     gap: 24px;
-    max-width: 735px;
-  }
-
-  .rightContentTopContainer,
-  .rightContentBottomContainer {
-    max-width: 100%;
-    background-color: #bcccdc;
   }
 
   .rightContentTopContainer {
