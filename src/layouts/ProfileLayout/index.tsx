@@ -2,20 +2,18 @@ import { Col, Row } from 'antd';
 import { ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { PROFILE_PARAMS, SCREEN_WIDTH } from 'src/config/constants';
+import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import styles from './styles.module.scss';
+import { LeftContentSection } from './children/LeftContentSection';
+import { RightContentSection } from './children/RightContentSection';
 
 interface ItemLayoutProps {
   headerContent: ReactNode;
   leftContent: ReactNode;
   topContent: ReactNode;
   bottomContent: ReactNode;
-}
-
-interface LeftContentSectionProps {
-  span: number;
 }
 
 export const ProfileLayout = ({
@@ -25,44 +23,19 @@ export const ProfileLayout = ({
   bottomContent,
 }: ItemLayoutProps) => {
   const { width } = useWindowSize();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const LeftContentSection = ({ span }: LeftContentSectionProps) => (
-    <Col
-      span={span}
-      className={styles.leftContentSection}
-      onClick={() => {
-        const params = new URLSearchParams();
-
-        params.set('p', PROFILE_PARAMS.PROFILE);
-        setSearchParams(params, {
-          preventScrollReset: true,
-        });
-      }}
-    >
-      {leftContent}
-    </Col>
-  );
+  const [searchParams] = useSearchParams();
 
   const isMobile = width < SCREEN_WIDTH.MD;
 
   return isMobile ? (
     <Row className={styles.mainContentContainer}>
       {searchParams.get('p') ? (
-        <Col span={24} className={styles.rightContentContainer}>
-          <Row className={styles.rightContentTopContainer}>
-            <Col span={24} className={styles.rightContentTopSection}>
-              {topContent}
-            </Col>
-          </Row>
-          <Row className={styles.rightContentBottomContainer}>
-            <Col span={24} className={styles.rightContentBottomSection}>
-              {bottomContent}
-            </Col>
-          </Row>
-        </Col>
+        <RightContentSection
+          topContent={topContent}
+          bottomContent={bottomContent}
+        />
       ) : (
-        <LeftContentSection span={24} />
+        <LeftContentSection span={24} leftContent={leftContent} />
       )}
     </Row>
   ) : (
@@ -74,20 +47,11 @@ export const ProfileLayout = ({
       </Row>
 
       <Row className={styles.mainContentContainer}>
-        <LeftContentSection span={6} />
-
-        <Col span={18} className={styles.rightContentContainer}>
-          <Row className={styles.rightContentTopContainer}>
-            <Col span={24} className={styles.rightContentTopSection}>
-              {topContent}
-            </Col>
-          </Row>
-          <Row className={styles.rightContentBottomContainer}>
-            <Col span={24} className={styles.rightContentBottomSection}>
-              {bottomContent}
-            </Col>
-          </Row>
-        </Col>
+        <LeftContentSection span={6} leftContent={leftContent} />
+        <RightContentSection
+          topContent={topContent}
+          bottomContent={bottomContent}
+        />
       </Row>
     </>
   );
