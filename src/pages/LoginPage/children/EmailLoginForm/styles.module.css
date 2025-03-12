@@ -1,0 +1,13 @@
+.buttonMargin {
+  margin-top: 48px;
+  margin-bottom: 8px;
+}
+
+.marginBottom {
+  margin-bottom: 28px;
+}
+
+:global .ant-form-item-explain-error {
+  font-size: 12px;
+  font-weight: 500;
+}/*# sourceMappingURL=styles.module.css.map */
