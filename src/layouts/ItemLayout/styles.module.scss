@@ -1,7 +1,7 @@
 @use 'src/styles/variables';
 
 .topContentContainer {
-  margin-top: 4px;
+  margin-top: 16px;
   column-gap: 40px;
   row-gap: 40px;
 }
@@ -27,7 +27,7 @@
 
 @media (min-width: variables.$media-sm) {
   .topContentContainer {
-    margin-top: 80px;
+    margin-top: 24px;
     row-gap: 80px;
   }
 
@@ -39,7 +39,6 @@
 
 @media (min-width: variables.$media-xl) {
   .topContentContainer {
-    margin-top: 100px;
     column-gap: 68px;
   }
 
