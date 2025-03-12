@@ -1,0 +1,7 @@
+.selectPopup {
+  width: calc(100% - 48px) !important;
+}
+
+.selectPopupDesktop {
+  width: 210px !important;
+}/*# sourceMappingURL=styles.module.css.map */
