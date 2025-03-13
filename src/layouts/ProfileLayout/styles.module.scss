@@ -1,0 +1,43 @@
+@use 'src/styles/variables';
+
+.headerContentContainer {
+  background-color: #bcccdc;
+}
+
+.mainContentContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0 auto 40px;
+}
+
+@media (min-width: variables.$media-md) {
+  .headerContentContainer {
+    height: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .mainContentContainer {
+    display: grid;
+    grid-template-columns: 220px 2fr;
+    gap: 20px;
+    margin-bottom: 80px;
+    max-width: 720px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .headerContentContainer {
+    height: 60px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+
+  .mainContentContainer {
+    max-width: 1099px;
+    display: grid;
+    grid-template-columns: 340px 2fr;
+    gap: 24px;
+    margin-bottom: 140px;
+  }
+}

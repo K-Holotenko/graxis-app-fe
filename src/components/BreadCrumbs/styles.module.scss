@@ -1,0 +1,15 @@
+@use 'src/styles/variables';
+
+.wrapper {
+  margin-top: 12px;
+
+  .lastLink {
+    color: variables.$N6;
+  }
+}
+
+@media (min-width: variables.$media-sm) {
+  .wrapper {
+    margin-top: 16px;
+  }
+}
