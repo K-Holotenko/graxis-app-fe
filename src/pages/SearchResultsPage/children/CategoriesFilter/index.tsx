@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Cascader, ConfigProvider } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
-import ArrowDown from 'src/assets/icons/arrow-down-light-icon.svg?react';
+import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import ArrowRight from 'src/assets/icons/arrow-right-icon.svg?react';
 import { CATEGORIES_DROP_DATA } from 'src/pages/AddPublicationPage/children/CategoriesDropdown/utils/config';
 import { theme } from 'src/config/theme';
@@ -15,32 +15,27 @@ export const CategoriesFilter = () => {
   const [selectedValues, setSelectedValues] = useState<string[][]>([]);
   const [isFocused, setIsFocused] = useState(false);
   const [isCategorySelected, setIsCategorySelected] = useState(false);
-  const navigate = useNavigate();
+  const [, setSearchParams] = useSearchParams();
   const { width } = useWindowSize();
   const isTablet = width <= SCREEN_WIDTH.MD;
 
   const onChange = (value: string[][]) => {
     setSelectedValues(value);
     setIsCategorySelected(value.length > 0);
-    const categories = value.map((path) => path[path.length - 1]).join('&');
-    const newSearch = categories ? `?categories=${categories}` : '';
 
-    navigate(newSearch, { replace: true });
+    const searchParams = new URLSearchParams();
+
+    value.forEach((path) => {
+      searchParams.append('category', path[path.length - 1]);
+    });
+
+    setSearchParams(searchParams);
   };
 
-  const combinedTheme = {
-    components: {
-      ...localTheme.components,
-      Select: {
-        ...localTheme.components.Select,
-        colorBorder:
-          !isFocused || !isCategorySelected ? theme.N3 : theme.success,
-      },
-    },
-  };
+  const localTheme = setLocalTheme(isFocused, isCategorySelected);
 
   return (
-    <ConfigProvider theme={combinedTheme}>
+    <ConfigProvider theme={localTheme}>
       <Cascader
         className={styles.cascader}
         allowClear={false}
@@ -61,7 +56,7 @@ export const CategoriesFilter = () => {
   );
 };
 
-const localTheme = {
+const setLocalTheme = (isFocused?: boolean, isCategorySelected?: boolean) => ({
   token: {
     colorBorder: theme.N3,
     colorText: theme.N6,
@@ -84,6 +79,7 @@ const localTheme = {
       activeBorderColor: theme.N5,
       hoverBorderColor: theme.N4,
       paddingXXS: 8,
+      colorBorder: !isFocused || !isCategorySelected ? theme.N3 : theme.success,
     },
   },
-};
+});

@@ -4,6 +4,17 @@
   height: 48px;
   max-width: 425px;
   width: 100%;
+  
+
+  :global(.ant-select-selector) {
+    &:hover {
+      background-color: variables.$secondary-light;
+    }
+
+    &:focus {
+      background-color: variables.$secondary-light;
+    }
+  }
 }
 
 .popup {
@@ -24,6 +35,16 @@
 
     &::-webkit-scrollbar-thumb {
       background: variables.$primary;
+    }
+
+    :global(.ant-cascader-menu-item) {
+      &:hover {
+        border-radius: 8px;
+      }
+    }
+
+    :global(.ant-cascader-menu-item-active) {
+      border-radius: 8px;
     }
   }
 }
