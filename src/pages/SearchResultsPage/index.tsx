@@ -1,18 +1,27 @@
+import { useEffect } from 'react';
+
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { SearchLayout } from 'src/layouts/SearchLayout';
 
+import { PublicationsSection } from './children/PublicationsSection';
 import { SEARCH_RESULTS_CONFIG } from './utils/config';
 import { CategoriesFilter } from './children/CategoriesFilter';
 
-export const SearchResultsPage = () => (
-  <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>
-    <AppLayout>
-      <SearchLayout
-        topContent={<CategoriesFilter />}
-        centerContent={undefined}
-        bottomContent={undefined}
-      />
-    </AppLayout>
-  </PageContainer>
-);
+export const SearchResultsPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>
+      <AppLayout>
+        <SearchLayout
+          topContent={<CategoriesFilter />}
+          centerContent={<PublicationsSection />}
+          bottomContent={undefined}
+        />
+      </AppLayout>
+    </PageContainer>
+  );
+};
