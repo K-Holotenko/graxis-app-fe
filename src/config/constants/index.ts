@@ -46,7 +46,7 @@ export const TEXT = {
 
   EMAIL: 'Пошта',
   EMPTY_SELECTION_TEXT: 'Ви поки нічого не обрали',
-  ENTER_LOCATION: 'Введіть назву локаціїї',
+  ENTER_LOCATION: 'Введіть назву локації',
 
   FAST_LINKS: 'Швидкі посилання',
   FEEDBACK_AMOUNT: 'відгуків',
