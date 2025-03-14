@@ -13,8 +13,8 @@
 }
 
 .rightContentBottomContainer {
-  height: 202px;
-  background-color: #bcccdc;
+  // height: 202px;
+  // border: 1px solid #bcccdc;
 }
 
 @media (min-width: variables.$media-md) {
@@ -30,9 +30,9 @@
     height: 240px;
   }
 
-  .rightContentBottomContainer {
-    height: 282px;
-  }
+  // .rightContentBottomContainer {
+  //   height: 282px;
+  // }
 }
 
 @media (min-width: variables.$media-lg) {
@@ -50,5 +50,6 @@
 
   .rightContentBottomContainer {
     height: 296px;
+    max-height: 100%;
   }
 }
