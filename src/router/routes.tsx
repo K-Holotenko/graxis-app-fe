@@ -10,4 +10,5 @@ export const ROUTES = {
   ITEM: '/item/:id',
   SEARCH_RESULTS: '/search-results',
   USER_PROFILE: '/user-profile/:id',
+  ADD_USER_INFO: '/add-user-info',
 };

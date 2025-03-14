@@ -1,7 +1,8 @@
 {
   "*.{js,jsx,ts,tsx}": [
     "prettier --config .prettierrc.json \"src/**\" --write",
-    "eslint --ignore-pattern 'src/assets/**' --max-warnings=0 --fix"
+    "eslint --ignore-pattern 'src/assets/**' --max-warnings=0 --fix",
+    "git add"
   ],
   "*.{css,scss,md}": ["prettier --write"]
 }

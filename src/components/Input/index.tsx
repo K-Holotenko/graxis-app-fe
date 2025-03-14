@@ -7,6 +7,7 @@ export enum InputType {
   TEL = 'tel',
   PASSWORD = 'password',
   EMAIL = 'email',
+  TEXT = 'text',
 }
 
 interface InputProps {
