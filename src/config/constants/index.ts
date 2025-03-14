@@ -126,6 +126,7 @@ export const FORMS = {
   SELECT_LOCATION_FORM: 'selectLocationForm',
   VERIFICATION_FORM: 'verificationForm',
   ADD_PUBLICATION_FORM: 'addPublicationForm',
+  ADD_USER_INFO_FORM: 'addUserInfoForm',
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };
@@ -156,7 +157,7 @@ export enum ThemeMode {
   dark = 'dark',
 }
 
-export const EMAIL_VERIFICATION_REDIRECT_LINK = `${import.meta.env.VITE_APP_CLIENT_URL}${ROUTES.LOGIN}`;
+export const EMAIL_VERIFICATION_REDIRECT_LINK = `${import.meta.env.VITE_APP_CLIENT_URL}${ROUTES.ADD_USER_INFO}`;
 
 export const SOCIAL_MEDIA_LIST = [
   {
@@ -190,7 +191,7 @@ export const SOCIAL_MEDIA_LIST = [
 ];
 
 export const APP_CONTACT_DATA = {
-  email: 'info@graxis.com',
+  email: 'info@graxis.net',
   phone: '555-555-5555',
 };
 

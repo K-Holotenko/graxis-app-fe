@@ -14,6 +14,7 @@ interface LocationMapProps {
     lng: number;
   };
 }
+
 const API_KEY = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY || '';
 
 // TODO: Update logic to fetch the map image from the backend
