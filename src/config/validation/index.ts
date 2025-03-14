@@ -11,6 +11,7 @@ export const VALIDATION_MESSAGE = {
 
   NOT_REGISTERED_PHONE: 'Данний номер не зареєстровано',
   REQUIRED: 'Заповніть поле',
+  NAME: 'Дозволено використовувати тільки літери, - та ʼ',
 };
 
 export const VALIDATION_CONDITION = {
@@ -19,6 +20,10 @@ export const VALIDATION_CONDITION = {
       value ? Promise.resolve() : Promise.reject(),
   },
   REQUIRED: { required: true, message: VALIDATION_MESSAGE.REQUIRED },
+  NAME: {
+    pattern: /^\p{L}+(?:[ '\-]\p{L}+)*$/u,
+    message: VALIDATION_MESSAGE.NAME,
+  },
   EMAIL: {
     required: true,
     message: VALIDATION_MESSAGE.EMAIL,
