@@ -35,7 +35,7 @@ export const VerificationForm = () => {
   const handleSubmit = async (values: { code: string }) => {
     await verifyCode(values.code, triggerNotification)
       .then(() => {
-        navigate(ROUTES.HOME);
+        navigate(ROUTES.ADD_USER_INFO);
       })
       .catch(() => {
         form.resetFields(['code']);
