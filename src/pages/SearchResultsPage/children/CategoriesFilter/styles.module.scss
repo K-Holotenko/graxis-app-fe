@@ -1,0 +1,53 @@
+@use 'src/styles/variables';
+
+.cascader {
+  height: 48px;
+  max-width: 425px;
+  width: 100%;
+
+  :global(.ant-select-selector) {
+    &:hover {
+      background-color: variables.$secondary-light;
+    }
+
+    &:focus {
+      background-color: variables.$secondary-light;
+    }
+  }
+}
+
+.popup {
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: variables.$primary;
+  }
+
+  :global(.ant-cascader-menu) {
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: variables.$primary;
+    }
+
+    :global(.ant-cascader-menu-item) {
+      &:hover {
+        border-radius: 8px;
+      }
+    }
+
+    :global(.ant-cascader-menu-item-active) {
+      border-radius: 8px;
+    }
+  }
+}
+
+.expandIcon {
+  margin-top: 7px;
+}

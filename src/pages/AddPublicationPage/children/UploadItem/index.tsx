@@ -64,14 +64,13 @@ export const UploadItem: React.FC<UploadItemProps> = ({
     <ConfigProvider theme={localTheme}>
       <div className={styles.uploadContainer}>
         <Upload
-          className={styles.upLoad}
           listType="picture-card"
           onPreview={handlePreview}
           onChange={handleChange}
           onRemove={() => onRemove(file)}
           beforeUpload={beforeUpload}
           fileList={fileList}
-          accept="image/png, image/jpeg, image/heic, image/heif, image/webp"
+          accept="image/png, image/jpeg, image/jpg"
         >
           {fileList.length === 1 ? null : uploadButton}
         </Upload>

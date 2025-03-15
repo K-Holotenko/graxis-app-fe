@@ -1,0 +1,60 @@
+import { create } from 'zustand';
+
+import { fetchUser, signUp, SignUpUser } from 'src/services/UserService';
+
+export interface User {
+  id: string;
+  name: string;
+  surname: string;
+  avatar: string;
+  email: string;
+  phoneNumber: string;
+  registrationDate: string;
+  activeAt: string;
+  avatarUrl: string;
+  email_verified: boolean;
+}
+
+interface UserStore {
+  user: User | null;
+  isLoading: boolean;
+  createUser: (
+    user: SignUpUser,
+    showError: (err: string) => void
+  ) => Promise<void>;
+  fetchUser: () => void;
+  resetUser: () => void;
+}
+
+export const useUserStore = create<UserStore>((set) => ({
+  user: null,
+  isLoading: false,
+  createUser: async (user, showError) => {
+    set({ isLoading: true });
+    const response = await signUp(user);
+    const userData: User = await response.json();
+
+    if (!response.ok) {
+      showError('Щось пішло не так. Спробуйте ще раз');
+      set({ isLoading: false });
+      throw new Error('Failed to create user');
+    }
+
+    set({ user: userData, isLoading: false });
+  },
+
+  fetchUser: async () => {
+    set({ isLoading: true });
+    const response = await fetchUser();
+    const userData: User = await response.json();
+
+    if (!response.ok) {
+      set({ isLoading: false });
+      throw new Error('Failed to create user');
+    }
+
+    set({ user: userData, isLoading: false });
+  },
+
+  resetUser: () => set({ user: null }),
+}));
