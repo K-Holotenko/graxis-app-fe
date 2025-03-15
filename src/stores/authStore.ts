@@ -67,8 +67,12 @@ export const useAuthStore = create<AuthState>((set) => ({
   registerWithEmail: async (email, password, showError) => {
     try {
       const response = await AuthService.registerWithEmail(email, password);
+      const accessToken = await response?.getIdToken();
 
-      set({ isAuthorized: !!response, user: response, emailToVerify: email });
+      if (accessToken) {
+        CookieService.setCookie('accessToken', accessToken);
+        set({ isAuthorized: !!response, user: response, emailToVerify: email });
+      }
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);

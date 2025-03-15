@@ -27,3 +27,16 @@ export const signUp = async (user: SignUpUser): Promise<Response> => {
 
   return response;
 };
+
+export const fetchUser = async (): Promise<Response> => {
+  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+
+  const response = await fetch(`${API_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  return response;
+};
