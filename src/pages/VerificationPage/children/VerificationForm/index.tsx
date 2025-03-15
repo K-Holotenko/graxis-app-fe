@@ -38,6 +38,9 @@ export const VerificationForm = () => {
   const handleSubmit = async (values: { code: string }) => {
     await verifyCode(values.code, triggerNotification)
       .then(() => fetchUser())
+      .catch(() => {
+        navigate(ROUTES.ADD_USER_INFO);
+      })
       .then(() => {
         if (!isLoading && user) {
           navigate(ROUTES.HOME);
@@ -106,6 +109,7 @@ export const VerificationForm = () => {
       <Form.Item>
         <Button
           isDisabled={!isValid || isLoading}
+          isLoading={isLoading}
           htmlType="submit"
           label={TEXT.SUBMIT}
           className={styles.submitBtn}
