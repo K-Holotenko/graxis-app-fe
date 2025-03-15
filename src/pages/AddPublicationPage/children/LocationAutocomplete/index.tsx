@@ -7,11 +7,12 @@ import MapIcon from 'src/assets/icons/map-pin-icon-autocomplete.svg?react';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { theme } from 'src/config/theme';
 import { TEXT } from 'src/config/constants';
+import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
 
 import styles from './styles.module.scss';
 
 interface LocationAutocompleteProps {
-  onPlaceSelect: (place: google.maps.places.PlaceResult | null) => void;
+  onPlaceSelect: (location: Location | null) => void;
 }
 
 const { Option } = AutoComplete;
@@ -94,7 +95,13 @@ export const LocationAutocomplete = ({
       const request: google.maps.places.PlaceDetailsRequest = {
         placeId: selectedOption.key,
         sessionToken: sessionToken.current || undefined,
-        fields: ['name', 'formatted_address', 'geometry', 'place_id'],
+        fields: [
+          'name',
+          'formatted_address',
+          'geometry',
+          'place_id',
+          'address_components',
+        ],
         language: 'uk',
       };
 
@@ -103,17 +110,28 @@ export const LocationAutocomplete = ({
           setSearchValue(place.formatted_address || value);
           const location = place.geometry?.location;
 
-          onPlaceSelect({
-            ...place,
-            geometry: {
-              location: {
-                lat: location?.lat(),
-                lng: location?.lng(),
-              },
-            },
-          } as google.maps.places.PlaceResult & {
-            geometry: { location: { lat: number; lng: number } };
-          });
+          const country = place.address_components?.find((component) =>
+            component.types.includes('country')
+          )?.long_name;
+          const city = place.address_components?.find((component) =>
+            component.types.includes('locality')
+          )?.long_name;
+          const street = place.address_components?.find((component) =>
+            component.types.includes('route')
+          )?.long_name;
+          const streetNumber = place.address_components?.find((component) =>
+            component.types.includes('street_number')
+          )?.long_name;
+
+          const formatedLocation: Location = {
+            country: country || '',
+            city: city || '',
+            address: `${street || ''} ${streetNumber || ''}`.trim(),
+            lat: location?.lat() || 0,
+            lng: location?.lng() || 0,
+          };
+
+          onPlaceSelect(formatedLocation);
 
           sessionToken.current =
             new google.maps.places.AutocompleteSessionToken();
