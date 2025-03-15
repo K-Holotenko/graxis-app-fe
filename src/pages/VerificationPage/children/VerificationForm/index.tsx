@@ -37,6 +37,7 @@ export const VerificationForm = () => {
 
   const handleSubmit = async (values: { code: string }) => {
     await verifyCode(values.code, triggerNotification)
+      .then(() => fetchUser())
       .then(() => {
         if (!isLoading && user) {
           navigate(ROUTES.HOME);
@@ -60,11 +61,6 @@ export const VerificationForm = () => {
   const sanitizeCode = (str: string) => str.replace(/\D/g, '');
 
   const codeValue = Form.useWatch(['code'], form);
-
-  useEffect(() => {
-    fetchUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     startCountdown();
