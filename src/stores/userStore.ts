@@ -1,6 +1,13 @@
 import { create } from 'zustand';
 
-import { signUp, SignUpUser } from 'src/services/UserService';
+import {
+  fetchUser,
+  signUp,
+  SignUpUser,
+  updateAvatar,
+  updateUser,
+  UpdateUserData,
+} from 'src/services/UserService';
 
 export interface User {
   id: string;
@@ -22,6 +29,15 @@ interface UserStore {
     showError: (err: string) => void
   ) => Promise<void>;
   resetUser: () => void;
+  fetchUser: (showError: (err: string) => void) => Promise<void>;
+  updateUser: (
+    data: UpdateUserData,
+    showError: (err: string) => void
+  ) => Promise<void>;
+  updateAvatar: (
+    data: UpdateUserData,
+    showError: (err: string) => void
+  ) => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -40,4 +56,40 @@ export const useUserStore = create<UserStore>((set) => ({
   },
 
   resetUser: () => set({ user: null }),
+
+  fetchUser: async (showError) => {
+    try {
+      const response = await fetchUser();
+      const userData: User = await response.json();
+
+      set({ user: userData });
+    } catch {
+      showError('Щось пішло не так. Спробуйте ще раз');
+      throw new Error('Failed to fetch user');
+    }
+  },
+
+  updateUser: async (data, showError) => {
+    try {
+      const response = await updateUser(data);
+      const updatedUser: User = await response.json();
+
+      set({ user: updatedUser });
+    } catch {
+      showError('Щось пішло не так. Спробуйте ще раз');
+      throw new Error('Failed to update user');
+    }
+  },
+
+  updateAvatar: async (data, showError) => {
+    try {
+      const response = await updateAvatar(data);
+      const updatedUser: User = await response.json();
+
+      set({ user: updatedUser });
+    } catch {
+      showError('Щось пішло не так. Спробуйте ще раз');
+      throw new Error('Failed to update avatar');
+    }
+  },
 }));
