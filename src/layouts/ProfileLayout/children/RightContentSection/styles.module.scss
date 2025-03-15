@@ -1,0 +1,54 @@
+@use 'src/styles/variables';
+
+.rightContentContainer {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+  margin: 84px 0 40px 0;
+}
+
+.rightContentTopContainer {
+  height: 160px;
+  background-color: #bcccdc;
+}
+
+.rightContentBottomContainer {
+  height: 202px;
+  background-color: #bcccdc;
+}
+
+@media (min-width: variables.$media-md) {
+  .rightContentContainer {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    max-width: 480px;
+    margin: 0;
+  }
+
+  .rightContentTopContainer {
+    height: 240px;
+  }
+
+  .rightContentBottomContainer {
+    height: 282px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .rightContentContainer {
+    display: grid;
+    gap: 24px;
+    width: 100%;
+    max-width: 735px;
+    margin: 0;
+  }
+
+  .rightContentTopContainer {
+    height: 280px;
+  }
+
+  .rightContentBottomContainer {
+    height: 296px;
+  }
+}

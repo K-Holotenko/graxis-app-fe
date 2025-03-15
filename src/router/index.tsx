@@ -8,6 +8,8 @@ import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 import { ItemPage } from 'src/pages/ItemPage';
 import { SearchResultsPage } from 'src/pages/SearchResultsPage';
+import { UserProfilePage } from 'src/pages/UserProfilePage';
+import { AddUserInfoPage } from 'src/pages/AddUserInfoPage';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
@@ -48,5 +50,17 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.SEARCH_RESULTS,
     element: <SearchResultsPage />,
+  },
+  {
+    path: ROUTES.USER_PROFILE,
+    element: (
+      <PrivateRoute>
+        <UserProfilePage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: ROUTES.ADD_USER_INFO,
+    element: <AddUserInfoPage />,
   },
 ]);

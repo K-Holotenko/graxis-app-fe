@@ -9,6 +9,7 @@ export const TEXT = {
   ADD_PHOTO: 'Додайте фото',
   ADD_PUBLICATION: 'Додати оголошення',
   ADD_ANNOUNCEMENT: 'Додайте оголошення',
+  ALL_CATEGORIES: 'Всі категорії',
   ALLOW_DATA_PROCESSING:
     'Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача',
   ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
@@ -45,7 +46,7 @@ export const TEXT = {
 
   EMAIL: 'Пошта',
   EMPTY_SELECTION_TEXT: 'Ви поки нічого не обрали',
-  ENTER_LOCATION: 'Введіть назву локаціїї',
+  ENTER_LOCATION: 'Введіть назву локації',
 
   FAST_LINKS: 'Швидкі посилання',
   FEEDBACK_AMOUNT: 'відгуків',
@@ -125,6 +126,7 @@ export const FORMS = {
   SELECT_LOCATION_FORM: 'selectLocationForm',
   VERIFICATION_FORM: 'verificationForm',
   ADD_PUBLICATION_FORM: 'addPublicationForm',
+  ADD_USER_INFO_FORM: 'addUserInfoForm',
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };
@@ -155,7 +157,7 @@ export enum ThemeMode {
   dark = 'dark',
 }
 
-export const EMAIL_VERIFICATION_REDIRECT_LINK = `${import.meta.env.VITE_APP_CLIENT_URL}${ROUTES.LOGIN}`;
+export const EMAIL_VERIFICATION_REDIRECT_LINK = `${import.meta.env.VITE_APP_CLIENT_URL}${ROUTES.ADD_USER_INFO}`;
 
 export const SOCIAL_MEDIA_LIST = [
   {
@@ -189,7 +191,7 @@ export const SOCIAL_MEDIA_LIST = [
 ];
 
 export const APP_CONTACT_DATA = {
-  email: 'info@graxis.com',
+  email: 'info@graxis.net',
   phone: '555-555-5555',
 };
 
@@ -253,3 +255,10 @@ export const MOCKED_PRICES = [
   { amount: 500, period: '7 днів' },
   { amount: 1600, period: '30 днів' },
 ];
+
+export const PROFILE_PARAMS = {
+  PROFILE: 'profile',
+  PAYMENT: 'payment',
+  PRIVACY_POLICY: 'privacy-policy',
+  FAQ: 'faq',
+};
