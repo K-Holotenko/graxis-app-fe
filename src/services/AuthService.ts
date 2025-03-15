@@ -31,7 +31,7 @@ export const AuthService = {
   registerWithEmail: async (
     email: string,
     password: string
-  ): Promise<unknown> => {
+  ): Promise<User | null> => {
     const userCredential = await createUserWithEmailAndPassword(
       firebaseAuth,
       email,
