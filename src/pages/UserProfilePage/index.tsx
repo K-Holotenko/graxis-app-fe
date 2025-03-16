@@ -1,17 +1,23 @@
 import { useEffect } from 'react';
+import { Col, Row } from 'antd';
 
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { ProfileLayout } from 'src/layouts/ProfileLayout';
 import { useUserStore } from 'src/stores/userStore';
+import { ButtonTypes } from 'src/config/constants';
+import { Button } from 'src/components/Button';
 
 import { USER_PROFILE_CONFIG } from './utils/config';
+import styles from './styles.module.scss';
 
 export const UserProfilePage = () => {
   const { fetchUser } = useUserStore();
 
   useEffect(() => {
-    fetchUser(showError);
+    fetchUser((err: string) => {
+      console.error(err);
+    });
   }, [fetchUser]);
 
   return (
@@ -23,10 +29,21 @@ export const UserProfilePage = () => {
           topContent={undefined}
           bottomContent={undefined}
         />
+        <Row>
+          <Col className={styles.buttonsContainer}>
+            <Button
+              type={ButtonTypes.default}
+              className={styles.buttonCancelChanges}
+              label={'Скасувати зміни'}
+            />
+            <Button
+              type={ButtonTypes.primary}
+              className={styles.buttonSaveChanges}
+              label={'Зберегти зміни'}
+            />
+          </Col>
+        </Row>
       </AppLayout>
     </PageContainer>
   );
 };
-function showError(err: string): void {
-  throw new Error('Function not implemented.');
-}

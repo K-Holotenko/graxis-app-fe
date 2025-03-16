@@ -1,0 +1,51 @@
+@use 'src/styles/variables';
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  row-gap: 12px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.buttonCancelChanges,
+.buttonSaveChanges {
+  height: 48px;
+  transition: none;
+  font-family: variables.$font-body;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.buttonCancelChanges {
+  color: variables.$primary;
+  border: 1px solid variables.$primary;
+}
+
+@media (min-width: variables.$media-md) {
+  .buttonsContainer {
+    flex-direction: row;
+    column-gap: 40px;
+    justify-content: center;
+    margin-bottom: 80px;
+  }
+
+  .buttonCancelChanges,
+  .buttonSaveChanges {
+    width: 200px !important;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .buttonsContainer {
+    column-gap: 40px;
+    justify-content: center;
+    margin-bottom: 140px;
+  }
+
+  .buttonCancelChanges,
+  .buttonSaveChanges {
+    width: 200px !important;
+  }
+}
