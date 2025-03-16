@@ -15,23 +15,23 @@ const ContactInfo = () => {
     setIsEditing(!isEditing);
   };
 
-  // const handleSaveClick = () => {
-  //   setIsEditing(false);
-  // };
-
   return (
-    <div className={styles.contactInfoContainer}>
-      <Row justify="space-between" align="middle">
+    <div
+      className={`${styles.contactInfoContainer} ${isEditing ? styles.editingContainer : ''}`}
+    >
+      <Row justify="space-between" align="middle" className={styles.test}>
         <Col>
           <h2 className={styles.contactInfoHeader}>Контактна інформація</h2>
         </Col>
         <Col>
-          <img
-            src={EditSrc}
-            alt="Редагувати"
-            onClick={handleEditClick}
-            className={styles.contactInfoeditIcon}
-          />
+          {!isEditing && (
+            <img
+              src={EditSrc}
+              alt="Редагувати"
+              onClick={handleEditClick}
+              className={styles.contactInfoEditIcon}
+            />
+          )}
         </Col>
       </Row>
       <Row gutter={[0, 20]}>
@@ -68,18 +68,12 @@ const ContactInfo = () => {
             </Space.Compact>
           ) : (
             <span className={styles.contactInfoValue}>
-              {countryCode} {phone}
+              {countryCode}
+              {phone}
             </span>
           )}
         </Col>
       </Row>
-      {/* {isEditing && (
-        <Row justify="start">
-          <Col>
-            <button onClick={handleSaveClick}>Зберегти</button>
-          </Col>
-        </Row>
-      )} */}
     </div>
   );
 };
