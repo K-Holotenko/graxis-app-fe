@@ -9,6 +9,7 @@ import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { useUserStore } from 'src/stores/userStore';
 
 import styles from './styles.module.scss';
 
@@ -17,6 +18,8 @@ export const VerificationForm = () => {
   const [form] = Form.useForm();
 
   const { openNotification } = useNotification();
+
+  const { user, isLoading, fetchUser } = useUserStore();
 
   const { verifyCode } = useAuthStore();
   const navigate = useNavigate();
@@ -34,8 +37,16 @@ export const VerificationForm = () => {
 
   const handleSubmit = async (values: { code: string }) => {
     await verifyCode(values.code, triggerNotification)
-      .then(() => {
+      .then(() => fetchUser())
+      .catch(() => {
         navigate(ROUTES.ADD_USER_INFO);
+      })
+      .then(() => {
+        if (!isLoading && user) {
+          navigate(ROUTES.HOME);
+        } else {
+          navigate(ROUTES.ADD_USER_INFO);
+        }
       })
       .catch(() => {
         form.resetFields(['code']);
@@ -97,7 +108,8 @@ export const VerificationForm = () => {
       </Form.Item>
       <Form.Item>
         <Button
-          isDisabled={!isValid}
+          isDisabled={!isValid || isLoading}
+          isLoading={isLoading}
           htmlType="submit"
           label={TEXT.SUBMIT}
           className={styles.submitBtn}

@@ -1,4 +1,5 @@
 import { Button as AntButton } from 'antd';
+import { SizeType } from 'antd/es/config-provider/SizeContext';
 
 import { ButtonTypes } from 'src/config/constants';
 
@@ -9,6 +10,8 @@ interface ButtonProps {
   type?: ButtonTypes;
   className?: string;
   isDisabled?: boolean;
+  isLoading?: boolean;
+  size?: SizeType;
   icon?: React.ReactNode;
   iconPosition?: 'start' | 'end';
   htmlType?: 'button' | 'submit' | 'reset';
@@ -25,6 +28,8 @@ export const Button = ({
   iconPosition,
   htmlType,
   dataTestId,
+  isLoading,
+  size,
   onClick,
 }: ButtonProps) => (
   <AntButton
@@ -36,6 +41,8 @@ export const Button = ({
     disabled={isDisabled}
     htmlType={htmlType}
     data-testid={dataTestId}
+    size={size}
+    loading={isLoading}
     onClick={onClick}
   >
     {label}
