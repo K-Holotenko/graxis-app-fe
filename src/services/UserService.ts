@@ -7,7 +7,6 @@ export interface SignUpUser {
 }
 
 export interface UpdateUserData {
-  id?: string;
   name?: string;
   surname?: string;
   email?: string;
@@ -59,40 +58,15 @@ export const updateUser = async (user: UpdateUserData): Promise<Response> => {
   user?.surname && formData.append('surname', user.surname);
   user?.email && formData.append('email', user.email);
   user?.phoneNumber && formData.append('phoneNumber', user.phoneNumber);
+  user?.avatar && formData.append('avatar', user.avatar);
 
   const response = await fetch(`${API_URL}/users/update`, {
     method: 'PUT',
     headers: {
       Authorization: token,
     },
-    body: JSON.stringify(user),
+    body: formData,
   });
 
   return response;
-};
-
-export const updateAvatar = async (user: UpdateUserData): Promise<Response> => {
-  try {
-    const token = `Bearer ${CookieService.getCookie('accessToken')}`;
-
-    const formData = new FormData();
-
-    if (user.avatar) {
-      formData.append('avatar', user.avatar);
-    }
-
-    const response = await fetch(`${API_URL}/users/avatar`, {
-      method: 'PUT',
-      headers: {
-        Authorization: token,
-      },
-      body: formData,
-    });
-
-    const jsonResponse = response.json();
-
-    return jsonResponse;
-  } catch (error) {
-    throw error;
-  }
 };

@@ -2,7 +2,7 @@
 
 .buttonsContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   flex-wrap: wrap;
   row-gap: 12px;
   width: 100%;
@@ -16,6 +16,7 @@
   font-family: variables.$font-body;
   font-size: 16px;
   line-height: 150%;
+  font-weight: 500;
 }
 
 .buttonCancelChanges {
@@ -47,5 +48,6 @@
   .buttonCancelChanges,
   .buttonSaveChanges {
     width: 200px !important;
+    padding: 12px 30px;
   }
 }
