@@ -3,7 +3,7 @@ import CookieService from './CookieService';
 export interface SignUpUser {
   name: string;
   surname: string;
-  avatar: File;
+  avatar?: File;
 }
 
 const API_URL = 'https://graxis-be-774272313958.europe-central2.run.app';
@@ -15,7 +15,7 @@ export const signUp = async (user: SignUpUser): Promise<Response> => {
 
   formData.append('name', user.name);
   formData.append('surname', user.surname);
-  formData.append('avatar', user.avatar);
+  user?.avatar && formData.append('avatar', user.avatar);
 
   const response = await fetch(`${API_URL}/users/sign-up`, {
     method: 'POST',
