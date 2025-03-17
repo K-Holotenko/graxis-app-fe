@@ -31,8 +31,8 @@ interface UserStore {
   resetUser: () => void;
   fetchUser: (showError: (err: string) => void) => Promise<void>;
   updateUser: (
-    data: UpdateUserData,
-    showError: (err: string) => void
+    data: UpdateUserData
+    // showError: (err: string) => void
   ) => Promise<void>;
   updateAvatar: (
     data: UpdateUserData,
@@ -69,14 +69,14 @@ export const useUserStore = create<UserStore>((set) => ({
     }
   },
 
-  updateUser: async (data, showError) => {
+  updateUser: async (data) => {
     try {
       const response = await updateUser(data);
       const updatedUser: User = await response.json();
 
       set({ user: updatedUser });
     } catch {
-      showError('Щось пішло не так. Спробуйте ще раз');
+      // showError('Щось пішло не так. Спробуйте ще раз');
       throw new Error('Failed to update user');
     }
   },

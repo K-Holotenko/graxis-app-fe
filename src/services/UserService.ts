@@ -7,11 +7,12 @@ export interface SignUpUser {
 }
 
 export interface UpdateUserData {
-  name: string;
-  surname: string;
-  email: string;
-  phoneNumber: string;
-  avatar: File;
+  id?: string;
+  name?: string;
+  surname?: string;
+  email?: string;
+  phoneNumber?: string;
+  avatar?: File;
 }
 
 const API_URL = 'https://graxis-be-774272313958.europe-central2.run.app';
@@ -54,13 +55,13 @@ export const updateUser = async (user: UpdateUserData): Promise<Response> => {
 
   const formData = new FormData();
 
-  formData.append('name', user.name);
-  formData.append('surname', user.surname);
-  formData.append('email', user.email);
-  formData.append('phoneNumber', user.phoneNumber);
+  user?.name && formData.append('name', user.name);
+  user?.surname && formData.append('surname', user.surname);
+  user?.email && formData.append('email', user.email);
+  user?.phoneNumber && formData.append('phoneNumber', user.phoneNumber);
 
   const response = await fetch(`${API_URL}/users/update`, {
-    method: 'PATCH',
+    method: 'PUT',
     headers: {
       Authorization: token,
     },
@@ -76,10 +77,12 @@ export const updateAvatar = async (user: UpdateUserData): Promise<Response> => {
 
     const formData = new FormData();
 
-    formData.append('avatar', user.avatar);
+    if (user.avatar) {
+      formData.append('avatar', user.avatar);
+    }
 
     const response = await fetch(`${API_URL}/users/avatar`, {
-      method: 'PATCH',
+      method: 'PUT',
       headers: {
         Authorization: token,
       },

@@ -12,13 +12,20 @@ import { USER_PROFILE_CONFIG } from './utils/config';
 import styles from './styles.module.scss';
 
 export const UserProfilePage = () => {
-  const { fetchUser } = useUserStore();
+  const { fetchUser, updateUser } = useUserStore();
 
   useEffect(() => {
     fetchUser((err: string) => {
       console.error(err);
     });
-  }, [fetchUser]);
+    updateUser({
+      id: 'ANIOizSAUXQp3oNRK5prIJKbL8O2',
+      name: 'sss',
+      surname: 'sss',
+      email: 'sss@gmai.com',
+      phoneNumber: 'sss',
+    });
+  }, [fetchUser, updateUser]);
 
   return (
     <PageContainer pageTitle={USER_PROFILE_CONFIG.PAGE_TITLE}>
@@ -29,6 +36,7 @@ export const UserProfilePage = () => {
           topContent={undefined}
           bottomContent={undefined}
         />
+
         <Row>
           <Col className={styles.buttonsContainer}>
             <Button
