@@ -1,3 +1,4 @@
+import { API_URL } from 'src/config/constants';
 import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
 
 import CookieService from './CookieService';
@@ -20,7 +21,7 @@ interface PublicationData {
   files: FileItem[];
 }
 
-export const addPublicationService = async (
+export const createPublication = async (
   publicationData: PublicationData
 ): Promise<PublicationData> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
@@ -37,14 +38,11 @@ export const addPublicationService = async (
     if (originFileObj) formData.append('files', originFileObj);
   });
 
-  const response = await fetch(
-    'https://graxis-be-774272313958.europe-central2.run.app/publications',
-    {
-      method: 'POST',
-      headers: { Authorization: token },
-      body: formData,
-    }
-  );
+  const response = await fetch(`${API_URL}/publications`, {
+    method: 'POST',
+    headers: { Authorization: token },
+    body: formData,
+  });
 
   const responseBody = await response.json();
 

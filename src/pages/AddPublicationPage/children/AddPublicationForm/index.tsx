@@ -19,7 +19,7 @@ import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
 import { theme } from 'src/config/theme';
 import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
-import { addPublicationService } from 'src/services/addPublicationService';
+import { createPublication } from 'src/services/PublicationService';
 
 import styles from './styles.module.scss';
 
@@ -86,14 +86,30 @@ export const AddPublicationForm = () => {
 
   const handleLocationChange = (location: Location | null) => {
     form.setFieldsValue({ location: location ?? undefined });
-    setLocationFilled(!!location);
+    setLocationFilled(!!location?.address);
   };
 
-  const formatPrices = (values: AddPublicationInputs) => [
-    { price: Number(values.priceDay), pricingPeriod: 'day' },
-    { price: Number(values.priceWeek), pricingPeriod: 'week' },
-    { price: Number(values.priceMonth), pricingPeriod: 'month' },
-  ];
+  const formatPrices = ({
+    priceDay,
+    priceWeek,
+    priceMonth,
+  }: AddPublicationInputs) =>
+    [
+      priceDay && {
+        price: Number(priceDay),
+        pricingPeriod: 'day',
+      },
+      priceWeek && {
+        price: Number(priceWeek),
+        pricingPeriod: 'week',
+      },
+      priceMonth && {
+        price: Number(priceMonth),
+        pricingPeriod: 'month',
+      },
+    ].filter((price): price is { price: number; pricingPeriod: string } =>
+      Boolean(price)
+    );
 
   const formatFiles = (values: AddPublicationInputs) =>
     values.photos
@@ -112,7 +128,7 @@ export const AddPublicationForm = () => {
     };
 
     try {
-      await addPublicationService(publicationData);
+      await createPublication(publicationData);
       showModal();
     } catch {
       openNotification(

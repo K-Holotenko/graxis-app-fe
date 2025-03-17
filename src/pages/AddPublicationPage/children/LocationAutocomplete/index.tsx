@@ -58,6 +58,7 @@ export const LocationAutocomplete = ({
         input: debouncedSearch,
         sessionToken: sessionToken.current || undefined,
         componentRestrictions: { country: 'ua' },
+        types: ['address'],
         language: 'uk',
       };
 

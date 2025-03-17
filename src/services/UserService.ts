@@ -1,3 +1,5 @@
+import { API_URL } from 'src/config/constants';
+
 import CookieService from './CookieService';
 
 export interface SignUpUser {
@@ -5,8 +7,6 @@ export interface SignUpUser {
   surname: string;
   avatar: File;
 }
-
-const API_URL = 'https://graxis-be-774272313958.europe-central2.run.app';
 
 export const signUp = async (user: SignUpUser): Promise<Response> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;

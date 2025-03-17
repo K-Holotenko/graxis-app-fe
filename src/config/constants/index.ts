@@ -262,3 +262,5 @@ export const PROFILE_PARAMS = {
   PRIVACY_POLICY: 'privacy-policy',
   FAQ: 'faq',
 };
+
+export const API_URL = 'https://graxis-be-774272313958.europe-central2.run.app';
