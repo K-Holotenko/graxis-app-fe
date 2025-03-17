@@ -16,10 +16,12 @@ const firebaseAuthErrorCodes: { [key: string]: string } = {
 
 const DEFAULT_ERROR_MESSAGE = 'Щось пішло не так. Спробуйте ще раз';
 
+export type AuthUser = (User & { displayName?: string }) | unknown;
 interface AuthState {
   isAuthorized: boolean;
-  user: User | null | unknown;
+  user: AuthUser | null;
   emailToVerify: string | null;
+  isLoading: boolean;
   loginWithEmail: (
     email: string,
     password: string,
@@ -30,7 +32,9 @@ interface AuthState {
     password: string,
     showError: (err: string) => void
   ) => Promise<void>;
-  loginWithGoogle: (showError: (err: string) => void) => Promise<void>;
+  loginWithGoogle: (
+    showError: (err: string) => void
+  ) => Promise<AuthUser | void>;
   signOut: (showError: (err: string) => void) => Promise<void>;
   setAuthorized: (state: boolean) => void;
   confirmationResult: ConfirmationResult | null;
@@ -43,45 +47,56 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthorized: CookieService.hasCookie('accessToken'),
+  isLoading: false,
   user: null,
   confirmationResult: null,
   emailToVerify: null,
 
   loginWithEmail: async (email, password, showError) => {
+    set({ isLoading: true });
     try {
       const response = await AuthService.loginWithEmail(email, password);
       const accessToken = await response?.getIdToken();
 
       if (accessToken) {
         CookieService.setCookie('accessToken', accessToken);
-        set({ isAuthorized: true, user: response });
+        set({ isAuthorized: true, user: response, isLoading: false });
       }
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
         throw err;
       }
+      set({ isLoading: false });
     }
   },
 
   registerWithEmail: async (email, password, showError) => {
+    set({ isLoading: true });
     try {
       const response = await AuthService.registerWithEmail(email, password);
       const accessToken = await response?.getIdToken();
 
       if (accessToken) {
         CookieService.setCookie('accessToken', accessToken);
-        set({ isAuthorized: !!response, user: response, emailToVerify: email });
+        set({
+          isAuthorized: !!response,
+          user: response,
+          emailToVerify: email,
+          isLoading: false,
+        });
       }
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
       }
+      set({ isLoading: false });
       throw err;
     }
   },
 
   loginWithGoogle: async (showError) => {
+    set({ isLoading: true });
     try {
       const user = await AuthService.loginWithGoogle();
 
@@ -89,30 +104,37 @@ export const useAuthStore = create<AuthState>((set) => ({
         const accessToken = await user.getIdToken();
 
         CookieService.setCookie('accessToken', accessToken);
-        set({ isAuthorized: true, user });
+        set({ isAuthorized: true, user, isLoading: false });
+
+        return user;
       }
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
       }
+      set({ isLoading: false });
+      throw err;
     }
   },
 
   loginWithPhoneNumber: async (phoneNumber, showError) => {
+    set({ isLoading: true });
     try {
       const confirmationResult =
         await AuthService.loginWithPhoneNumber(phoneNumber);
 
-      set({ confirmationResult });
+      set({ confirmationResult, isLoading: false });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
+        set({ isLoading: false });
         throw err;
       }
     }
   },
 
   verifyCode: async (code, showError) => {
+    set({ isLoading: true });
     try {
       const { confirmationResult } = useAuthStore.getState() as AuthState;
 
@@ -124,11 +146,12 @@ export const useAuthStore = create<AuthState>((set) => ({
         const accessToken = await user.getIdToken();
 
         CookieService.setCookie('accessToken', accessToken);
-        set({ user, isAuthorized: true });
+        set({ user, isAuthorized: true, isLoading: false });
       }
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
+        set({ isLoading: false });
         throw err;
       }
     }

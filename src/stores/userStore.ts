@@ -50,7 +50,7 @@ export const useUserStore = create<UserStore>((set) => ({
 
     if (!response.ok) {
       set({ isLoading: false });
-      throw new Error('Failed to create user');
+      throw new Error('Failed to fetch user');
     }
 
     set({ user: userData, isLoading: false });
