@@ -23,7 +23,7 @@ export const AddUserInfoForm = () => {
 
   const navigate = useNavigate();
 
-  const { createUser } = useUserStore();
+  const { isLoading, createUser } = useUserStore();
   const { openNotification } = useNotification();
 
   const allValues = Form.useWatch([], form);
@@ -44,10 +44,10 @@ export const AddUserInfoForm = () => {
       {
         name: allValues.name,
         surname: allValues.surname,
-        avatar: allValues.avatar.file,
+        avatar: allValues?.avatar?.file,
       },
       triggerNotification
-    ).then(() => navigate(ROUTES.HOME));
+    ).then(() => !isLoading && navigate(ROUTES.HOME));
   };
 
   const onChange = () => {
@@ -133,7 +133,13 @@ export const AddUserInfoForm = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button htmlType="submit" isDisabled={!isValid} label={TEXT.SUBMIT} />
+          <Button
+            htmlType="submit"
+            size="large"
+            isDisabled={!isValid}
+            label={!isLoading ? TEXT.SUBMIT : undefined}
+            isLoading={isLoading}
+          />
         </Form.Item>
       </Form>
     </ConfigProvider>
