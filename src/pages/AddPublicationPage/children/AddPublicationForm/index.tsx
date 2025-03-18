@@ -236,6 +236,10 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               <APIProvider apiKey={API_KEY} libraries={['places']}>
                 <LocationAutocomplete onPlaceSelect={handleLocationChange} />
               </APIProvider>
+              <p className={styles.helperText}>
+                Почніть вводити адресу та оберіть відповідний варіант із списку,
+                що з’явиться.
+              </p>
             </Form.Item>
           </Col>
         </Row>
