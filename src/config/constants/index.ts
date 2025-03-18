@@ -263,4 +263,5 @@ export const PROFILE_PARAMS = {
   FAQ: 'faq',
 };
 
-export const API_URL = 'https://graxis-be-774272313958.europe-central2.run.app';
+export const GRAXIS_API_URL =
+  'https://graxis-be-774272313958.europe-central2.run.app';
