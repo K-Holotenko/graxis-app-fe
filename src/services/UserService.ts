@@ -1,3 +1,5 @@
+import { GRAXIS_API_URL } from 'src/config/constants';
+
 import CookieService from './CookieService';
 
 export interface SignUpUser {
@@ -5,8 +7,6 @@ export interface SignUpUser {
   surname: string;
   avatar?: File;
 }
-
-const API_URL = 'https://graxis-be-774272313958.europe-central2.run.app';
 
 export const signUp = async (user: SignUpUser): Promise<Response> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
@@ -17,7 +17,7 @@ export const signUp = async (user: SignUpUser): Promise<Response> => {
   formData.append('surname', user.surname);
   user?.avatar && formData.append('avatar', user.avatar);
 
-  const response = await fetch(`${API_URL}/users/sign-up`, {
+  const response = await fetch(`${GRAXIS_API_URL}/users/sign-up`, {
     method: 'POST',
     headers: {
       Authorization: token,
@@ -31,7 +31,7 @@ export const signUp = async (user: SignUpUser): Promise<Response> => {
 export const fetchUser = async (): Promise<Response> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
 
-  const response = await fetch(`${API_URL}/users/me`, {
+  const response = await fetch(`${GRAXIS_API_URL}/users/me`, {
     method: 'GET',
     headers: {
       Authorization: token,
