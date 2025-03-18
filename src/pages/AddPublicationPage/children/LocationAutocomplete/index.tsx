@@ -10,6 +10,7 @@ import { TEXT } from 'src/config/constants';
 import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
 
 import styles from './styles.module.scss';
+import { formatLocation } from './utils/config';
 
 interface LocationAutocompleteProps {
   onPlaceSelect: (location: Location | null) => void;
@@ -109,28 +110,8 @@ export const LocationAutocomplete = ({
       placesService.current.getDetails(request, (place, status) => {
         if (status === 'OK' && place) {
           setSearchValue(place.formatted_address || value);
-          const location = place.geometry?.location;
 
-          const country = place.address_components?.find((component) =>
-            component.types.includes('country')
-          )?.long_name;
-          const city = place.address_components?.find((component) =>
-            component.types.includes('locality')
-          )?.long_name;
-          const street = place.address_components?.find((component) =>
-            component.types.includes('route')
-          )?.long_name;
-          const streetNumber = place.address_components?.find((component) =>
-            component.types.includes('street_number')
-          )?.long_name;
-
-          const formatedLocation: Location = {
-            country: country || '',
-            city: city || '',
-            address: `${street || ''} ${streetNumber || ''}`.trim(),
-            lat: location?.lat() || 0,
-            lng: location?.lng() || 0,
-          };
+          const formatedLocation = formatLocation(place);
 
           onPlaceSelect(formatedLocation);
 

@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Col, Row, ConfigProvider, UploadFile } from 'antd';
 import { APIProvider } from '@vis.gl/react-google-maps';
-import { RcFile } from 'antd/es/upload';
 
 import { ROUTES } from 'src/router/routes';
 import { FORMS, TEXT } from 'src/config/constants';
@@ -22,6 +21,7 @@ import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { createPublication } from 'src/services/PublicationService';
 
 import styles from './styles.module.scss';
+import { formatPrices } from './utils/config';
 
 export interface Location {
   country: string;
@@ -51,7 +51,7 @@ export const AddPublicationForm = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [locationFilled, setLocationFilled] = useState(false);
+  const [isLocationFilled, setIsLocationFilled] = useState(false);
 
   const allValues = Form.useWatch([], form);
 
@@ -69,10 +69,12 @@ export const AddPublicationForm = () => {
           (price) => price && +price > 0
         );
 
-        setIsValid(locationFilled && photos?.length && isAtLeastOnePriceFilled);
+        setIsValid(
+          isLocationFilled && photos?.length && isAtLeastOnePriceFilled
+        );
       })
       .catch(() => setIsValid(false));
-  }, [form, allValues, locationFilled, photos]);
+  }, [form, allValues, isLocationFilled, photos]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -86,36 +88,8 @@ export const AddPublicationForm = () => {
 
   const handleLocationChange = (location: Location | null) => {
     form.setFieldsValue({ location: location ?? undefined });
-    setLocationFilled(!!location?.address);
+    setIsLocationFilled(!!location?.address);
   };
-
-  const formatPrices = ({
-    priceDay,
-    priceWeek,
-    priceMonth,
-  }: AddPublicationInputs) =>
-    [
-      priceDay && {
-        price: Number(priceDay),
-        pricingPeriod: 'day',
-      },
-      priceWeek && {
-        price: Number(priceWeek),
-        pricingPeriod: 'week',
-      },
-      priceMonth && {
-        price: Number(priceMonth),
-        pricingPeriod: 'month',
-      },
-    ].filter((price): price is { price: number; pricingPeriod: string } =>
-      Boolean(price)
-    );
-
-  const formatFiles = (values: AddPublicationInputs) =>
-    values.photos
-      .map((file) => file.originFileObj)
-      .filter((file): file is RcFile => Boolean(file))
-      .map((file) => ({ originFileObj: file }));
 
   const onFinish = async (values: AddPublicationInputs) => {
     const publicationData = {
@@ -124,7 +98,7 @@ export const AddPublicationForm = () => {
       description: values.description,
       prices: formatPrices(values),
       location: values.location,
-      files: formatFiles(values),
+      files: values.photos,
     };
 
     try {

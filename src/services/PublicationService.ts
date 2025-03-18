@@ -1,4 +1,6 @@
-import { API_URL } from 'src/config/constants';
+import { UploadFile } from 'antd';
+
+import { GRAXIS_API_URL } from 'src/config/constants';
 import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
 
 import CookieService from './CookieService';
@@ -8,17 +10,13 @@ interface Price {
   pricingPeriod: string;
 }
 
-interface FileItem {
-  originFileObj: File;
-}
-
 interface PublicationData {
   categoryName: string;
   title: string;
   description: string;
   prices: Price[];
   location: Location;
-  files: FileItem[];
+  files: UploadFile[];
 }
 
 export const createPublication = async (
@@ -27,10 +25,9 @@ export const createPublication = async (
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
   const formData = new FormData();
 
-  (['categoryName', 'title', 'description'] as const).forEach((key) => {
-    formData.append(key, publicationData[key]);
-  });
-
+  formData.append('categoryName', publicationData.categoryName);
+  formData.append('title', publicationData.title);
+  formData.append('description', publicationData.description);
   formData.append('prices', JSON.stringify(publicationData.prices));
   formData.append('location', JSON.stringify(publicationData.location));
 
@@ -38,7 +35,7 @@ export const createPublication = async (
     if (originFileObj) formData.append('files', originFileObj);
   });
 
-  const response = await fetch(`${API_URL}/publications`, {
+  const response = await fetch(`${GRAXIS_API_URL}/publications`, {
     method: 'POST',
     headers: { Authorization: token },
     body: formData,
