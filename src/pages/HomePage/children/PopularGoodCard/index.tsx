@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { TEXT } from 'src/config/constants';
 
 import styles from './styles.module.scss';
+import { getDisplayPrice } from './utils/config';
 
 export interface PopularGoodCardProps {
-  id: number;
+  id: number | string;
   image: string;
   name: string;
   rating: number;
-  price: number;
+  prices: { price: number; pricingPeriod: string }[];
 }
 
 export const PopularGoodCard = ({
@@ -19,9 +20,10 @@ export const PopularGoodCard = ({
   image,
   name,
   rating,
-  price,
+  prices,
 }: PopularGoodCardProps) => {
   const navigate = useNavigate();
+  const displayPrice = getDisplayPrice(prices);
 
   const handleCardClick = () => {
     navigate(`/item/${id}`);
@@ -44,7 +46,7 @@ export const PopularGoodCard = ({
         </div>
         <div className={styles.cardBottom}>
           <span className={styles.price}>
-            {price} {TEXT.CURRENCY_PER_TIME}
+            {displayPrice?.value} {TEXT.UAH} / {displayPrice?.period}
           </span>
         </div>
       </div>
