@@ -7,13 +7,13 @@ const mockedPopularGoodCardProps = {
   image: 'test-image.jpg',
   name: 'Test Product',
   rating: 4.8,
-  price: 400,
+  prices: [{ price: 400, pricingPeriod: 'day' }],
 };
 
 describe('PopularGoodCard', () => {
   it('should display product details correctly', () => {
     const { getByText, getByAltText } = render(
-      <PopularGoodCard prices={[]} {...mockedPopularGoodCardProps} />
+      <PopularGoodCard {...mockedPopularGoodCardProps} />
     );
 
     expect(getByText('Test Product')).toBeInTheDocument();
