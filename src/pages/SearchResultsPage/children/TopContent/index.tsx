@@ -12,6 +12,8 @@ export const TopContent = () => {
 
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.MD;
+  const searchedTitle = searchParams.get('q');
+  const isSearchApplied = searchParams.get('q')?.trim().length;
 
   return (
     <div className={styles.topContentWrapper}>
@@ -19,17 +21,19 @@ export const TopContent = () => {
       {isMobile ? (
         <>
           <CategoriesFilter />
-          {/* TODO: This text should only appear after user hit enter */}
-          <p className={styles.searchQuery}>
-            Результати за запитом &quot;{searchParams.get('q')}&quot;
-          </p>
+          {isSearchApplied && (
+            <p className={styles.searchQuery}>
+              Результати за запитом &quot;{searchedTitle}&quot;
+            </p>
+          )}
         </>
       ) : (
         <>
-          {/* TODO: This text should only appear after user hit enter */}
-          <p className={styles.searchQuery}>
-            Результати за запитом &quot;{searchParams.get('q')}&quot;
-          </p>
+          {isSearchApplied && (
+            <p className={styles.searchQuery}>
+              Результати за запитом &quot;{searchedTitle}&quot;
+            </p>
+          )}
           <CategoriesFilter />
         </>
       )}
