@@ -76,7 +76,6 @@ export const useUserStore = create<UserStore>((set) => ({
       set({ user: updatedUser });
     } catch {
       showError('Щось пішло не так. Спробуйте ще раз');
-      throw new Error('Failed to update user');
     }
   },
 }));
