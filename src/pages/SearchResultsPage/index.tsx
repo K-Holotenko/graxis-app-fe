@@ -6,7 +6,7 @@ import { SearchLayout } from 'src/layouts/SearchLayout';
 
 import { PublicationsSection } from './children/PublicationsSection';
 import { SEARCH_RESULTS_CONFIG } from './utils/config';
-import { CategoriesFilter } from './children/CategoriesFilter';
+import { TopContent } from './children/TopContent';
 
 export const SearchResultsPage = () => {
   useEffect(() => {
@@ -17,7 +17,7 @@ export const SearchResultsPage = () => {
     <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>
       <AppLayout>
         <SearchLayout
-          topContent={<CategoriesFilter />}
+          topContent={<TopContent />}
           centerContent={<PublicationsSection />}
           bottomContent={undefined}
         />

@@ -26,6 +26,5 @@ export const useRecaptcha = ({ buttonId }: UseRecaptchaProps): void => {
         grecaptcha.reset();
       },
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
