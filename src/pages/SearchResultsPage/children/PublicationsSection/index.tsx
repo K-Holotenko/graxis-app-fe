@@ -38,7 +38,7 @@ export const PublicationsSection = () => {
     };
 
     fetchGoods();
-  }, [openNotification]);
+  }, []);
 
   //TODO Remove this loading when the button Load more is added
   if (loading) <div>Loading...</div>;
