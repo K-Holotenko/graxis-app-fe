@@ -13,8 +13,7 @@
 }
 
 .rightContentBottomContainer {
-  // height: 202px;
-  // border: 1px solid #bcccdc;
+  height: 202px;
 }
 
 @media (min-width: variables.$media-md) {
@@ -30,9 +29,9 @@
     height: 240px;
   }
 
-  // .rightContentBottomContainer {
-  //   height: 282px;
-  // }
+  .rightContentBottomContainer {
+    height: 288px;
+  }
 }
 
 @media (min-width: variables.$media-lg) {

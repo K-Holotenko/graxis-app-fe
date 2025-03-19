@@ -3,7 +3,7 @@ import { AppLayout } from 'src/layouts/AppLayout';
 import { ProfileLayout } from 'src/layouts/ProfileLayout';
 
 import { USER_PROFILE_CONFIG } from './utils/config';
-import ContactInfo from './children/ContactInfo';
+import { ContactInfo } from './children/ContactInfo';
 
 export const UserProfilePage = () => (
   <PageContainer pageTitle={USER_PROFILE_CONFIG.PAGE_TITLE}>

@@ -1,13 +1,18 @@
 import { useState } from 'react';
-import { Row, Col, Input, Space } from 'antd';
+import { Row, Col, Input, Space, Form } from 'antd';
 
 import EditSrc from 'src/assets/icons/edit-fields-icon.svg';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH, TEXT } from 'src/config/constants';
+import {
+  VALIDATION_CONDITION,
+  VALIDATION_MESSAGE,
+} from 'src/config/validation';
 
 import styles from './styles.module.scss';
 
-const ContactInfo = () => {
+export const ContactInfo = () => {
+  const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
   const [email, setEmail] = useState('VasylSymonenko@gmail.com');
   const [countryCode, setCountryCode] = useState('+380');
@@ -16,21 +21,33 @@ const ContactInfo = () => {
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.MD;
 
+  const hasErrors = form
+    .getFieldsError()
+    .some(({ errors }) => errors.length > 0);
+
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
 
+  const rules = [
+    { required: true, message: VALIDATION_MESSAGE.REQUIRED },
+    {
+      pattern: VALIDATION_CONDITION.PHONE_INPUT.pattern,
+      message: VALIDATION_MESSAGE.INVALID_PHONE,
+    },
+  ];
+
   return (
-    <div
-      className={`${styles.contactInfoContainer} ${isEditing ? styles.editingContainer : ''}`}
+    <section
+      className={`${styles.contactInfoContainer} 
+      ${isEditing ? styles.editingInfoContainer : ''} 
+      ${hasErrors ? styles.errorInfoContainer : ''}`}
     >
-      <Row
-        justify="space-between"
-        align="middle"
-        className={styles.contactInfoBlock}
-      >
+      <Row className={styles.contactInfoBlock}>
         <Col>
-          <h2 className={styles.contactInfoHeader}>{TEXT.CONTACT_INFO}</h2>
+          <h2 className={`${styles.contactInfoHeader} `}>
+            {TEXT.CONTACT_INFO}
+          </h2>
         </Col>
         <Col>
           {!isEditing && (
@@ -43,48 +60,70 @@ const ContactInfo = () => {
           )}
         </Col>
       </Row>
-      <Row gutter={[0, isMobile ? 16 : 20]}>
-        <Col span={24}>
-          <label className={styles.contactInfoLabel}>{TEXT.MAIL}</label>
-          {isEditing ? (
-            <Space.Compact className={styles.inputContainer}>
+      <Form
+        layout="vertical"
+        form={form}
+        initialValues={{ email, phone: `${countryCode}${phone}` }}
+      >
+        <div
+          className={`${styles.contactInfoEmailBlock} 
+          ${isEditing ? styles.editingContactInfoEmailBlock : ''}
+           ${hasErrors ? styles.errorContactInfoEmailBlock : ''}`}
+        >
+          <label
+            className={`${styles.contactInfoLabel} 
+            ${isEditing ? styles.editingContactInfoLabel : ''}
+            ${hasErrors ? styles.errorContactInfoLabel : ''}`}
+          >
+            {TEXT.MAIL}
+          </label>
+          <Form.Item
+            name="email"
+            rules={[VALIDATION_CONDITION.EMAIL]}
+            validateTrigger="onBlur"
+          >
+            {isEditing ? (
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.contactInfoInput}
               />
-            </Space.Compact>
-          ) : (
-            <span className={styles.contactInfoValue}>{email}</span>
-          )}
-        </Col>
-        <Col span={24}>
-          <label className={styles.contactInfoLabel}>{TEXT.PHONE}</label>
-          {isEditing ? (
-            <Space.Compact className={styles.inputContainer}>
-              <Input
-                disabled
-                style={{ width: isMobile ? '70px' : '20%' }}
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-              />
-              <Input
-                style={{ width: '80%' }}
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </Space.Compact>
-          ) : (
-            <span className={styles.contactInfoValue}>
-              {countryCode}
-              {phone}
-            </span>
-          )}
-        </Col>
-      </Row>
-    </div>
+            ) : (
+              <span className={styles.contactInfoValue}>{email}</span>
+            )}
+          </Form.Item>
+        </div>
+        <div className={styles.contactInfoPhoneBlock}>
+          <label
+            className={`${styles.contactInfoLabel} ${isEditing ? styles.editingContactInfoLabel : ''}`}
+          >
+            {TEXT.PHONE}
+          </label>
+          <Form.Item name="phone" rules={rules} validateTrigger="onBlur">
+            {isEditing ? (
+              <Space.Compact className={styles.contactInfoInput}>
+                <Input
+                  disabled
+                  style={{ width: isMobile ? '70px' : '20%' }}
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                />
+                <Input
+                  style={{ width: isMobile ? '90%' : '80%' }}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </Space.Compact>
+            ) : (
+              <span className={styles.contactInfoValue}>
+                {countryCode}
+                {phone}
+              </span>
+            )}
+          </Form.Item>
+        </div>
+      </Form>
+    </section>
   );
 };
-
-export default ContactInfo;
