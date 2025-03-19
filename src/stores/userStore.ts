@@ -1,6 +1,12 @@
 import { create } from 'zustand';
 
-import { fetchUser, signUp, SignUpUser } from 'src/services/UserService';
+import {
+  fetchUser,
+  signUp,
+  SignUpUser,
+  updateUser,
+  UpdateUserData,
+} from 'src/services/UserService';
 
 export interface User {
   id: string;
@@ -24,6 +30,10 @@ interface UserStore {
   ) => Promise<void>;
   fetchUser: () => void;
   resetUser: () => void;
+  updateUser: (
+    data: UpdateUserData,
+    showError: (err: string) => void
+  ) => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -57,4 +67,15 @@ export const useUserStore = create<UserStore>((set) => ({
   },
 
   resetUser: () => set({ user: null }),
+
+  updateUser: async (data, showError) => {
+    try {
+      const response = await updateUser(data);
+      const updatedUser: User = await response.json();
+
+      set({ user: updatedUser });
+    } catch {
+      showError('Щось пішло не так. Спробуйте ще раз');
+    }
+  },
 }));
