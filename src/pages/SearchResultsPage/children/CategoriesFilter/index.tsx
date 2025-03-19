@@ -37,6 +37,7 @@ export const CategoriesFilter = () => {
   return (
     <ConfigProvider theme={localTheme}>
       <Cascader
+        placeholder="Оберіть категорію"
         className={styles.cascader}
         allowClear={false}
         expandIcon={<ArrowRight className={styles.expandIcon} />}

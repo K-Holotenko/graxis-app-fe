@@ -1,0 +1,40 @@
+@use 'src/styles/variables';
+
+.searchBarWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.space {
+  width: 100%;
+}
+
+.select {
+  width: 137px !important;
+
+  :global(.ant-select-prefix) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.selectPopup {
+  width: 220px !important;
+}
+
+@media (min-width: variables.$media-md) {
+  .space {
+    width: 738px;
+  }
+  .searchBarWrapper {
+    margin-bottom: 24px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .searchBarWrapper {
+    margin-bottom: 40px;
+  }
+}

@@ -4,6 +4,7 @@
   height: 48px;
   max-width: 425px;
   width: 100%;
+  margin-bottom: 20px;
 
   :global(.ant-select-selector) {
     &:hover {
@@ -50,4 +51,10 @@
 
 .expandIcon {
   margin-top: 7px;
+}
+
+@media (min-width: variables.$media-md) {
+  .cascader {
+    margin-bottom: 0;
+  }
 }
