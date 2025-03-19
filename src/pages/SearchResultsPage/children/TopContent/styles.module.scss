@@ -1,0 +1,31 @@
+@use 'src/styles/variables';
+
+.topContentWrapper {
+  display: 'flex';
+  flex-direction: 'column';
+}
+
+.searchQuery {
+  text-align: left;
+  color: variables.$N5;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+@media (min-width: variables.$media-md) {
+  .searchQuery {
+    text-align: center;
+    font-size: 26px;
+    line-height: 150%;
+    margin-bottom: 40px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .searchQuery {
+    font-size: 32px;
+    line-height: 125%;
+    margin-bottom: 32px;
+  }
+}

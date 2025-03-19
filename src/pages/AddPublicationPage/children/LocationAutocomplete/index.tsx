@@ -74,7 +74,6 @@ export const LocationAutocomplete = ({
     };
 
     fetchPredictions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch, autocompleteService.current]);
 
   const handleSearch = (value: string) => {
@@ -120,7 +119,6 @@ export const LocationAutocomplete = ({
         }
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [placesService.current, onPlaceSelect]
   );
 
