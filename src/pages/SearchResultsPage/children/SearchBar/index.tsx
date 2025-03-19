@@ -6,15 +6,10 @@ import { useSearchParams } from 'react-router-dom';
 import MapPinSrc from 'src/assets/icons/map-pin-icon.svg?react';
 import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import { Input } from 'src/components/Input';
-import { TEXT } from 'src/config/constants';
+import { CITY_LIST, TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
-
-const options = [
-  { label: 'Київ', value: 'Kyiv' },
-  { label: 'Львів', value: 'Lviv' },
-];
 
 export const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -57,8 +52,8 @@ export const SearchBar = () => {
             popupMatchSelectWidth={false}
             popupClassName={styles.selectPopup}
             rootClassName={styles.select}
-            defaultValue={options[0]}
-            options={options}
+            defaultValue={CITY_LIST[0]}
+            options={CITY_LIST}
             prefix={<MapPinSrc />}
             suffixIcon={<ArrowDown />}
             style={{
