@@ -1,8 +1,8 @@
 @use 'src/styles/variables';
 
 .topContentWrapper {
-  display: 'flex';
-  flex-direction: 'column';
+  display: flex;
+  flex-direction: column;
 }
 
 .searchQuery {
