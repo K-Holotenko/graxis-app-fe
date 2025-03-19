@@ -40,14 +40,12 @@
 
 @media (min-width: variables.$media-lg) {
   .buttonsContainer {
-    column-gap: 40px;
-    justify-content: center;
     margin-bottom: 140px;
   }
 
   .buttonCancelChanges,
   .buttonSaveChanges {
-    width: 200px !important;
+    // width: 200px !important;
     padding: 12px 30px;
   }
 }
