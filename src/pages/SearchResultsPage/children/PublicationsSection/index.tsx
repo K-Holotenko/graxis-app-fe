@@ -12,17 +12,20 @@ export interface ProductData {
   title: string;
   prices: { price: number; pricingPeriod: string }[];
 }
+
 export const PublicationsSection = () => {
-  const [publication, setPublication] = useState<ProductData[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [publications, setPublications] = useState<ProductData[]>([]);
+  const [loading, setLoading] = useState(false);
   const { openNotification } = useNotification();
 
   useEffect(() => {
     const fetchGoods = async () => {
+      setLoading(true);
       try {
         const data = await getAllPublications();
 
-        setPublication(data.slice(0, 16));
+        //TODO Remove and implement through the server
+        setPublications(data.slice(0, 16));
       } catch {
         openNotification(
           NotificationType.ERROR,
@@ -37,20 +40,19 @@ export const PublicationsSection = () => {
     fetchGoods();
   }, [openNotification]);
 
-  if (loading) {
-    return <div>Loadig...</div>;
-  }
+  //TODO Remove this loading when the button Load more is added
+  if (loading) <div>Loading...</div>;
 
   return (
     <CardsGridLayout>
-      {publication.map((pub) => (
+      {publications.map((publication) => (
         <PopularGoodCard
-          id={pub.id}
-          key={pub.id}
-          image={pub.thumbnailUrl}
-          name={pub.title}
+          id={publication.id}
+          key={publication.id}
+          image={publication.thumbnailUrl}
+          name={publication.title}
           rating={4.8}
-          prices={pub.prices}
+          prices={publication.prices}
         />
       ))}
     </CardsGridLayout>

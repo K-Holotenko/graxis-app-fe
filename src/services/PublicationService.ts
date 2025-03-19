@@ -20,6 +20,8 @@ interface PublicationData {
   files: UploadFile[];
 }
 
+const PUBLICATIONS_API_URL = `${GRAXIS_API_URL}/publications`;
+
 export const createPublication = async (
   publicationData: PublicationData
 ): Promise<PublicationData> => {
@@ -36,7 +38,7 @@ export const createPublication = async (
     if (originFileObj) formData.append('files', originFileObj);
   });
 
-  const response = await fetch(`${GRAXIS_API_URL}/publications`, {
+  const response = await fetch(`${PUBLICATIONS_API_URL}`, {
     method: 'POST',
     headers: { Authorization: token },
     body: formData,
@@ -54,7 +56,7 @@ export const createPublication = async (
 export const getAllPublications = async (): Promise<ProductData[]> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
 
-  const response = await fetch(`${GRAXIS_API_URL}/publications/all?limit=16`, {
+  const response = await fetch(`${PUBLICATIONS_API_URL}/all`, {
     method: 'GET',
     headers: { Authorization: token },
   });
