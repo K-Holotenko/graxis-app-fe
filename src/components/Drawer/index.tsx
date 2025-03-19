@@ -69,7 +69,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
       '1': () => navigate(ROUTES.PUBLICATIONS),
-      '2': () => navigate(ROUTES.SETTINGS),
+      '2': () => navigate(ROUTES.USER_PROFILE),
       '3': () => authStore.signOut(showError),
     };
 
