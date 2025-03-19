@@ -2,6 +2,7 @@ import { UploadFile } from 'antd';
 
 import { GRAXIS_API_URL } from 'src/config/constants';
 import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
+import { ProductData } from 'src/pages/SearchResultsPage/children/PublicationsSection';
 
 import CookieService from './CookieService';
 
@@ -19,6 +20,8 @@ interface PublicationData {
   files: UploadFile[];
 }
 
+const PUBLICATIONS_API_URL = `${GRAXIS_API_URL}/publications`;
+
 export const createPublication = async (
   publicationData: PublicationData
 ): Promise<PublicationData> => {
@@ -35,7 +38,7 @@ export const createPublication = async (
     if (originFileObj) formData.append('files', originFileObj);
   });
 
-  const response = await fetch(`${GRAXIS_API_URL}/publications`, {
+  const response = await fetch(`${PUBLICATIONS_API_URL}`, {
     method: 'POST',
     headers: { Authorization: token },
     body: formData,
@@ -46,6 +49,23 @@ export const createPublication = async (
   if (!response.ok) {
     throw new Error();
   }
+
+  return responseBody;
+};
+
+export const getAllPublications = async (): Promise<ProductData[]> => {
+  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+
+  const response = await fetch(`${PUBLICATIONS_API_URL}/all`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const responseBody = await response.json();
 
   return responseBody;
 };
