@@ -6,11 +6,15 @@ export const VALIDATION_MESSAGE = {
 
   CONFIRMATION_PASSWORD: 'Паролі не співпадають',
   EMAIL: 'Дотримуйтесь шаблону: youremail@gmail.com',
+  ERROR: 'Виникла помилка',
+
   INVALID_PHONE:
     'Данний номер телефону вже зареєстрованно або цей номер не є дійсним',
 
   NOT_REGISTERED_PHONE: 'Данний номер не зареєстровано',
   REQUIRED: 'Заповніть поле',
+
+  TRY_AGAIN: 'Щось пішло не так, спробуйте ще раз',
   NAME: 'Дозволено використовувати тільки літери, - та ʼ',
 };
 
