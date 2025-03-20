@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { ConfigProvider, TreeSelect, Form } from 'antd';
 import Icon from '@ant-design/icons';
 import { SafeKey } from 'antd/es/table/interface';
@@ -7,9 +7,10 @@ import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import { TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import ClearIcon from 'src/assets/icons/clear-icon.svg?react';
+import { useCategoriesStore } from 'src/stores/categoriesStore';
+import { buildCategoriesTree } from 'src/utils/buildCategoriesTree';
 
 import styles from './styles.module.scss';
-import { CATEGORIES_DROP_DATA } from './utils/config';
 
 interface CategoriesDropdownProps {
   labelStyles?: string;
@@ -25,8 +26,20 @@ interface Category {
 export const CategoriesDropdown = ({
   labelStyles,
 }: CategoriesDropdownProps) => {
+  const { categories, getAllCategories, isLoading } = useCategoriesStore();
+  const [treeData, setTreeData] = useState<Category[]>([]);
   const [treeValue, setTreeValue] = useState<string | null>(null);
   const [treeExpandedKeys, setTreeExpandedKeys] = useState<SafeKey[]>([]);
+
+  useEffect(() => {
+    getAllCategories();
+  }, [getAllCategories]);
+
+  useEffect(() => {
+    if (categories.length) {
+      setTreeData(buildCategoriesTree(categories));
+    }
+  }, [categories]);
 
   const findParentPath = (value: string, tree: Category[]): string[] => {
     for (const category of tree) {
@@ -50,7 +63,7 @@ export const CategoriesDropdown = ({
     setTreeValue(value);
 
     if (value) {
-      const path = findParentPath(value, CATEGORIES_DROP_DATA);
+      const path = findParentPath(value, treeData);
 
       setTreeExpandedKeys(path);
     }
@@ -63,8 +76,7 @@ export const CategoriesDropdown = ({
 
     const hasNoChildren = !category.children || category.children.length === 0;
     const isHighlighted = treeExpandedKeys.includes(category.value);
-    const isSelected =
-      treeValue === category.value && !category.children?.length;
+    const isSelected = treeValue === category.value && hasNoChildren;
 
     return (
       <div
@@ -91,7 +103,8 @@ export const CategoriesDropdown = ({
           value={treeValue}
           treeTitleRender={treeTitleRender}
           treeExpandedKeys={treeExpandedKeys}
-          treeData={CATEGORIES_DROP_DATA}
+          treeData={treeData}
+          loading={isLoading}
           placeholder={TEXT.CHOOSE_CATEGORY}
           onTreeExpand={(expandedKeys) => setTreeExpandedKeys(expandedKeys)}
           onClear={() => setTreeExpandedKeys([])}
