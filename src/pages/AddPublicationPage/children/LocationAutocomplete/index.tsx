@@ -7,11 +7,13 @@ import MapIcon from 'src/assets/icons/map-pin-icon-autocomplete.svg?react';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { theme } from 'src/config/theme';
 import { TEXT } from 'src/config/constants';
+import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
 
 import styles from './styles.module.scss';
+import { formatLocation } from './utils/config';
 
 interface LocationAutocompleteProps {
-  onPlaceSelect: (place: google.maps.places.PlaceResult | null) => void;
+  onPlaceSelect: (location: Location | null) => void;
 }
 
 const { Option } = AutoComplete;
@@ -57,6 +59,7 @@ export const LocationAutocomplete = ({
         input: debouncedSearch,
         sessionToken: sessionToken.current || undefined,
         componentRestrictions: { country: 'ua' },
+        types: ['address'],
         language: 'uk',
       };
 
@@ -71,7 +74,6 @@ export const LocationAutocomplete = ({
     };
 
     fetchPredictions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch, autocompleteService.current]);
 
   const handleSearch = (value: string) => {
@@ -94,33 +96,29 @@ export const LocationAutocomplete = ({
       const request: google.maps.places.PlaceDetailsRequest = {
         placeId: selectedOption.key,
         sessionToken: sessionToken.current || undefined,
-        fields: ['name', 'formatted_address', 'geometry', 'place_id'],
+        fields: [
+          'name',
+          'formatted_address',
+          'geometry',
+          'place_id',
+          'address_components',
+        ],
         language: 'uk',
       };
 
       placesService.current.getDetails(request, (place, status) => {
         if (status === 'OK' && place) {
           setSearchValue(place.formatted_address || value);
-          const location = place.geometry?.location;
 
-          onPlaceSelect({
-            ...place,
-            geometry: {
-              location: {
-                lat: location?.lat(),
-                lng: location?.lng(),
-              },
-            },
-          } as google.maps.places.PlaceResult & {
-            geometry: { location: { lat: number; lng: number } };
-          });
+          const formatedLocation = formatLocation(place);
+
+          onPlaceSelect(formatedLocation);
 
           sessionToken.current =
             new google.maps.places.AutocompleteSessionToken();
         }
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [placesService.current, onPlaceSelect]
   );
 

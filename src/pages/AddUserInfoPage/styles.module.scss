@@ -1,0 +1,8 @@
+@use 'src/styles/variables';
+
+.authPageTitle {
+  text-align: center;
+  color: variables.$N6 !important;
+  font-size: 24px !important;
+  margin-bottom: 40px !important;
+}

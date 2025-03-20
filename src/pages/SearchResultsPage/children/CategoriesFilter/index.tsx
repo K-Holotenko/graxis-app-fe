@@ -37,6 +37,7 @@ export const CategoriesFilter = () => {
   return (
     <ConfigProvider theme={localTheme}>
       <Cascader
+        placeholder="Оберіть категорію"
         className={styles.cascader}
         allowClear={false}
         expandIcon={<ArrowRight className={styles.expandIcon} />}
@@ -64,6 +65,9 @@ const setLocalTheme = (isFocused?: boolean, isCategorySelected?: boolean) => ({
   },
   components: {
     Cascader: {
+      fontSize: 16,
+      optionPadding: '8px 10px',
+      lineHeight: 1.5,
       optionSelectedFontWeight: 400,
       optionSelectedBg: theme.secondary,
       controlItemBgHover: theme.N2,
