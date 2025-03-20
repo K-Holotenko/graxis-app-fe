@@ -25,7 +25,6 @@ export const PublicationsSection = () => {
       try {
         const data = await getAllPublications();
 
-        //TODO Remove and implement through the server
         setPublications(data.slice(0, 16));
       } catch {
         openNotification(
