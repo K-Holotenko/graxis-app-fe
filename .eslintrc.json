@@ -70,10 +70,15 @@
     ],
     "max-len": [
       "warn",
-      { "code": 120, "ignoreComments": true, "ignoreUrls": true }
+      {
+        "code": 120,
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreTemplateLiterals": true
+      }
     ],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": "off",
     "import/prefer-default-export": "off",
     "import/newline-after-import": "warn",
     "import/order": [

@@ -6,11 +6,16 @@ export const VALIDATION_MESSAGE = {
 
   CONFIRMATION_PASSWORD: 'Паролі не співпадають',
   EMAIL: 'Дотримуйтесь шаблону: youremail@gmail.com',
+  ERROR: 'Виникла помилка',
+
   INVALID_PHONE:
     'Данний номер телефону вже зареєстрованно або цей номер не є дійсним',
 
   NOT_REGISTERED_PHONE: 'Данний номер не зареєстровано',
   REQUIRED: 'Заповніть поле',
+
+  TRY_AGAIN: 'Щось пішло не так, спробуйте ще раз',
+  NAME: 'Дозволено використовувати тільки літери, - та ʼ',
 };
 
 export const VALIDATION_CONDITION = {
@@ -19,6 +24,10 @@ export const VALIDATION_CONDITION = {
       value ? Promise.resolve() : Promise.reject(),
   },
   REQUIRED: { required: true, message: VALIDATION_MESSAGE.REQUIRED },
+  NAME: {
+    pattern: /^\p{L}+(?:[ '\-]\p{L}+)*$/u,
+    message: VALIDATION_MESSAGE.NAME,
+  },
   EMAIL: {
     required: true,
     message: VALIDATION_MESSAGE.EMAIL,

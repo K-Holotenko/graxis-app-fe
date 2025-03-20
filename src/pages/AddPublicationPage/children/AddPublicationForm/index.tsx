@@ -6,7 +6,10 @@ import { APIProvider } from '@vis.gl/react-google-maps';
 import { ROUTES } from 'src/router/routes';
 import { FORMS, TEXT } from 'src/config/constants';
 import { TextArea } from 'src/components/TextArea';
-import { VALIDATION_CONDITION } from 'src/config/validation';
+import {
+  VALIDATION_CONDITION,
+  VALIDATION_MESSAGE,
+} from 'src/config/validation';
 import { CategoriesDropdown } from 'src/pages/AddPublicationPage/children/CategoriesDropdown';
 import { PriceInputs } from 'src/pages/AddPublicationPage/children/PriceInputs';
 import { SuccessModal } from 'src/pages/AddPublicationPage/children/SuccessModal';
@@ -14,42 +17,41 @@ import { Button } from 'src/components/Button';
 import { UploadList } from 'src/pages/AddPublicationPage/children/UploadList';
 import { theme } from 'src/config/theme';
 import { LocationAutocomplete } from 'src/pages/AddPublicationPage/children/LocationAutocomplete';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { createPublication } from 'src/services/PublicationService';
 
-import type { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
+import { formatPrices } from './utils/config';
 
-interface Location {
-  street: string;
-  latitude: number;
-  longitude: number;
+export interface Location {
+  country: string;
+  city: string;
+  address: string;
+  lat: number;
+  lng: number;
 }
 
 interface AddPublicationInputs {
   category: string;
   name: string;
   description: string;
-  photo: UploadFile[];
-  priceDay: string;
-  priceWeek: string;
-  priceMonth: string;
+  photos: UploadFile[];
+  priceDay: number;
+  priceWeek: number;
+  priceMonth: number;
   location: Location;
-}
-
-interface AddPublicationFormProps {
-  onFinish?: () => void;
-  onFinishFailed?: () => void;
-  className?: string;
 }
 
 const API_KEY = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY || '';
 
-export const AddPublicationForm = (props: AddPublicationFormProps) => {
+export const AddPublicationForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const { openNotification } = useNotification();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [locationFilled, setLocationFilled] = useState(false);
+  const [isLocationFilled, setIsLocationFilled] = useState(false);
 
   const allValues = Form.useWatch([], form);
 
@@ -67,10 +69,12 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
           (price) => price && +price > 0
         );
 
-        setIsValid(locationFilled && photos?.length && isAtLeastOnePriceFilled);
+        setIsValid(
+          isLocationFilled && photos?.length && isAtLeastOnePriceFilled
+        );
       })
       .catch(() => setIsValid(false));
-  }, [form, allValues, locationFilled, photos]);
+  }, [form, allValues, isLocationFilled, photos]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -82,53 +86,31 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
     navigate(ROUTES.HOME);
   };
 
-  const onFinish = (values: AddPublicationInputs) => {
+  const handleLocationChange = (location: Location | null) => {
+    form.setFieldsValue({ location: location ?? undefined });
+    setIsLocationFilled(!!location?.address);
+  };
+
+  const onFinish = async (values: AddPublicationInputs) => {
     const publicationData = {
-      category: values.category,
-      name: values.name,
+      categoryName: values.category,
+      title: values.name,
       description: values.description,
-      photo: values.photo,
-      day: values.priceDay,
-      week: values.priceWeek,
-      month: values.priceMonth,
+      prices: formatPrices(values),
       location: values.location,
+      files: values.photos,
     };
 
-    // eslint-disable-next-line no-console
-    console.log(publicationData);
-
-    showModal();
-  };
-
-  const onFinishFailed = (
-    errorInfo: ValidateErrorEntity<AddPublicationInputs>
-  ) => {
-    // eslint-disable-next-line no-console
-    console.log('Failed:', { errorInfo });
-  };
-
-  const handleLocationChange = (
-    place: google.maps.places.PlaceResult | null
-  ) => {
-    if (!place) {
-      setLocationFilled(false);
-      form.setFieldsValue({ location: undefined });
+    try {
+      await createPublication(publicationData);
+      showModal();
+    } catch {
+      openNotification(
+        NotificationType.ERROR,
+        VALIDATION_MESSAGE.ERROR,
+        VALIDATION_MESSAGE.TRY_AGAIN
+      );
     }
-
-    const location = place?.geometry?.location;
-
-    if (!location) {
-      return null;
-    }
-
-    const locationData = {
-      street: place.formatted_address || '',
-      latitude: location.lat,
-      longitude: location.lng,
-    };
-
-    form.setFieldsValue({ location: locationData });
-    setLocationFilled(true);
   };
 
   return (
@@ -139,7 +121,6 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
         layout="vertical"
         requiredMark={false}
         onFinish={onFinish}
-        onFinishFailed={props.onFinishFailed || onFinishFailed}
       >
         <Row>
           <Col span={24}>
@@ -236,6 +217,10 @@ export const AddPublicationForm = (props: AddPublicationFormProps) => {
               <APIProvider apiKey={API_KEY} libraries={['places']}>
                 <LocationAutocomplete onPlaceSelect={handleLocationChange} />
               </APIProvider>
+              <p className={styles.helperText}>
+                Почніть вводити адресу та оберіть відповідний варіант із списку,
+                що з’явиться.
+              </p>
             </Form.Item>
           </Col>
         </Row>

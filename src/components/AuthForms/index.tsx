@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Divider, Row, Col, Typography, Tabs, ConfigProvider } from 'antd';
 import { ReactNode, useState } from 'react';
 
+import { useUserStore } from 'src/stores/userStore';
 import { ROUTES } from 'src/router/routes';
 import { ButtonTypes, SCREEN_WIDTH, TEXT } from 'src/config/constants';
 import { LOGIN_PAGE_CONFIG } from 'src/pages/LoginPage/utils/config';
@@ -38,8 +39,9 @@ export const AuthForms = ({
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.SM;
   const navigate = useNavigate();
-  const { loginWithGoogle } = useAuthStore();
+  const { isLoading: isAuthLoading, loginWithGoogle } = useAuthStore();
 
+  const { createUser, fetchUser, isLoading } = useUserStore();
   const { openNotification } = useNotification();
 
   const triggerNotification = (description: string) => {
@@ -47,8 +49,23 @@ export const AuthForms = ({
   };
 
   const onGoogleClick = async () => {
-    await loginWithGoogle(triggerNotification);
-    navigate(ROUTES.HOME);
+    // when the user sign up with Google we need to check if the user already exists in the database
+    // with fetchUser() method, if the user doesn't exist we need to create a new user with createUser() method
+    try {
+      const firebaseUser = await loginWithGoogle(triggerNotification);
+
+      try {
+        await fetchUser();
+      } catch {
+        const fullName =
+          (firebaseUser as { displayName?: string }).displayName || '';
+        const [name, surname] = fullName.split(' ');
+
+        await createUser({ name, surname }, triggerNotification);
+      }
+    } finally {
+      navigate(ROUTES.HOME);
+    }
   };
 
   return (
@@ -76,10 +93,12 @@ export const AuthForms = ({
       <Row justify="space-between" className={styles.buttonMargins} gutter={40}>
         <Col span={14} offset={5}>
           <Button
-            icon={<GoogleIcon />}
+            icon={isLoading || isAuthLoading ? undefined : <GoogleIcon />}
             type={ButtonTypes.default}
             className={styles.socialMediaButton}
             onClick={onGoogleClick}
+            isDisabled={isLoading || isAuthLoading}
+            isLoading={isLoading || isAuthLoading}
           />
         </Col>
       </Row>

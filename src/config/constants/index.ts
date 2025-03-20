@@ -15,6 +15,7 @@ export const TEXT = {
   ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
   AUTHORIZE: 'Авторизуватися',
 
+  CANCEL_CHANGES: 'Скасувати зміни',
   CATEGORIES: 'Категорії',
   CATEGORIES_SECTION_TITLE: 'Категорії товарів',
   CHOOSE_CATEGORY: 'Виберіть категорію',
@@ -99,6 +100,7 @@ export const TEXT = {
   RESERVATION_COST: 'грн за бронювання)',
   RIGHTS: '© 2025 Graxis. Всі права захищено. Політика конфіденційності',
 
+  SAVE_CHANGES: 'Зберегти зміни',
   SEC: 'c',
   SEND_REQUEST: 'Відправити запит',
   SEND_SMS: 'Ми надішлемо смс для підтвердження номера',
@@ -128,6 +130,7 @@ export const FORMS = {
   SELECT_LOCATION_FORM: 'selectLocationForm',
   VERIFICATION_FORM: 'verificationForm',
   ADD_PUBLICATION_FORM: 'addPublicationForm',
+  ADD_USER_INFO_FORM: 'addUserInfoForm',
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };
@@ -158,7 +161,7 @@ export enum ThemeMode {
   dark = 'dark',
 }
 
-export const EMAIL_VERIFICATION_REDIRECT_LINK = `${import.meta.env.VITE_APP_CLIENT_URL}${ROUTES.LOGIN}`;
+export const EMAIL_VERIFICATION_REDIRECT_LINK = `${import.meta.env.VITE_APP_CLIENT_URL}${ROUTES.ADD_USER_INFO}`;
 
 export const SOCIAL_MEDIA_LIST = [
   {
@@ -192,7 +195,7 @@ export const SOCIAL_MEDIA_LIST = [
 ];
 
 export const APP_CONTACT_DATA = {
-  email: 'info@graxis.com',
+  email: 'info@graxis.net',
   phone: '555-555-5555',
 };
 
@@ -263,3 +266,6 @@ export const PROFILE_PARAMS = {
   PRIVACY_POLICY: 'privacy-policy',
   FAQ: 'faq',
 };
+
+export const GRAXIS_API_URL =
+  'https://graxis-be-774272313958.europe-central2.run.app';
