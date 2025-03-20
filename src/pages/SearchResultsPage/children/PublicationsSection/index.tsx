@@ -5,6 +5,7 @@ import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { CardsGridLayout } from 'src/layouts/CardsGridLayout';
 import { PopularGoodCard } from 'src/pages/HomePage/children/PopularGoodCard';
 import { getAllPublications } from 'src/services/PublicationService';
+import { SearchEmptyState } from 'src/pages/SearchResultsPage/children/SearchEmptyState/index';
 
 export interface ProductData {
   id: string;
@@ -15,12 +16,12 @@ export interface ProductData {
 
 export const PublicationsSection = () => {
   const [publications, setPublications] = useState<ProductData[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { openNotification } = useNotification();
 
   useEffect(() => {
     const fetchGoods = async () => {
-      setLoading(true);
+      setIsLoading(true);
       try {
         const data = await getAllPublications();
 
@@ -33,7 +34,7 @@ export const PublicationsSection = () => {
           VALIDATION_MESSAGE.TRY_AGAIN
         );
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -41,9 +42,11 @@ export const PublicationsSection = () => {
   }, []);
 
   //TODO Remove this loading when the button Load more is added
-  if (loading) <div>Loading...</div>;
+  if (isLoading) <div>Loading...</div>;
 
-  return (
+  const isNoResults = publications.length && !isLoading;
+
+  return isNoResults ? (
     <CardsGridLayout>
       {publications.map((publication) => (
         <PopularGoodCard
@@ -56,5 +59,7 @@ export const PublicationsSection = () => {
         />
       ))}
     </CardsGridLayout>
+  ) : (
+    <SearchEmptyState />
   );
 };
