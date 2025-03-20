@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Input, Space, Form } from 'antd';
 
 import EditSrc from 'src/assets/icons/edit-fields-icon.svg';
@@ -17,13 +17,22 @@ export const ContactInfo = () => {
   const [email, setEmail] = useState('VasylSymonenko@gmail.com');
   const [countryCode, setCountryCode] = useState('+380');
   const [phone, setPhone] = useState('968756987');
+  const [hasErrors, setHasErrors] = useState(false);
 
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.MD;
 
-  const hasErrors = form
-    .getFieldsError()
-    .some(({ errors }) => errors.length > 0);
+  const handleFieldsChange = () => {
+    const errors = form
+      .getFieldsError()
+      .some(({ errors: fieldErrors }) => fieldErrors.length > 0);
+
+    setHasErrors(errors);
+  };
+
+  useEffect(() => {
+    form.setFieldsValue({ email, phone });
+  }, [email, form, phone]);
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -45,7 +54,10 @@ export const ContactInfo = () => {
     >
       <Row className={styles.contactInfoBlock}>
         <Col>
-          <h2 className={`${styles.contactInfoHeader} `}>
+          <h2
+            className={`${styles.contactInfoHeader} 
+             ${hasErrors ? styles.errorContactInfoHeader : ''}`}
+          >
             {TEXT.CONTACT_INFO}
           </h2>
         </Col>
@@ -64,6 +76,7 @@ export const ContactInfo = () => {
         layout="vertical"
         form={form}
         initialValues={{ email, phone: `${countryCode}${phone}` }}
+        onFieldsChange={handleFieldsChange}
       >
         <div
           className={`${styles.contactInfoEmailBlock} 
@@ -87,16 +100,19 @@ export const ContactInfo = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={styles.contactInfoInput}
+                className={`${styles.contactInfoInput}  
+                ${hasErrors ? styles.errorContactInfoInput : ''}`}
               />
             ) : (
               <span className={styles.contactInfoValue}>{email}</span>
             )}
           </Form.Item>
         </div>
-        <div className={styles.contactInfoPhoneBlock}>
+        <div>
           <label
-            className={`${styles.contactInfoLabel} ${isEditing ? styles.editingContactInfoLabel : ''}`}
+            className={`${styles.contactInfoLabel} 
+            ${isEditing ? styles.editingContactInfoLabel : ''} 
+            ${hasErrors ? styles.errorContactInfoLabel : ''}`}
           >
             {TEXT.PHONE}
           </label>
@@ -107,11 +123,13 @@ export const ContactInfo = () => {
                   disabled
                   style={{ width: isMobile ? '70px' : '20%' }}
                   value={countryCode}
+                  className={hasErrors ? styles.errorContactInfoInput : ''}
                   onChange={(e) => setCountryCode(e.target.value)}
                 />
                 <Input
                   style={{ width: isMobile ? '90%' : '80%' }}
                   value={phone}
+                  className={hasErrors ? styles.errorContactInfoInput : ''}
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </Space.Compact>
