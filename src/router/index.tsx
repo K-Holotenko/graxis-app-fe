@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { HomePage } from 'src/pages/HomePage';
 import { LoginPage } from 'src/pages/LoginPage';
@@ -10,6 +10,7 @@ import { ItemPage } from 'src/pages/ItemPage';
 import { SearchResultsPage } from 'src/pages/SearchResultsPage';
 import { UserProfilePage } from 'src/pages/UserProfilePage';
 import { AddUserInfoPage } from 'src/pages/AddUserInfoPage';
+import { NotFoundPage } from 'src/pages/NotFoundPage';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
@@ -62,5 +63,13 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.ADD_USER_INFO,
     element: <AddUserInfoPage />,
+  },
+  {
+    path: ROUTES.NOT_FOUND,
+    element: <NotFoundPage />,
+  },
+  {
+    path: '*',
+    element: <Navigate to={ROUTES.NOT_FOUND} />,
   },
 ]);

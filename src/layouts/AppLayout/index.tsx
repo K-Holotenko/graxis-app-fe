@@ -16,7 +16,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
     window.location.pathname === ROUTES.ADD_PUBLICATION;
 
   return (
-    <div>
+    <div className={styles.appLayout}>
       <Row>
         <Col span={24}>
           <AppHeader />
