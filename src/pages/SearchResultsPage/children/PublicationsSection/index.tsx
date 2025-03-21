@@ -25,7 +25,7 @@ export const PublicationsSection = () => {
       try {
         const data = await getAllPublications();
 
-        setPublications(data);
+        setPublications(data.slice(0, 16));
       } catch {
         openNotification(
           NotificationType.ERROR,
