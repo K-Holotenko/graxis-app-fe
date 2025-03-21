@@ -33,7 +33,7 @@ export const CategoriesDropdown = ({
 
   useEffect(() => {
     getAllCategories();
-  }, [getAllCategories]);
+  }, []);
 
   useEffect(() => {
     if (categories.length) {
