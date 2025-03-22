@@ -1,0 +1,58 @@
+@use 'src/styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 343px;
+}
+
+.pageNotFound {
+  width: 100px;
+  height: 100px;
+}
+
+.text {
+  font-size: 18px;
+  text-align: center;
+  line-height: 125%;
+  font-weight: 500;
+  margin: 40px 0;
+  color: variables.$N5;
+}
+
+.button {
+  max-width: 200px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .container {
+    max-width: 458px;
+  }
+
+  .pageNotFound {
+    width: 200px;
+    height: 200px;
+  }
+
+  .text {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .container {
+    max-width: 686px;
+  }
+
+  .pageNotFound {
+    width: 300px;
+    height: 300px;
+  }
+
+  .text {
+    font-size: 32px;
+  }
+}
