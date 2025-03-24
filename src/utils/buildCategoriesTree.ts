@@ -1,6 +1,7 @@
 interface CategoryData {
   id: string;
   name: string;
+  ukr: string;
   parentId: string | null;
 }
 
@@ -17,9 +18,9 @@ export const buildCategoriesTree = (
 ): CategoryTreeItem[] => {
   const allCategories = new Map<string, CategoryTreeItem>();
 
-  initialCategories.forEach(({ id, name, parentId }) => {
+  initialCategories.forEach(({ id, parentId, ukr }) => {
     allCategories.set(id, {
-      title: name,
+      title: ukr,
       value: id,
       children: [],
       selectable: false,

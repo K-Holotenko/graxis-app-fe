@@ -1,24 +1,19 @@
-export const getDisplayPrice = (
-  prices: { price: number; pricingPeriod: string }[]
-): { value: number; period: string } | null => {
-  const timePeriods = ['day', 'week', 'month'];
-  const timePeriodsMap: Record<string, string> = {
+export const getDisplayPrice = ({
+  price,
+  pricingPeriod,
+}: {
+  price: number;
+  pricingPeriod: string;
+}): { value: number; period: string } | null => {
+  const timePeriods: Record<string, string> = {
     day: 'день',
     week: 'тиждень',
     month: 'місяць',
   };
 
-  const firstAvailablePrice = prices.reduce<{
-    value: number;
-    period: string;
-  } | null>(
-    (acc, { price, pricingPeriod }) =>
-      acc ||
-      (timePeriods.includes(pricingPeriod)
-        ? { value: price, period: timePeriodsMap[pricingPeriod] }
-        : null),
-    null
-  );
+  const period = timePeriods[pricingPeriod];
 
-  return firstAvailablePrice;
+  const priceInfo = period ? { value: price, period } : null;
+
+  return priceInfo;
 };

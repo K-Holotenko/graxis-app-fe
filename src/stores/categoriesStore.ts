@@ -6,6 +6,7 @@ export interface Categories {
   id: string;
   createdAt: string;
   name: string;
+  ukr: string;
   parentId: string | null;
   updatedAt: string;
 }
