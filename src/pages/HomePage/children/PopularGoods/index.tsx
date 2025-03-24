@@ -20,96 +20,80 @@ const goods = [
     image: image1,
     name: 'Назва товарів',
     rating: 4.8,
-    prices: [
-      {
-        price: 400,
-        pricingPeriod: 'day',
-      },
-    ],
+    price: {
+      price: 400,
+      pricingPeriod: 'day',
+    },
   },
   {
     id: 2,
     image: image2,
     name: 'Назва товарів',
     rating: 4.8,
-    prices: [
-      {
-        price: 400,
-        pricingPeriod: 'day',
-      },
-    ],
+    price: {
+      price: 400,
+      pricingPeriod: 'day',
+    },
   },
   {
     id: 3,
     image: image3,
     name: 'Назва товарів',
     rating: 4.8,
-    prices: [
-      {
-        price: 400,
-        pricingPeriod: 'day',
-      },
-    ],
+    price: {
+      price: 400,
+      pricingPeriod: 'day',
+    },
   },
   {
     id: 4,
     image: image4,
     name: 'Назва товарів',
     rating: 4.8,
-    prices: [
-      {
-        price: 400,
-        pricingPeriod: 'day',
-      },
-    ],
+    price: {
+      price: 400,
+      pricingPeriod: 'day',
+    },
   },
   {
     id: 5,
     image: image5,
     name: 'Назва товарів',
     rating: 4.8,
-    prices: [
-      {
-        price: 400,
-        pricingPeriod: 'day',
-      },
-    ],
+    price: {
+      price: 400,
+      pricingPeriod: 'day',
+    },
   },
   {
     id: 6,
     image: image6,
     name: 'Назва товарів',
     rating: 4.8,
-    prices: [
-      {
-        price: 400,
-        pricingPeriod: 'day',
-      },
-    ],
+    price: {
+      price: 400,
+      pricingPeriod: 'day',
+    },
   },
   {
     id: 7,
     image: image7,
     name: 'Назва товарів',
     rating: 4.8,
-    prices: [
-      {
-        price: 400,
-        pricingPeriod: 'day',
-      },
-    ],
+    price: {
+      price: 400,
+      pricingPeriod: 'day',
+    },
   },
   {
     id: 8,
     image: image8,
     name: 'Назва товарів',
     rating: 4.8,
-    prices: [
-      {
-        price: 400,
-        pricingPeriod: 'day',
-      },
-    ],
+    price: {
+      price: 400,
+      pricingPeriod: 'day',
+    },
   },
 ];
 
@@ -125,7 +109,7 @@ export const PopularGoods = () => (
             image={good.image}
             name={good.name}
             rating={good.rating}
-            prices={good.prices}
+            price={good.price}
           />
         ))}
       </CardsGridLayout>
