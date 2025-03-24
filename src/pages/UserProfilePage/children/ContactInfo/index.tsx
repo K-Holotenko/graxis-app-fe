@@ -78,7 +78,7 @@ export const ContactInfo = () => {
 
   return (
     <section
-      className={`${styles.contactInfoContainer}
+      className={`contact-form-section ${styles.contactInfoContainer}
     ${isEditingContactInfoForm ? styles.editingInfoContainer : ''}
     ${errorCount === 1 && isEditingContactInfoForm ? styles.warningInfoContainer : ''}
     ${errorCount > 1 && isEditingContactInfoForm ? styles.errorInfoContainer : ''}`}
