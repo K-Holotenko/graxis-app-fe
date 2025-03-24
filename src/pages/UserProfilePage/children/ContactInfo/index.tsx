@@ -1,68 +1,101 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Input, Space, Form } from 'antd';
+import { Row, Col, Input, Form } from 'antd';
 
 import EditSrc from 'src/assets/icons/edit-fields-icon.svg';
-import { useWindowSize } from 'src/hooks/useWindowSize';
-import { SCREEN_WIDTH, TEXT } from 'src/config/constants';
+import { TEXT } from 'src/config/constants';
 import {
   VALIDATION_CONDITION,
   VALIDATION_MESSAGE,
 } from 'src/config/validation';
+import { useUserStore } from 'src/stores/userStore';
 
 import styles from './styles.module.scss';
 
 export const ContactInfo = () => {
+  const {
+    isEditingContactInfoForm,
+    setIsEditingContactInfoForm,
+    setContactInfoFormValues,
+    user,
+  } = useUserStore();
+
   const [form] = Form.useForm();
-  const [isEditing, setIsEditing] = useState(false);
-  const [email, setEmail] = useState('VasylSymonenko@gmail.com');
-  const [countryCode, setCountryCode] = useState('+380');
-  const [phone, setPhone] = useState('968756987');
-  const [hasErrors, setHasErrors] = useState(false);
-
-  const { width } = useWindowSize();
-  const isMobile = width < SCREEN_WIDTH.MD;
-
-  const handleFieldsChange = () => {
-    const errors = form
-      .getFieldsError()
-      .some(({ errors: fieldErrors }) => fieldErrors.length > 0);
-
-    setHasErrors(errors);
-  };
 
   useEffect(() => {
-    form.setFieldsValue({ email, phone });
-  }, [email, form, phone]);
+    form.setFieldValue('email', user?.email);
+    form.setFieldValue('phoneNumber', user?.phoneNumber);
+    checkErrors();
+  }, [isEditingContactInfoForm]);
 
-  const handleEditClick = () => {
-    setIsEditing(!isEditing);
+  const [errorCount, setErrorCount] = useState(0);
+
+  const { setIsSaveButtonDisabled } = useUserStore();
+
+  const checkErrors = () => {
+    const errors = form
+      .getFieldsError()
+      .filter(({ errors: fieldErrors }) => fieldErrors.length > 0).length;
+
+    setErrorCount(errors);
+    setIsSaveButtonDisabled(errors > 0);
   };
 
-  const rules = [
-    { required: true, message: VALIDATION_MESSAGE.REQUIRED },
+  const handleFieldsChange = () => {
+    checkErrors();
+    setContactInfoFormValues(
+      form.getFieldValue('email'),
+      form.getFieldValue('phoneNumber')
+    );
+  };
+
+  const handleEditClick = () => {
+    setIsEditingContactInfoForm(true);
+  };
+
+  const phoneRules = [
     {
       pattern: VALIDATION_CONDITION.PHONE_INPUT.pattern,
       message: VALIDATION_MESSAGE.INVALID_PHONE,
     },
   ];
 
+  const emailRules = [
+    {
+      pattern: VALIDATION_CONDITION.EMAIL.pattern,
+      message: VALIDATION_MESSAGE.EMAIL,
+    },
+  ];
+
+  const getFieldClass = (field: string) => {
+    const errors = form.getFieldError(field);
+
+    if (errors.length > 0) {
+      return styles.errorField;
+    }
+
+    return '';
+  };
+
   return (
     <section
-      className={`${styles.contactInfoContainer} 
-      ${isEditing ? styles.editingInfoContainer : ''} 
-      ${hasErrors ? styles.errorInfoContainer : ''}`}
+      className={`${styles.contactInfoContainer}
+    ${isEditingContactInfoForm ? styles.editingInfoContainer : ''}
+    ${errorCount === 1 && isEditingContactInfoForm ? styles.warningInfoContainer : ''}
+    ${errorCount > 1 && isEditingContactInfoForm ? styles.errorInfoContainer : ''}`}
     >
       <Row className={styles.contactInfoBlock}>
         <Col>
           <h2
-            className={`${styles.contactInfoHeader} 
-             ${hasErrors ? styles.errorContactInfoHeader : ''}`}
+            className={`${styles.contactInfoHeader}
+            ${isEditingContactInfoForm ? styles.editingInfoHeader : ''}
+            ${errorCount === 1 && isEditingContactInfoForm ? styles.warningContactInfoHeader : ''}
+            ${errorCount > 1 && isEditingContactInfoForm ? styles.errorContactInfoHeader : ''}`}
           >
             {TEXT.CONTACT_INFO}
           </h2>
         </Col>
         <Col>
-          {!isEditing && (
+          {!isEditingContactInfoForm && (
             <img
               src={EditSrc}
               alt="Редагувати"
@@ -72,74 +105,73 @@ export const ContactInfo = () => {
           )}
         </Col>
       </Row>
-      <Form
-        layout="vertical"
-        form={form}
-        initialValues={{ email, phone: `${countryCode}${phone}` }}
-        onFieldsChange={handleFieldsChange}
-      >
+      <Form layout="vertical" form={form} onFieldsChange={handleFieldsChange}>
         <div
-          className={`${styles.contactInfoEmailBlock} 
-          ${isEditing ? styles.editingContactInfoEmailBlock : ''}
-           ${hasErrors ? styles.errorContactInfoEmailBlock : ''}`}
+          className={`${styles.contactInfoEmailBlock}
+          ${isEditingContactInfoForm ? styles.editingContactInfoEmailBlock : ''}
+          ${errorCount === 1 && isEditingContactInfoForm ? styles.warningContactEmailBlock : ''}
+          ${errorCount > 1 && isEditingContactInfoForm ? styles.errorContactEmailBlock : ''}`}
         >
           <label
-            className={`${styles.contactInfoLabel} 
-            ${isEditing ? styles.editingContactInfoLabel : ''}
-            ${hasErrors ? styles.errorContactInfoLabel : ''}`}
+            className={`${styles.contactInfoLabel}
+            ${isEditingContactInfoForm ? styles.editingContactInfoLabel : ''}
+            ${errorCount === 1 && isEditingContactInfoForm ? styles.warningContactInfoLabel : ''}
+            ${errorCount > 1 && isEditingContactInfoForm ? styles.errorContactInfoLabel : ''}
+            `}
           >
             {TEXT.MAIL}
           </label>
-          <Form.Item
-            name="email"
-            rules={[VALIDATION_CONDITION.EMAIL]}
-            validateTrigger="onBlur"
-          >
-            {isEditing ? (
+          {isEditingContactInfoForm ? (
+            <Form.Item
+              name="email"
+              rules={emailRules}
+              validateTrigger="onChange"
+            >
               <Input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`${styles.contactInfoInput}  
-                ${hasErrors ? styles.errorContactInfoInput : ''}`}
+                className={`${styles.contactInfoInput} ${getFieldClass('email')} 
+                 ${isEditingContactInfoForm ? styles.editingcontactInfoInput : ''}
+                 ${errorCount > 1 && isEditingContactInfoForm ? styles.errorContactInfoLabel : ''}`}
               />
-            ) : (
-              <span className={styles.contactInfoValue}>{email}</span>
-            )}
-          </Form.Item>
+            </Form.Item>
+          ) : (
+            <span
+              className={`${styles.contactInfoValue} ${!user?.email && styles.undefinedContactInfoValue}`}
+            >
+              {user?.email || 'Не вказано'}
+            </span>
+          )}
         </div>
         <div>
           <label
-            className={`${styles.contactInfoLabel} 
-            ${isEditing ? styles.editingContactInfoLabel : ''} 
-            ${hasErrors ? styles.errorContactInfoLabel : ''}`}
+            className={`${styles.contactInfoLabel}
+            ${isEditingContactInfoForm ? styles.editingContactInfoLabel : ''}
+            ${errorCount === 1 && isEditingContactInfoForm ? styles.warningContactInfoLabel : ''}
+            ${errorCount > 1 && isEditingContactInfoForm ? styles.errorContactInfoLabel : ''}
+            `}
           >
             {TEXT.PHONE}
           </label>
-          <Form.Item name="phone" rules={rules} validateTrigger="onBlur">
-            {isEditing ? (
-              <Space.Compact className={styles.contactInfoInput}>
-                <Input
-                  disabled
-                  style={{ width: isMobile ? '70px' : '20%' }}
-                  value={countryCode}
-                  className={hasErrors ? styles.errorContactInfoInput : ''}
-                  onChange={(e) => setCountryCode(e.target.value)}
-                />
-                <Input
-                  style={{ width: isMobile ? '90%' : '80%' }}
-                  value={phone}
-                  className={hasErrors ? styles.errorContactInfoInput : ''}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </Space.Compact>
-            ) : (
-              <span className={styles.contactInfoValue}>
-                {countryCode}
-                {phone}
-              </span>
-            )}
-          </Form.Item>
+          {isEditingContactInfoForm ? (
+            <Form.Item
+              name="phoneNumber"
+              rules={phoneRules}
+              validateTrigger="onChange"
+            >
+              <Input
+                addonBefore={'+380'}
+                className={`${styles.contactInfoInput} ${getFieldClass('phoneNumber')}
+                 ${isEditingContactInfoForm ? styles.editingcontactInfoInput : ''}
+                ${errorCount > 1 && isEditingContactInfoForm ? styles.errorContactInfoInput : ''}`}
+              />
+            </Form.Item>
+          ) : (
+            <span
+              className={`${styles.contactInfoValue} ${!user?.phoneNumber && styles.undefinedContactInfoValue}`}
+            >
+              {user?.phoneNumber ? `+380${user.phoneNumber}` : 'Не вказано'}
+            </span>
+          )}
         </div>
       </Form>
     </section>

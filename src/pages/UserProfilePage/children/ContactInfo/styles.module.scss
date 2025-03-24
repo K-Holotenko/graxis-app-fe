@@ -13,24 +13,20 @@
   border-radius: 8px;
   padding: 16px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 0px 24px 4px;
-  height: 202px;
 }
 
 .contactInfoBlock {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .contactInfoHeader {
   font-family: variables.$font-heading;
   color: variables.$N6;
-  font-size: 24px;
   font-weight: 700;
-}
-
-.contactInfoBlock {
-  position: relative;
+  font-size: 24px;
 }
 
 .contactInfoEditIcon {
@@ -57,8 +53,8 @@
 .contactInfoValue {
   font-family: variables.$font-heading;
   color: variables.$N6;
-  font-size: 18px;
   font-weight: 700;
+  font-size: 18px;
 }
 
 .contactInfoInput {
@@ -70,7 +66,12 @@
   padding: 20px 12px;
 }
 
-.editingcontactInfoHeader {
+.editingInfoHeader {
+  font-size: 18px;
+  line-height: 125%;
+}
+
+.editingContactInfoHeader {
   font-size: 18px;
 }
 
@@ -84,8 +85,25 @@
   margin-bottom: 6px;
 }
 
+.warningInfoContainer {
+  padding: 20px 12px;
+}
+
 .errorContactInfoHeader {
   font-size: 18px;
+}
+
+.errorContactInfoLabel {
+  margin-bottom: 6px;
+}
+
+.errorField {
+  margin-bottom: 6px;
+}
+
+.undefinedContactInfoValue {
+  font-weight: 600;
+  line-height: 125%;
 }
 
 @media (min-width: variables.$media-md) {
@@ -93,10 +111,12 @@
     .ant-form-item .ant-form-item-explain-error {
       width: 440px;
     }
+
+    .ant-form {
+      height: 190px !important;
+    }
   }
   .contactInfoContainer {
-    display: flex;
-    flex-direction: column;
     row-gap: 24px;
     padding: 34px 20px;
     height: 282px;
@@ -123,20 +143,22 @@
   }
 
   .contactInfoValue {
-    font-size: 18px;
     font-weight: 600;
     line-height: 125%;
   }
 
   .contactInfoInput {
-    width: 100%;
-    height: 48px;
     transition: none;
   }
 
   .editingInfoContainer {
     padding: 28px 20px;
     height: 288px;
+  }
+
+  .editingInfoHeader {
+    font-size: 26px;
+    line-height: 125%;
   }
 
   .editingContactInfoLabel {
@@ -146,6 +168,7 @@
   }
 
   .errorInfoContainer {
+    height: 292px;
     padding: 16px 20px;
     row-gap: 10px;
   }
@@ -155,28 +178,52 @@
   }
 
   .errorContactInfoLabel {
-    margin-bottom: 4px !important;
+    margin-bottom: 4px;
   }
 
-  .errorContactInfoEmailBlock {
+  .errorContactEmailBlock {
     margin-bottom: 4px;
   }
 
   .errorContactInfoInput {
     margin-bottom: 4px;
   }
+
+  .warningInfoContainer {
+    padding: 24px 20px;
+    row-gap: 24px;
+  }
+
+  .warningContactInfoLabel {
+    margin-bottom: 6px;
+  }
+
+  .warningContactEmailBlock {
+    margin-bottom: 8px;
+  }
+
+  .warningContactInfoLabel {
+    margin-bottom: 6px;
+  }
+
+  .warningContactInfoHeader {
+    height: 19px;
+  }
 }
 
 @media (min-width: variables.$media-lg) {
   :global {
     .ant-form-item .ant-form-item-explain-error {
-      width: 327px;
+      width: 360px;
+      max-height: 36px;
+    }
+
+    .ant-form-item {
+      margin-bottom: 0 !important;
     }
   }
 
   .contactInfoContainer {
-    display: flex;
-    flex-direction: column;
     row-gap: 32px;
     padding: 40px;
     height: 296px;
@@ -186,10 +233,6 @@
     font-size: 26px;
     font-weight: 700;
     line-height: 125%;
-  }
-
-  .contactInfoBlock {
-    position: relative;
   }
 
   .contactInfoEditIcon {
@@ -210,12 +253,13 @@
   }
 
   .contactInfoInput {
-    width: 327px;
+    width: 360px;
+    height: 48px;
   }
 
   .editingInfoContainer {
-    padding: 24px 40px;
-    row-gap: 38px;
+    padding: 40px;
+    row-gap: 32px;
     height: 296px;
   }
 
@@ -225,16 +269,49 @@
     margin-bottom: 6px;
   }
 
+  .editingcontactInfoInput {
+    width: 360px;
+    height: 48px;
+  }
+
   .errorInfoContainer {
     padding: 12px 40px;
     row-gap: 10px;
   }
 
+  .errorContactEmailBlock {
+    margin-bottom: 8px;
+  }
+
+  .errorField {
+    margin-bottom: 6px;
+  }
+
   .errorContactInfoInput {
     margin-bottom: 6px;
+    height: 48px;
   }
 
   .errorContactInfoLabel {
     margin-bottom: 6px;
+  }
+
+  .warningInfoContainer {
+    padding: 26px 40px;
+    row-gap: 24px;
+  }
+
+  .warningContactInfoHeader {
+    height: 19px;
+  }
+
+  .warningContactInfoLabel {
+    margin-bottom: 6px;
+  }
+
+  .undefinedContactInfoValue {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 125%;
   }
 }
