@@ -1,7 +1,7 @@
 @use 'src/styles/variables';
 
 :global {
-  .ant-form-item {
+  .contact-form-section .ant-form-item {
     margin-bottom: 0 !important;
   }
 }
@@ -108,11 +108,11 @@
 
 @media (min-width: variables.$media-md) {
   :global {
-    .ant-form-item .ant-form-item-explain-error {
+    .contact-form-section .ant-form-item .ant-form-item-explain-error {
       width: 440px;
     }
 
-    .ant-form {
+    .contact-form-section .ant-form {
       height: 190px !important;
     }
   }
@@ -213,13 +213,9 @@
 
 @media (min-width: variables.$media-lg) {
   :global {
-    .ant-form-item .ant-form-item-explain-error {
+    .contact-form-section .ant-form-item .ant-form-item-explain-error {
       width: 360px;
       max-height: 36px;
-    }
-
-    .ant-form-item {
-      margin-bottom: 0 !important;
     }
   }
 
