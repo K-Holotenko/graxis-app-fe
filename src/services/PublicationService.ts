@@ -56,7 +56,7 @@ export const createPublication = async (
 export const getAllPublications = async (): Promise<ProductData[]> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}/all`, {
+  const response = await fetch(`${PUBLICATIONS_API_URL}/search?page=1`, {
     method: 'GET',
     headers: { Authorization: token },
   });
@@ -67,5 +67,5 @@ export const getAllPublications = async (): Promise<ProductData[]> => {
 
   const responseBody = await response.json();
 
-  return responseBody;
+  return responseBody.publications;
 };

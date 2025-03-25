@@ -7,7 +7,7 @@ const mockedPopularGoodCardProps = {
   image: 'test-image.jpg',
   name: 'Test Product',
   rating: 4.8,
-  prices: [{ price: 400, pricingPeriod: 'day' }],
+  price: { price: 400, pricingPeriod: 'day' },
 };
 
 describe('PopularGoodCard', () => {

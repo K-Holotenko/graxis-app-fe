@@ -12,7 +12,7 @@ export interface PopularGoodCardProps {
   image: string;
   name: string;
   rating: number;
-  prices: { price: number; pricingPeriod: string }[];
+  price: { price: number; pricingPeriod: string };
 }
 
 export const PopularGoodCard = ({
@@ -20,10 +20,10 @@ export const PopularGoodCard = ({
   image,
   name,
   rating,
-  prices,
+  price,
 }: PopularGoodCardProps) => {
   const navigate = useNavigate();
-  const displayPrice = getDisplayPrice(prices);
+  const displayPrice = getDisplayPrice(price);
 
   const handleCardClick = () => {
     navigate(`/item/${id}`);

@@ -11,7 +11,7 @@ export interface ProductData {
   id: string;
   thumbnailUrl: string;
   title: string;
-  prices: { price: number; pricingPeriod: string }[];
+  price: { price: number; pricingPeriod: string };
 }
 
 export const PublicationsSection = () => {
@@ -25,7 +25,7 @@ export const PublicationsSection = () => {
       try {
         const data = await getAllPublications();
 
-        setPublications(data.slice(0, 16));
+        setPublications(data);
       } catch {
         openNotification(
           NotificationType.ERROR,
@@ -41,7 +41,7 @@ export const PublicationsSection = () => {
   }, []);
 
   //TODO Remove this loading when the button Load more is added
-  if (isLoading) <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
 
   const isNoResults = publications.length && !isLoading;
 
@@ -54,7 +54,7 @@ export const PublicationsSection = () => {
           image={publication.thumbnailUrl}
           name={publication.title}
           rating={4.8}
-          prices={publication.prices}
+          price={publication.price}
         />
       ))}
     </CardsGridLayout>
