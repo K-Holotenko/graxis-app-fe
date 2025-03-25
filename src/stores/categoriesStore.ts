@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { getAllCategories } from 'src/services/CategoriesService';
 
-export interface Categories {
+interface Category {
   id: string;
   createdAt: string;
   name: string;
@@ -12,29 +12,37 @@ export interface Categories {
 }
 
 interface CategoriesStore {
-  categories: Categories[];
+  categories: Category[] | null;
   isLoading: boolean;
-  isLoaded: boolean;
-  getAllCategories: () => Promise<void>;
+  getAllCategories: (
+    showError: (err: string) => void
+  ) => Promise<Category[] | undefined | null>;
 }
 
 export const useCategoriesStore = create<CategoriesStore>((set, get) => ({
-  categories: [],
+  categories: null,
   isLoading: false,
-  isLoaded: false,
-  getAllCategories: async () => {
-    if (get().isLoaded) return;
-
-    set({ isLoading: true });
-    const response = await getAllCategories();
-
-    if (!response.ok) {
-      set({ isLoading: false });
-      throw new Error('Failed to fetch categories');
+  getAllCategories: async (showError: (err: string) => void) => {
+    if (get().categories) {
+      return get().categories;
     }
 
-    const categoriesData: Categories[] = await response.json();
+    set({ isLoading: true });
 
-    set({ categories: categoriesData, isLoading: false, isLoaded: true });
+    try {
+      const response = await getAllCategories();
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch categories');
+      }
+
+      const categoriesData: Category[] = await response.json();
+
+      set({ categories: categoriesData });
+
+      return categoriesData;
+    } catch {
+      showError('Категорії наразі недоступні. Спробуйте ще раз');
+    }
   },
 }));
