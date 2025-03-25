@@ -9,6 +9,7 @@ import { theme } from 'src/config/theme';
 import ClearIcon from 'src/assets/icons/clear-icon.svg?react';
 import { useCategoriesStore } from 'src/stores/categoriesStore';
 import { buildCategoriesTree } from 'src/utils/buildCategoriesTree';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 
@@ -26,20 +27,23 @@ interface Category {
 export const CategoriesDropdown = ({
   labelStyles,
 }: CategoriesDropdownProps) => {
-  const { categories, getAllCategories, isLoading } = useCategoriesStore();
+  const { getAllCategories } = useCategoriesStore();
   const [treeData, setTreeData] = useState<Category[]>([]);
   const [treeValue, setTreeValue] = useState<string | null>(null);
   const [treeExpandedKeys, setTreeExpandedKeys] = useState<SafeKey[]>([]);
+  const { openNotification } = useNotification();
+
+  const showError = (description: string) => {
+    openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
 
   useEffect(() => {
-    getAllCategories();
+    getAllCategories(showError).then((cat) => {
+      if (cat) {
+        setTreeData(buildCategoriesTree(cat));
+      }
+    });
   }, []);
-
-  useEffect(() => {
-    if (categories.length) {
-      setTreeData(buildCategoriesTree(categories));
-    }
-  }, [categories]);
 
   const findParentPath = (value: string, tree: Category[]): string[] => {
     for (const category of tree) {
@@ -104,7 +108,6 @@ export const CategoriesDropdown = ({
           treeTitleRender={treeTitleRender}
           treeExpandedKeys={treeExpandedKeys}
           treeData={treeData}
-          loading={isLoading}
           placeholder={TEXT.CHOOSE_CATEGORY}
           onTreeExpand={(expandedKeys) => setTreeExpandedKeys(expandedKeys)}
           onClear={() => setTreeExpandedKeys([])}
