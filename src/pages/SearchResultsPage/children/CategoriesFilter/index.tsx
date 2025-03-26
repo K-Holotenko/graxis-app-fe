@@ -4,10 +4,10 @@ import { useSearchParams } from 'react-router-dom';
 
 import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import ArrowRight from 'src/assets/icons/arrow-right-icon.svg?react';
-import { CATEGORIES_DROP_DATA } from 'src/pages/AddPublicationPage/children/CategoriesDropdown/utils/config';
 import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH } from 'src/config/constants';
+import { useCategories } from 'src/hooks/useCategories';
 
 import styles from './styles.module.scss';
 
@@ -17,6 +17,7 @@ export const CategoriesFilter = () => {
   const [isCategorySelected, setIsCategorySelected] = useState(false);
   const [, setSearchParams] = useSearchParams();
   const { width } = useWindowSize();
+  const { treeData } = useCategories();
   const isTablet = width <= SCREEN_WIDTH.MD;
 
   const onChange = (value: string[][]) => {
@@ -43,7 +44,7 @@ export const CategoriesFilter = () => {
         expandIcon={<ArrowRight className={styles.expandIcon} />}
         suffixIcon={<ArrowDown />}
         popupClassName={styles.popup}
-        options={CATEGORIES_DROP_DATA}
+        options={treeData}
         onChange={onChange}
         multiple
         maxTagCount="responsive"
