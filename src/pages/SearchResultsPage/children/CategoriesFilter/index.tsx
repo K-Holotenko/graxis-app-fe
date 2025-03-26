@@ -17,7 +17,7 @@ export const CategoriesFilter = () => {
   const [isCategorySelected, setIsCategorySelected] = useState(false);
   const [, setSearchParams] = useSearchParams();
   const { width } = useWindowSize();
-  const { treeData } = useCategories();
+  const { categoriesTree } = useCategories();
   const isTablet = width <= SCREEN_WIDTH.MD;
 
   const onChange = (value: string[][]) => {
@@ -44,7 +44,7 @@ export const CategoriesFilter = () => {
         expandIcon={<ArrowRight className={styles.expandIcon} />}
         suffixIcon={<ArrowDown />}
         popupClassName={styles.popup}
-        options={treeData}
+        options={categoriesTree}
         onChange={onChange}
         multiple
         maxTagCount="responsive"

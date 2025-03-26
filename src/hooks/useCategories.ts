@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useCategoriesStore } from 'src/stores/categoriesStore';
 import { buildCategoriesTree } from 'src/utils/buildCategoriesTree';
@@ -9,15 +9,10 @@ export interface Category {
   title: string;
   value: string;
   children?: Category[];
-  labelStyles?: string;
 }
 
-export const useCategories = (): {
-  treeData: Category[];
-  setTreeData: Dispatch<SetStateAction<Category[]>>;
-} => {
-  const [treeData, setTreeData] = useState<Category[]>([]);
-  const { getAllCategories } = useCategoriesStore();
+export const useCategories = (): { categoriesTree: Category[] } => {
+  const { categories, getAllCategories } = useCategoriesStore();
   const { openNotification } = useNotification();
 
   const showError = (description: string): void => {
@@ -25,12 +20,12 @@ export const useCategories = (): {
   };
 
   useEffect(() => {
-    getAllCategories(showError).then((cat) => {
-      if (cat) {
-        setTreeData(buildCategoriesTree(cat));
-      }
-    });
+    if (!categories?.length) {
+      getAllCategories(showError);
+    }
   }, []);
 
-  return { treeData, setTreeData };
+  const categoriesTree = buildCategoriesTree(categories ?? []);
+
+  return { categoriesTree };
 };
