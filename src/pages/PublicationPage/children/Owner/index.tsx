@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Heading } from 'src/components/Heading';
 import Star from 'src/assets/icons/star-icon.svg?react';
 import Smiley from 'src/assets/icons/smiley-icon.svg?react';
-import { IMAGE_DESCRIPTION, TEXT } from 'src/config/constants';
+import { IMAGE_DESCRIPTION } from 'src/config/constants';
 import { Publication } from 'src/services/PublicationService';
 import { theme } from 'src/config/theme';
 
@@ -20,7 +20,7 @@ export const Owner = ({
 }: OwnerProps) => (
   <div>
     <Heading level={4} className={styles.heading}>
-      {TEXT.ABOUT_USER}
+      Про власника
     </Heading>
     <Link to={`/user/${id}`} className={styles.infoWrap}>
       <Avatar
@@ -37,14 +37,12 @@ export const Owner = ({
         <div className={styles.info}>
           <Star />
           <span className={styles.text}>{rate}</span>
-          <span className={styles.text}>
-            {reviewCount} {TEXT.FEEDBACK_AMOUNT}
-          </span>
+          <span className={styles.text}>{reviewCount} відгуків</span>
         </div>
         <div className={styles.info}>
           <Smiley />
           <span className={styles.text}>
-            {getTimeWithUs(joinedAt)} {TEXT.WITH_US}
+            {getTimeWithUs(joinedAt)} з Graxis
           </span>
         </div>
       </div>
