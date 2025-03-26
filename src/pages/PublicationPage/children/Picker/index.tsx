@@ -6,7 +6,6 @@ import 'dayjs/locale/uk';
 import ukUA from 'antd/es/date-picker/locale/uk_UA';
 
 import { theme } from 'src/config/theme';
-import { TEXT } from 'src/config/constants';
 
 import styles from './styles.module.scss';
 
@@ -54,7 +53,7 @@ export const Picker: React.FC<{
         className={styles.deleteBtn}
         onClick={clearDates}
       >
-        {TEXT.DELETE_DATE}
+        Видалити дати
       </button>
     </div>
   );

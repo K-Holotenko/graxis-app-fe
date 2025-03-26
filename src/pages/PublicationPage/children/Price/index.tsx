@@ -8,7 +8,6 @@ import {
   calculatePrice,
   pricingPeriodEngToUkrMap,
 } from 'src/pages/PublicationPage/children/Price/utils/count';
-import { TEXT } from 'src/config/constants';
 import { Publication } from 'src/services/PublicationService';
 
 import styles from './styles.module.scss';
@@ -52,7 +51,7 @@ export const Price = ({ prices }: PriceProps) => {
   return (
     <section>
       <Heading level={3} className={`${styles.title} ${styles.start}`}>
-        {TEXT.COST}
+        Вартість
       </Heading>
       <dl className={styles.priceList}>
         {prices.map(({ price, pricingPeriod }) => (
@@ -65,31 +64,29 @@ export const Price = ({ prices }: PriceProps) => {
         ))}
       </dl>
       <Heading level={3} className={styles.title}>
-        {TEXT.CHOOSE_RENT_PERIOD}
+        Виберіть період оренди
       </Heading>
       <div className={styles.pickerWrapper}>
         <Picker onDateChange={setSelectedRange} />
         <div>
           {isRangeSelected ? (
             <div className={styles.periodWrapper}>
-              <span className={styles.price}>
-                {totalPrice} {TEXT.UAH}
-              </span>
+              <span className={styles.price}>{totalPrice} грн.</span>
               <span className={styles.period}>
-                {TEXT.FOR} {days} {TEXT.DAYS_PERIOD}
+                На {days} днів {'('}включно з комісією
                 <br />
-                {commission} {TEXT.RESERVATION_COST}
+                {commission} грн за бронювання{')'}
               </span>
             </div>
           ) : (
             <div className={styles.periodWrapper}>
-              <span className={styles.price}>0 {TEXT.UAH}</span>
-              <span className={styles.period}>{TEXT.EMPTY_SELECTION_TEXT}</span>
+              <span className={styles.price}>0 грн.</span>
+              <span className={styles.period}>Оберіть період оренди</span>
             </div>
           )}
           <Button
             className={`${styles.button} ${styles.priceBtn}`}
-            label={TEXT.SEND_REQUEST}
+            label="Відправити запит"
             isDisabled={!isRangeSelected}
             onClick={handleButtonClick}
           />
