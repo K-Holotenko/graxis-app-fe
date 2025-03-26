@@ -1,6 +1,6 @@
 import { Col, Row, Skeleton } from 'antd';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
@@ -18,6 +18,7 @@ import {
   Publication,
 } from 'src/services/PublicationService';
 import { Loadable } from 'src/components/Loadable';
+import { ROUTES } from 'src/router/routes';
 
 import { ImageCarousel } from './children/ImageCarousel';
 import { Owner } from './children/Owner';
@@ -33,7 +34,10 @@ import {
 
 export const PublicationPage = () => {
   const { width } = useWindowSize();
+
   const params = useParams();
+  const navigate = useNavigate();
+
   const [publication, setPublication] = useState<Publication | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -48,16 +52,16 @@ export const PublicationPage = () => {
   });
 
   useEffect(() => {
-    if (params.id === undefined) {
-      // TODO add redirect to 404 page
-      // navigate(ROUTES.NOT_FOUND);
+    if (!params?.id) {
+      navigate(ROUTES.NOT_FOUND);
+
       return;
     }
 
     const fetchPublicationById = async () => {
       try {
         const fetchedPublication: Publication = await getPublicationById(
-          params.id || ''
+          params.id!
         );
 
         setPublication(fetchedPublication);
