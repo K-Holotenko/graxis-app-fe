@@ -6,7 +6,7 @@ import { RegistrationPage } from 'src/pages/RegistrationPage';
 import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { AddPublicationPage } from 'src/pages/AddPublicationPage';
-import { ItemPage } from 'src/pages/ItemPage';
+import { PublicationPage } from 'src/pages/PublicationPage';
 import { SearchResultsPage } from 'src/pages/SearchResultsPage';
 import { UserProfilePage } from 'src/pages/UserProfilePage';
 import { AddUserInfoPage } from 'src/pages/AddUserInfoPage';
@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
   },
   {
     path: ROUTES.ITEM,
-    element: <ItemPage />,
+    element: <PublicationPage />,
   },
   {
     path: ROUTES.SEARCH_RESULTS,

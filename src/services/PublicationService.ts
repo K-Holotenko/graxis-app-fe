@@ -3,15 +3,45 @@ import { UploadFile } from 'antd';
 import { GRAXIS_API_URL } from 'src/config/constants';
 import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
 import { ProductData } from 'src/pages/SearchResultsPage/children/PublicationsSection';
+import { PricingPeriod } from 'src/pages/PublicationPage/children/Price/utils/count';
 
 import CookieService from './CookieService';
 
 interface Price {
   price: number;
-  pricingPeriod: string;
+  pricingPeriod: PricingPeriod;
 }
 
-interface PublicationData {
+export interface Publication {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  status: 'ACTIVE';
+  bookedDates: [];
+  createdAt: string;
+  price: Price[];
+  ownerInfo: {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    surname: string;
+    reviewCount: number;
+    joinedAt: string;
+    rate: number;
+  };
+  location: {
+    country: string;
+    city: string;
+    staticMapImage: string;
+  };
+  reviewsCount: number;
+  feedbackCount: number;
+  rate: number;
+  pictures: { url: string }[];
+}
+
+interface CreatePublicationData {
   categoryName: string;
   title: string;
   description: string;
@@ -23,8 +53,8 @@ interface PublicationData {
 const PUBLICATIONS_API_URL = `${GRAXIS_API_URL}/publications`;
 
 export const createPublication = async (
-  publicationData: PublicationData
-): Promise<PublicationData> => {
+  publicationData: CreatePublicationData
+): Promise<CreatePublicationData> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
   const formData = new FormData();
 
@@ -68,4 +98,18 @@ export const getAllPublications = async (): Promise<ProductData[]> => {
   const responseBody = await response.json();
 
   return responseBody.publications;
+};
+
+export const getPublicationById = async (id: string): Promise<Publication> => {
+  const response = await fetch(`${PUBLICATIONS_API_URL}/${id}`, {
+    method: 'GET',
+  });
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const responseBody = await response.json();
+
+  return responseBody;
 };

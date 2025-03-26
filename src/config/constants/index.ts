@@ -5,7 +5,6 @@ import TikTokIcon from 'src/assets/icons/tiktok-icon-dark.svg';
 import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
-  ABOUT_USER: 'Про власника',
   ADD_PHOTO: 'Додайте фото',
   ADD_PUBLICATION: 'Додати оголошення',
   ADD_ANNOUNCEMENT: 'Додайте оголошення',
@@ -23,27 +22,8 @@ export const TEXT = {
   CHOOSE_RENT_PERIOD: 'Виберіть період оренди',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
   CONTACT_US: 'Звʼяжіться з нами',
-  CURRENCY_PER_TIME: 'грн / день',
 
-  DAYS_PERIOD: 'днів (включно з комісією',
-  DELETE_DATE: 'Видалити дати',
   DESCRIPTION: 'Опис',
-  DESCRIPTION_TEXT:
-    'Ігрова приставка Sony PlayStation 4 Slim 500 ГБ з ОЗУ 8 ГБ. ' +
-    "Консоль має роз'єми: USB, HDMI, RJ-45. " +
-    'У комплект входить: кабель живлення, кабель HDMI, бездротова панель DualShock 4, кабель USB. ' +
-    'Lorem ipsum dolor sit amet consectetur. ' +
-    'Eget vulputate placerat ac tristique molestie orci imperdiet. ' +
-    'Mauris phasellus amet scelerisque non nunc mauris. ' +
-    'Senectus elit turpis mauris laoreet platea elementum scelerisque. ' +
-    'Semper convallis volutpat nullam ante gravida libero amet dui. ' +
-    'Quis praesent justo morbi vitae praesent ornare rutrum. ' +
-    'In mollis maecenas egestas id ut ornare orci posuere. ' +
-    'Nisl elit enim consequat justo. ' +
-    'Interdum sagittis bibendum orci mauris congue fusce a. ' +
-    'Eu lobortis nulla enim lacus quisque nibh. ' +
-    'Tellus sit est pretium cum nibh. ' +
-    'Neque facilisi ac vulputate vestibulum neque vitae neque arcu pellentesque.',
 
   EMAIL: 'Пошта',
   EMPTY_SELECTION_TEXT: 'Ви поки нічого не обрали',
@@ -71,9 +51,7 @@ export const TEXT = {
   INPUT_PUBLICATION_NAME: 'Введіть назву оголошення',
   INPUT_SEARCH: 'Пошук товару',
 
-  LESS: 'Менше',
   LOCATION_NAME: 'Локація',
-  LOCATION_NAME_MAP: 'Київ, Україна',
   LOGIN: 'Увійти',
   LOGOUT: 'Вийти',
 
@@ -251,12 +229,6 @@ export const CATEGORIES_DROP_TEXT = {
   games: 'Ігри',
   kids: 'Дитячі товари',
 };
-
-export const MOCKED_PRICES = [
-  { amount: 100, period: '1 день' },
-  { amount: 500, period: '7 днів' },
-  { amount: 1600, period: '30 днів' },
-];
 
 export const PROFILE_PARAMS = {
   PROFILE: 'profile',
