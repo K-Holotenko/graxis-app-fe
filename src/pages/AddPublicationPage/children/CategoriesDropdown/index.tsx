@@ -21,7 +21,7 @@ export const CategoriesDropdown = ({
   const [treeValue, setTreeValue] = useState<string | null>(null);
   const [treeExpandedKeys, setTreeExpandedKeys] = useState<SafeKey[]>([]);
 
-  const { treeData } = useCategories();
+  const { categoriesTree } = useCategories();
 
   const findParentPath = (value: string, tree: Category[]): string[] => {
     for (const category of tree) {
@@ -45,7 +45,7 @@ export const CategoriesDropdown = ({
     setTreeValue(value);
 
     if (value) {
-      const path = findParentPath(value, treeData);
+      const path = findParentPath(value, categoriesTree);
 
       setTreeExpandedKeys(path);
     }
@@ -67,7 +67,7 @@ export const CategoriesDropdown = ({
           if (prev.includes(value)) {
             return prev.filter((key) => key !== value);
           }
-          const parentPath = findParentPath(value, treeData);
+          const parentPath = findParentPath(value, categoriesTree);
 
           return [...new Set([...parentPath, value])];
         });
@@ -101,7 +101,7 @@ export const CategoriesDropdown = ({
           value={treeValue}
           treeTitleRender={treeTitleRender}
           treeExpandedKeys={treeExpandedKeys}
-          treeData={treeData}
+          treeData={categoriesTree}
           placeholder={TEXT.CHOOSE_CATEGORY}
           onTreeExpand={(expandedKeys) => setTreeExpandedKeys(expandedKeys)}
           onClear={() => setTreeExpandedKeys([])}
