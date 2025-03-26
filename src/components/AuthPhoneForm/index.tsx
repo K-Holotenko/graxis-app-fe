@@ -98,7 +98,6 @@ export const AuthPhoneForm = ({ route }: AuthPhoneFormProps) => {
             type={InputType.TEL}
             maxLength={9}
             addonBefore="+380"
-            className={styles.phoneInput}
             placeholder={TEXT.INPUT_PHONE}
             onChange={handleInputChange}
           />
