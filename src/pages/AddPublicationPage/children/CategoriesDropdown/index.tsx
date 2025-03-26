@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ConfigProvider, TreeSelect, Form } from 'antd';
 import Icon from '@ant-design/icons';
 import { SafeKey } from 'antd/es/table/interface';
@@ -7,9 +7,7 @@ import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import { TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import ClearIcon from 'src/assets/icons/clear-icon.svg?react';
-import { useCategoriesStore } from 'src/stores/categoriesStore';
-import { buildCategoriesTree } from 'src/utils/buildCategoriesTree';
-import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { Category, useCategories } from 'src/hooks/useCategories';
 
 import styles from './styles.module.scss';
 
@@ -17,33 +15,13 @@ interface CategoriesDropdownProps {
   labelStyles?: string;
 }
 
-interface Category {
-  title: string;
-  value: string;
-  children?: Category[];
-  labelStyles?: string;
-}
-
 export const CategoriesDropdown = ({
   labelStyles,
 }: CategoriesDropdownProps) => {
-  const { getAllCategories } = useCategoriesStore();
-  const [treeData, setTreeData] = useState<Category[]>([]);
   const [treeValue, setTreeValue] = useState<string | null>(null);
   const [treeExpandedKeys, setTreeExpandedKeys] = useState<SafeKey[]>([]);
-  const { openNotification } = useNotification();
 
-  const showError = (description: string) => {
-    openNotification(NotificationType.ERROR, 'Помилка', description);
-  };
-
-  useEffect(() => {
-    getAllCategories(showError).then((cat) => {
-      if (cat) {
-        setTreeData(buildCategoriesTree(cat));
-      }
-    });
-  }, []);
+  const { categoriesTree } = useCategories();
 
   const findParentPath = (value: string, tree: Category[]): string[] => {
     for (const category of tree) {
@@ -67,7 +45,7 @@ export const CategoriesDropdown = ({
     setTreeValue(value);
 
     if (value) {
-      const path = findParentPath(value, treeData);
+      const path = findParentPath(value, categoriesTree);
 
       setTreeExpandedKeys(path);
     }
@@ -75,21 +53,37 @@ export const CategoriesDropdown = ({
 
   const treeTitleRender = (category: string | null | Category) => {
     if (typeof category === 'string' || category === null) {
-      return <span>{category as ReactNode}</span>;
+      return <span>{category}</span>;
     }
 
-    const hasNoChildren = !category.children || category.children.length === 0;
-    const isHighlighted = treeExpandedKeys.includes(category.value);
-    const isSelected = treeValue === category.value && hasNoChildren;
+    const { value, title, children } = category;
+    const hasChildren = children && children.length > 0;
+    const isHighlighted = treeExpandedKeys.includes(value);
+    const isSelected = treeValue === value && !hasChildren;
+
+    const toggleCategory = () => {
+      if (hasChildren) {
+        setTreeExpandedKeys((prev) => {
+          if (prev.includes(value)) {
+            return prev.filter((key) => key !== value);
+          }
+          const parentPath = findParentPath(value, categoriesTree);
+
+          return [...new Set([...parentPath, value])];
+        });
+      } else {
+        handleChange(value);
+      }
+    };
 
     return (
       <div
-        onClick={() => handleChange(category.value)}
-        className={`${styles.treeNode} ${
-          isSelected ? styles.selectedCategory : ''
-        } ${isHighlighted && !hasNoChildren ? styles.highlightedCategory : ''}`}
+        onClick={toggleCategory}
+        className={`${styles.treeNode} 
+          ${isSelected ? styles.selectedCategory : ''} 
+          ${isHighlighted && hasChildren ? styles.highlightedCategory : ''}`}
       >
-        <p className={styles.treeText}>{category.title}</p>
+        <p className={styles.treeText}>{title}</p>
       </div>
     );
   };
@@ -107,7 +101,7 @@ export const CategoriesDropdown = ({
           value={treeValue}
           treeTitleRender={treeTitleRender}
           treeExpandedKeys={treeExpandedKeys}
-          treeData={treeData}
+          treeData={categoriesTree}
           placeholder={TEXT.CHOOSE_CATEGORY}
           onTreeExpand={(expandedKeys) => setTreeExpandedKeys(expandedKeys)}
           onClear={() => setTreeExpandedKeys([])}
