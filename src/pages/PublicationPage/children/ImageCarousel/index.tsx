@@ -4,27 +4,22 @@ import { CarouselRef } from 'antd/es/carousel';
 
 import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import image01 from 'src/assets/images/image01.jpg';
-import image02 from 'src/assets/images/image02.jpg';
-import image03 from 'src/assets/images/image03.jpg';
-import image04 from 'src/assets/images/image04.jpg';
-import image05 from 'src/assets/images/image05.jpg';
-import image06 from 'src/assets/images/image06.jpg';
 import { SCREEN_WIDTH } from 'src/config/constants';
 
 import styles from './styles.module.scss';
 
-export const ImageCarousel = () => {
+interface Image {
+  url: string;
+}
+
+interface ImageCarouselProps {
+  pictures: Image[];
+}
+
+export const ImageCarousel = ({ pictures }: ImageCarouselProps) => {
   const carouselRef = useRef<CarouselRef>(null);
 
-  const [images] = useState([
-    { id: 'image01', src: image01 },
-    { id: 'image02', src: image02 },
-    { id: 'image03', src: image03 },
-    { id: 'image04', src: image04 },
-    { id: 'image05', src: image05 },
-    { id: 'image06', src: image06 },
-  ]);
+  const [images] = useState(pictures);
 
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.MD;
@@ -34,10 +29,9 @@ export const ImageCarousel = () => {
       <ConfigProvider theme={isMobile ? mobileLocalTheme : desktopLocalTheme}>
         <Carousel ref={carouselRef}>
           {images.map((image) => (
-            <div className={styles.imageWrapper} key={image.id}>
+            <div key={image.url}>
               <Image
-                key={image.id}
-                src={image.src}
+                src={image.url}
                 preview={false}
                 className={styles.carouselMainImage}
               />
@@ -49,8 +43,8 @@ export const ImageCarousel = () => {
           <div className={styles.carouselPreviewImages}>
             {images.map((image, index) => (
               <Image
-                key={image.id}
-                src={image.src}
+                key={image.url}
+                src={image.url}
                 preview={false}
                 className={styles.carouselPreviewImage}
                 onClick={() => carouselRef.current?.goTo(index)}

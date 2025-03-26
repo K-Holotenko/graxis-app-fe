@@ -46,15 +46,17 @@
 }
 
 @media (min-width: variables.$media-sm) {
-  .itemName {
-    font-size: 48px;
-    line-height: 1.25;
-  }
-
   .feedback {
     font-weight: 700;
     font-size: 24px;
     letter-spacing: -0.02em;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .itemName {
+    font-size: 48px;
+    line-height: 1.25;
   }
 }
 

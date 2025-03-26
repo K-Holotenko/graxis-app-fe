@@ -1,0 +1,51 @@
+@use 'src/styles/variables';
+
+.picturesSkeleton {
+  width: 100% !important;
+  height: 300px !important;
+}
+
+.breadcrumbsSkeleton {
+  margin-block-start: 0 !important;
+}
+
+.priceSkeletonWrapper {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.priceSkeleton {
+  width: 100% !important;
+  height: 90px;
+}
+
+.calendarSkeltonWrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendarSkelton {
+  width: 300px !important;
+  height: 600px !important;
+}
+
+.mapSkeleton {
+  width: 100% !important;
+  height: 250px !important;
+}
+
+@media (min-width: variables.$media-md) {
+  .picturesSkeleton {
+    width: 100% !important;
+    height: 558px !important;
+  }
+
+  .mapSkeleton {
+    height: 300px !important;
+  }
+}

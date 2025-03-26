@@ -2,26 +2,26 @@ import { useState, useMemo } from 'react';
 import { Dayjs } from 'dayjs';
 
 import { Heading } from 'src/components/Heading';
-import { Picker } from 'src/pages/ItemPage/children/Picker';
+import { Picker } from 'src/pages/PublicationPage/children/Picker';
 import { Button } from 'src/components/Button';
-import { calculatePrice } from 'src/pages/ItemPage/children/Price/utils/count';
+import {
+  calculatePrice,
+  pricingPeriodEngToUkrMap,
+} from 'src/pages/PublicationPage/children/Price/utils/count';
 import { TEXT } from 'src/config/constants';
+import { Publication } from 'src/services/PublicationService';
 
 import styles from './styles.module.scss';
 
-interface PriceItem {
-  amount: number;
-  period: string;
-}
-
 interface PriceProps {
-  prices: PriceItem[];
+  prices: Publication['price'];
 }
 
-export const Price: React.FC<PriceProps> = ({ prices }) => {
+export const Price = ({ prices }: PriceProps) => {
   const [selectedRange, setSelectedRange] = useState<
     [Dayjs | null, Dayjs | null]
   >([null, null]);
+
   const [, setPriceData] = useState<null | {
     firstDay: string;
     lastDay: string;
@@ -55,10 +55,12 @@ export const Price: React.FC<PriceProps> = ({ prices }) => {
         {TEXT.COST}
       </Heading>
       <dl className={styles.priceList}>
-        {prices.map(({ amount, period }) => (
-          <div key={period} className={styles.priceItem}>
-            <dt className={styles.priceAmount}>₴{amount}</dt>
-            <dd className={styles.pricePeriod}>{period}</dd>
+        {prices.map(({ price, pricingPeriod }) => (
+          <div key={pricingPeriod} className={styles.priceItem}>
+            <dt className={styles.priceAmount}>₴{price}</dt>
+            <dd className={styles.pricePeriod}>
+              {pricingPeriodEngToUkrMap[pricingPeriod]}
+            </dd>
           </div>
         ))}
       </dl>
