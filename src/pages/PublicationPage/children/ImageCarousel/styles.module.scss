@@ -1,0 +1,52 @@
+@use 'src/styles/variables';
+
+.itemPage {
+  text-align: center;
+}
+
+.carouselMainImage {
+  object-fit: cover;
+  height: 400px !important;
+  border-radius: 12px;
+}
+
+:global(.ant-carousel .slick-dots li button) {
+  border-radius: 2px;
+  opacity: 0.4;
+}
+
+@media (min-width: variables.$media-md) {
+  .carouselMainImage {
+    height: 558px !important;
+  }
+
+  .carouselPreviewImage {
+    object-fit: cover;
+    cursor: pointer;
+    width: 108px !important;
+    height: 96px !important;
+    border-radius: 12px;
+  }
+
+  .carouselPreviewImages {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 26px;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .carouselMainImage {
+    height: 594px !important;
+  }
+
+  .carouselPreviewImage {
+    width: 116px !important;
+  }
+
+  .carouselPreviewImages {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+}
