@@ -18,7 +18,7 @@ export const PublicationCard = ({
   const navigate = useNavigate();
   const displayPrice = getDisplayPrice(price);
 
-  const textLength = 46;
+  const textLength = 35;
 
   const handleCardClick = () => {
     navigate(`/item/${id}`);
