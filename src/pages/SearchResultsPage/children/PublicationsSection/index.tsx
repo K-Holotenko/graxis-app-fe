@@ -3,19 +3,15 @@ import { useEffect, useState } from 'react';
 import { VALIDATION_MESSAGE } from 'src/config/validation';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { CardsGridLayout } from 'src/layouts/CardsGridLayout';
-import { PopularGoodCard } from 'src/pages/HomePage/children/PopularGoodCard';
-import { getAllPublications } from 'src/services/PublicationService';
+import { PublicationCard } from 'src/components/PublicationCard';
+import {
+  getAllPublications,
+  PublicationCard as PublicationCardType,
+} from 'src/services/PublicationService';
 import { SearchEmptyState } from 'src/pages/SearchResultsPage/children/SearchEmptyState/index';
 
-export interface ProductData {
-  id: string;
-  thumbnailUrl: string;
-  title: string;
-  price: { price: number; pricingPeriod: string };
-}
-
 export const PublicationsSection = () => {
-  const [publications, setPublications] = useState<ProductData[]>([]);
+  const [publications, setPublications] = useState<PublicationCardType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { openNotification } = useNotification();
 
@@ -48,14 +44,7 @@ export const PublicationsSection = () => {
   return isNoResults ? (
     <CardsGridLayout>
       {publications.map((publication) => (
-        <PopularGoodCard
-          id={publication.id}
-          key={publication.id}
-          image={publication.thumbnailUrl}
-          name={publication.title}
-          rating={4.8}
-          price={publication.price}
-        />
+        <PublicationCard publicationCard={publication} key={publication.id} />
       ))}
     </CardsGridLayout>
   ) : (
