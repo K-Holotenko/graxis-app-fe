@@ -1,7 +1,6 @@
-import { ChangeEvent, useEffect, useRef } from 'react';
+import { KeyboardEvent, RefObject } from 'react';
 import { Space, Select, ConfigProvider, InputRef } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { useSearchParams } from 'react-router-dom';
 
 import MapPinSrc from 'src/assets/icons/map-pin-icon.svg?react';
 import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
@@ -11,30 +10,17 @@ import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
 
-export const SearchBar = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const inputRef = useRef<InputRef>(null);
+interface SearchBarProps {
+  inputRef: RefObject<InputRef | null>;
+  onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
+}
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length) {
-      setSearchParams({ q: e.target.value });
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { q, ...rest } = Object.fromEntries(searchParams);
-
-      setSearchParams(rest);
+export const SearchBar = ({ inputRef, onKeyDown }: SearchBarProps) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onKeyDown(e);
     }
   };
-
-  const handleSearch = () => {
-    //TODO: Implement search logic
-  };
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
 
   return (
     <div className={styles.searchBarWrapper}>
@@ -43,9 +29,7 @@ export const SearchBar = () => {
           ref={inputRef}
           placeholder={TEXT.INPUT_SEARCH}
           prefix={<SearchOutlined />}
-          value={searchParams.get('q') || ''}
-          onChange={handleInput}
-          onPressEnter={handleSearch}
+          onPressEnter={handleKeyDown}
         />
         <ConfigProvider theme={localTheme}>
           <Select

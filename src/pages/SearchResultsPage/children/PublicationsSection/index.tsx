@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { VALIDATION_MESSAGE } from 'src/config/validation';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
@@ -18,12 +19,13 @@ export const PublicationsSection = () => {
   const [publications, setPublications] = useState<ProductData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { openNotification } = useNotification();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const fetchGoods = async () => {
       setIsLoading(true);
       try {
-        const data = await getAllPublications();
+        const data = await getAllPublications(searchParams);
 
         setPublications(data);
       } catch {
@@ -38,7 +40,7 @@ export const PublicationsSection = () => {
     };
 
     fetchGoods();
-  }, []);
+  }, [searchParams]);
 
   //TODO Remove this loading when the button Load more is added
   if (isLoading) return <div>Loading...</div>;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Cascader, ConfigProvider } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ export const CategoriesFilter = () => {
   const [selectedValues, setSelectedValues] = useState<string[][]>([]);
   const [isFocused, setIsFocused] = useState(false);
   const [isCategorySelected, setIsCategorySelected] = useState(false);
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { width } = useWindowSize();
   const { categoriesTree } = useCategories();
   const isTablet = width <= SCREEN_WIDTH.MD;
@@ -23,15 +23,21 @@ export const CategoriesFilter = () => {
   const onChange = (value: string[][]) => {
     setSelectedValues(value);
     setIsCategorySelected(value.length > 0);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
 
-    const searchParams = new URLSearchParams();
-
+    newSearchParams.delete('categories');
     value.forEach((path) => {
-      searchParams.append('category', path[path.length - 1]);
+      newSearchParams.append('categories', path[path.length - 1]);
     });
-
-    setSearchParams(searchParams);
+    setSearchParams(newSearchParams);
   };
+
+  useEffect(() => {
+    const paramCategories = searchParams.getAll('categories');
+    const newValues = paramCategories.map((cat) => [cat]);
+
+    setSelectedValues(newValues);
+  }, [searchParams]);
 
   const localTheme = setLocalTheme(isFocused, isCategorySelected);
 

@@ -83,13 +83,17 @@ export const createPublication = async (
   return responseBody;
 };
 
-export const getAllPublications = async (): Promise<ProductData[]> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+export const getAllPublications = async (
+  searchParams: URLSearchParams
+): Promise<ProductData[]> => {
+  const queryString = searchParams.toString();
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}/search?page=1`, {
-    method: 'GET',
-    headers: { Authorization: token },
-  });
+  const response = await fetch(
+    `${PUBLICATIONS_API_URL}/search?${queryString}&page=1`,
+    {
+      method: 'GET',
+    }
+  );
 
   if (!response.ok) {
     throw new Error();
