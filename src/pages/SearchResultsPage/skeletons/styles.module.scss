@@ -1,0 +1,11 @@
+.cardSkeleton {
+  display: flex;
+  flex-direction: column;
+}
+
+.picturesSkeleton {
+  aspect-ratio: 1/1;
+  width: 100% !important;
+  height: auto !important;
+  margin-bottom: 10px;
+}
