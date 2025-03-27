@@ -26,7 +26,7 @@ export const Owner = ({
       <Avatar
         style={{ backgroundColor: theme.primary }}
         size={{ xs: 82, sm: 98, md: 98, lg: 98, xl: 98, xxl: 98 }}
-        src={avatarUrl.length ? avatarUrl : undefined}
+        src={avatarUrl?.length ? avatarUrl : undefined}
         alt={IMAGE_DESCRIPTION.USER_ICON}
         className={styles.avatar}
       >

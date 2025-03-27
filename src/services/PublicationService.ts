@@ -2,7 +2,6 @@ import { UploadFile } from 'antd';
 
 import { GRAXIS_API_URL } from 'src/config/constants';
 import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
-import { ProductData } from 'src/pages/SearchResultsPage/children/PublicationsSection';
 import { PricingPeriod } from 'src/pages/PublicationPage/children/Price/utils/count';
 
 import CookieService from './CookieService';
@@ -50,6 +49,15 @@ interface CreatePublicationData {
   files: UploadFile[];
 }
 
+export interface PublicationCard {
+  id: string;
+  rate: number;
+  reviewCount: number;
+  thumbnailUrl: string;
+  title: string;
+  price: { price: number; pricingPeriod: string };
+}
+
 const PUBLICATIONS_API_URL = `${GRAXIS_API_URL}/publications`;
 
 export const createPublication = async (
@@ -83,7 +91,7 @@ export const createPublication = async (
   return responseBody;
 };
 
-export const getAllPublications = async (): Promise<ProductData[]> => {
+export const getAllPublications = async (): Promise<PublicationCard[]> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
 
   const response = await fetch(`${PUBLICATIONS_API_URL}/search?page=1`, {
