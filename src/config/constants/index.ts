@@ -22,7 +22,6 @@ export const TEXT = {
   CHOOSE_LOCATION: 'Виберіть локацію',
   CHOOSE_RENT_PERIOD: 'Виберіть період оренди',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
-  CONTACT_INFO: 'Контактна інформація',
   CONTACT_US: 'Звʼяжіться з нами',
   CURRENCY_PER_TIME: 'грн / день',
 
@@ -78,7 +77,6 @@ export const TEXT = {
   LOGIN: 'Увійти',
   LOGOUT: 'Вийти',
 
-  MAIL: 'Електронна пошта',
   MORE: 'Більше',
   MY_PUBLICATIONS: 'Мої оголошення',
 

@@ -9,16 +9,16 @@ import {
 } from 'src/services/UserService';
 
 export interface User {
-  id: string;
-  name: string;
-  surname: string;
-  avatar: string;
-  email: string;
-  phoneNumber: string;
-  registrationDate: string;
-  activeAt: string;
-  avatarUrl: string;
-  email_verified: boolean;
+  id?: string;
+  name?: string;
+  surname?: string;
+  avatar?: string;
+  email?: string;
+  phoneNumber?: string;
+  registrationDate?: string;
+  activeAt?: string;
+  avatarUrl?: string;
+  email_verified?: boolean;
 }
 
 export interface ContactInfoForm {
@@ -29,8 +29,6 @@ export interface ContactInfoForm {
 interface UserStore {
   user: User | null;
   isLoading: boolean;
-  isEditingContactInfoForm: boolean;
-  contactInfoFormValues: ContactInfoForm;
   createUser: (
     user: SignUpUser,
     showError: (err: string) => void
@@ -41,14 +39,9 @@ interface UserStore {
     data: UpdateUserData,
     showError: (err: string) => void
   ) => Promise<void>;
-  setIsEditingContactInfoForm: (isEditing: boolean) => void;
-  setContactInfoFormValues: (email: string, phoneNumber: string) => void;
-  saveContactInfoFormValues: () => void;
-  isSaveButtonDisabled: boolean;
-  setIsSaveButtonDisabled: (disabled: boolean) => void;
 }
 
-export const useUserStore = create<UserStore>((set, get) => ({
+export const useUserStore = create<UserStore>((set) => ({
   user: {
     id: '123456789',
     name: 'Vasyl',
@@ -62,35 +55,6 @@ export const useUserStore = create<UserStore>((set, get) => ({
     email_verified: true,
   },
   isLoading: false,
-  isEditingContactInfoForm: false,
-  contactInfoFormValues: {
-    email: 'VasylSymonenko@gmail.com',
-    phoneNumber: '968756987',
-  },
-
-  setIsEditingContactInfoForm: (isEditing: boolean) =>
-    set({ isEditingContactInfoForm: isEditing }),
-
-  isSaveButtonDisabled: false,
-  setIsSaveButtonDisabled: (isDisabled: boolean) =>
-    set({ isSaveButtonDisabled: isDisabled }),
-
-  setContactInfoFormValues: (email: string, phoneNumber: string) =>
-    set({ contactInfoFormValues: { email, phoneNumber } }),
-
-  saveContactInfoFormValues: () => {
-    const { user, contactInfoFormValues } = get();
-
-    if (!user) return;
-    set({
-      user: {
-        ...user,
-        email: contactInfoFormValues.email,
-        phoneNumber: contactInfoFormValues.phoneNumber,
-      },
-      isEditingContactInfoForm: false,
-    });
-  },
 
   createUser: async (user, showError) => {
     set({ isLoading: true });
@@ -119,10 +83,6 @@ export const useUserStore = create<UserStore>((set, get) => ({
     set({
       user: userData,
       isLoading: false,
-      contactInfoFormValues: {
-        email: userData.email,
-        phoneNumber: userData.phoneNumber,
-      },
     });
   },
 
@@ -135,10 +95,6 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
       set({
         user: updatedUser,
-        contactInfoFormValues: {
-          email: updatedUser.email,
-          phoneNumber: updatedUser.phoneNumber,
-        },
       });
     } catch {
       showError('Щось пішло не так. Спробуйте ще раз');
