@@ -19,10 +19,22 @@
 }
 
 .priceItem {
-  width: 33.33%;
   border: 1px solid variables.$N4;
   border-radius: 12px;
   padding: 12px 16px;
+}
+
+.singlePrice {
+  width: 100%;
+  max-width: 298px;
+}
+
+.dualPrice {
+  width: 50%;
+}
+
+.multiPrice {
+  width: 33.33%;
 }
 
 .uah {

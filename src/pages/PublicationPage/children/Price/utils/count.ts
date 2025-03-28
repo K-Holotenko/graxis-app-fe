@@ -35,27 +35,27 @@ export const calculatePrice = (
   const monthPrice =
     prices.find((p) => p.pricingPeriod === PricingPeriod.MONTH)?.price || 0;
 
-  let totalPriceWithoutFee = 0;
+  let monthCount = 0,
+    weekCount = 0,
+    dayCount = 0,
+    leftDays = days;
 
-  if (days < WEEK) {
-    totalPriceWithoutFee = days * dayPrice;
-  } else if (days === WEEK) {
-    totalPriceWithoutFee = weekPrice;
-  } else if (days > WEEK && days < MONTH) {
-    const weeks = Math.floor(days / WEEK);
-
-    totalPriceWithoutFee = weeks * weekPrice + (days % WEEK) * dayPrice;
-  } else if (days === MONTH) {
-    totalPriceWithoutFee = monthPrice;
-  } else {
-    const months = Math.floor(days / MONTH);
-    const remainingDays = days % MONTH;
-    const weeks = Math.floor(remainingDays / WEEK);
-    const extraDays = remainingDays % WEEK;
-
-    totalPriceWithoutFee =
-      months * monthPrice + weeks * weekPrice + extraDays * dayPrice;
+  if (monthPrice) {
+    monthCount = Math.floor(leftDays / MONTH);
+    leftDays -= monthCount * MONTH;
   }
+
+  if (weekPrice) {
+    weekCount = Math.floor(leftDays / WEEK);
+    leftDays -= weekCount * WEEK;
+  }
+
+  if (dayPrice) {
+    dayCount = leftDays;
+  }
+
+  const totalPriceWithoutFee =
+    monthCount * monthPrice + weekCount * weekPrice + dayCount * dayPrice;
 
   const commission = Math.round((totalPriceWithoutFee * FEE_PERCENT) / 100);
   const totalPrice = Math.round(totalPriceWithoutFee + commission);
