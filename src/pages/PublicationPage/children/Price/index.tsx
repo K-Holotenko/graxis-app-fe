@@ -48,6 +48,15 @@ export const Price = ({ prices }: PriceProps) => {
     }
   };
 
+  const priceItemWidthClassMap = {
+    1: styles.singlePrice,
+    2: styles.dualPrice,
+    3: styles.multiPrice,
+  };
+
+  const getPriceItemClass = () =>
+    priceItemWidthClassMap[prices.length as 1 | 2 | 3];
+
   return (
     <section>
       <Heading level={3} className={`${styles.title} ${styles.start}`}>
@@ -55,7 +64,10 @@ export const Price = ({ prices }: PriceProps) => {
       </Heading>
       <dl className={styles.priceList}>
         {prices.map(({ price, pricingPeriod }) => (
-          <div key={pricingPeriod} className={styles.priceItem}>
+          <div
+            key={pricingPeriod}
+            className={`${styles.priceItem} ${getPriceItemClass()}`}
+          >
             <dt className={styles.priceAmount}>₴{price}</dt>
             <dd className={styles.pricePeriod}>
               {pricingPeriodEngToUkrMap[pricingPeriod]}
