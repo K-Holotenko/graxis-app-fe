@@ -11,11 +11,12 @@
 
 .bottomContentContainer {
   margin-bottom: 40px;
+  width: 100%;
+  justify-content: center;
 }
 
 .bottomContentSection {
-  height: 68px;
-  background-color: #bcccdc;
+  max-width: 327px;
 }
 
 @media (min-width: variables.$media-md) {

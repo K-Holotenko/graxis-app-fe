@@ -7,7 +7,7 @@ import { SCREEN_WIDTH } from 'src/config/constants';
 
 import styles from './styles.module.scss';
 
-export const TopContent = () => {
+export const Filters = () => {
   const [searchParams] = useSearchParams();
 
   const { width } = useWindowSize();

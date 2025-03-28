@@ -58,6 +58,11 @@ export interface PublicationCard {
   price: { price: number; pricingPeriod: string };
 }
 
+export interface PublicationPage {
+  publications: PublicationCard[];
+  nextPage: number | null;
+}
+
 const PUBLICATIONS_API_URL = `${GRAXIS_API_URL}/publications`;
 
 export const createPublication = async (
@@ -91,10 +96,12 @@ export const createPublication = async (
   return responseBody;
 };
 
-export const getAllPublications = async (): Promise<PublicationCard[]> => {
+export const getAllPublications = async (
+  page: number
+): Promise<PublicationPage> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}/search?page=1`, {
+  const response = await fetch(`${PUBLICATIONS_API_URL}/search?page=${page}`, {
     method: 'GET',
     headers: { Authorization: token },
   });
@@ -105,7 +112,7 @@ export const getAllPublications = async (): Promise<PublicationCard[]> => {
 
   const responseBody = await response.json();
 
-  return responseBody.publications;
+  return responseBody;
 };
 
 export const getPublicationById = async (id: string): Promise<Publication> => {

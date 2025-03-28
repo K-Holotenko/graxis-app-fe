@@ -1,53 +1,37 @@
-import { useEffect, useState } from 'react';
-
-import { VALIDATION_MESSAGE } from 'src/config/validation';
-import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { CardsGridLayout } from 'src/layouts/CardsGridLayout';
 import { PublicationCard } from 'src/components/PublicationCard';
-import {
-  getAllPublications,
-  PublicationCard as PublicationCardType,
-} from 'src/services/PublicationService';
 import { SearchEmptyState } from 'src/pages/SearchResultsPage/children/SearchEmptyState/index';
+import { PublicationCard as PublicationCardType } from 'src/services/PublicationService';
+import { PublicationsGridSkeleton } from 'src/pages/SearchResultsPage/skeletons';
 
-export const PublicationsSection = () => {
-  const [publications, setPublications] = useState<PublicationCardType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const { openNotification } = useNotification();
+interface PublicationsSectionProps {
+  publications: PublicationCardType[];
+  isLoading: boolean;
+}
 
-  useEffect(() => {
-    const fetchGoods = async () => {
-      setIsLoading(true);
-      try {
-        const data = await getAllPublications();
-
-        setPublications(data);
-      } catch {
-        openNotification(
-          NotificationType.ERROR,
-          VALIDATION_MESSAGE.ERROR,
-          VALIDATION_MESSAGE.TRY_AGAIN
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchGoods();
-  }, []);
-
-  //TODO Remove this loading when the button Load more is added
-  if (isLoading) return <div>Loading...</div>;
-
-  const isNoResults = publications.length && !isLoading;
+export const PublicationsSection = ({
+  publications,
+  isLoading,
+}: PublicationsSectionProps) => {
+  const isNoResults = publications.length === 0 && !isLoading;
+  const areSomePublicationsLoaded = publications.length > 0;
+  const skeletonsCount = areSomePublicationsLoaded ? 8 : 16;
+  const addMarginIfNextPageLoading = isLoading && areSomePublicationsLoaded;
 
   return isNoResults ? (
-    <CardsGridLayout>
-      {publications.map((publication) => (
-        <PublicationCard publicationCard={publication} key={publication.id} />
-      ))}
-    </CardsGridLayout>
-  ) : (
     <SearchEmptyState />
+  ) : (
+    <>
+      <CardsGridLayout>
+        {publications.map((publication) => (
+          <PublicationCard publicationCard={publication} key={publication.id} />
+        ))}
+      </CardsGridLayout>
+      <div style={addMarginIfNextPageLoading ? { marginTop: 24 } : undefined}>
+        {isLoading && (
+          <PublicationsGridSkeleton numberOfCards={skeletonsCount} />
+        )}
+      </div>
+    </>
   );
 };
