@@ -14,7 +14,6 @@ export const TEXT = {
   ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
   AUTHORIZE: 'Авторизуватися',
 
-  CANCEL_CHANGES: 'Скасувати зміни',
   CATEGORIES: 'Категорії',
   CATEGORIES_SECTION_TITLE: 'Категорії товарів',
   CHOOSE_CATEGORY: 'Виберіть категорію',
@@ -76,7 +75,6 @@ export const TEXT = {
   RESERVATION_COST: 'грн за бронювання)',
   RIGHTS: '© 2025 Graxis. Всі права захищено. Політика конфіденційності',
 
-  SAVE_CHANGES: 'Зберегти зміни',
   SEC: 'c',
   SEND_REQUEST: 'Відправити запит',
   SEND_SMS: 'Ми надішлемо смс для підтвердження номера',

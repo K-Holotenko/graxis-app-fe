@@ -9,16 +9,21 @@ import {
 } from 'src/services/UserService';
 
 export interface User {
-  id: string;
-  name: string;
-  surname: string;
-  avatar: string;
+  id?: string;
+  name?: string;
+  surname?: string;
+  avatar?: string;
+  email?: string;
+  phoneNumber?: string;
+  registrationDate?: string;
+  activeAt?: string;
+  avatarUrl?: string;
+  email_verified?: boolean;
+}
+
+export interface ContactInfoForm {
   email: string;
   phoneNumber: string;
-  registrationDate: string;
-  activeAt: string;
-  avatarUrl: string;
-  email_verified: boolean;
 }
 
 interface UserStore {
@@ -37,8 +42,20 @@ interface UserStore {
 }
 
 export const useUserStore = create<UserStore>((set) => ({
-  user: null,
+  user: {
+    id: '123456789',
+    name: 'Vasyl',
+    surname: 'Symonenko',
+    avatar: 'https://example.com/avatar.jpg',
+    email: 'VasylSymonenko@gmail.com',
+    phoneNumber: '968756987',
+    registrationDate: '2024-03-15T10:30:00Z',
+    activeAt: '2025-03-20T14:45:00Z',
+    avatarUrl: 'https://example.com/avatar.jpg',
+    email_verified: true,
+  },
   isLoading: false,
+
   createUser: async (user, showError) => {
     set({ isLoading: true });
     const response = await signUp(user);
@@ -63,7 +80,10 @@ export const useUserStore = create<UserStore>((set) => ({
       throw new Error('Failed to fetch user');
     }
 
-    set({ user: userData, isLoading: false });
+    set({
+      user: userData,
+      isLoading: false,
+    });
   },
 
   resetUser: () => set({ user: null }),
@@ -73,7 +93,9 @@ export const useUserStore = create<UserStore>((set) => ({
       const response = await updateUser(data);
       const updatedUser: User = await response.json();
 
-      set({ user: updatedUser });
+      set({
+        user: updatedUser,
+      });
     } catch {
       showError('Щось пішло не так. Спробуйте ще раз');
     }
