@@ -24,7 +24,7 @@ export const ContactInfoEditMode = ({
     },
   ];
 
-  const normalizePhoneInput = (value: string) => value.replace(/\D/g, '');
+  const sanitizePhoneInput = (value: string) => value.replace(/\D/g, '');
 
   return (
     <>
@@ -33,10 +33,7 @@ export const ContactInfoEditMode = ({
         ${hasSingleFieldError ? styles.editingWarningContactInfoEmailBlock : ''}
         ${hasMultipleFieldErrors ? styles.editingErrorContactInfoEmailBlock : ''}`}
       >
-        <label
-          className={`${styles.editingContactInfoLabel} 
-          ${hasMultipleFieldErrors ? styles.editingErrorContactInfoLabel : ''}`}
-        >
+        <label className={styles.editingContactInfoLabel}>
           Електронна пошта
         </label>
 
@@ -60,18 +57,13 @@ export const ContactInfoEditMode = ({
       </div>
 
       <div>
-        <label
-          className={`${styles.editingContactInfoLabel}
-          ${hasMultipleFieldErrors ? styles.editingErrorContactInfoLabel : ''}`}
-        >
-          Номер телефону
-        </label>
+        <label className={styles.editingContactInfoLabel}>Номер телефону</label>
 
         <Form.Item
           name="phoneNumber"
           rules={phoneRules}
           validateTrigger="onChange"
-          normalize={normalizePhoneInput}
+          normalize={sanitizePhoneInput}
         >
           <Input
             type={InputType.TEL}

@@ -35,10 +35,6 @@ export const ContactInfo = ({
     setErrorCount(numberOfErrors);
   };
 
-  const handleFieldsChange = () => {
-    checkErrors();
-  };
-
   const handleEditClick = () => setIsEditingContactInfoForm(true);
 
   const hasSingleFieldError = errorCount === 1 && isEditingContactInfoForm;
@@ -56,7 +52,6 @@ export const ContactInfo = ({
           <h2
             className={`${styles.contactInfoHeader} 
             ${isEditingContactInfoForm ? styles.editingContactInfoHeader : ''} 
-            ${hasSingleFieldError ? styles.warningContactInfoHeader : ''} 
             ${hasMultipleFieldErrors ? styles.errorContactInfoHeader : ''}`}
           >
             Контактна інформація
@@ -71,7 +66,7 @@ export const ContactInfo = ({
           )}
         </Col>
       </Row>
-      <Form layout="vertical" form={form} onFieldsChange={handleFieldsChange}>
+      <Form layout="vertical" form={form} onFieldsChange={checkErrors}>
         {isEditingContactInfoForm ? (
           <ContactInfoEditMode
             hasSingleFieldError={hasSingleFieldError}
