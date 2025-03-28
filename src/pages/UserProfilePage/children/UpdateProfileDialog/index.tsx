@@ -1,6 +1,6 @@
 import { Col, FormInstance, Row } from 'antd';
 
-import { ButtonTypes, TEXT } from 'src/config/constants';
+import { ButtonTypes } from 'src/config/constants';
 import { Button } from 'src/components/Button';
 import { useUserStore } from 'src/stores/userStore';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
@@ -32,8 +32,9 @@ export const UpdateProfileDialog = ({
     );
   };
 
-  const isSaveButtonDisabled = () =>
-    form.getFieldsError().some(({ errors }) => errors.length > 0);
+  const isSaveButtonDisabled = form
+    .getFieldsError()
+    .some(({ errors }) => errors.length > 0);
 
   return (
     <Row>
@@ -41,15 +42,15 @@ export const UpdateProfileDialog = ({
         <Button
           type={ButtonTypes.default}
           className={styles.buttonCancelChanges}
-          label={TEXT.CANCEL_CHANGES}
+          label="Скасувати зміни"
           onClick={() => setIsEditingContactInfoForm(false)}
         />
         <Button
           type={ButtonTypes.primary}
           className={styles.buttonSaveChanges}
-          label={TEXT.SAVE_CHANGES}
+          label="Зберегти зміни"
           onClick={handleUpdateUser}
-          isDisabled={isSaveButtonDisabled()}
+          isDisabled={isSaveButtonDisabled}
         />
       </Col>
     </Row>

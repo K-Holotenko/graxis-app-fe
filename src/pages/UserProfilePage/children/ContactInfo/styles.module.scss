@@ -69,7 +69,6 @@
   }
 
   .contactInfoHeader {
-    font-weight: 600;
     line-height: 150%;
   }
 
@@ -84,8 +83,7 @@
 
   .editingContactInfoHeader {
     font-size: 26px;
-    line-height: 125%;
-    height: 20px;
+    height: 32.5px;
   }
 
   .errorContactInfoContainer {
@@ -124,7 +122,6 @@
 
   .contactInfoHeader {
     font-size: 26px;
-    font-weight: 600;
     line-height: 125%;
   }
 
@@ -142,10 +139,6 @@
   .errorContactInfoContainer {
     padding: 12px 40px;
     row-gap: 10px;
-  }
-
-  .errorField {
-    margin-bottom: 6px;
   }
 
   .errorContactInfoHeader {

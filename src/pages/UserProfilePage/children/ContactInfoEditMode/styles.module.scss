@@ -1,17 +1,5 @@
 @use 'src/styles/variables';
 
-.contactInfoEmailBlock {
-  margin-bottom: 16px;
-}
-
-.contactInfoInput {
-  width: 100%;
-}
-
-.warningContactInfoInput {
-  margin-bottom: 4px;
-}
-
 .editingContactInfoLabel {
   margin-bottom: 4px;
 }
@@ -24,15 +12,20 @@
   margin-bottom: 20px;
 }
 
-.errorContactInfoLabel {
-  margin-bottom: 4px;
-}
-
 .errorContactInfoInput {
   margin-bottom: 4px;
 }
 
+.warningContactInfoInput {
+  margin-bottom: 4px;
+}
+
 @media (min-width: variables.$media-md) {
+  .contactInfoInput {
+    transition: none;
+    margin-bottom: 0;
+  }
+
   .editingContactInfoEmailBlock {
     margin-bottom: 20px;
   }
@@ -45,24 +38,11 @@
     margin-bottom: 4px;
   }
 
-  .contactInfoInput {
-    transition: none;
-    margin-bottom: 6px;
-  }
-
-  .editingErrorContactInfoLabel {
-    margin-bottom: 4px;
-  }
-
-  .errorContactInfoInput {
-    margin-bottom: 4px;
-  }
-
   .editingContactInfoLabel {
     margin-bottom: 6px;
   }
 
-  .errorContactInfoLabel {
+  .errorContactInfoInput {
     margin-bottom: 4px;
   }
 }
@@ -72,21 +52,9 @@
     width: 360px;
   }
 
-  .errorContactInfoEmailBlock {
-    margin-bottom: 8px;
-  }
-
   .errorContactInfoInput {
     margin-bottom: 6px;
     height: 48px;
-  }
-
-  .errorContactInfoLabel {
-    margin-bottom: 6px;
-  }
-
-  .editingWarningContactInfoEmailBlock {
-    margin-bottom: 8px;
   }
 
   .editingContactInfoEmailBlock {
@@ -96,10 +64,13 @@
   .editingContactInfoLabel {
     font-size: 14px;
     line-height: 150%;
-    margin-bottom: 6px;
   }
 
   .editingErrorContactInfoEmailBlock {
+    margin-bottom: 8px;
+  }
+
+  .editingWarningContactInfoEmailBlock {
     margin-bottom: 8px;
   }
 }
