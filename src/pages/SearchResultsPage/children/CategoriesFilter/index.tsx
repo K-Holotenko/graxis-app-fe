@@ -8,6 +8,10 @@ import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH } from 'src/config/constants';
 import { useCategories } from 'src/hooks/useCategories';
+import {
+  buildParams,
+  findCategoryPath,
+} from 'src/pages/SearchResultsPage/utils/config';
 
 import styles from './styles.module.scss';
 
@@ -23,21 +27,48 @@ export const CategoriesFilter = () => {
   const onChange = (value: string[][]) => {
     setSelectedValues(value);
     setIsCategorySelected(value.length > 0);
-    const newSearchParams = new URLSearchParams(searchParams.toString());
+    const currentTitle = searchParams.get('title') || '';
+    const frontendCategories = value.map((path) => path[path.length - 1]);
 
-    newSearchParams.delete('categories');
-    value.forEach((path) => {
-      newSearchParams.append('categories', path[path.length - 1]);
-    });
-    setSearchParams(newSearchParams);
+    const { backendParams, frontendParams } = buildParams(
+      frontendCategories,
+      currentTitle,
+      categoriesTree
+    );
+
+    setSearchParams(backendParams);
+    window.history.replaceState({}, '', `?${frontendParams.toString()}`);
   };
 
   useEffect(() => {
-    const paramCategories = searchParams.getAll('categories');
-    const newValues = paramCategories.map((cat) => [cat]);
+    const frontendCategories = searchParams.getAll('categories');
 
-    setSelectedValues(newValues);
-  }, [searchParams]);
+    if (frontendCategories.length > 0) {
+      const restoredValues = frontendCategories
+        .map((category) => findCategoryPath(category, categoriesTree))
+        .filter(Boolean) as string[][];
+
+      const frontendParams = new URLSearchParams();
+
+      frontendCategories.forEach((cat) =>
+        frontendParams.append('categories', cat)
+      );
+      if (searchParams.get('title')) {
+        frontendParams.set('title', searchParams.get('title')!);
+      }
+
+      const { backendParams } = buildParams(
+        frontendCategories,
+        searchParams.get('title') || '',
+        categoriesTree
+      );
+
+      setSelectedValues(restoredValues);
+
+      setSearchParams(backendParams, { replace: true });
+      window.history.replaceState({}, '', `?${frontendParams.toString()}`);
+    }
+  }, []);
 
   const localTheme = setLocalTheme(isFocused, isCategorySelected);
 

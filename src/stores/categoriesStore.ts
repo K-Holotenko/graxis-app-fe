@@ -23,6 +23,7 @@ export const useCategoriesStore = create<CategoriesStore>((set, get) => ({
   categories: null,
   isLoading: false,
   getAllCategories: async (showError: (err: string) => void) => {
+    if (get().isLoading) return;
     if (get().categories) {
       return get().categories;
     }

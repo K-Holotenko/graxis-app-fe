@@ -84,15 +84,11 @@ export const createPublication = async (
 };
 
 export const getAllPublications = async (
-  searchParams: URLSearchParams
+  queryString: string
 ): Promise<ProductData[]> => {
-  const queryString = searchParams.toString();
-
   const response = await fetch(
     `${PUBLICATIONS_API_URL}/search?${queryString}&page=1`,
-    {
-      method: 'GET',
-    }
+    { method: 'GET' }
   );
 
   if (!response.ok) {

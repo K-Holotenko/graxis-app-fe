@@ -2,10 +2,12 @@ import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { InputRef } from 'antd';
 
+import { buildParams } from 'src/pages/SearchResultsPage/utils/config';
 import { CategoriesFilter } from 'src/pages/SearchResultsPage/children/CategoriesFilter';
 import { SearchBar } from 'src/pages/SearchResultsPage/children/SearchBar';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH } from 'src/config/constants';
+import { useCategories } from 'src/hooks/useCategories';
 
 import styles from './styles.module.scss';
 
@@ -13,29 +15,35 @@ export const TopContent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.MD;
-  const searchedTitle = searchParams.get('q');
-  const isSearchApplied = searchParams.get('q')?.trim().length;
+  const searchedTitle = searchParams.get('title') || '';
+  const isSearchApplied = (searchedTitle || '').trim().length > 0;
   const inputRef = useRef<InputRef | null>(null);
+  const { categoriesTree } = useCategories();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputRef.current) {
       const inputValue = inputRef.current.input?.value.trim() || '';
-      const newSearchParams = new URLSearchParams(searchParams.toString());
+      const currentFrontendParams = new URLSearchParams(window.location.search);
+      const frontendCategories = currentFrontendParams.getAll('categories');
 
-      if (inputValue) {
-        newSearchParams.set('q', inputValue);
-      } else {
-        newSearchParams.delete('q');
-      }
-      setSearchParams(newSearchParams);
+      const { backendParams, frontendParams } = buildParams(
+        frontendCategories,
+        inputValue,
+        categoriesTree
+      );
+
+      setSearchParams(backendParams);
+      window.history.replaceState({}, '', `?${frontendParams.toString()}`);
     }
   };
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
+    const titleFromUrl = searchParams.get('title') || '';
+
+    if (inputRef.current && inputRef.current.input) {
+      inputRef.current.input.value = titleFromUrl;
     }
-  }, []);
+  }, [searchParams]);
 
   return (
     <div className={styles.topContentWrapper}>
