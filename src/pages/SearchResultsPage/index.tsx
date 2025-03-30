@@ -1,14 +1,78 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { VALIDATION_MESSAGE } from 'src/config/validation';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { SearchLayout } from 'src/layouts/SearchLayout';
+import {
+  getAllPublications,
+  PublicationPage,
+} from 'src/services/PublicationService';
 
 import { PublicationsSection } from './children/PublicationsSection';
 import { SEARCH_RESULTS_CONFIG } from './utils/config';
-import { TopContent } from './children/TopContent';
+import { Filters } from './children/Filters';
+import { LoadMore } from './children/LoadMore';
 
 export const SearchResultsPage = () => {
+  const [publicationsPage, setPublicationsPage] = useState<PublicationPage>({
+    publications: [],
+    nextPage: 1,
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const { openNotification } = useNotification();
+
+  const loadMode = async () => {
+    if (!publicationsPage.nextPage) {
+      return;
+    }
+
+    setIsLoading(true);
+    const queryString = new URLSearchParams(window.location.search).toString();
+
+    getAllPublications(queryString, publicationsPage.nextPage)
+      .then((nextPagePublications) => {
+        setPublicationsPage((prev) => ({
+          publications: [
+            ...prev.publications,
+            ...nextPagePublications.publications,
+          ],
+          nextPage: nextPagePublications.nextPage,
+        }));
+      })
+      .catch(() => {
+        openNotification(
+          NotificationType.ERROR,
+          VALIDATION_MESSAGE.ERROR,
+          VALIDATION_MESSAGE.TRY_AGAIN
+        );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    const queryString = new URLSearchParams(window.location.search).toString();
+
+    getAllPublications(queryString, 1)
+      .then((data) => {
+        setPublicationsPage(data);
+      })
+      .catch(() => {
+        openNotification(
+          NotificationType.ERROR,
+          VALIDATION_MESSAGE.ERROR,
+          VALIDATION_MESSAGE.TRY_AGAIN
+        );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -17,9 +81,18 @@ export const SearchResultsPage = () => {
     <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>
       <AppLayout>
         <SearchLayout
-          topContent={<TopContent />}
-          centerContent={<PublicationsSection />}
-          bottomContent={undefined}
+          filters={<Filters />}
+          publicationsGrids={
+            <PublicationsSection
+              publications={publicationsPage.publications}
+              isLoading={isLoading}
+            />
+          }
+          loadMoreButton={
+            publicationsPage.nextPage && (
+              <LoadMore loadMore={loadMode} isLoading={isLoading} />
+            )
+          }
         />
       </AppLayout>
     </PageContainer>

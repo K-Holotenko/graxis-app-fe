@@ -4,7 +4,7 @@
   display: grid;
   gap: 20px;
   width: 100%;
-  margin: 84px 0 40px 0;
+  margin-top: 84px;
 }
 
 .rightContentTopContainer {
@@ -13,8 +13,7 @@
 }
 
 .rightContentBottomContainer {
-  height: 202px;
-  background-color: #bcccdc;
+  max-height: 325px;
 }
 
 @media (min-width: variables.$media-md) {
@@ -31,7 +30,7 @@
   }
 
   .rightContentBottomContainer {
-    height: 282px;
+    max-height: 296px;
   }
 }
 
@@ -40,7 +39,7 @@
     display: grid;
     gap: 24px;
     width: 100%;
-    max-width: 735px;
+    max-width: 744px;
     margin: 0;
   }
 

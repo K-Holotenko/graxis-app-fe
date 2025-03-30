@@ -11,8 +11,9 @@ import { useCategories } from 'src/hooks/useCategories';
 
 import styles from './styles.module.scss';
 
-export const TopContent = () => {
+export const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.MD;
   const searchedTitle = searchParams.get('title') || '';
