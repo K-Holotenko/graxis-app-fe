@@ -100,8 +100,9 @@ export const getAllPublications = async (
   queryString: string,
   page: number
 ): Promise<PublicationPage> => {
+  const qs = queryString ? `&${queryString}` : '';
   const response = await fetch(
-    `${PUBLICATIONS_API_URL}/search?page=${page}&${queryString}`,
+    `${PUBLICATIONS_API_URL}/search?page=${page}${qs}`,
     { method: 'GET' }
   );
 

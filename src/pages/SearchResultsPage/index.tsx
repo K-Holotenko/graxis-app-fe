@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { VALIDATION_MESSAGE } from 'src/config/validation';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
@@ -22,6 +23,7 @@ export const SearchResultsPage = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const { openNotification } = useNotification();
+  const [searchParams] = useSearchParams();
 
   const loadMode = async () => {
     if (!publicationsPage.nextPage) {
@@ -29,7 +31,7 @@ export const SearchResultsPage = () => {
     }
 
     setIsLoading(true);
-    const queryString = new URLSearchParams(window.location.search).toString();
+    const queryString = searchParams.toString();
 
     getAllPublications(queryString, publicationsPage.nextPage)
       .then((nextPagePublications) => {
@@ -55,7 +57,7 @@ export const SearchResultsPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    const queryString = new URLSearchParams(window.location.search).toString();
+    const queryString = searchParams.toString();
 
     getAllPublications(queryString, 1)
       .then((data) => {
@@ -71,7 +73,7 @@ export const SearchResultsPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

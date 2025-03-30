@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Cascader, ConfigProvider } from 'antd';
-import { useSearchParams } from 'react-router-dom';
 
 import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import ArrowRight from 'src/assets/icons/arrow-right-icon.svg?react';
@@ -8,67 +7,27 @@ import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH } from 'src/config/constants';
 import { useCategories } from 'src/hooks/useCategories';
-import {
-  buildParams,
-  findCategoryPath,
-} from 'src/pages/SearchResultsPage/utils/config';
 
 import styles from './styles.module.scss';
 
-export const CategoriesFilter = () => {
-  const [selectedValues, setSelectedValues] = useState<string[][]>([]);
+interface CategoriesFilterProps {
+  selectedCategories: string[][];
+  onChange: (value: string[][]) => void;
+}
+
+export const CategoriesFilter = ({
+  selectedCategories,
+  onChange,
+}: CategoriesFilterProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isCategorySelected, setIsCategorySelected] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
   const { width } = useWindowSize();
   const { categoriesTree } = useCategories();
   const isTablet = width <= SCREEN_WIDTH.MD;
 
-  const onChange = (value: string[][]) => {
-    setSelectedValues(value);
-    setIsCategorySelected(value.length > 0);
-    const currentTitle = searchParams.get('title') || '';
-    const frontendCategories = value.map((path) => path[path.length - 1]);
-
-    const { backendParams, frontendParams } = buildParams(
-      frontendCategories,
-      currentTitle,
-      categoriesTree
-    );
-
-    setSearchParams(backendParams);
-    window.history.replaceState({}, '', `?${frontendParams.toString()}`);
-  };
-
   useEffect(() => {
-    const frontendCategories = searchParams.getAll('categories');
-
-    if (frontendCategories.length > 0) {
-      const restoredValues = frontendCategories
-        .map((category) => findCategoryPath(category, categoriesTree))
-        .filter(Boolean) as string[][];
-
-      const frontendParams = new URLSearchParams();
-
-      frontendCategories.forEach((cat) =>
-        frontendParams.append('categories', cat)
-      );
-      if (searchParams.get('title')) {
-        frontendParams.set('title', searchParams.get('title')!);
-      }
-
-      const { backendParams } = buildParams(
-        frontendCategories,
-        searchParams.get('title') || '',
-        categoriesTree
-      );
-
-      setSelectedValues(restoredValues);
-
-      setSearchParams(backendParams, { replace: true });
-      window.history.replaceState({}, '', `?${frontendParams.toString()}`);
-    }
-  }, []);
+    setIsCategorySelected(selectedCategories.length > 0);
+  }, [selectedCategories]);
 
   const localTheme = setLocalTheme(isFocused, isCategorySelected);
 
@@ -85,7 +44,7 @@ export const CategoriesFilter = () => {
         onChange={onChange}
         multiple
         maxTagCount="responsive"
-        value={selectedValues}
+        value={selectedCategories}
         fieldNames={{ label: 'title', value: 'value', children: 'children' }}
         onFocus={() => setIsFocused(false)}
         onBlur={() => setIsFocused(true)}

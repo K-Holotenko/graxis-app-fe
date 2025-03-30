@@ -7,7 +7,7 @@ interface CategoryTreeItem {
   children?: CategoryTreeItem[];
 }
 
-const getDescendantCategories = (
+export const getDescendantCategories = (
   targetValue: string,
   categories: CategoryTreeItem[]
 ): string[] => {
@@ -72,4 +72,16 @@ export const findCategoryPath = (
   }
 
   return null;
+};
+
+export const updateUrl = (
+  frontendParams: URLSearchParams,
+  backendParams: URLSearchParams,
+  setSearchParams: (
+    params: URLSearchParams,
+    options?: { replace?: boolean }
+  ) => void
+): void => {
+  setSearchParams(backendParams, { replace: true });
+  window.history.replaceState({}, '', `?${frontendParams.toString()}`);
 };

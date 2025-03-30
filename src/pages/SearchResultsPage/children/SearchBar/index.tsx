@@ -15,41 +15,33 @@ interface SearchBarProps {
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const SearchBar = ({ inputRef, onKeyDown }: SearchBarProps) => {
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      onKeyDown(e);
-    }
-  };
-
-  return (
-    <div className={styles.searchBarWrapper}>
-      <Space.Compact size="large" className={styles.space}>
-        <Input
-          ref={inputRef}
-          placeholder={TEXT.INPUT_SEARCH}
-          prefix={<SearchOutlined />}
-          onPressEnter={handleKeyDown}
+export const SearchBar = ({ inputRef, onKeyDown }: SearchBarProps) => (
+  <div className={styles.searchBarWrapper}>
+    <Space.Compact size="large" className={styles.space}>
+      <Input
+        ref={inputRef}
+        placeholder={TEXT.INPUT_SEARCH}
+        prefix={<SearchOutlined />}
+        onPressEnter={onKeyDown}
+      />
+      <ConfigProvider theme={localTheme}>
+        <Select
+          popupMatchSelectWidth={false}
+          popupClassName={styles.selectPopup}
+          rootClassName={styles.select}
+          defaultValue={CITY_LIST[0]}
+          options={CITY_LIST}
+          prefix={<MapPinSrc />}
+          suffixIcon={<ArrowDown />}
+          style={{
+            width: '100%',
+            minWidth: 137,
+          }}
         />
-        <ConfigProvider theme={localTheme}>
-          <Select
-            popupMatchSelectWidth={false}
-            popupClassName={styles.selectPopup}
-            rootClassName={styles.select}
-            defaultValue={CITY_LIST[0]}
-            options={CITY_LIST}
-            prefix={<MapPinSrc />}
-            suffixIcon={<ArrowDown />}
-            style={{
-              width: '100%',
-              minWidth: 137,
-            }}
-          />
-        </ConfigProvider>
-      </Space.Compact>
-    </div>
-  );
-};
+      </ConfigProvider>
+    </Space.Compact>
+  </div>
+);
 
 const localTheme = {
   components: {
