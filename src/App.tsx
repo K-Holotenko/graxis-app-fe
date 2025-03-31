@@ -6,15 +6,31 @@ import CookieService from 'src/services/CookieService';
 import { useAuthStore } from 'src/stores/authStore';
 
 import { router } from './router';
+import { useUserStore } from './stores/userStore';
 
 const App = () => {
   const { setAuthorized } = useAuthStore();
+  const { user, fetchUser } = useUserStore();
 
   useEffect(() => {
-    const accessToken = CookieService.getCookie('accessToken');
+    const checkAuth = async () => {
+      const accessToken = CookieService.getCookie('accessToken');
 
-    if (accessToken) setAuthorized(true);
-  }, [setAuthorized]);
+      if (accessToken) {
+        try {
+          await fetchUser();
+          setAuthorized(!!user);
+        } catch {
+          setAuthorized(false);
+          CookieService.deleteCookie('accessToken');
+        }
+      } else {
+        setAuthorized(false);
+      }
+    };
+
+    checkAuth();
+  }, [setAuthorized, fetchUser]);
 
   return <RouterProvider router={router} />;
 };
