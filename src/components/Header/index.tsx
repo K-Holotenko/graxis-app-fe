@@ -31,6 +31,7 @@ import { Button } from 'src/components/Button';
 import { theme } from 'src/config/theme';
 import { useCountdown } from 'src/hooks/useCountdown';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { useUserStore } from 'src/stores/userStore';
 
 import styles from './styles.module.scss';
 
@@ -72,13 +73,15 @@ export const AppHeader = () => {
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
   const isDesktop = width > SCREEN_WIDTH.MD;
+  const { user } = useUserStore();
+  const isFullAuthorized = isAuthorized && !!user;
 
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
 
   const onAddPublicationBtnClick = (): void => {
-    if (isAuthorized) {
+    if (isFullAuthorized) {
       navigate(ROUTES.ADD_PUBLICATION);
 
       return;
@@ -149,7 +152,7 @@ export const AppHeader = () => {
             )}
           </Row>
           <Row gutter={30} align="middle" wrap={false}>
-            {isAuthorized && (
+            {isFullAuthorized && (
               <Col>
                 <Badge dot={hasNotifications}>
                   <Image
@@ -172,7 +175,7 @@ export const AppHeader = () => {
                 />
               </Col>
             )}
-            {!isAuthorized && isDesktop && (
+            {!isFullAuthorized && isDesktop && (
               <Col className={styles.buttonPaddingCall}>
                 <Button
                   type={ButtonTypes.default}
@@ -185,7 +188,7 @@ export const AppHeader = () => {
                 />
               </Col>
             )}
-            {isAuthorized && isDesktop && (
+            {isFullAuthorized && isDesktop && (
               <Col>
                 <ConfigProvider theme={localTheme}>
                   <Dropdown
