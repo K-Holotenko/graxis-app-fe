@@ -6,6 +6,7 @@ import { Picker } from 'src/pages/PublicationPage/children/Picker';
 import { Button } from 'src/components/Button';
 import {
   calculatePrice,
+  getErrorIfRangeIsInvalid,
   pricingPeriodEngToUkrMap,
 } from 'src/pages/PublicationPage/children/Price/utils/count';
 import { Publication } from 'src/services/PublicationService';
@@ -31,6 +32,11 @@ export const Price = ({ prices }: PriceProps) => {
   const isRangeSelected = selectedRange[0] !== null;
   const { totalPrice, days, commission } = useMemo(
     () => calculatePrice(selectedRange, prices),
+    [selectedRange, prices]
+  );
+
+  const rangeError = useMemo(
+    () => getErrorIfRangeIsInvalid(selectedRange, prices),
     [selectedRange, prices]
   );
 
@@ -83,11 +89,17 @@ export const Price = ({ prices }: PriceProps) => {
         <div>
           {isRangeSelected ? (
             <div className={styles.periodWrapper}>
-              <span className={styles.price}>{totalPrice} грн.</span>
+              <span className={styles.price}>
+                {rangeError ? 0 : totalPrice} грн.
+              </span>
               <span className={styles.period}>
-                На {days} днів {'('}включно з комісією
-                <br />
-                {commission} грн за бронювання{')'}
+                {rangeError || (
+                  <>
+                    На {days} днів {'('}включно з комісією
+                    <br />
+                    {commission} грн за бронювання{')'}
+                  </>
+                )}
               </span>
             </div>
           ) : (
@@ -99,7 +111,7 @@ export const Price = ({ prices }: PriceProps) => {
           <Button
             className={`${styles.button} ${styles.priceBtn}`}
             label="Відправити запит"
-            isDisabled={!isRangeSelected}
+            isDisabled={!isRangeSelected || !!rangeError}
             onClick={handleButtonClick}
           />
         </div>
