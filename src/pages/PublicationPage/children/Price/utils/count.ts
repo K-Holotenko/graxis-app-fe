@@ -62,3 +62,35 @@ export const calculatePrice = (
 
   return { totalPrice, commission, days };
 };
+
+export const getErrorIfRangeIsInvalid = (
+  selectedRange: [Dayjs | null, Dayjs | null],
+  prices: Publication['price']
+): string => {
+  if (!selectedRange[0]) {
+    return '';
+  }
+
+  const endDate = selectedRange[1] || selectedRange[0];
+
+  const days = endDate.diff(selectedRange[0], PricingPeriod.DAY) + 1;
+  const dayPrice =
+    prices.find((p) => p.pricingPeriod === PricingPeriod.DAY)?.price || 0;
+  const weekPrice =
+    prices.find((p) => p.pricingPeriod === PricingPeriod.WEEK)?.price || 0;
+  const monthPrice =
+    prices.find((p) => p.pricingPeriod === PricingPeriod.MONTH)?.price || 0;
+
+  if (dayPrice) return '';
+  if (weekPrice && (days + WEEK) % WEEK === 0) return '';
+  if (monthPrice && (days + MONTH) % MONTH === 0) return '';
+
+  if (weekPrice) {
+    return 'Мінімальний термін оренди - тиждень. Крок - тиждень';
+  }
+  if (monthPrice) {
+    return 'Мінімальний термін оренди - місяць. Крок - місяць';
+  }
+
+  return '';
+};
