@@ -1,0 +1,68 @@
+@use 'src/styles/variables';
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.avatar {
+  margin-bottom: 16px;
+  background-color: variables.$primary;
+}
+
+.infoContainer {
+  margin-right: auto;
+}
+
+.nameContainer {
+  margin-bottom: 12px;
+}
+
+.label {
+  color: variables.$N6;
+  font-size: 16px;
+  line-height: 150%;
+  margin-bottom: 2px;
+}
+
+.value {
+  color: variables.$N6;
+  font-size: 24px;
+  line-height: 150%;
+  font-family: variables.$font-heading;
+  font-weight: 600;
+}
+
+@media (min-width: variables.$media-md) {
+  .contentContainer {
+    flex-direction: row;
+  }
+
+  .avatar {
+    margin-bottom: 0;
+    margin-right: 40px;
+  }
+
+  .nameContainer {
+    margin-bottom: 16px;
+  }
+
+  .label {
+    font-size: 18px;
+    line-height: 125%;
+    margin-bottom: 4px;
+  }
+
+  .value {
+    font-size: 26px;
+    line-height: 125%;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .value {
+    font-size: 32px;
+  }
+}
