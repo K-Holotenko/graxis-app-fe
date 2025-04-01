@@ -41,7 +41,7 @@ export const AuthForms = ({
   const navigate = useNavigate();
   const { isLoading: isAuthLoading, loginWithGoogle } = useAuthStore();
 
-  const { createUser, fetchUser, updateUser, isLoading } = useUserStore();
+  const { createUser, fetchUser, isLoading } = useUserStore();
   const { openNotification } = useNotification();
 
   const triggerNotification = (description: string) => {
@@ -63,10 +63,10 @@ export const AuthForms = ({
 
         await createUser({ name, surname }, triggerNotification);
         // TODO Uncomment when the BE can accepts avatarUrl as a string for create user
-        await updateUser(
-          { avatarUrl: (firebaseUser as { photoURL?: string }).photoURL },
-          triggerNotification
-        );
+        // await updateUser(
+        //   { avatarUrl: (firebaseUser as { photoURL?: string }).photoURL },
+        //   triggerNotification
+        // );
       }
     } finally {
       navigate(ROUTES.HOME);
