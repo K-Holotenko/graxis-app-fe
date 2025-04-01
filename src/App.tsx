@@ -6,9 +6,15 @@ import CookieService from 'src/services/CookieService';
 import { useAuthStore } from 'src/stores/authStore';
 
 import { router } from './router';
+import { useUserStore } from './stores/userStore';
 
 const App = () => {
   const { setAuthorized } = useAuthStore();
+  const { fetchUser } = useUserStore();
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const accessToken = CookieService.getCookie('accessToken');

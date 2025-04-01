@@ -9,16 +9,15 @@ import {
 } from 'src/services/UserService';
 
 export interface User {
-  id?: string;
-  name?: string;
-  surname?: string;
-  avatar?: string;
-  email?: string;
-  phoneNumber?: string;
-  registrationDate?: string;
-  activeAt?: string;
-  avatarUrl?: string;
-  email_verified?: boolean;
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  registrationDate: string;
+  activeAt: string;
+  avatarUrl: string;
+  email_verified: boolean;
 }
 
 export interface ContactInfoForm {
@@ -42,18 +41,7 @@ interface UserStore {
 }
 
 export const useUserStore = create<UserStore>((set) => ({
-  user: {
-    id: '123456789',
-    name: 'Vasyl',
-    surname: 'Symonenko',
-    avatar: 'https://example.com/avatar.jpg',
-    email: 'VasylSymonenko@gmail.com',
-    phoneNumber: '968756987',
-    registrationDate: '2024-03-15T10:30:00Z',
-    activeAt: '2025-03-20T14:45:00Z',
-    avatarUrl: 'https://example.com/avatar.jpg',
-    email_verified: true,
-  },
+  user: null,
   isLoading: false,
 
   createUser: async (user, showError) => {

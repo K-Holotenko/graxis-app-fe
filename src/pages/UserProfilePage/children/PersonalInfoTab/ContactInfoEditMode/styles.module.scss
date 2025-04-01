@@ -1,0 +1,15 @@
+@use 'src/styles/variables';
+
+.formItemEmail {
+  margin-bottom: 16px;
+}
+
+.formItemPhone {
+  margin-bottom: 0;
+}
+
+@media (min-width: variables.$media-md) {
+  .formItemEmail {
+    margin-bottom: 20px;
+  }
+}

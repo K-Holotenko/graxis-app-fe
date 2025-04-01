@@ -78,7 +78,6 @@ export const AddUserInfoForm = () => {
   return (
     <ConfigProvider theme={localTheme}>
       <Form
-        className={styles.form}
         name={FORMS.ADD_USER_INFO_FORM}
         layout="vertical"
         onFinish={onFinish}
