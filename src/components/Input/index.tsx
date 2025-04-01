@@ -21,6 +21,7 @@ interface InputProps {
   prefix?: ReactNode;
   showCount?: boolean;
   ref?: Ref<InputRef>;
+  defaultValue?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
   onPressEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -37,6 +38,7 @@ export const Input = ({
   prefix,
   showCount,
   ref,
+  defaultValue,
   onChange,
   onBlur,
   onPressEnter,
@@ -67,6 +69,7 @@ export const Input = ({
           value={value}
           id={id}
           showCount={showCount}
+          defaultValue={defaultValue}
           onChange={onChange}
           onBlur={onBlur}
           onPressEnter={onPressEnter}
