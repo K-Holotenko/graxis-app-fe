@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   row-gap: 12px;
   width: 100%;
-  margin-bottom: 40px;
+  margin-top: 40px;
 }
 
 .buttonCancelChanges,
@@ -29,7 +29,6 @@
     flex-direction: row;
     column-gap: 40px;
     justify-content: center;
-    margin-bottom: 80px;
   }
 
   .buttonCancelChanges,
@@ -40,7 +39,7 @@
 
 @media (min-width: variables.$media-lg) {
   .buttonsContainer {
-    margin-bottom: 140px;
+    margin-top: 40px;
   }
 
   .buttonCancelChanges,

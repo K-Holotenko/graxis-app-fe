@@ -1,0 +1,25 @@
+@use 'src/styles/variables';
+
+.header {
+  font-weight: 600;
+  font-family: variables.$font-heading;
+  font-size: 16px;
+  line-height: 150%;
+  color: variables.$N6;
+  margin-bottom: 16px;
+}
+
+@media (min-width: variables.$media-md) {
+  .header {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .header {
+    font-size: 26px;
+    line-height: 125%;
+    font-size: 32px;
+  }
+}
