@@ -1,58 +1,70 @@
 import { Col, Row } from 'antd';
-import { ReactNode } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { ReactNode, useState } from 'react';
 
+import LeftArrow from 'src/assets/icons/arrow-left-icon.svg?react';
 import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import styles from './styles.module.scss';
-import { LeftContentSection } from './children/LeftContentSection';
-import { RightContentSection } from './children/RightContentSection';
 
 interface ItemLayoutProps {
-  headerContent: ReactNode;
-  leftContent: ReactNode;
-  topContent: ReactNode;
-  bottomContent: ReactNode;
+  title: ReactNode;
+  sidebar: ReactNode;
+  tabContent: ReactNode;
+  dialog: ReactNode;
 }
 
 export const ProfileLayout = ({
-  headerContent,
-  leftContent,
-  topContent,
-  bottomContent,
+  title,
+  sidebar,
+  tabContent,
+  dialog,
 }: ItemLayoutProps) => {
   const { width } = useWindowSize();
-  const [searchParams] = useSearchParams();
 
   const isMobile = width < SCREEN_WIDTH.MD;
+  // TODO Open/Close logic should be tightened with tabs navigation
+  // this one is just for demo purposes
+  const [shouldShowSidebar, setShouldShowSidebar] = useState(false);
 
-  return isMobile ? (
-    <Row className={styles.mainContentContainer}>
-      {searchParams.get('p') ? (
-        <RightContentSection
-          topContent={topContent}
-          bottomContent={bottomContent}
-        />
-      ) : (
-        <LeftContentSection span={24} leftContent={leftContent} />
-      )}
-    </Row>
-  ) : (
-    <>
-      <Row className={styles.headerContentContainer}>
-        <Col span={24} className={styles.headerContentSection}>
-          {headerContent}
-        </Col>
+  return (
+    <div className={styles.mainContentContainer}>
+      <Row>
+        {isMobile ? (
+          !shouldShowSidebar && (
+            <div
+              className={styles.sidebarToggle}
+              onClick={() => setShouldShowSidebar(!shouldShowSidebar)}
+            >
+              <LeftArrow />
+              <Col className={styles.titleMobile}>{title}</Col>
+            </div>
+          )
+        ) : (
+          <Col className={styles.title}>{title}</Col>
+        )}
       </Row>
-
-      <Row className={styles.mainContentContainer}>
-        <LeftContentSection span={6} leftContent={leftContent} />
-        <RightContentSection
-          topContent={topContent}
-          bottomContent={bottomContent}
-        />
+      <Row>
+        {isMobile ? (
+          shouldShowSidebar && <Col span={24}>{sidebar}</Col>
+        ) : (
+          <Col span={7}>{sidebar}</Col>
+        )}
+        {!shouldShowSidebar && isMobile ? (
+          <Col md={{ span: 16, offset: 1 }} xs={{ span: 24 }}>
+            {tabContent}
+          </Col>
+        ) : (
+          !isMobile && (
+            <Col md={{ span: 16, offset: 1 }} xs={{ span: 24 }}>
+              {tabContent}
+            </Col>
+          )
+        )}
       </Row>
-    </>
+      <Row>
+        <Col span={24}>{dialog}</Col>
+      </Row>
+    </div>
   );
 };
