@@ -1,0 +1,11 @@
+@use 'src/styles/variables';
+
+.firstCardWrapper {
+  margin-bottom: 20px;
+}
+
+@media (min-width: variables.$media-lg) {
+  .firstCardWrapper {
+    margin-bottom: 24px;
+  }
+}
