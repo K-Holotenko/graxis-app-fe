@@ -1,0 +1,36 @@
+@use 'src/styles/variables';
+
+.titleContainer {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  background-color: antiquewhite;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+.tabsContainer {
+  margin-bottom: 40px;
+  height: 1837px;
+  background-color: antiquewhite;
+}
+
+@media (min-width: variables.$media-md) {
+  .titleContainer {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .tabsContainer {
+    height: 976px;
+    margin-bottom: 80px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .tabsContainer {
+    height: 1720px;
+    margin-bottom: 140px;
+  }
+}
