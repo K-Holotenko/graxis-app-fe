@@ -6,6 +6,7 @@ import { Picker } from 'src/pages/PublicationPage/children/Picker';
 import { Button } from 'src/components/Button';
 import {
   calculatePrice,
+  getErrorIfRangeIsInvalid,
   pricingPeriodEngToUkrMap,
 } from 'src/pages/PublicationPage/children/Price/utils/count';
 import { Publication } from 'src/services/PublicationService';
@@ -34,6 +35,11 @@ export const Price = ({ prices }: PriceProps) => {
     [selectedRange, prices]
   );
 
+  const rangeError = useMemo(
+    () => getErrorIfRangeIsInvalid(selectedRange, prices),
+    [selectedRange, prices]
+  );
+
   const handleButtonClick = () => {
     if (isRangeSelected) {
       const firstDay = selectedRange[0]?.format('DD/MM/YYYY') || '';
@@ -48,6 +54,15 @@ export const Price = ({ prices }: PriceProps) => {
     }
   };
 
+  const priceItemWidthClassMap = {
+    1: styles.singlePrice,
+    2: styles.dualPrice,
+    3: styles.multiPrice,
+  };
+
+  const getPriceItemClass = () =>
+    priceItemWidthClassMap[prices.length as 1 | 2 | 3];
+
   return (
     <section>
       <Heading level={3} className={`${styles.title} ${styles.start}`}>
@@ -55,7 +70,10 @@ export const Price = ({ prices }: PriceProps) => {
       </Heading>
       <dl className={styles.priceList}>
         {prices.map(({ price, pricingPeriod }) => (
-          <div key={pricingPeriod} className={styles.priceItem}>
+          <div
+            key={pricingPeriod}
+            className={`${styles.priceItem} ${getPriceItemClass()}`}
+          >
             <dt className={styles.priceAmount}>₴{price}</dt>
             <dd className={styles.pricePeriod}>
               {pricingPeriodEngToUkrMap[pricingPeriod]}
@@ -71,11 +89,17 @@ export const Price = ({ prices }: PriceProps) => {
         <div>
           {isRangeSelected ? (
             <div className={styles.periodWrapper}>
-              <span className={styles.price}>{totalPrice} грн.</span>
+              <span className={styles.price}>
+                {rangeError ? 0 : totalPrice} грн.
+              </span>
               <span className={styles.period}>
-                На {days} днів {'('}включно з комісією
-                <br />
-                {commission} грн за бронювання{')'}
+                {rangeError || (
+                  <>
+                    На {days} днів {'('}включно з комісією
+                    <br />
+                    {commission} грн за бронювання{')'}
+                  </>
+                )}
               </span>
             </div>
           ) : (
@@ -87,7 +111,7 @@ export const Price = ({ prices }: PriceProps) => {
           <Button
             className={`${styles.button} ${styles.priceBtn}`}
             label="Відправити запит"
-            isDisabled={!isRangeSelected}
+            isDisabled={!isRangeSelected || !!rangeError}
             onClick={handleButtonClick}
           />
         </div>
