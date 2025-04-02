@@ -62,6 +62,11 @@ export const AuthForms = ({
         const [name, surname] = fullName.split(' ');
 
         await createUser({ name, surname }, triggerNotification);
+        // TODO Uncomment when the BE can accepts avatarUrl as a string for create user
+        // await updateUser(
+        //   { avatarUrl: (firebaseUser as { photoURL?: string }).photoURL },
+        //   triggerNotification
+        // );
       }
     } finally {
       navigate(ROUTES.HOME);

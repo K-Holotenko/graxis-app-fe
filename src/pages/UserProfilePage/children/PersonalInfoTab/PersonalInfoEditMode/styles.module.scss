@@ -1,0 +1,87 @@
+@use 'src/styles/variables';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.inputsContainer {
+  width: 100%;
+  max-width: 327px;
+}
+
+.nameFormItem {
+  margin-bottom: 16px;
+}
+
+.surnameFormItem {
+  margin-bottom: 0;
+}
+
+.upload {
+  display: flex;
+  justify-content: center;
+
+  :global(.ant-upload-select) {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  :global(.ant-upload-list-item-container) {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  :global(.ant-upload-wrapper) {
+    margin-right: 0 !important;
+  }
+
+  :global(.ant-form-item) {
+    margin: 0 !important;
+  }
+}
+
+.uploadFormItem {
+  margin-bottom: 0;
+  :global(.ant-form-item-label) {
+    display: none !important;
+  }
+}
+
+.uploadButton {
+  margin: 0 auto;
+  border: 0;
+  background: none;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+}
+
+.uploadPlaceholder {
+  margin-top: 8px;
+  font-size: 12px;
+  font-family: variables.$font-body;
+  color: variables.$N5;
+}
+
+@media (min-width: variables.$media-md) {
+  .form {
+    flex-direction: row;
+  }
+
+  .upload {
+    margin-right: 40px;
+
+    :global(.ant-upload-select) {
+      width: 168px !important;
+      height: 168px !important;
+    }
+
+    :global(.ant-upload-list-item-container) {
+      width: 168px !important;
+      height: 168px !important;
+    }
+  }
+}

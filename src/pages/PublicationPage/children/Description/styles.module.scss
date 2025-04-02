@@ -3,6 +3,7 @@
 .descriptionContainer {
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
 }
 
 .description {
@@ -27,7 +28,6 @@
   border: none;
   background-color: transparent;
   line-height: 1.5;
-  padding: 12px 30px;
   margin-right: 0;
   margin-left: auto;
   margin-top: 20px;
