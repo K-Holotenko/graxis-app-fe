@@ -33,7 +33,7 @@ export interface Location {
 
 interface AddPublicationInputs {
   category: string;
-  name: string;
+  title: string;
   description: string;
   photos: UploadFile[];
   priceDay: number;
@@ -94,7 +94,7 @@ export const AddPublicationForm = () => {
   const onFinish = async (values: AddPublicationInputs) => {
     const publicationData = {
       categoryName: values.category,
-      title: values.name,
+      title: values.title,
       description: values.description,
       prices: formatPrices(values),
       location: values.location,
@@ -134,7 +134,7 @@ export const AddPublicationForm = () => {
                 label={
                   <label className={styles.formItemLabel}>{TEXT.NAME}</label>
                 }
-                name="name"
+                name="title"
                 rules={[VALIDATION_CONDITION.REQUIRED]}
               >
                 <TextArea
@@ -144,7 +144,7 @@ export const AddPublicationForm = () => {
                   maxLength={150}
                   className={styles.textArea}
                   onChange={(e) =>
-                    form.setFieldsValue({ name: e.target.value })
+                    form.setFieldsValue({ title: e.target.value })
                   }
                 />
               </Form.Item>
@@ -170,7 +170,7 @@ export const AddPublicationForm = () => {
                   rows={8}
                   className={styles.textArea}
                   onChange={(e) =>
-                    form.setFieldsValue({ name: e.target.value })
+                    form.setFieldsValue({ description: e.target.value })
                   }
                 />
               </Form.Item>

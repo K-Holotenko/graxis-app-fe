@@ -9,14 +9,21 @@ import styles from './styles.module.scss';
 
 interface UpdateProfileDialogProps {
   form: FormInstance;
-  setIsEditingContactInfoForm: (state: boolean) => void;
+  isValid: boolean;
+  onPersonalInfoEditClick: (isEdit: boolean) => void;
+  onContactInfoEditClick: (isEdit: boolean) => void;
+  handleShowDialog: (shouldShow: boolean) => void;
 }
 
 export const UpdateProfileDialog = ({
   form,
-  setIsEditingContactInfoForm,
+  isValid,
+  onPersonalInfoEditClick,
+  onContactInfoEditClick,
+  handleShowDialog,
 }: UpdateProfileDialogProps) => {
-  const { updateUser } = useUserStore();
+  const { user, updateUser } = useUserStore();
+
   const { openNotification } = useNotification();
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
@@ -25,16 +32,32 @@ export const UpdateProfileDialog = ({
   const handleUpdateUser = () => {
     updateUser(
       {
-        email: form.getFieldValue('email'),
-        phoneNumber: form.getFieldValue('phoneNumber'),
+        name: form.getFieldValue('name') || undefined,
+        surname: form.getFieldValue('surname') || undefined,
+        email: form.getFieldValue('email') || undefined,
+        phoneNumber: form.getFieldValue('phoneNumber') || undefined,
       },
       showError
     );
+
+    onPersonalInfoEditClick(false);
+    onContactInfoEditClick(false);
+    handleShowDialog(false);
   };
 
-  const isSaveButtonDisabled = form
-    .getFieldsError()
-    .some(({ errors }) => errors.length > 0);
+  const cancelChanges = () => {
+    onPersonalInfoEditClick(false);
+    onContactInfoEditClick(false);
+    handleShowDialog(false);
+
+    // TODO Add avatarUrl when the BE is updated
+    form.setFieldsValue({
+      name: user?.name,
+      surname: user?.surname,
+      email: user?.email,
+      phoneNumber: user?.phoneNumber,
+    });
+  };
 
   return (
     <Row>
@@ -43,14 +66,14 @@ export const UpdateProfileDialog = ({
           type={ButtonTypes.default}
           className={styles.buttonCancelChanges}
           label="Скасувати зміни"
-          onClick={() => setIsEditingContactInfoForm(false)}
+          onClick={cancelChanges}
         />
         <Button
           type={ButtonTypes.primary}
           className={styles.buttonSaveChanges}
           label="Зберегти зміни"
           onClick={handleUpdateUser}
-          isDisabled={isSaveButtonDisabled}
+          isDisabled={!isValid}
         />
       </Col>
     </Row>
