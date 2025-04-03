@@ -12,5 +12,4 @@ export const ROUTES = {
   USER_PROFILE: '/user-profile/:id',
   ADD_USER_INFO: '/add-user-info',
   NOT_FOUND: '/not-found',
-  MY_PUBLICATIONS: '/my-publications',
 };
