@@ -66,7 +66,7 @@ export const router = createBrowserRouter([
     element: <AddUserInfoPage />,
   },
   {
-    path: ROUTES.MY_PUBLICATIONS,
+    path: ROUTES.PUBLICATIONS,
     element: (
       <PrivateRoute>
         <MyPublicationsPage />
