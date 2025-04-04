@@ -10,6 +10,7 @@ import { PublicationPage } from 'src/pages/PublicationPage';
 import { SearchResultsPage } from 'src/pages/SearchResultsPage';
 import { UserProfilePage } from 'src/pages/UserProfilePage';
 import { AddUserInfoPage } from 'src/pages/AddUserInfoPage';
+import { MyPublicationsPage } from 'src/pages/MyPublicationsPage';
 import { NotFoundPage } from 'src/pages/NotFoundPage';
 
 import { PrivateRoute } from './PrivateRoute';
@@ -63,6 +64,14 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.ADD_USER_INFO,
     element: <AddUserInfoPage />,
+  },
+  {
+    path: ROUTES.MY_PUBLICATIONS,
+    element: (
+      <PrivateRoute>
+        <MyPublicationsPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: ROUTES.NOT_FOUND,
