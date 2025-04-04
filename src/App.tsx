@@ -13,14 +13,27 @@ const App = () => {
   const { fetchUser } = useUserStore();
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    const checkAuth = async () => {
+      const accessToken = CookieService.getCookie('accessToken');
 
-  useEffect(() => {
-    const accessToken = CookieService.getCookie('accessToken');
+      if (!accessToken) {
+        setAuthorized(false);
 
-    if (accessToken) setAuthorized(true);
-  }, [setAuthorized]);
+        return;
+      }
+
+      try {
+        const user = await fetchUser();
+
+        setAuthorized(!!user);
+      } catch {
+        setAuthorized(false);
+        CookieService.deleteCookie('accessToken');
+      }
+    };
+
+    checkAuth();
+  }, [setAuthorized, fetchUser]);
 
   return <RouterProvider router={router} />;
 };

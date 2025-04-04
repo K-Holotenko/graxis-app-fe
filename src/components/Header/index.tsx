@@ -31,6 +31,7 @@ import { Button } from 'src/components/Button';
 import { theme } from 'src/config/theme';
 import { useCountdown } from 'src/hooks/useCountdown';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { useUserStore } from 'src/stores/userStore';
 
 import styles from './styles.module.scss';
 
@@ -52,7 +53,6 @@ const menuItems = [
 export const AppHeader = () => {
   const { width } = useWindowSize();
   const navigate = useNavigate();
-  const authStore = useAuthStore();
   const { timer, startCountdown } = useCountdown(5);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
@@ -65,20 +65,22 @@ export const AppHeader = () => {
     }
   }, [navigate, timer]);
 
-  const { isAuthorized } = useAuthStore();
+  const { isAuthorized, signOut } = useAuthStore();
   const [hasNotifications] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
   const isDesktop = width > SCREEN_WIDTH.MD;
+  const { user } = useUserStore();
+  const isFullyAuthorized = isAuthorized && !!user;
 
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
 
   const onAddPublicationBtnClick = (): void => {
-    if (isAuthorized) {
+    if (isFullyAuthorized) {
       navigate(ROUTES.ADD_PUBLICATION);
 
       return;
@@ -113,7 +115,7 @@ export const AppHeader = () => {
     const actions: { [key: string]: () => void } = {
       '1': () => navigate(ROUTES.PUBLICATIONS),
       '2': () => navigate(ROUTES.USER_PROFILE),
-      '3': () => authStore.signOut(showError),
+      '3': () => signOut(showError),
     };
 
     actions[e.key]();
@@ -149,7 +151,7 @@ export const AppHeader = () => {
             )}
           </Row>
           <Row gutter={30} align="middle" wrap={false}>
-            {isAuthorized && (
+            {isFullyAuthorized && (
               <Col>
                 <Badge dot={hasNotifications}>
                   <Image
@@ -172,7 +174,7 @@ export const AppHeader = () => {
                 />
               </Col>
             )}
-            {!isAuthorized && isDesktop && (
+            {!isFullyAuthorized && isDesktop && (
               <Col className={styles.buttonPaddingCall}>
                 <Button
                   type={ButtonTypes.default}
@@ -185,7 +187,7 @@ export const AppHeader = () => {
                 />
               </Col>
             )}
-            {isAuthorized && isDesktop && (
+            {isFullyAuthorized && isDesktop && (
               <Col>
                 <ConfigProvider theme={localTheme}>
                   <Dropdown
