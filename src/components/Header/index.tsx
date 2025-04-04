@@ -113,7 +113,7 @@ export const AppHeader = () => {
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
-      '1': () => navigate(ROUTES.PUBLICATIONS),
+      '1': () => navigate(ROUTES.MY_PUBLICATIONS),
       '2': () => navigate(ROUTES.USER_PROFILE),
       '3': () => signOut(showError),
     };

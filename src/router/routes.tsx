@@ -5,7 +5,7 @@ export const ROUTES = {
   VERIFICATION_CODE: '/verify-mobile',
   VERIFY_EMAIL: '/verify-email',
   SETTINGS: '/settings',
-  PUBLICATIONS: '/publications',
+  MY_PUBLICATIONS: '/my-publications',
   ADD_PUBLICATION: '/add-publication',
   ITEM: '/item/:id',
   SEARCH_RESULTS: '/search-results',
