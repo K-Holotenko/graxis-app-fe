@@ -5,7 +5,6 @@ import { TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 
 import { LoginPage } from '.';
-import { LOGIN_PAGE_CONFIG } from './utils/config';
 
 vi.mock('firebase/auth', async (importOriginal) => {
   const actual = await importOriginal();
@@ -32,30 +31,8 @@ describe('LoginPage', () => {
     );
 
     await waitFor(() => {
-      expect(document.title).toBe(LOGIN_PAGE_CONFIG.PAGE_TITLE);
+      expect(document.title).toBe('Авторизація');
     });
-  });
-
-  it('renders PageContainer with the correct title', () => {
-    const { getByText } = render(
-      <MemoryRouter>
-        <LoginPage />
-      </MemoryRouter>
-    );
-    const emailTabTitle = getByText(LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.TITLE);
-
-    expect(emailTabTitle).toBeInTheDocument();
-  });
-
-  it('renders PageContainer with the correct title', () => {
-    const { getByText } = render(
-      <MemoryRouter>
-        <LoginPage />
-      </MemoryRouter>
-    );
-    const phoneTabTitle = getByText(LOGIN_PAGE_CONFIG.FORM.PHONE_TAB.TITLE);
-
-    expect(phoneTabTitle).toBeInTheDocument();
   });
 
   it('renders PageContainer with the correct title', () => {

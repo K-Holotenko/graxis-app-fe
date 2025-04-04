@@ -3,7 +3,6 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { HomePage } from 'src/pages/HomePage';
 import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
-import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 import { PublicationPage } from 'src/pages/PublicationPage';
@@ -32,10 +31,6 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.REGISTRATION,
     element: <RegistrationPage />,
-  },
-  {
-    path: ROUTES.VERIFICATION_CODE,
-    element: <VerificationPage />,
   },
   {
     path: ROUTES.ADD_PUBLICATION,
