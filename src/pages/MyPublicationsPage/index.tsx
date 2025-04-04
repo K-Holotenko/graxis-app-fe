@@ -4,7 +4,7 @@ import { AppLayout } from 'src/layouts/AppLayout';
 import { Heading } from 'src/components/Heading';
 
 export const MyPublicationsPage = () => (
-  <PageContainer pageTitle="My Publications">
+  <PageContainer pageTitle="Мої оголошення">
     <AppLayout>
       <MyPublicationsLayout
         title={<Heading level={2}>Мої оголошення</Heading>}
