@@ -65,6 +65,7 @@ export const SearchBar = () => {
           value={value}
           onChange={handleInput}
           onPressEnter={handleSearch}
+          maxLength={150}
         />
         <ConfigProvider theme={localTheme}>
           <Select
@@ -73,6 +74,7 @@ export const SearchBar = () => {
             rootClassName={styles.select}
             popupClassName={styles.selectPopup}
             value={getCurrentCityOption(cityValue, CITY_LIST)}
+            placeholder="Місто"
             options={CITY_LIST}
             prefix={<MapPinSrc />}
             suffixIcon={<ArrowDown />}
