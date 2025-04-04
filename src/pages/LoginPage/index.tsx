@@ -8,6 +8,7 @@ import { AuthLayout } from 'src/layouts/AuthLayout';
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
 import { AuthPhoneForm } from 'src/components/AuthPhoneForm';
+import { useUserStore } from 'src/stores/userStore';
 
 import { LOGIN_PAGE_CONFIG } from './utils/config';
 
@@ -28,14 +29,16 @@ export const LoginPage = () => {
   const { isAuthorized } = useAuthStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useUserStore();
+  const isFullyAuthorized = isAuthorized && !!user;
 
   useEffect(() => {
     if (
-      isAuthorized &&
+      isFullyAuthorized &&
       [ROUTES.LOGIN, ROUTES.REGISTRATION].includes(location.pathname)
     )
       navigate(ROUTES.HOME);
-  }, [navigate, isAuthorized, location.pathname]);
+  }, [navigate, isFullyAuthorized, location.pathname]);
 
   return (
     <PageContainer pageTitle={LOGIN_PAGE_CONFIG.PAGE_TITLE}>

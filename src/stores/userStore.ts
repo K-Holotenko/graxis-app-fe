@@ -32,7 +32,7 @@ interface UserStore {
     user: SignUpUser,
     showError: (err: string) => void
   ) => Promise<void>;
-  fetchUser: () => void;
+  fetchUser: () => Promise<User>;
   resetUser: () => void;
   updateUser: (
     data: UpdateUserData,
@@ -72,6 +72,8 @@ export const useUserStore = create<UserStore>((set) => ({
       user: userData,
       isLoading: false,
     });
+
+    return userData;
   },
 
   resetUser: () => set({ user: null }),
