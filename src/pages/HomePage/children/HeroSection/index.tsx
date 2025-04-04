@@ -21,7 +21,7 @@ export const HeroSection = () => {
 
     const searchParams = new URLSearchParams();
 
-    searchParams.set('q', trimmedQuery);
+    searchParams.set('title', trimmedQuery);
 
     navigate({
       pathname: '/search-results',
