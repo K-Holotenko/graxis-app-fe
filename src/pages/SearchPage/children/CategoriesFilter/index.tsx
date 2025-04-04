@@ -8,31 +8,40 @@ import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH } from 'src/config/constants';
 import { useCategories } from 'src/hooks/useCategories';
+import {
+  findPathByValue,
+  handleCategoriesChange,
+} from 'src/pages/SearchPage/children/Filters/utils/filters';
 
 import styles from './styles.module.scss';
 
 export const CategoriesFilter = () => {
-  const [selectedValues, setSelectedValues] = useState<string[][]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isFocused, setIsFocused] = useState(false);
-  const [isCategorySelected, setIsCategorySelected] = useState(false);
-  const [, setSearchParams] = useSearchParams();
+
   const { width } = useWindowSize();
   const { categoriesTree } = useCategories();
+
+  const categoryParam = searchParams.get('categories');
+
+  const leafValues = categoryParam?.split(',').map((item) => item.trim()) || [];
+  const resolvedPaths = leafValues
+    .map((leaf) => findPathByValue(categoriesTree, leaf))
+    .filter((p) => p.length);
+
   const isTablet = width <= SCREEN_WIDTH.MD;
 
   const onChange = (value: string[][]) => {
-    setSelectedValues(value);
-    setIsCategorySelected(value.length > 0);
+    const updatedParams = handleCategoriesChange(
+      value,
+      categoriesTree,
+      searchParams
+    );
 
-    const searchParams = new URLSearchParams();
-
-    value.forEach((path) => {
-      searchParams.append('category', path[path.length - 1]);
-    });
-
-    setSearchParams(searchParams);
+    setSearchParams(updatedParams);
   };
 
+  const isCategorySelected = resolvedPaths.length > 0;
   const localTheme = setLocalTheme(isFocused, isCategorySelected);
 
   return (
@@ -48,7 +57,7 @@ export const CategoriesFilter = () => {
         onChange={onChange}
         multiple
         maxTagCount="responsive"
-        value={selectedValues}
+        value={resolvedPaths}
         fieldNames={{ label: 'title', value: 'value', children: 'children' }}
         onFocus={() => setIsFocused(false)}
         onBlur={() => setIsFocused(true)}

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef } from 'react';
+import { KeyboardEvent, ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Space, Select, ConfigProvider, InputRef } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
@@ -8,26 +8,45 @@ import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import { Input } from 'src/components/Input';
 import { CITY_LIST, TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
+import { getCurrentCityOption } from 'src/pages/SearchPage/children/Filters/utils/filters';
 
 import styles from './styles.module.scss';
 
 export const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const defaultSearchValue = searchParams.get('title') || undefined;
+  const cityValue = searchParams.get('city') || undefined;
+
+  const [value, setValue] = useState<string | undefined>(defaultSearchValue);
   const inputRef = useRef<InputRef>(null);
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length) {
-      setSearchParams({ q: e.target.value });
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { q, ...rest } = Object.fromEntries(searchParams);
+    setValue(e.currentTarget.value || '');
+  };
 
-      setSearchParams(rest);
+  const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.currentTarget.value.length) {
+      setSearchParams({ title: e.currentTarget.value });
+    } else {
+      const newParams = new URLSearchParams(searchParams);
+
+      newParams.delete('title');
+      setSearchParams(newParams);
     }
   };
 
-  const handleSearch = () => {
-    //TODO: Implement search logic
+  const handleCityChange = (city: string) => {
+    // Create new params to preserve existing filters
+    const newParams = new URLSearchParams(searchParams);
+
+    if (city.length) {
+      newParams.set('city', city);
+    } else {
+      newParams.delete('city');
+    }
+
+    setSearchParams(newParams);
   };
 
   useEffect(() => {
@@ -43,23 +62,21 @@ export const SearchBar = () => {
           ref={inputRef}
           placeholder={TEXT.INPUT_SEARCH}
           prefix={<SearchOutlined />}
-          value={searchParams.get('q') || ''}
+          value={value}
           onChange={handleInput}
           onPressEnter={handleSearch}
         />
         <ConfigProvider theme={localTheme}>
           <Select
+            onChange={handleCityChange}
             popupMatchSelectWidth={false}
-            popupClassName={styles.selectPopup}
             rootClassName={styles.select}
-            defaultValue={CITY_LIST[0]}
+            popupClassName={styles.selectPopup}
+            value={getCurrentCityOption(cityValue, CITY_LIST)}
             options={CITY_LIST}
             prefix={<MapPinSrc />}
             suffixIcon={<ArrowDown />}
-            style={{
-              width: '100%',
-              minWidth: 137,
-            }}
+            style={{ width: '100%', minWidth: 137 }}
           />
         </ConfigProvider>
       </Space.Compact>

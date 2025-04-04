@@ -38,10 +38,11 @@ export const useCategoriesStore = create<CategoriesStore>((set, get) => ({
 
       const categoriesData: Category[] = await response.json();
 
-      set({ categories: categoriesData });
+      set({ categories: categoriesData, isLoading: false });
 
       return categoriesData;
     } catch {
+      set({ isLoading: false });
       showError('Категорії наразі недоступні. Спробуйте ще раз');
     }
   },
