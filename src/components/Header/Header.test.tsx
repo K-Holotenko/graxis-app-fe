@@ -41,6 +41,12 @@ vi.mock('src/hooks/useNotification', async (importOriginal) => {
 
 vi.mocked(useNavigate).mockImplementation(() => mockNavigate);
 
+vi.mock('src/stores/userStore', () => ({
+  useUserStore: vi.fn(() => ({
+    user: { id: '123', name: 'Test User' },
+  })),
+}));
+
 describe('AppHeader', () => {
   it('should redirect to add publication on button click if authorized', async () => {
     vi.mocked(useAuthStore).mockReturnValue({

@@ -8,6 +8,7 @@ import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
 import { theme } from 'src/config/theme';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { useUserStore } from 'src/stores/userStore';
 
 import styles from './styles.module.scss';
 
@@ -22,6 +23,7 @@ export const EmailLoginForm = () => {
   const [isValid, setIsValid] = useState(false);
 
   const { openNotification } = useNotification();
+  const { fetchUser } = useUserStore();
 
   const triggerNotification = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
@@ -47,12 +49,13 @@ export const EmailLoginForm = () => {
     [form]
   );
 
-  const onFinish = (values: EmailLoginFormValues) => {
-    loginWithEmail(values.email, values.password, triggerNotification).catch(
-      () => {
-        form.resetFields(['password']);
-      }
-    );
+  const onFinish = async (values: EmailLoginFormValues) => {
+    try {
+      await loginWithEmail(values.email, values.password, triggerNotification);
+      await fetchUser();
+    } catch {
+      form.resetFields(['password']);
+    }
   };
 
   return (
