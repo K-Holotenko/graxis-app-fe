@@ -22,9 +22,11 @@ interface InputProps {
   showCount?: boolean;
   ref?: Ref<InputRef>;
   defaultValue?: string;
+  allowClear?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
   onPressEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onClear?: () => void;
 }
 
 export const Input = ({
@@ -39,9 +41,11 @@ export const Input = ({
   showCount,
   ref,
   defaultValue,
+  allowClear,
   onChange,
   onBlur,
   onPressEnter,
+  onClear,
 }: InputProps) => {
   switch (type) {
     case InputType.PASSWORD:
@@ -70,7 +74,9 @@ export const Input = ({
           id={id}
           showCount={showCount}
           defaultValue={defaultValue}
+          allowClear={allowClear}
           onChange={onChange}
+          onClear={onClear}
           onBlur={onBlur}
           onPressEnter={onPressEnter}
         />
