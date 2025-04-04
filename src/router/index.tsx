@@ -7,7 +7,7 @@ import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 import { PublicationPage } from 'src/pages/PublicationPage';
-import { SearchResultsPage } from 'src/pages/SearchResultsPage';
+import { SearchPage } from 'src/pages/SearchPage';
 import { UserProfilePage } from 'src/pages/UserProfilePage';
 import { AddUserInfoPage } from 'src/pages/AddUserInfoPage';
 import { MyPublicationsPage } from 'src/pages/MyPublicationsPage';
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
   },
   {
     path: ROUTES.SEARCH_RESULTS,
-    element: <SearchResultsPage />,
+    element: <SearchPage />,
   },
   {
     path: ROUTES.USER_PROFILE,

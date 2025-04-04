@@ -42,9 +42,9 @@ export const buildCategoriesTree = (
     item.selectable = item.children.length === 0;
   });
 
-  const topLevelCategory = Array.from(allCategories.values()).filter(
+  const categoriesTree = Array.from(allCategories.values()).filter(
     (item) => !initialCategories.some((c) => c.id === item.value && c.parentId)
   );
 
-  return topLevelCategory;
+  return categoriesTree;
 };
