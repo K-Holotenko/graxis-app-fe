@@ -11,6 +11,15 @@
   width: 100%;
 }
 
+.input {
+  :global(.ant-input-clear-icon) {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
 .select {
   width: 137px !important;
 

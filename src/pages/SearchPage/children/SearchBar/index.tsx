@@ -26,14 +26,16 @@ export const SearchBar = () => {
   };
 
   const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.currentTarget.value.length) {
-      setSearchParams({ title: e.currentTarget.value });
-    } else {
-      const newParams = new URLSearchParams(searchParams);
+    // Create new params to preserve existing filters
+    const newParams = new URLSearchParams(searchParams);
 
+    if (e.currentTarget.value.length) {
+      newParams.set('title', e.currentTarget.value);
+    } else {
       newParams.delete('title');
-      setSearchParams(newParams);
     }
+
+    setSearchParams(newParams);
   };
 
   const handleCityChange = (city: string) => {
@@ -49,6 +51,13 @@ export const SearchBar = () => {
     setSearchParams(newParams);
   };
 
+  const onClear = () => {
+    const newParams = new URLSearchParams(searchParams);
+
+    newParams.delete('title');
+    setSearchParams(newParams);
+  };
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -59,13 +68,16 @@ export const SearchBar = () => {
     <div className={styles.searchBarWrapper}>
       <Space.Compact size="large" className={styles.space}>
         <Input
+          className={styles.input}
           ref={inputRef}
+          onClear={onClear}
           placeholder={TEXT.INPUT_SEARCH}
           prefix={<SearchOutlined />}
           value={value}
           onChange={handleInput}
           onPressEnter={handleSearch}
           maxLength={150}
+          allowClear={true}
         />
         <ConfigProvider theme={localTheme}>
           <Select
