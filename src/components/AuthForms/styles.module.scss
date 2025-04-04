@@ -1,13 +1,10 @@
 @use 'src/styles/variables';
 
-.tabs {
-  color: variables.$N6 !important;
-}
-
 .authPageTitle {
   text-align: center;
   color: variables.$N6 !important;
   font-size: 24px !important;
+  margin-bottom: 20px !important;
 }
 
 .socialMediaButton {
@@ -54,20 +51,16 @@
   color: variables.$primary-hover;
 }
 
-:global {
-  .ant-tabs-nav {
-    margin-bottom: 40px !important;
-  }
-}
-
 @media (min-width: variables.$media-sm) {
   .authPageTitle {
     font-size: 30px !important;
+    margin-bottom: 24px !important;
   }
 }
 
 @media (min-width: variables.$media-md) {
   .authPageTitle {
     font-size: 32px !important;
+    margin-bottom: 40px !important;
   }
 }

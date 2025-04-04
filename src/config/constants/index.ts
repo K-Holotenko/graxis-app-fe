@@ -32,7 +32,6 @@ export const TEXT = {
   FEEDBACK_AMOUNT: 'відгуків',
   FEEDBACKS: 'Відгуки',
   FOR: 'На',
-  FORGOT_PASSWORD: 'Забули пароль?',
 
   GOODS_PUBLISHED: 'Ваш товар опубліковано.',
 
