@@ -38,11 +38,6 @@ interface AuthState {
   signOut: (showError: (err: string) => void) => Promise<void>;
   setAuthorized: (state: boolean) => void;
   confirmationResult: ConfirmationResult | null;
-  loginWithPhoneNumber: (
-    phoneNumber: string,
-    showError: (err: string) => void
-  ) => Promise<void>;
-  verifyCode: (code: string, showError: (err: string) => void) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -114,46 +109,6 @@ export const useAuthStore = create<AuthState>((set) => ({
       }
       set({ isLoading: false });
       throw err;
-    }
-  },
-
-  loginWithPhoneNumber: async (phoneNumber, showError) => {
-    set({ isLoading: true });
-    try {
-      const confirmationResult =
-        await AuthService.loginWithPhoneNumber(phoneNumber);
-
-      set({ confirmationResult, isLoading: false });
-    } catch (err) {
-      if (err instanceof FirebaseError) {
-        showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
-        set({ isLoading: false });
-        throw err;
-      }
-    }
-  },
-
-  verifyCode: async (code, showError) => {
-    set({ isLoading: true });
-    try {
-      const { confirmationResult } = useAuthStore.getState() as AuthState;
-
-      if (!confirmationResult) return;
-
-      const user = await AuthService.verifyCode(confirmationResult, code);
-
-      if (user) {
-        const accessToken = await user.getIdToken();
-
-        CookieService.setCookie('accessToken', accessToken);
-        set({ user, isAuthorized: true, isLoading: false });
-      }
-    } catch (err) {
-      if (err instanceof FirebaseError) {
-        showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
-        set({ isLoading: false });
-        throw err;
-      }
     }
   },
 

@@ -1,11 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Divider, Row, Col, Typography, Tabs, ConfigProvider } from 'antd';
-import { ReactNode, useState } from 'react';
+import { Divider, Row, Col, Typography, ConfigProvider } from 'antd';
+import { ReactNode } from 'react';
 
 import { useUserStore } from 'src/stores/userStore';
 import { ROUTES } from 'src/router/routes';
 import { ButtonTypes, SCREEN_WIDTH, TEXT } from 'src/config/constants';
-import { LOGIN_PAGE_CONFIG } from 'src/pages/LoginPage/utils/config';
 import GoogleIcon from 'src/assets/icons/google-icon.svg?react';
 import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button';
@@ -16,26 +15,12 @@ import styles from './styles.module.scss';
 
 const { Title } = Typography;
 
-interface TabItem {
-  key: string;
-  label: ReactNode;
-  children: ReactNode;
-}
-
 interface AuthFormsProps {
-  items: TabItem[];
   title: string;
-  defaultActiveTabKey: string;
+  children?: ReactNode;
 }
 
-export const AuthForms = ({
-  items,
-  title,
-  defaultActiveTabKey,
-}: AuthFormsProps) => {
-  const [activeTabKey, setActiveTabKey] = useState(defaultActiveTabKey);
-  const isEmailTabActive =
-    activeTabKey === LOGIN_PAGE_CONFIG.FORM.EMAIL_TAB.KEY;
+export const AuthForms = ({ title, children }: AuthFormsProps) => {
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.SM;
   const navigate = useNavigate();
@@ -78,26 +63,17 @@ export const AuthForms = ({
       <Title level={2} className={styles.authPageTitle}>
         {title}
       </Title>
-      <ConfigProvider theme={localTheme(isMobile)}>
-        <Tabs
-          defaultActiveKey={defaultActiveTabKey}
-          centered
-          items={items}
-          onChange={(key) => setActiveTabKey(key)}
-          className={styles.tabs}
-        />
-      </ConfigProvider>
-      {isEmailTabActive && (
-        <Row justify="end">
-          <Link to={ROUTES.LOGIN} className={styles.link}>
-            {TEXT.FORGOT_PASSWORD}
-          </Link>
-        </Row>
-      )}
+      <ConfigProvider theme={localTheme(isMobile)}>{children}</ConfigProvider>
+      <Row justify="end">
+        <Link to={ROUTES.LOGIN} className={styles.link}>
+          Забули пароль?
+        </Link>
+      </Row>
       <Divider plain>{TEXT.OR}</Divider>
       <Row justify="space-between" className={styles.buttonMargins} gutter={40}>
-        <Col span={14} offset={5}>
+        <Col span={24}>
           <Button
+            label="Увійти через Google"
             icon={isLoading || isAuthLoading ? undefined : <GoogleIcon />}
             type={ButtonTypes.default}
             className={styles.socialMediaButton}

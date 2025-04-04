@@ -1,10 +1,8 @@
 import {
-  ConfirmationResult,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   sendEmailVerification,
   signInWithEmailAndPassword,
-  signInWithPhoneNumber,
   signInWithPopup,
   signOut,
   User,
@@ -54,28 +52,6 @@ export const AuthService = {
     const userCredential = await signInWithPopup(firebaseAuth, provider);
 
     const user = userCredential.user;
-
-    return user;
-  },
-
-  loginWithPhoneNumber: async (
-    phoneNumber: string
-  ): Promise<ConfirmationResult | undefined> => {
-    const confirmationResult = await signInWithPhoneNumber(
-      firebaseAuth,
-      phoneNumber,
-      window.recaptchaVerifier
-    );
-
-    return confirmationResult;
-  },
-
-  verifyCode: async (
-    confirmationResult: ConfirmationResult,
-    code: string
-  ): Promise<User | undefined> => {
-    const result = await confirmationResult.confirm(code);
-    const user = result.user;
 
     return user;
   },
