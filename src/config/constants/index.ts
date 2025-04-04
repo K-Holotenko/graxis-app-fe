@@ -121,7 +121,6 @@ export const IMAGE_DESCRIPTION = {
 export const CITY_LIST = [
   { value: 'Київ', label: 'Київ' },
   { value: 'Львів', label: 'Львів' },
-  { value: 'Одеса', label: 'Одеса' },
 ];
 
 export enum ButtonTypes {
