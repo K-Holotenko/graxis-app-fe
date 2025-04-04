@@ -77,12 +77,12 @@ export const handleCategoriesChange = (
 export const getCurrentCityOption = (
   cityValue: string | undefined,
   cityList: Array<{ value: string; label: string }>
-): string => {
+): string | undefined => {
   if (cityValue) {
     const foundCity = cityList.find((city) => city.value === cityValue);
 
     return foundCity?.value || cityList[0].value;
   }
 
-  return cityList[0].value;
+  return undefined;
 };

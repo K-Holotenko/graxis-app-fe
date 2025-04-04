@@ -6,18 +6,22 @@ import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import ArrowRight from 'src/assets/icons/arrow-right-icon.svg?react';
 import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { SCREEN_WIDTH } from 'src/config/constants';
+import { ButtonTypes, SCREEN_WIDTH } from 'src/config/constants';
 import { useCategories } from 'src/hooks/useCategories';
 import {
   findPathByValue,
   handleCategoriesChange,
 } from 'src/pages/SearchPage/children/Filters/utils/filters';
+import { Button } from 'src/components/Button';
 
 import styles from './styles.module.scss';
 
 export const CategoriesFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFocused, setIsFocused] = useState(false);
+  const anyFiltersSelected = ['title', 'city', 'categories'].some((param) =>
+    Boolean(searchParams.get(param)?.trim())
+  );
 
   const { width } = useWindowSize();
   const { categoriesTree } = useCategories();
@@ -41,29 +45,41 @@ export const CategoriesFilter = () => {
     setSearchParams(updatedParams);
   };
 
+  const resetParams = () => setSearchParams({});
+
   const isCategorySelected = resolvedPaths.length > 0;
   const localTheme = setLocalTheme(isFocused, isCategorySelected);
 
   return (
-    <ConfigProvider theme={localTheme}>
-      <Cascader
-        placeholder="Оберіть категорію"
-        className={styles.cascader}
-        allowClear={false}
-        expandIcon={<ArrowRight className={styles.expandIcon} />}
-        suffixIcon={<ArrowDown />}
-        popupClassName={styles.popup}
-        options={categoriesTree}
-        onChange={onChange}
-        multiple
-        maxTagCount="responsive"
-        value={resolvedPaths}
-        fieldNames={{ label: 'title', value: 'value', children: 'children' }}
-        onFocus={() => setIsFocused(false)}
-        onBlur={() => setIsFocused(true)}
-        dropdownMatchSelectWidth={isTablet}
-      />
-    </ConfigProvider>
+    <div className={styles.container}>
+      <ConfigProvider theme={localTheme}>
+        <Cascader
+          placeholder="Оберіть категорію"
+          className={styles.cascader}
+          allowClear={false}
+          expandIcon={<ArrowRight className={styles.expandIcon} />}
+          suffixIcon={<ArrowDown />}
+          popupClassName={styles.popup}
+          options={categoriesTree}
+          onChange={onChange}
+          multiple
+          maxTagCount="responsive"
+          value={resolvedPaths}
+          fieldNames={{ label: 'title', value: 'value', children: 'children' }}
+          onFocus={() => setIsFocused(false)}
+          onBlur={() => setIsFocused(true)}
+          dropdownMatchSelectWidth={isTablet}
+        />
+      </ConfigProvider>
+      {anyFiltersSelected && (
+        <Button
+          className={styles.button}
+          onClick={resetParams}
+          type={ButtonTypes.link}
+          label="Скинути всі"
+        />
+      )}
+    </div>
   );
 };
 
