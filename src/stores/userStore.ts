@@ -28,6 +28,7 @@ export interface ContactInfoForm {
 interface UserStore {
   user: User | null;
   isLoading: boolean;
+  isAppInitializing: boolean;
   createUser: (
     user: SignUpUser,
     showError: (err: string) => void
@@ -43,6 +44,7 @@ interface UserStore {
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
   isLoading: false,
+  isAppInitializing: true,
 
   createUser: async (user, showError) => {
     set({ isLoading: true });
@@ -64,13 +66,14 @@ export const useUserStore = create<UserStore>((set) => ({
     const userData: User = await response.json();
 
     if (!response.ok) {
-      set({ isLoading: false });
+      set({ isLoading: false, isAppInitializing: false });
       throw new Error('Failed to fetch user');
     }
 
     set({
       user: userData,
       isLoading: false,
+      isAppInitializing: false,
     });
 
     return userData;

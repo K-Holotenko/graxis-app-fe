@@ -6,13 +6,11 @@ import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
   ADD_PHOTO: 'Додайте фото',
-  ADD_PUBLICATION: 'Додати оголошення',
   ADD_ANNOUNCEMENT: 'Додайте оголошення',
   ALL_CATEGORIES: 'Всі категорії',
   ALLOW_DATA_PROCESSING:
     'Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача',
   ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
-  AUTHORIZE: 'Авторизуватися',
 
   CATEGORIES: 'Категорії',
   CATEGORIES_SECTION_TITLE: 'Категорії товарів',

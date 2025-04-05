@@ -120,7 +120,7 @@ describe('RegistrationPage', () => {
         <RegistrationPage />
       </MemoryRouter>
     );
-    const authorizeText = getByText(TEXT.AUTHORIZE);
+    const authorizeText = getByText('Авторизуватися');
 
     expect(authorizeText).toBeInTheDocument();
   });

@@ -98,7 +98,7 @@ describe('LoginPage', () => {
         </Routes>
       </MemoryRouter>
     );
-    const authorizeText = getByText(TEXT.AUTHORIZE);
+    const authorizeText = getByText('Авторизуватися');
 
     expect(authorizeText).toBeInTheDocument();
   });
