@@ -11,8 +11,7 @@ export const PersonalInfoPreviewMode = () => {
     <div className={styles.contentContainer}>
       <Avatar
         size={{ xs: 100, sm: 100, md: 168, lg: 168, xl: 168, xxl: 168 }}
-        // TODO: uncomment when avatarUrl is available
-        // src={user?.avatarUrl}
+        src={user?.avatarUrl}
         className={styles.avatar}
       >
         {user?.name?.charAt(0)}

@@ -30,18 +30,18 @@ interface DrawerProps {
   onClose: () => void;
 }
 
-const menuItems = [
+export const menuItems = [
   {
     key: '1',
-    label: TEXT.MY_PUBLICATIONS,
+    label: 'Мої оголошення',
   },
   {
     key: '2',
-    label: TEXT.SETTINGS,
+    label: 'Профіль',
   },
   {
     key: '3',
-    label: TEXT.LOGOUT,
+    label: 'Вийти',
   },
 ];
 
