@@ -1,9 +1,15 @@
-import { ConfirmationResult, User, AuthErrorCodes } from 'firebase/auth';
+import {
+  ConfirmationResult,
+  User,
+  AuthErrorCodes,
+  onIdTokenChanged,
+} from 'firebase/auth';
 import { FirebaseError } from '@firebase/util';
 import { create } from 'zustand';
 
 import { AuthService } from 'src/services/AuthService';
 import CookieService from 'src/services/CookieService';
+import { firebaseAuth } from 'src/config/firebase';
 
 // List of errors visit https://firebase.google.com/docs/auth/admin/errors
 const firebaseAuthErrorCodes: { [key: string]: string } = {
@@ -22,6 +28,7 @@ interface AuthState {
   user: AuthUser | null;
   emailToVerify: string | null;
   isLoading: boolean;
+  initializeAuthListener: () => () => void;
   loginWithEmail: (
     email: string,
     password: string,
@@ -47,16 +54,29 @@ export const useAuthStore = create<AuthState>((set) => ({
   confirmationResult: null,
   emailToVerify: null,
 
+  initializeAuthListener: () => {
+    const unsubscribe = onIdTokenChanged(firebaseAuth, async (user) => {
+      if (user) {
+        const token = await user.getIdToken();
+
+        CookieService.setCookie('accessToken', token);
+
+        set({ isAuthorized: true, user });
+      } else {
+        CookieService.deleteCookie('accessToken');
+        set({ isAuthorized: false, user: null });
+      }
+    });
+
+    return unsubscribe;
+  },
+
   loginWithEmail: async (email, password, showError) => {
     set({ isLoading: true });
     try {
       const response = await AuthService.loginWithEmail(email, password);
-      const accessToken = await response?.getIdToken();
 
-      if (accessToken) {
-        CookieService.setCookie('accessToken', accessToken);
-        set({ isAuthorized: true, user: response, isLoading: false });
-      }
+      set({ isAuthorized: true, user: response, isLoading: false });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
@@ -70,17 +90,13 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ isLoading: true });
     try {
       const response = await AuthService.registerWithEmail(email, password);
-      const accessToken = await response?.getIdToken();
 
-      if (accessToken) {
-        CookieService.setCookie('accessToken', accessToken);
-        set({
-          isAuthorized: !!response,
-          user: response,
-          emailToVerify: email,
-          isLoading: false,
-        });
-      }
+      set({
+        isAuthorized: !!response,
+        user: response,
+        emailToVerify: email,
+        isLoading: false,
+      });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
@@ -96,9 +112,6 @@ export const useAuthStore = create<AuthState>((set) => ({
       const user = await AuthService.loginWithGoogle();
 
       if (user) {
-        const accessToken = await user.getIdToken();
-
-        CookieService.setCookie('accessToken', accessToken);
         set({ isAuthorized: true, user, isLoading: false });
 
         return user;
