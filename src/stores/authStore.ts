@@ -55,16 +55,17 @@ export const useAuthStore = create<AuthState>((set) => ({
   emailToVerify: null,
 
   initializeAuthListener: () => {
+    set({ isLoading: true });
     const unsubscribe = onIdTokenChanged(firebaseAuth, async (user) => {
       if (user) {
         const token = await user.getIdToken();
 
         CookieService.setCookie('accessToken', token);
 
-        set({ isAuthorized: true, user });
+        set({ isAuthorized: true, user, isLoading: false });
       } else {
         CookieService.deleteCookie('accessToken');
-        set({ isAuthorized: false, user: null });
+        set({ isAuthorized: false, user: null, isLoading: false });
       }
     });
 

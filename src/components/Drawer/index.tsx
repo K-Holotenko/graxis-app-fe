@@ -124,7 +124,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 icon={<UserIconDark />}
                 iconPosition="start"
                 onClick={() => navigate(ROUTES.LOGIN)}
-                label={TEXT.AUTHORIZE}
+                label="Авторизуватися"
               />
             </ConfigProvider>
           </Col>
@@ -141,7 +141,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 className={styles.addPublicationButton}
                 onClick={onAddPublicationBtnClick}
                 dataTestId="add-publication-btn"
-                label={TEXT.ADD_PUBLICATION}
+                label="Додати оголошення"
               />
             </ConfigProvider>
           </Col>
