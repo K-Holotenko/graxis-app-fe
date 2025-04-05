@@ -97,11 +97,11 @@ export const createPublication = async (
 };
 
 export const getAllPublications = async (
-  page: number
+  search: string = ''
 ): Promise<PublicationPage> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}/search?page=${page}`, {
+  const response = await fetch(`${PUBLICATIONS_API_URL}/search${search}`, {
     method: 'GET',
     headers: { Authorization: token },
   });
