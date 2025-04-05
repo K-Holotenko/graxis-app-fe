@@ -1,31 +1,38 @@
 import { Col, Row } from 'antd';
-import { ReactNode, useState } from 'react';
+import { ComponentType, ReactNode, useState } from 'react';
 
 import LeftArrow from 'src/assets/icons/arrow-left-icon.svg?react';
 import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
+import { Sidebar } from 'src/pages/UserProfilePage/children/Sidebar';
 
 import styles from './styles.module.scss';
 
+export interface SidebarProps {
+  onTabClick?: () => void;
+}
+
 interface ItemLayoutProps {
   title: ReactNode;
-  sidebar: ReactNode;
+  sidebar: ComponentType<SidebarProps> | ReactNode;
   tabContent: ReactNode;
   dialog: ReactNode;
 }
 
 export const ProfileLayout = ({
   title,
-  sidebar,
   tabContent,
   dialog,
 }: ItemLayoutProps) => {
   const { width } = useWindowSize();
-
   const isMobile = width < SCREEN_WIDTH.MD;
-  // TODO Open/Close logic should be tightened with tabs navigation
-  // this one is just for demo purposes
   const [shouldShowSidebar, setShouldShowSidebar] = useState(false);
+
+  const handleTabClick = () => {
+    if (isMobile) {
+      setShouldShowSidebar(false);
+    }
+  };
 
   return (
     <div className={styles.mainContentContainer}>
@@ -46,9 +53,15 @@ export const ProfileLayout = ({
       </Row>
       <Row>
         {isMobile ? (
-          shouldShowSidebar && <Col span={24}>{sidebar}</Col>
+          shouldShowSidebar && (
+            <Col span={24}>
+              <Sidebar onTabClick={handleTabClick} />
+            </Col>
+          )
         ) : (
-          <Col span={7}>{sidebar}</Col>
+          <Col span={7}>
+            <Sidebar />
+          </Col>
         )}
         {!shouldShowSidebar && isMobile ? (
           <Col md={{ span: 16, offset: 1 }} xs={{ span: 24 }}>
