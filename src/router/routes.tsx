@@ -8,7 +8,7 @@ export const ROUTES = {
   ADD_PUBLICATION: '/add-publication',
   ITEM: '/item/:id',
   SEARCH_RESULTS: '/search-results',
-  USER_PROFILE: '/user-profile/:id',
+  USER_PROFILE: '/profile',
   ADD_USER_INFO: '/add-user-info',
   NOT_FOUND: '/not-found',
 };
