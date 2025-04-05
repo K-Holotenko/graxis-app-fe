@@ -22,12 +22,11 @@ import DrawerIcon from 'src/assets/icons/drawer-icon.svg?react';
 import {
   IMAGE_DESCRIPTION,
   ButtonTypes,
-  TEXT,
   SCREEN_WIDTH,
 } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ROUTES } from 'src/router/routes';
-import { Drawer } from 'src/components/Drawer';
+import { Drawer, menuItems } from 'src/components/Drawer';
 import { Button } from 'src/components/Button';
 import { theme } from 'src/config/theme';
 import { useCountdown } from 'src/hooks/useCountdown';
@@ -36,21 +35,6 @@ import { useUserStore } from 'src/stores/userStore';
 import { Loadable } from 'src/components/Loadable';
 
 import styles from './styles.module.scss';
-
-const menuItems = [
-  {
-    key: '1',
-    label: TEXT.MY_PUBLICATIONS,
-  },
-  {
-    key: '2',
-    label: TEXT.SETTINGS,
-  },
-  {
-    key: '3',
-    label: TEXT.LOGOUT,
-  },
-];
 
 export const AppHeader = () => {
   const navigate = useNavigate();

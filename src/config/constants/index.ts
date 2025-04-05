@@ -49,10 +49,8 @@ export const TEXT = {
 
   LOCATION_NAME: 'Локація',
   LOGIN: 'Увійти',
-  LOGOUT: 'Вийти',
 
   MORE: 'Більше',
-  MY_PUBLICATIONS: 'Мої оголошення',
 
   NAME: 'Назва',
   NO_ACCOUNT: 'Немає акаунту?',
@@ -77,7 +75,6 @@ export const TEXT = {
   SEND_SMS: 'Ми надішлемо смс для підтвердження номера',
   SEND_SMS_AGAIN: 'Надіслати повторно',
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
-  SETTINGS: 'Налаштування',
   SUCCESS: 'Успішно!',
   SUBMIT: 'Продовжити',
   COST: 'Вартість',
