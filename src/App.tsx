@@ -13,15 +13,13 @@ const App = () => {
   const { fetchUser } = useUserStore();
 
   useEffect(() => {
+    const unsubscribe = useAuthStore.getState().initializeAuthListener();
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     const checkAuth = async () => {
-      const accessToken = CookieService.getCookie('accessToken');
-
-      if (!accessToken) {
-        setAuthorized(false);
-
-        return;
-      }
-
       try {
         const user = await fetchUser();
 
