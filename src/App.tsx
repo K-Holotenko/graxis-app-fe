@@ -2,22 +2,25 @@
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
-import CookieService from 'src/services/CookieService';
 import { useAuthStore } from 'src/stores/authStore';
 
 import { router } from './router';
 import { useUserStore } from './stores/userStore';
 
 const App = () => {
-  const { setAuthorized } = useAuthStore();
+  const { setAuthorized, initializeAuthListener } = useAuthStore();
   const { fetchUser } = useUserStore();
 
+  // Initializes Firebase authentication listener
+  // tha updates the access token in the cookie
+  // and sets the authorized state
   useEffect(() => {
-    const unsubscribe = useAuthStore.getState().initializeAuthListener();
+    const unsubscribe = initializeAuthListener();
 
     return () => unsubscribe();
   }, []);
 
+  // Checks if the user is present in the DB
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -26,7 +29,6 @@ const App = () => {
         setAuthorized(!!user);
       } catch {
         setAuthorized(false);
-        CookieService.deleteCookie('accessToken');
       }
     };
 

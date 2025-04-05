@@ -95,7 +95,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
           <span className={styles.authorizeLink}>
             {TEXT.ALREADY_HAVE_ACCOUNT}{' '}
             <Link to={ROUTES.LOGIN} className={styles.authorizeStyle}>
-              {TEXT.AUTHORIZE}
+              Авторизуватися
             </Link>
           </span>
         )}
