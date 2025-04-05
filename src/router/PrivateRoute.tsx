@@ -3,6 +3,7 @@ import { JSX } from 'react';
 
 import CookieService from 'src/services/CookieService';
 import { useAuthStore } from 'src/stores/authStore';
+import { useUserStore } from 'src/stores/userStore';
 
 import { ROUTES } from './routes';
 
@@ -12,10 +13,10 @@ interface PrivateRouteProps {
 
 export const PrivateRoute = ({ children }: PrivateRouteProps): JSX.Element => {
   const { isAuthorized } = useAuthStore();
-
+  const { user } = useUserStore();
   const hasAccessToken = CookieService.hasCookie('accessToken');
 
-  return isAuthorized && hasAccessToken ? (
+  return isAuthorized && hasAccessToken && user ? (
     children
   ) : (
     // TODO Navigate to ROUTES.NOT_FOUND instead of ROUTES.LOGIN

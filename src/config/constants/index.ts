@@ -32,7 +32,6 @@ export const TEXT = {
   FEEDBACK_AMOUNT: 'відгуків',
   FEEDBACKS: 'Відгуки',
   FOR: 'На',
-  FORGOT_PASSWORD: 'Забули пароль?',
 
   GOODS_PUBLISHED: 'Ваш товар опубліковано.',
 
@@ -121,7 +120,6 @@ export const IMAGE_DESCRIPTION = {
 export const CITY_LIST = [
   { value: 'Київ', label: 'Київ' },
   { value: 'Львів', label: 'Львів' },
-  { value: 'Одеса', label: 'Одеса' },
 ];
 
 export enum ButtonTypes {

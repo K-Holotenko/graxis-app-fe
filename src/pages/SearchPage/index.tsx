@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { VALIDATION_MESSAGE } from 'src/config/validation';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
@@ -15,30 +16,25 @@ import { SEARCH_RESULTS_CONFIG } from './utils/config';
 import { Filters } from './children/Filters';
 import { LoadMore } from './children/LoadMore';
 
-export const SearchResultsPage = () => {
+export const SearchPage = () => {
   const [publicationsPage, setPublicationsPage] = useState<PublicationPage>({
     publications: [],
     nextPage: 1,
   });
   const [isLoading, setIsLoading] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
   const { openNotification } = useNotification();
 
-  const loadMode = async () => {
-    if (!publicationsPage.nextPage) {
-      return;
-    }
-
+  const fetchPublications = (
+    params: URLSearchParams,
+    onSuccess: (data: PublicationPage) => void
+  ) => {
     setIsLoading(true);
 
-    getAllPublications(publicationsPage.nextPage)
-      .then((nextPagePublications) => {
-        setPublicationsPage((prev) => ({
-          publications: [
-            ...prev.publications,
-            ...nextPagePublications.publications,
-          ],
-          nextPage: nextPagePublications.nextPage,
-        }));
+    getAllPublications('?' + params.toString())
+      .then((data) => {
+        onSuccess(data);
       })
       .catch(() => {
         openNotification(
@@ -52,28 +48,36 @@ export const SearchResultsPage = () => {
       });
   };
 
-  useEffect(() => {
-    setIsLoading(true);
+  const loadMode = async () => {
+    if (!publicationsPage.nextPage) {
+      return;
+    }
 
-    getAllPublications(1)
-      .then((data) => {
-        setPublicationsPage(data);
-      })
-      .catch(() => {
-        openNotification(
-          NotificationType.ERROR,
-          VALIDATION_MESSAGE.ERROR,
-          VALIDATION_MESSAGE.TRY_AGAIN
-        );
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    const newSearchParams = new URLSearchParams(searchParams);
+    const currentPage = Number(newSearchParams.get('page') || '1');
+    const nextPage = currentPage + 1;
+
+    newSearchParams.set('page', String(nextPage));
+    setSearchParams(newSearchParams);
+
+    fetchPublications(newSearchParams, (nextPagePublications) => {
+      setPublicationsPage((prev) => ({
+        publications: [
+          ...prev.publications,
+          ...nextPagePublications.publications,
+        ],
+        nextPage: nextPagePublications.nextPage,
+      }));
+    });
+  };
 
   useEffect(() => {
+    fetchPublications(searchParams, (data) => {
+      setPublicationsPage(data);
+    });
+
     window.scrollTo(0, 0);
-  }, []);
+  }, [searchParams]);
 
   return (
     <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>

@@ -3,13 +3,13 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { HomePage } from 'src/pages/HomePage';
 import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
-import { VerificationPage } from 'src/pages/VerificationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { AddPublicationPage } from 'src/pages/AddPublicationPage';
 import { PublicationPage } from 'src/pages/PublicationPage';
-import { SearchResultsPage } from 'src/pages/SearchResultsPage';
+import { SearchPage } from 'src/pages/SearchPage';
 import { UserProfilePage } from 'src/pages/UserProfilePage';
 import { AddUserInfoPage } from 'src/pages/AddUserInfoPage';
+import { MyPublicationsPage } from 'src/pages/MyPublicationsPage';
 import { NotFoundPage } from 'src/pages/NotFoundPage';
 
 import { PrivateRoute } from './PrivateRoute';
@@ -33,10 +33,6 @@ export const router = createBrowserRouter([
     element: <RegistrationPage />,
   },
   {
-    path: ROUTES.VERIFICATION_CODE,
-    element: <VerificationPage />,
-  },
-  {
     path: ROUTES.ADD_PUBLICATION,
     element: (
       <PrivateRoute>
@@ -50,7 +46,7 @@ export const router = createBrowserRouter([
   },
   {
     path: ROUTES.SEARCH_RESULTS,
-    element: <SearchResultsPage />,
+    element: <SearchPage />,
   },
   {
     path: ROUTES.USER_PROFILE,
@@ -95,6 +91,14 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.ADD_USER_INFO,
     element: <AddUserInfoPage />,
+  },
+  {
+    path: ROUTES.MY_PUBLICATIONS,
+    element: (
+      <PrivateRoute>
+        <MyPublicationsPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: ROUTES.NOT_FOUND,
