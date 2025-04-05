@@ -60,7 +60,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (user) {
         const token = await user.getIdToken();
 
-        CookieService.setCookie('accessToken', token);
+        CookieService.setCookie('accessToken', token, {
+          path: '/',
+          maxAge: 3600,
+          sameSite: 'Lax',
+          secure: true,
+          domain: 'graxis.net',
+        });
 
         set({ isAuthorized: true, user, isLoading: false });
       } else {
