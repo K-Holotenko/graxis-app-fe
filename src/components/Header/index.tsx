@@ -8,6 +8,7 @@ import {
   Image,
   MenuProps,
   ConfigProvider,
+  Skeleton,
 } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -21,42 +22,32 @@ import DrawerIcon from 'src/assets/icons/drawer-icon.svg?react';
 import {
   IMAGE_DESCRIPTION,
   ButtonTypes,
-  TEXT,
   SCREEN_WIDTH,
 } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ROUTES } from 'src/router/routes';
-import { Drawer } from 'src/components/Drawer';
+import { Drawer, menuItems } from 'src/components/Drawer';
 import { Button } from 'src/components/Button';
 import { theme } from 'src/config/theme';
 import { useCountdown } from 'src/hooks/useCountdown';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { useUserStore } from 'src/stores/userStore';
+import { Loadable } from 'src/components/Loadable';
 
 import styles from './styles.module.scss';
 
-const menuItems = [
-  {
-    key: '1',
-    label: TEXT.MY_PUBLICATIONS,
-  },
-  {
-    key: '2',
-    label: TEXT.SETTINGS,
-  },
-  {
-    key: '3',
-    label: TEXT.LOGOUT,
-  },
-];
-
 export const AppHeader = () => {
-  const { width } = useWindowSize();
   const navigate = useNavigate();
-  const { timer, startCountdown } = useCountdown(5);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
+  const { width } = useWindowSize();
+  const { timer, startCountdown } = useCountdown(5);
+  const { isAuthorized, signOut } = useAuthStore();
+  const { user, isAppInitializing } = useUserStore();
   const { openNotification } = useNotification();
+
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [hasNotifications] = useState(true);
+  const [showDrawer, setShowDrawer] = useState(false);
 
   useEffect(() => {
     if (timer === 0) {
@@ -65,14 +56,10 @@ export const AppHeader = () => {
     }
   }, [navigate, timer]);
 
-  const { isAuthorized, signOut } = useAuthStore();
-  const [hasNotifications] = useState(true);
-  const [showDrawer, setShowDrawer] = useState(false);
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
   const isDesktop = width > SCREEN_WIDTH.MD;
-  const { user } = useUserStore();
   const isFullyAuthorized = isAuthorized && !!user;
 
   const showError = (description: string) => {
@@ -170,11 +157,11 @@ export const AppHeader = () => {
                   iconPosition="end"
                   onClick={onAddPublicationBtnClick}
                   dataTestId="add-publication-btn"
-                  label={TEXT.ADD_PUBLICATION}
+                  label="Додати оголошення"
                 />
               </Col>
             )}
-            {!isFullyAuthorized && isDesktop && (
+            {!isFullyAuthorized && isDesktop && !isAppInitializing && (
               <Col className={styles.buttonPaddingCall}>
                 <Button
                   type={ButtonTypes.default}
@@ -183,23 +170,40 @@ export const AppHeader = () => {
                   onClick={() => navigate(ROUTES.LOGIN)}
                   dataTestId="authorize-btn"
                   className={styles.buttonPadding}
-                  label={TEXT.AUTHORIZE}
+                  label="Авторизуватися"
                 />
               </Col>
             )}
-            {isFullyAuthorized && isDesktop && (
+            {(isFullyAuthorized || isAppInitializing) && isDesktop && (
               <Col>
                 <ConfigProvider theme={localTheme}>
-                  <Dropdown
-                    rootClassName={styles.dropdownRoot}
-                    menu={menu}
-                    placement="bottom"
-                    trigger={['click']}
-                  >
-                    <Avatar size="large" className={styles.avatarLarge}>
-                      BC
-                    </Avatar>
-                  </Dropdown>
+                  <Loadable
+                    skeleton={
+                      <Skeleton.Avatar
+                        active
+                        size="large"
+                        style={{ width: '48px', height: '48px' }}
+                      />
+                    }
+                    component={() => (
+                      <Dropdown
+                        rootClassName={styles.dropdownRoot}
+                        menu={menu}
+                        placement="bottom"
+                        trigger={['click']}
+                      >
+                        <Avatar
+                          size="large"
+                          src={user?.avatarUrl}
+                          className={styles.avatarLarge}
+                        >
+                          {user?.name?.charAt(0)}
+                          {user?.surname?.charAt(0)}
+                        </Avatar>
+                      </Dropdown>
+                    )}
+                    isLoading={isAppInitializing}
+                  />
                 </ConfigProvider>
               </Col>
             )}

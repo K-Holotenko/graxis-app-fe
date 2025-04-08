@@ -8,11 +8,11 @@ export const ROUTES = {
   ADD_PUBLICATION: '/add-publication',
   ITEM: '/item/:id',
   SEARCH_RESULTS: '/search-results',
-  USER_PROFILE: '/user-profile',
   NOTIFICATIONS: '/notifications',
   PAYMENT: '/payment',
   PRIVACY_POLICY: '/privacy-policy',
   FAQ: '/faq',
+  USER_PROFILE: '/profile',
   ADD_USER_INFO: '/add-user-info',
   NOT_FOUND: '/not-found',
 };

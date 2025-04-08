@@ -6,13 +6,11 @@ import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
   ADD_PHOTO: 'Додайте фото',
-  ADD_PUBLICATION: 'Додати оголошення',
   ADD_ANNOUNCEMENT: 'Додайте оголошення',
   ALL_CATEGORIES: 'Всі категорії',
   ALLOW_DATA_PROCESSING:
     'Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача',
   ALREADY_HAVE_ACCOUNT: 'У вас є акаунт?',
-  AUTHORIZE: 'Авторизуватися',
 
   CATEGORIES: 'Категорії',
   CATEGORIES_SECTION_TITLE: 'Категорії товарів',
@@ -51,10 +49,8 @@ export const TEXT = {
 
   LOCATION_NAME: 'Локація',
   LOGIN: 'Увійти',
-  LOGOUT: 'Вийти',
 
   MORE: 'Більше',
-  MY_PUBLICATIONS: 'Мої оголошення',
 
   NAME: 'Назва',
   NO_ACCOUNT: 'Немає акаунту?',
@@ -79,7 +75,6 @@ export const TEXT = {
   SEND_SMS: 'Ми надішлемо смс для підтвердження номера',
   SEND_SMS_AGAIN: 'Надіслати повторно',
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
-  SETTINGS: 'Налаштування',
   SUCCESS: 'Успішно!',
   SUBMIT: 'Продовжити',
   COST: 'Вартість',
