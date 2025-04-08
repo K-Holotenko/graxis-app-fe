@@ -38,6 +38,11 @@
     margin-right: 0 !important;
   }
 
+  :global(.ant-upload) {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
   :global(.ant-form-item) {
     margin: 0 !important;
   }
@@ -45,6 +50,7 @@
 
 .uploadFormItem {
   margin-bottom: 0;
+
   :global(.ant-form-item-label) {
     display: none !important;
   }
@@ -80,6 +86,11 @@
     }
 
     :global(.ant-upload-list-item-container) {
+      width: 168px !important;
+      height: 168px !important;
+    }
+
+    :global(.ant-upload) {
       width: 168px !important;
       height: 168px !important;
     }

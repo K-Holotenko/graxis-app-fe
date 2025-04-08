@@ -36,6 +36,7 @@ export const UpdateProfileDialog = ({
         surname: form.getFieldValue('surname') || undefined,
         email: form.getFieldValue('email') || undefined,
         phoneNumber: form.getFieldValue('phoneNumber') || undefined,
+        avatar: form.getFieldValue('avatarUrl')?.file || undefined,
       },
       showError
     );
@@ -50,12 +51,12 @@ export const UpdateProfileDialog = ({
     onContactInfoEditClick(false);
     handleShowDialog(false);
 
-    // TODO Add avatarUrl when the BE is updated
     form.setFieldsValue({
       name: user?.name,
       surname: user?.surname,
       email: user?.email,
       phoneNumber: user?.phoneNumber,
+      avatarUrl: user?.avatarUrl,
     });
   };
 
