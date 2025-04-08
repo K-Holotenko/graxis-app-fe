@@ -57,6 +57,38 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: ROUTES.NOTIFICATIONS,
+    element: (
+      <PrivateRoute>
+        <UserProfilePage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: ROUTES.PAYMENT,
+    element: (
+      <PrivateRoute>
+        <UserProfilePage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: ROUTES.PRIVACY_POLICY,
+    element: (
+      <PrivateRoute>
+        <UserProfilePage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: ROUTES.FAQ,
+    element: (
+      <PrivateRoute>
+        <UserProfilePage />
+      </PrivateRoute>
+    ),
+  },
+  {
     path: ROUTES.ADD_USER_INFO,
     element: <AddUserInfoPage />,
   },
