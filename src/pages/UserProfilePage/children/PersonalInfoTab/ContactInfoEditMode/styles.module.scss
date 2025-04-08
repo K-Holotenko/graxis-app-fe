@@ -1,15 +1,27 @@
 @use 'src/styles/variables';
 
+.form {
+  width: 100%;
+}
+
 .formItemEmail {
+  width: 100%;
   margin-bottom: 16px;
 }
 
 .formItemPhone {
+  width: 100%;
   margin-bottom: 0;
 }
 
 @media (min-width: variables.$media-md) {
   .formItemEmail {
     margin-bottom: 20px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .form {
+    width: 360px;
   }
 }
