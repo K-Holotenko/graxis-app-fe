@@ -47,11 +47,6 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
         const [name, surname] = fullName.split(' ');
 
         await createUser({ name, surname }, triggerNotification);
-        // TODO Uncomment when the BE can accepts avatarUrl as a string for create user
-        // await updateUser(
-        //   { avatarUrl: (firebaseUser as { photoURL?: string }).photoURL },
-        //   triggerNotification
-        // );
       }
     } finally {
       navigate(ROUTES.HOME);
@@ -95,7 +90,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
           <span className={styles.authorizeLink}>
             {TEXT.ALREADY_HAVE_ACCOUNT}{' '}
             <Link to={ROUTES.LOGIN} className={styles.authorizeStyle}>
-              {TEXT.AUTHORIZE}
+              Авторизуватися
             </Link>
           </span>
         )}

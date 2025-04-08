@@ -30,18 +30,18 @@ interface DrawerProps {
   onClose: () => void;
 }
 
-const menuItems = [
+export const menuItems = [
   {
     key: '1',
-    label: TEXT.MY_PUBLICATIONS,
+    label: 'Мої оголошення',
   },
   {
     key: '2',
-    label: TEXT.SETTINGS,
+    label: 'Профіль',
   },
   {
     key: '3',
-    label: TEXT.LOGOUT,
+    label: 'Вийти',
   },
 ];
 
@@ -124,7 +124,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 icon={<UserIconDark />}
                 iconPosition="start"
                 onClick={() => navigate(ROUTES.LOGIN)}
-                label={TEXT.AUTHORIZE}
+                label="Авторизуватися"
               />
             </ConfigProvider>
           </Col>
@@ -141,7 +141,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 className={styles.addPublicationButton}
                 onClick={onAddPublicationBtnClick}
                 dataTestId="add-publication-btn"
-                label={TEXT.ADD_PUBLICATION}
+                label="Додати оголошення"
               />
             </ConfigProvider>
           </Col>
