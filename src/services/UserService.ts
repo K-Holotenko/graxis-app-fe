@@ -21,8 +21,8 @@ export const signUp = async (user: SignUpUser): Promise<Response> => {
 
   const formData = new FormData();
 
-  formData.append('name', user.name);
-  formData.append('surname', user.surname);
+  formData.append('name', user.name || '');
+  formData.append('surname', user.surname || '');
   user?.avatar && formData.append('avatar', user.avatar);
 
   const response = await fetch(`${GRAXIS_API_URL}/users/sign-up`, {

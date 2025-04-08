@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Col,
   ConfigProvider,
@@ -22,6 +21,7 @@ import { ButtonTypes, TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { useUserStore } from 'src/stores/userStore';
 
 import styles from './styles.module.scss';
 
@@ -46,8 +46,8 @@ export const menuItems = [
 ];
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
-  const { isAuthorized } = useAuthStore();
-  const authStore = useAuthStore();
+  const { isAuthorized, signOut } = useAuthStore();
+  const { user } = useUserStore();
 
   const { openNotification } = useNotification();
 
@@ -55,8 +55,9 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
-  const [usernameABBR] = useState('BC'); // should be implemented using store and real name
-  const [username] = useState('Вадим Семко'); // should be implemented using store and real name
+  const { name, surname } = user || {};
+  const usernameABBR = (name?.[0] || '') + (surname?.[0] || '');
+  const username = `${name} ${surname}`;
 
   const onAddPublicationBtnClick = () => {
     navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
@@ -70,7 +71,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
     const actions: { [key: string]: () => void } = {
       '1': () => navigate(ROUTES.MY_PUBLICATIONS),
       '2': () => navigate(ROUTES.USER_PROFILE),
-      '3': () => authStore.signOut(showError),
+      '3': () => signOut(showError),
     };
 
     actions[e.key]();
