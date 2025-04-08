@@ -63,29 +63,28 @@ export const UserProfilePage = () => {
     [ROUTES.PAYMENT]: <PaymentTab />,
     [ROUTES.PRIVACY_POLICY]: <PrivacyPolicyTab />,
     [ROUTES.FAQ]: <FaqTab />,
+    [ROUTES.USER_PROFILE]: (
+      <PersonalInfoTab
+        handleShowDialog={handleShowDialog}
+        onPersonalInfoEditClick={handlePersonalInfoEditClick}
+        onContactInfoEditClick={handleContactInfoEditClick}
+        onPersonalInfoValidation={handlePersonalInfoValidation}
+        onContactInfoValidation={handleContactInfoValidation}
+        isPersonalInfoEditModeEnabled={isPersonalInfoEditModeEnabled}
+        isContactInfoEditModeEnabled={isContactInfoEditModeEnabled}
+        shouldShowDialog={shouldShowDialog}
+        isValid={isPersonalInfoValid && isContactInfoValid}
+        form={form}
+      />
+    ),
   };
-
-  const tabContent = tabComponents[location.pathname] ?? (
-    <PersonalInfoTab
-      handleShowDialog={handleShowDialog}
-      onPersonalInfoEditClick={handlePersonalInfoEditClick}
-      onContactInfoEditClick={handleContactInfoEditClick}
-      onPersonalInfoValidation={handlePersonalInfoValidation}
-      onContactInfoValidation={handleContactInfoValidation}
-      isPersonalInfoEditModeEnabled={isPersonalInfoEditModeEnabled}
-      isContactInfoEditModeEnabled={isContactInfoEditModeEnabled}
-      shouldShowDialog={shouldShowDialog}
-      isValid={isPersonalInfoValid && isContactInfoValid}
-      form={form}
-    />
-  );
 
   return (
     <PageContainer pageTitle="Профіль">
       <AppLayout>
         <ProfileLayout
           title="Профіль"
-          tabContent={tabContent}
+          tabContent={tabComponents[location.pathname]}
           sidebar={<Sidebar />}
           dialog={
             shouldShowDialog && (
