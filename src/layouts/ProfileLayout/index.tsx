@@ -28,7 +28,7 @@ export const ProfileLayout = ({
   const isMobile = width < SCREEN_WIDTH.MD;
   const [shouldShowSidebar, setShouldShowSidebar] = useState(false);
 
-  const handleTabClick = () => {
+  const closeSidebar = () => {
     if (isMobile) {
       setShouldShowSidebar(false);
     }
@@ -55,7 +55,7 @@ export const ProfileLayout = ({
         {isMobile ? (
           shouldShowSidebar && (
             <Col span={24}>
-              <Sidebar onTabClick={handleTabClick} />
+              <Sidebar onTabClick={closeSidebar} />
             </Col>
           )
         ) : (

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ConfigProvider, Menu } from 'antd';
 
 import { ROUTES } from 'src/router/routes';
@@ -11,31 +11,27 @@ import { SidebarProps } from 'src/layouts/ProfileLayout';
 
 import styles from './styles.module.scss';
 
-const items = [
-  {
-    key: ROUTES.USER_PROFILE,
-    label: 'Профіль',
-  },
-  {
-    key: ROUTES.NOTIFICATIONS,
-    label: 'Повідомлення',
-  },
-  {
-    key: ROUTES.PAYMENT,
-    label: 'Платіжна інформація',
-  },
+interface MenuItemProps {
+  key: string;
+  label: React.ReactNode;
+  isTwoLines?: boolean;
+}
+
+const items: MenuItemProps[] = [
+  { key: ROUTES.USER_PROFILE, label: 'Профіль' },
+  { key: ROUTES.NOTIFICATIONS, label: 'Повідомлення' },
+  { key: ROUTES.PAYMENT, label: 'Платіжна інформація', isTwoLines: true },
   {
     key: ROUTES.PRIVACY_POLICY,
     label: 'Політика конфіденційності',
+    isTwoLines: true,
   },
-  {
-    key: ROUTES.FAQ,
-    label: 'Питання та відповіді',
-  },
+  { key: ROUTES.FAQ, label: 'Питання та відповіді', isTwoLines: true },
 ];
 
 export const Sidebar = ({ onTabClick }: SidebarProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { signOut } = useAuthStore();
   const { openNotification } = useNotification();
 
@@ -53,16 +49,23 @@ export const Sidebar = ({ onTabClick }: SidebarProps) => {
       <ConfigProvider theme={localTheme}>
         <Menu
           onClick={handleMenuClick}
+          selectedKeys={[location.pathname]}
           className={styles.menu}
-          mode="vertical"
-          items={items}
-        />
+        >
+          {items.map(({ key, label, isTwoLines }) => (
+            <Menu.Item
+              key={key}
+              className={isTwoLines ? styles.menuItemTwoLines : ''}
+            >
+              {label}
+            </Menu.Item>
+          ))}
+        </Menu>
       </ConfigProvider>
       <Button
         label="Вийти"
         type={ButtonTypes.link}
         onClick={() => signOut(showError)}
-        className={styles.btn}
       />
     </div>
   );
@@ -71,14 +74,15 @@ export const Sidebar = ({ onTabClick }: SidebarProps) => {
 const localTheme = {
   components: {
     Menu: {
+      itemHeight: 48,
       colorSplit: theme.N1,
-      lineHeight: 1.5,
       itemMarginInline: 0,
       itemMarginBlock: 12,
       fontSize: 16,
       colorText: theme.N5,
       itemHoverBg: theme.N3,
       itemSelectedBg: theme.secondary,
+      itemActiveBg: theme.secondary,
       itemSelectedColor: theme.N6,
       borderRadius: 8,
       itemPaddingInline: 8,
