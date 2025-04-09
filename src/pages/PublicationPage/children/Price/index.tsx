@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useMemo } from 'react';
 import { Dayjs } from 'dayjs';
 
@@ -10,6 +11,9 @@ import {
   pricingPeriodEngToUkrMap,
 } from 'src/pages/PublicationPage/children/Price/utils/count';
 import { Publication } from 'src/services/PublicationService';
+import { ButtonTypes } from 'src/config/constants';
+import { ROUTES } from 'src/router/routes';
+import { useRequireAuth } from 'src/hooks/useRequireAuth';
 
 import styles from './styles.module.scss';
 
@@ -40,18 +44,31 @@ export const Price = ({ prices }: PriceProps) => {
     [selectedRange, prices]
   );
 
-  const handleButtonClick = () => {
-    if (isRangeSelected) {
-      const firstDay = selectedRange[0]?.format('DD/MM/YYYY') || '';
-      const lastDay = selectedRange[1]?.format('DD/MM/YYYY') || firstDay;
+  const navigate = useNavigate();
+  const { requireAuth } = useRequireAuth();
 
-      setPriceData({
-        firstDay,
-        lastDay,
-        totalDays: selectedRange[1] ? days : 1,
-        totalCost: totalPrice,
-      });
-    }
+  const handleButtonClick = (): void => {
+    requireAuth(
+      () => {
+        if (isRangeSelected) {
+          const firstDay = selectedRange[0]?.format('DD/MM/YYYY') || '';
+          const lastDay = selectedRange[1]?.format('DD/MM/YYYY') || firstDay;
+
+          setPriceData({
+            firstDay,
+            lastDay,
+            totalDays: selectedRange[1] ? days : 1,
+            totalCost: totalPrice,
+          });
+        }
+      },
+      <Button
+        label="Авторизуватися"
+        type={ButtonTypes.link}
+        className={styles.notificationButtonPadding}
+        onClick={() => navigate(ROUTES.LOGIN)}
+      />
+    );
   };
 
   const priceItemWidthClassMap = {
