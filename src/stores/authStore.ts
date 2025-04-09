@@ -64,7 +64,7 @@ export const useAuthStore = create<AuthState>((set) => ({
           path: '/',
           maxAge: 3600,
           sameSite: 'Lax',
-          // secure: true,
+          secure: true,
           domain: 'graxis.net',
         });
 
