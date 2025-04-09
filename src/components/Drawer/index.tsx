@@ -22,6 +22,7 @@ import { ButtonTypes, TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { useRequireAuth } from 'src/hooks/useRequireAuth';
 
 import styles from './styles.module.scss';
 
@@ -48,7 +49,7 @@ export const menuItems = [
 export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { isAuthorized } = useAuthStore();
   const authStore = useAuthStore();
-
+  const { requireAuth } = useRequireAuth();
   const { openNotification } = useNotification();
 
   const navigate = useNavigate();
@@ -58,8 +59,18 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const [usernameABBR] = useState('BC'); // should be implemented using store and real name
   const [username] = useState('Вадим Семко'); // should be implemented using store and real name
 
-  const onAddPublicationBtnClick = () => {
-    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
+  const onAddPublicationBtnClick = (): void => {
+    requireAuth(
+      () => {
+        navigate(ROUTES.ADD_PUBLICATION);
+      },
+      <Button
+        label="Авторизуватися"
+        type={ButtonTypes.link}
+        className={styles.notificationButtonPadding}
+        onClick={() => navigate(ROUTES.LOGIN)}
+      />
+    );
   };
 
   const showError = (description: string) => {
