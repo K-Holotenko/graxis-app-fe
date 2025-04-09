@@ -24,6 +24,10 @@
   display: flex;
   justify-content: center;
 
+  width: 100px !important;
+  height: 100px !important;
+  overflow: hidden;
+
   :global(.ant-upload-select) {
     width: 100px !important;
     height: 100px !important;
@@ -45,6 +49,7 @@
 
 .uploadFormItem {
   margin-bottom: 0;
+
   :global(.ant-form-item-label) {
     display: none !important;
   }
@@ -73,6 +78,9 @@
 
   .upload {
     margin-right: 40px;
+
+    width: 168px !important;
+    height: 168px !important;
 
     :global(.ant-upload-select) {
       width: 168px !important;

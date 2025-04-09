@@ -38,10 +38,10 @@ export const UserProfilePage = () => {
   const handlePersonalInfoEditClick = (isEdit: boolean) => {
     setIsPersonalInfoEditModeEnabled(isEdit);
 
-    // TODO Add avatarUrl when the BE is updated
     form.setFieldsValue({
       name: user?.name,
       surname: user?.surname,
+      avatarUrl: user?.avatarUrl,
     });
   };
 

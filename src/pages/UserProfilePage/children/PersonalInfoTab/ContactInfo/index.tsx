@@ -28,7 +28,7 @@ export const ContactInfo = ({
       onChange();
     }}
   >
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div className={styles.contactInfoContainer}>
       <h2 className={styles.header}>Контактна інформація</h2>
 
       {isContactInfoEditModeEnabled ? (
