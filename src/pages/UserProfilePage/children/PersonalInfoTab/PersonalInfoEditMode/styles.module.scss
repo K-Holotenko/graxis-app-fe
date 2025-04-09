@@ -24,6 +24,10 @@
   display: flex;
   justify-content: center;
 
+  width: 100px !important;
+  height: 100px !important;
+  overflow: hidden;
+
   :global(.ant-upload-select) {
     width: 100px !important;
     height: 100px !important;
@@ -36,11 +40,6 @@
 
   :global(.ant-upload-wrapper) {
     margin-right: 0 !important;
-  }
-
-  :global(.ant-upload) {
-    width: 100px !important;
-    height: 100px !important;
   }
 
   :global(.ant-form-item) {
@@ -80,17 +79,15 @@
   .upload {
     margin-right: 40px;
 
+    width: 168px !important;
+    height: 168px !important;
+
     :global(.ant-upload-select) {
       width: 168px !important;
       height: 168px !important;
     }
 
     :global(.ant-upload-list-item-container) {
-      width: 168px !important;
-      height: 168px !important;
-    }
-
-    :global(.ant-upload) {
       width: 168px !important;
       height: 168px !important;
     }
