@@ -9,11 +9,10 @@
   margin-bottom: 16px;
 }
 
-@media (min-width: variables.$media-md) {
-  .header {
-    font-size: 24px;
-    margin-bottom: 24px;
-  }
+.contactInfoContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 @media (min-width: variables.$media-lg) {

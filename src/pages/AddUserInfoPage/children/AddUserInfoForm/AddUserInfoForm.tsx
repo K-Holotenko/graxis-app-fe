@@ -12,7 +12,6 @@ import { beforeUpload } from 'src/pages/AddPublicationPage/children/UploadItem/u
 import { useUserStore } from 'src/stores/userStore';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { ROUTES } from 'src/router/routes';
-import { ADD_USER_INFO } from 'src/pages/AddUserInfoPage/utils/config';
 
 import styles from './styles.module.scss';
 
@@ -69,9 +68,7 @@ export const AddUserInfoForm = () => {
   const uploadButton = (
     <button className={styles.uploadButton} type="button">
       <PlusOutlined />
-      <div className={styles.uploadPlaceholder}>
-        {ADD_USER_INFO.UPLOAD_PLACEHOLDER}
-      </div>
+      <div className={styles.uploadPlaceholder}>Завантажити</div>
     </button>
   );
 
@@ -86,7 +83,7 @@ export const AddUserInfoForm = () => {
       >
         <Form.Item
           rootClassName={styles.uploadFormItem}
-          label={ADD_USER_INFO.USER_AVATAR_LABEL}
+          label="Аватар"
           name="avatar"
           validateTrigger="onChange"
           validateStatus={isValid ? 'success' : undefined}
@@ -107,29 +104,23 @@ export const AddUserInfoForm = () => {
         </Form.Item>
         <Form.Item
           rootClassName={styles.nameFormItem}
-          label={ADD_USER_INFO.USER_NAME_LABEL}
+          label="Імʼя"
           name="name"
           rules={[VALIDATION_CONDITION.REQUIRED, VALIDATION_CONDITION.NAME]}
           validateTrigger="onChange"
           validateStatus={isValid ? 'success' : undefined}
         >
-          <Input
-            placeholder={ADD_USER_INFO.USER_NAME_PLACEHOLDER}
-            onChange={onChange}
-          />
+          <Input placeholder="Введіть імʼя" onChange={onChange} />
         </Form.Item>
         <Form.Item
           rootClassName={styles.surnameFormItem}
-          label={ADD_USER_INFO.USER_SURNAME_LABEL}
+          label="Прізвище"
           name="surname"
           rules={[VALIDATION_CONDITION.REQUIRED, VALIDATION_CONDITION.NAME]}
           validateTrigger="onChange"
           validateStatus={isValid ? 'success' : undefined}
         >
-          <Input
-            placeholder={ADD_USER_INFO.USER_SURNAME_PLACEHOLDER}
-            type={InputType.TEXT}
-          />
+          <Input placeholder="Введіть прізвище" type={InputType.TEXT} />
         </Form.Item>
         <Form.Item>
           <Button
