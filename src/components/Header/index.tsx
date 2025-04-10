@@ -58,20 +58,6 @@ export const AppHeader = () => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
 
-  const onAddPublicationBtnClick = (): void => {
-    requireAuth(
-      () => {
-        navigate(ROUTES.ADD_PUBLICATION);
-      },
-      <Button
-        label="Авторизуватися"
-        type={ButtonTypes.link}
-        className={styles.notificationButtonPadding}
-        onClick={() => navigate(ROUTES.LOGIN)}
-      />
-    );
-  };
-
   useEffect(() => {
     if (isDesktop) {
       setShowDrawer(false);
@@ -135,7 +121,7 @@ export const AppHeader = () => {
                   type={ButtonTypes.primary}
                   icon={<PlusIcon />}
                   iconPosition="end"
-                  onClick={onAddPublicationBtnClick}
+                  onClick={() => requireAuth(ROUTES.ADD_PUBLICATION)}
                   dataTestId="add-publication-btn"
                   label="Додати оголошення"
                 />
