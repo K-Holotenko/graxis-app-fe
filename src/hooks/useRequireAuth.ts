@@ -1,27 +1,29 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuthStore } from 'src/stores/authStore';
 import { ROUTES } from 'src/router/routes';
 import { useUserStore } from 'src/stores/userStore';
+import { getNotificationButton } from 'src/utils/getNotificationButton';
 
 import { useCountdown } from './useCountdown';
 import { NotificationType, useNotification } from './useNotification';
 
 interface UseRequireAuthReturn {
-  requireAuth: (
-    callback: () => void,
-    notificationButton: React.ReactNode
-  ) => void;
+  requireAuth: (route: string) => void;
 }
 
 export const useRequireAuth = (): UseRequireAuthReturn => {
   const { isAuthorized } = useAuthStore();
   const { user } = useUserStore();
-  const navigate = useNavigate();
+
   const { timer, startCountdown } = useCountdown(5);
   const { openNotification } = useNotification();
+
+  const navigate = useNavigate();
+
   const isFullyAuthorized = isAuthorized && !!user;
+
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   useEffect(() => {
@@ -31,32 +33,23 @@ export const useRequireAuth = (): UseRequireAuthReturn => {
     }
   }, [timer, isFullyAuthorized, navigate]);
 
-  const requireAuth = useCallback(
-    (callback: () => void, notificationButton: React.ReactNode) => {
-      if (isFullyAuthorized) {
-        callback();
+  const requireAuth = (route: string): void => {
+    if (isFullyAuthorized) {
+      navigate(route);
 
-        return;
-      }
-      if (isNotificationOpen) return;
+      return;
+    }
+    if (isNotificationOpen) return;
 
-      startCountdown();
-      setIsNotificationOpen(true);
-      openNotification(
-        NotificationType.INFO,
-        'Будь ласка, авторизуйтесь',
-        'Авторизуйтеся, щоб продовжити. Автоперехід через 5 секунд...',
-        notificationButton
-      );
-    },
-    [
-      isFullyAuthorized,
-      isNotificationOpen,
-      startCountdown,
-      navigate,
-      openNotification,
-    ]
-  );
+    startCountdown();
+    setIsNotificationOpen(true);
+    openNotification(
+      NotificationType.INFO,
+      'Будь ласка, авторизуйтесь',
+      'Авторизуйтеся, щоб продовжити. Автоперехід через 5 секунд...',
+      getNotificationButton(navigate)
+    );
+  };
 
   return { requireAuth };
 };

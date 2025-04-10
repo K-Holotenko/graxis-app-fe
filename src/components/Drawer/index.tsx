@@ -59,20 +59,6 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const [usernameABBR] = useState('BC'); // should be implemented using store and real name
   const [username] = useState('Вадим Семко'); // should be implemented using store and real name
 
-  const onAddPublicationBtnClick = (): void => {
-    requireAuth(
-      () => {
-        navigate(ROUTES.ADD_PUBLICATION);
-      },
-      <Button
-        label="Авторизуватися"
-        type={ButtonTypes.link}
-        className={styles.notificationButtonPadding}
-        onClick={() => navigate(ROUTES.LOGIN)}
-      />
-    );
-  };
-
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
@@ -150,7 +136,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 icon={<PlusIconDark />}
                 iconPosition="end"
                 className={styles.addPublicationButton}
-                onClick={onAddPublicationBtnClick}
+                onClick={() => requireAuth(ROUTES.ADD_PUBLICATION)}
                 dataTestId="add-publication-btn"
                 label="Додати оголошення"
               />
