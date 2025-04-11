@@ -32,15 +32,15 @@ interface DrawerProps {
 
 export const menuItems = [
   {
-    key: '1',
+    key: 1,
     label: 'Мої оголошення',
   },
   {
-    key: '2',
+    key: 2,
     label: 'Профіль',
   },
   {
-    key: '3',
+    key: 3,
     label: 'Вийти',
   },
 ];
@@ -68,9 +68,9 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
-      '1': () => navigate(ROUTES.MY_PUBLICATIONS),
-      '2': () => navigate(ROUTES.USER_PROFILE),
-      '3': () => authStore.signOut(showError),
+      1: () => navigate(ROUTES.MY_PUBLICATIONS),
+      2: () => navigate(ROUTES.USER_PROFILE),
+      3: () => authStore.signOut(showError),
     };
 
     actions[e.key]();
@@ -188,10 +188,6 @@ const localThemeAddPublication = {
 const localThemeDropdown = {
   components: {
     Dropdown: {
-      controlItemBgHover: theme.N3,
-      controlPaddingHorizontal: 16,
-      borderRadiusLG: 16,
-      paddingBlock: 9,
       colorText: theme.N1,
       colorBgElevated: theme.primary,
     },
