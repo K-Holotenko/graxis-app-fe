@@ -116,7 +116,11 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 rootClassName={styles.dropdownRoot}
               >
                 <div className={styles.avatarSection}>
-                  <Avatar size="large" className={styles.avatarLarge}>
+                  <Avatar
+                    size="large"
+                    src={user?.avatarUrl}
+                    className={styles.avatarLarge}
+                  >
                     {usernameABBR}
                   </Avatar>
                   <span className={styles.userSectionUsername}>{username}</span>
