@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from 'src/stores/authStore';
 import { ROUTES } from 'src/router/routes';
 import { useUserStore } from 'src/stores/userStore';
-import { getNotificationButton } from 'src/utils/getNotificationButton';
+import { notificationButton } from 'src/utils/notificationButton';
 
 import { useCountdown } from './useCountdown';
 import { NotificationType, useNotification } from './useNotification';
@@ -39,15 +39,17 @@ export const useRequireAuth = (): UseRequireAuthReturn => {
 
       return;
     }
+
     if (isNotificationOpen) return;
 
     startCountdown();
     setIsNotificationOpen(true);
+
     openNotification(
       NotificationType.INFO,
       'Будь ласка, авторизуйтесь',
       'Авторизуйтеся, щоб продовжити. Автоперехід через 5 секунд...',
-      getNotificationButton(navigate)
+      notificationButton(navigate)
     );
   };
 

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { ConfigProvider, DatePicker, type GetProps } from 'antd';
 import dayjs, { type Dayjs } from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
@@ -13,7 +14,7 @@ type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
 dayjs.extend(isBetween);
 dayjs.locale('uk');
 
-export const Picker: React.FC<{
+export const Picker: FC<{
   onDateChange: (dates: [Dayjs | null, Dayjs | null]) => void;
 }> = ({ onDateChange }) => {
   const [range, setRange] = useState<[Dayjs | null, Dayjs | null]>([
@@ -21,19 +22,39 @@ export const Picker: React.FC<{
     null,
   ]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const shouldStartNewRange = !range[0] || (range[0] && range[1]);
+
+  useEffect(() => {
+    const startDateStr = searchParams.get('startDate');
+    const endDateStr = searchParams.get('endDate');
+
+    if (!startDateStr) return;
+
+    const startDate = dayjs(startDateStr, 'DD/MM/YYYY');
+    const endDate =
+      endDateStr && endDateStr !== startDateStr
+        ? dayjs(endDateStr, 'DD/MM/YYYY')
+        : null;
+
+    const newRange: [Dayjs | null, Dayjs | null] = [startDate, endDate];
+
+    setRange(newRange);
+    onDateChange(newRange);
+  }, [searchParams, onDateChange]);
 
   const clearDates = () => {
     setRange([null, null]);
     onDateChange([null, null]);
+
+    setSearchParams({});
   };
 
   const handleSelect = (date: Dayjs) => {
-    let newRange: [Dayjs | null, Dayjs | null];
+    let newRange: [Dayjs | null, Dayjs | null] = [date, null];
 
-    if (shouldStartNewRange) {
-      newRange = [date, null];
-    } else {
+    if (!shouldStartNewRange) {
       newRange = [range[0], date].sort(
         (a, b) => a!.valueOf() - b!.valueOf()
       ) as [Dayjs, Dayjs];
@@ -41,6 +62,15 @@ export const Picker: React.FC<{
 
     setRange(newRange);
     onDateChange(newRange);
+
+    if (newRange[0]) {
+      const startDate = newRange[0].format('DD/MM/YYYY');
+      const endDate = newRange[1]
+        ? newRange[1].format('DD/MM/YYYY')
+        : startDate;
+
+      setSearchParams({ startDate, endDate });
+    }
   };
 
   const disabledDate: RangePickerProps['disabledDate'] = (current) =>

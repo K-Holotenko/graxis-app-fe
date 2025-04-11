@@ -41,13 +41,9 @@ export const Price = ({ prices }: PriceProps) => {
 
   const handleButtonClick = (): void => {
     if (isRangeSelected) {
-      const firstDay = selectedRange[0]?.format('DD/MM/YYYY') || '';
-      const lastDay = selectedRange[1]?.format('DD/MM/YYYY') || firstDay;
+      const pathWithDate = location.pathname + location.search;
 
-      const queryParams = new URLSearchParams({ firstDay, lastDay }).toString();
-      const routeWithDate = `${location.pathname}?${queryParams}`;
-
-      requireAuth(routeWithDate);
+      requireAuth(pathWithDate);
     }
   };
 
