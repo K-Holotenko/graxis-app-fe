@@ -1,5 +1,18 @@
 @use 'src/styles/variables';
 
+.editButton {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 100%;
+  background-color: variables.$N2;
+  border: none;
+  box-shadow: none;
+
+  &:focus-visible {
+    outline: none !important;
+  }
+}
+
 .productCard {
   height: 100% !important;
 
@@ -12,12 +25,27 @@
   box-shadow: none !important;
 }
 
-.activity {
+.infoBar {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin-top: 4px;
   margin-bottom: 20px;
+}
+
+.activity {
+  display: flex;
+  align-items: center;
+}
+
+.dropdownRoot {
+  width: 256px;
+
+  :global {
+    .ant-dropdown-menu-item-active:active {
+      background-color: variables.$secondary !important;
+    }
+  }
 }
 
 .productCard {
