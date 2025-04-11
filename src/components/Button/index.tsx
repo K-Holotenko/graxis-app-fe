@@ -16,7 +16,7 @@ interface ButtonProps {
   iconPosition?: 'start' | 'end';
   htmlType?: 'button' | 'submit' | 'reset';
   dataTestId?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 export const Button = ({
