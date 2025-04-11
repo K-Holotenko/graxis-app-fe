@@ -7,7 +7,6 @@ import {
   Badge,
   Image,
   MenuProps,
-  ConfigProvider,
   Skeleton,
 } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -28,7 +27,6 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ROUTES } from 'src/router/routes';
 import { Drawer, menuItems } from 'src/components/Drawer';
 import { Button } from 'src/components/Button';
-import { theme } from 'src/config/theme';
 import { useCountdown } from 'src/hooks/useCountdown';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { useUserStore } from 'src/stores/userStore';
@@ -100,9 +98,9 @@ export const AppHeader = () => {
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
-      '1': () => navigate(ROUTES.MY_PUBLICATIONS),
-      '2': () => navigate(ROUTES.USER_PROFILE),
-      '3': () => signOut(showError),
+      1: () => navigate(ROUTES.MY_PUBLICATIONS),
+      2: () => navigate(ROUTES.USER_PROFILE),
+      3: () => signOut(showError),
     };
 
     actions[e.key]();
@@ -176,35 +174,33 @@ export const AppHeader = () => {
             )}
             {(isFullyAuthorized || isAppInitializing) && isDesktop && (
               <Col>
-                <ConfigProvider theme={localTheme}>
-                  <Loadable
-                    skeleton={
-                      <Skeleton.Avatar
-                        active
+                <Loadable
+                  skeleton={
+                    <Skeleton.Avatar
+                      active
+                      size="large"
+                      style={{ width: '48px', height: '48px' }}
+                    />
+                  }
+                  component={() => (
+                    <Dropdown
+                      rootClassName={styles.dropdownRoot}
+                      menu={menu}
+                      placement="bottom"
+                      trigger={['click']}
+                    >
+                      <Avatar
                         size="large"
-                        style={{ width: '48px', height: '48px' }}
-                      />
-                    }
-                    component={() => (
-                      <Dropdown
-                        rootClassName={styles.dropdownRoot}
-                        menu={menu}
-                        placement="bottom"
-                        trigger={['click']}
+                        src={user?.avatarUrl}
+                        className={styles.avatarLarge}
                       >
-                        <Avatar
-                          size="large"
-                          src={user?.avatarUrl}
-                          className={styles.avatarLarge}
-                        >
-                          {user?.name?.charAt(0)}
-                          {user?.surname?.charAt(0)}
-                        </Avatar>
-                      </Dropdown>
-                    )}
-                    isLoading={isAppInitializing}
-                  />
-                </ConfigProvider>
+                        {user?.name?.charAt(0)}
+                        {user?.surname?.charAt(0)}
+                      </Avatar>
+                    </Dropdown>
+                  )}
+                  isLoading={isAppInitializing}
+                />
               </Col>
             )}
           </Row>
@@ -215,15 +211,4 @@ export const AppHeader = () => {
       )}
     </>
   );
-};
-
-const localTheme = {
-  components: {
-    Dropdown: {
-      controlItemBgHover: theme.N3,
-      borderRadiusLG: 16,
-      controlPaddingHorizontal: 16,
-      paddingBlock: 9,
-    },
-  },
 };

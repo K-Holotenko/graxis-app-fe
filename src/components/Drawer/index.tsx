@@ -32,15 +32,15 @@ interface DrawerProps {
 
 export const menuItems = [
   {
-    key: '1',
+    key: 1,
     label: 'Мої оголошення',
   },
   {
-    key: '2',
+    key: 2,
     label: 'Профіль',
   },
   {
-    key: '3',
+    key: 3,
     label: 'Вийти',
   },
 ];
@@ -203,10 +203,6 @@ const localThemeAddPublication = {
 const localThemeDropdown = {
   components: {
     Dropdown: {
-      controlItemBgHover: theme.N3,
-      controlPaddingHorizontal: 16,
-      borderRadiusLG: 16,
-      paddingBlock: 9,
       colorText: theme.N1,
       colorBgElevated: theme.primary,
     },
