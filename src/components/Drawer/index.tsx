@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Col,
   ConfigProvider,
@@ -22,6 +21,7 @@ import { ButtonTypes, TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { User, useUserStore } from 'src/stores/userStore';
 
 import styles from './styles.module.scss';
 
@@ -32,22 +32,22 @@ interface DrawerProps {
 
 export const menuItems = [
   {
-    key: '1',
+    key: 1,
     label: 'Мої оголошення',
   },
   {
-    key: '2',
+    key: 2,
     label: 'Профіль',
   },
   {
-    key: '3',
+    key: 3,
     label: 'Вийти',
   },
 ];
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
-  const { isAuthorized } = useAuthStore();
-  const authStore = useAuthStore();
+  const { isAuthorized, signOut } = useAuthStore();
+  const { user } = useUserStore();
 
   const { openNotification } = useNotification();
 
@@ -55,8 +55,19 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
-  const [usernameABBR] = useState('BC'); // should be implemented using store and real name
-  const [username] = useState('Вадим Семко'); // should be implemented using store and real name
+  const { name, surname } = user as User;
+  const isName = !!name;
+  const isSurname = !!surname;
+  const isFullName = isName && isSurname;
+
+  const nameLetter = isName && name.charAt(0);
+  const surnameLetter = isSurname && surname.charAt(0);
+
+  const usernameABBR = isFullName
+    ? `${nameLetter}${surnameLetter}`
+    : nameLetter;
+
+  const username = isFullName ? `${name} ${surname}` : name;
 
   const onAddPublicationBtnClick = () => {
     navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
@@ -70,7 +81,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
     const actions: { [key: string]: () => void } = {
       1: () => navigate(ROUTES.MY_PUBLICATIONS),
       2: () => navigate(ROUTES.USER_PROFILE),
-      3: () => authStore.signOut(showError),
+      3: () => signOut(showError),
     };
 
     actions[e.key]();
@@ -105,7 +116,11 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 rootClassName={styles.dropdownRoot}
               >
                 <div className={styles.avatarSection}>
-                  <Avatar size="large" className={styles.avatarLarge}>
+                  <Avatar
+                    size="large"
+                    src={user?.avatarUrl}
+                    className={styles.avatarLarge}
+                  >
                     {usernameABBR}
                   </Avatar>
                   <span className={styles.userSectionUsername}>{username}</span>
@@ -188,10 +203,6 @@ const localThemeAddPublication = {
 const localThemeDropdown = {
   components: {
     Dropdown: {
-      controlItemBgHover: theme.N3,
-      controlPaddingHorizontal: 16,
-      borderRadiusLG: 16,
-      paddingBlock: 9,
       colorText: theme.N1,
       colorBgElevated: theme.primary,
     },
