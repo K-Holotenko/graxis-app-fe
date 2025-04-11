@@ -33,24 +33,36 @@ export const PersonalInfoTab = ({
   onContactInfoValidation,
 }: PersonalInfoTabProps) => {
   const { user } = useUserStore();
-  const [hasContactInfoChanged, setHasContactInfoChanged] = useState(false);
   const [hasPersonalInfoChanged, setHasPersonalInfoChanged] = useState(false);
+  const [hasContactInfoChanged, setHasContactInfoChanged] = useState(false);
 
   const handleFieldChange = () => {
     if (!form.isFieldsTouched() || !user) return;
 
     const values = form.getFieldsValue();
 
-    // TODO Add avatarUrl when the BE is updated
-    const personalInfoFields: Array<keyof typeof user> = ['name', 'surname'];
+    const personalInfoFields: Array<keyof typeof user> = [
+      'name',
+      'surname',
+      'avatarUrl',
+    ];
     const contactInfoFields: Array<keyof typeof user> = [
       'email',
       'phoneNumber',
     ];
 
-    const personalInfoHasChanges = personalInfoFields.some(
-      (field) => form.isFieldTouched(field) && values[field] !== user[field]
-    );
+    const personalInfoHasChanges = personalInfoFields.some((field) => {
+      if (field === 'avatarUrl') {
+        const ifAvatarChanged =
+          values.avatarUrl?.file?.status !== 'removed' &&
+          form.isFieldTouched('avatarUrl') &&
+          values.avatarUrl !== user.avatarUrl;
+
+        return ifAvatarChanged;
+      }
+
+      return form.isFieldTouched(field) && values[field] !== user[field];
+    });
 
     const contactInfoHasChanges = contactInfoFields.some(
       (field) => form.isFieldTouched(field) && values[field] !== user[field]
@@ -58,6 +70,7 @@ export const PersonalInfoTab = ({
 
     setHasContactInfoChanged(contactInfoHasChanges);
     setHasPersonalInfoChanged(personalInfoHasChanges);
+
     const ifSomeFieldChanged = personalInfoHasChanges || contactInfoHasChanges;
 
     handleShowDialog(ifSomeFieldChanged);

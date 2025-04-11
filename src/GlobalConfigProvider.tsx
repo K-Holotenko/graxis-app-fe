@@ -26,6 +26,13 @@ const defaultData = {
       colorLink: theme.primary,
       colorLinkActive: theme.primaryHover,
     },
+    Dropdown: {
+      controlItemBgActive: theme.secondary,
+      controlItemBgHover: theme.N3,
+      borderRadiusLG: 16,
+      controlPaddingHorizontal: 16,
+      paddingBlock: 9,
+    },
     Link: {
       colorLinkHover: theme.primary,
       colorInfoHover: theme.primary,
