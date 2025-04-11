@@ -19,6 +19,11 @@
   max-width: 327px;
 }
 
+.floatBtn {
+  position: sticky;
+  left: 100%;
+}
+
 @media (min-width: variables.$media-md) {
   .topContentContainer {
     margin-top: 40px;
