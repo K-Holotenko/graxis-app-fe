@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FloatButton, ConfigProvider } from 'antd';
 
-import ArrowUpIcon from 'src/assets/icons/arrow-up.svg?react';
 import { VALIDATION_MESSAGE } from 'src/config/validation';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { PageContainer } from 'src/layouts/PageContainer';
@@ -12,7 +10,6 @@ import {
   getAllPublications,
   PublicationPage,
 } from 'src/services/PublicationService';
-import { theme } from 'src/config/theme';
 
 import { PublicationsSection } from './children/PublicationsSection';
 import { SEARCH_RESULTS_CONFIG } from './utils/config';
@@ -99,23 +96,6 @@ export const SearchPage = () => {
             )
           }
         />
-        <ConfigProvider
-          theme={{
-            token: {
-              controlHeightLG: 48,
-              margin: 0,
-              fontSizeIcon: 24,
-              colorFillContent: theme.N2,
-              boxShadowSecondary: `
-                0 6px 8px 0 rgba(80, 86, 94, 0.12),
-                0 3px 25px 0 rgba(80, 86, 94, 0.12),
-                0 9px 14px 0 rgba(80, 86, 94, 0.02)
-              `,
-            },
-          }}
-        >
-          <FloatButton.BackTop icon={<ArrowUpIcon />} />
-        </ConfigProvider>
       </AppLayout>
     </PageContainer>
   );
