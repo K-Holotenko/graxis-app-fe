@@ -72,6 +72,7 @@ export const ContactInfoEditMode = ({
       name="updateUserContactInfoForm"
       layout="vertical"
       form={form}
+      className={styles.form}
       initialValues={{
         email: user?.email,
         phoneNumber: user?.phoneNumber,

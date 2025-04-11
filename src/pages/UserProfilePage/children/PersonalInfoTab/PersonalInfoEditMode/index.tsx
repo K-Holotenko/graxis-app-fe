@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Form, Upload, UploadProps, UploadFile, FormInstance } from 'antd';
+import {
+  Form,
+  Upload,
+  UploadProps,
+  UploadFile,
+  FormInstance,
+  ConfigProvider,
+} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { beforeUpload } from 'src/pages/AddPublicationPage/children/UploadItem/utils/config';
 import { Input, InputType } from 'src/components/Input';
 import { useUserStore } from 'src/stores/userStore';
+import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
 
@@ -57,63 +65,87 @@ export const PersonalInfoEditMode = ({
     </button>
   );
 
+  useEffect(() => {
+    if (user?.avatarUrl) {
+      setFileList([
+        {
+          uid: '1',
+          name: 'avatar.png',
+          status: 'done',
+          url: user?.avatarUrl,
+        },
+      ]);
+    }
+  }, [user?.avatarUrl]);
+
   return (
-    <Form
-      className={styles.form}
-      name="updateUserPersonalInfoForm"
-      layout="vertical"
-      initialValues={{
-        name: user?.name,
-        surname: user?.surname,
-        avatar: user?.avatarUrl,
-      }}
-      onValuesChange={onChange}
-      form={form}
-      requiredMark={false}
-    >
-      <Form.Item
-        rootClassName={styles.uploadFormItem}
-        label="Аватар"
-        name="avatarUrl"
-        validateTrigger="onChange"
-        validateStatus={isValid ? 'success' : undefined}
-        className={styles.upload}
+    <ConfigProvider theme={localTheme}>
+      <Form
+        className={styles.form}
+        name="updateUserPersonalInfoForm"
+        layout="vertical"
+        initialValues={{
+          name: user?.name,
+          surname: user?.surname,
+          avatarUrl: user?.avatarUrl,
+        }}
+        onValuesChange={onChange}
+        form={form}
+        requiredMark={false}
       >
-        <Upload
-          showUploadList={{ showPreviewIcon: false }}
-          listType="picture-circle"
-          onChange={handleChange}
-          onRemove={() => onRemove(fileList[0])}
-          beforeUpload={beforeUpload}
-          fileList={fileList}
-          accept="image/png, image/jpeg, image/jpg"
-          rootClassName={styles.upload}
-        >
-          {fileList.length === 1 ? null : uploadButton}
-        </Upload>
-      </Form.Item>
-      <div className={styles.inputsContainer}>
         <Form.Item
-          rootClassName={styles.nameFormItem}
-          label="Імʼя"
-          name="name"
-          rules={[VALIDATION_CONDITION.REQUIRED, VALIDATION_CONDITION.NAME]}
+          rootClassName={styles.uploadFormItem}
+          label="Аватар"
+          name="avatarUrl"
           validateTrigger="onChange"
           validateStatus={isValid ? 'success' : undefined}
+          className={styles.upload}
         >
-          <Input placeholder="Введіть імʼя" />
+          <Upload
+            showUploadList={{ showPreviewIcon: false }}
+            listType="picture-circle"
+            onChange={handleChange}
+            onRemove={() => onRemove(fileList[0])}
+            beforeUpload={beforeUpload}
+            fileList={fileList}
+            accept="image/png, image/jpeg, image/jpg"
+            rootClassName={styles.upload}
+          >
+            {fileList.length === 1 ? null : uploadButton}
+          </Upload>
         </Form.Item>
-        <Form.Item
-          rootClassName={styles.surnameFormItem}
-          label="Прізвище"
-          name="surname"
-          rules={[VALIDATION_CONDITION.REQUIRED, VALIDATION_CONDITION.NAME]}
-          validateTrigger="onChange"
-          validateStatus={isValid ? 'success' : undefined}
-        >
-          <Input placeholder="Введіть прізвище" type={InputType.TEXT} />
-        </Form.Item>
-      </div>
-    </Form>
+        <div className={styles.inputsContainer}>
+          <Form.Item
+            rootClassName={styles.nameFormItem}
+            label="Імʼя"
+            name="name"
+            rules={[VALIDATION_CONDITION.REQUIRED, VALIDATION_CONDITION.NAME]}
+            validateTrigger="onChange"
+            validateStatus={isValid ? 'success' : undefined}
+          >
+            <Input placeholder="Введіть імʼя" />
+          </Form.Item>
+          <Form.Item
+            rootClassName={styles.surnameFormItem}
+            label="Прізвище"
+            name="surname"
+            rules={[VALIDATION_CONDITION.REQUIRED, VALIDATION_CONDITION.NAME]}
+            validateTrigger="onChange"
+            validateStatus={isValid ? 'success' : undefined}
+          >
+            <Input placeholder="Введіть прізвище" type={InputType.TEXT} />
+          </Form.Item>
+        </div>
+      </Form>
+    </ConfigProvider>
   );
+};
+
+const localTheme = {
+  components: {
+    Upload: {
+      paddingXS: 0,
+      colorPrimary: theme.primary,
+    },
+  },
 };
