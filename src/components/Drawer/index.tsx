@@ -22,7 +22,7 @@ import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
-import { User, useUserStore } from 'src/stores/userStore';
+import { useUserStore } from 'src/stores/userStore';
 
 import styles from './styles.module.scss';
 
@@ -57,7 +57,9 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
-  const { name, surname } = user as User;
+  const name = user?.name;
+  const surname = user?.surname;
+
   const isName = !!name;
   const isSurname = !!surname;
   const isFullName = isName && isSurname;
