@@ -1,10 +1,22 @@
 import { Tabs, type TabsProps } from 'antd';
 
+import { createEmptyState } from 'src/pages/MyPublicationsPage/utils/createEmptyStateContent';
+
+const shouldShowPublications = false;
+
+const tabContentMap: Record<number, string> = {
+  1: 'Content of Tab Pane 1',
+  2: 'Content of Tab Pane 3',
+};
+
+const getTabContent = (key: number) =>
+  shouldShowPublications ? tabContentMap[key] : createEmptyState(key);
+
 const items: TabsProps['items'] = [
   {
     key: '1',
     label: 'Здаю',
-    children: 'Content of Tab Pane 1',
+    children: getTabContent(1),
   },
   {
     key: '2',
@@ -14,7 +26,7 @@ const items: TabsProps['items'] = [
   {
     key: '3',
     label: 'Орендую',
-    children: 'Content of Tab Pane 3',
+    children: getTabContent(2),
   },
 ];
 
