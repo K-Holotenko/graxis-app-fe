@@ -119,7 +119,7 @@ export const AppHeader = () => {
                   type={ButtonTypes.primary}
                   icon={<PlusIcon />}
                   iconPosition="end"
-                  onClick={() => requireAuth(ROUTES.ADD_PUBLICATION)}
+                  onClick={requireAuth.bind(null, ROUTES.ADD_PUBLICATION)}
                   dataTestId="add-publication-btn"
                   label="Додати оголошення"
                 />
