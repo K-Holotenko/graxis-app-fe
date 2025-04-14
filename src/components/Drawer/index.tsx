@@ -116,7 +116,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                   <Skeleton.Avatar
                     active
                     size="large"
-                    style={{ width: '40px', height: '40px' }}
+                    style={{ width: 40, height: 40 }}
                   />
                 }
                 component={() => (
@@ -170,7 +170,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 icon={<PlusIconDark />}
                 iconPosition="end"
                 className={styles.addPublicationButton}
-                onClick={() => requireAuth(ROUTES.ADD_PUBLICATION)}
+                onClick={requireAuth.bind(null, ROUTES.ADD_PUBLICATION)}
                 dataTestId="add-publication-btn"
                 label="Додати оголошення"
               />

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ConfigProvider, DatePicker, type GetProps } from 'antd';
 import dayjs, { type Dayjs } from 'dayjs';
@@ -17,59 +17,53 @@ dayjs.locale('uk');
 export const Picker: FC<{
   onDateChange: (dates: [Dayjs | null, Dayjs | null]) => void;
 }> = ({ onDateChange }) => {
-  const [range, setRange] = useState<[Dayjs | null, Dayjs | null]>([
-    null,
-    null,
-  ]);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const shouldStartNewRange = !range[0] || (range[0] && range[1]);
+  const startDateStr = searchParams.get('startDate');
+  const endDateStr = searchParams.get('endDate');
+  const startDate = startDateStr ? dayjs(startDateStr, 'DD/MM/YYYY') : null;
+  const endDate =
+    endDateStr && endDateStr !== startDateStr
+      ? dayjs(endDateStr, 'DD/MM/YYYY')
+      : null;
+  const range: [Dayjs | null, Dayjs | null] = [startDate, endDate];
 
   useEffect(() => {
-    const startDateStr = searchParams.get('startDate');
-    const endDateStr = searchParams.get('endDate');
+    if (startDateStr) {
+      const newRange: [Dayjs | null, Dayjs | null] = [
+        dayjs(startDateStr, 'DD/MM/YYYY'),
+        endDateStr && endDateStr !== startDateStr
+          ? dayjs(endDateStr, 'DD/MM/YYYY')
+          : null,
+      ];
 
-    if (!startDateStr) return;
-
-    const startDate = dayjs(startDateStr, 'DD/MM/YYYY');
-    const endDate =
-      endDateStr && endDateStr !== startDateStr
-        ? dayjs(endDateStr, 'DD/MM/YYYY')
-        : null;
-
-    const newRange: [Dayjs | null, Dayjs | null] = [startDate, endDate];
-
-    setRange(newRange);
-    onDateChange(newRange);
-  }, [searchParams, onDateChange]);
+      onDateChange(newRange);
+    }
+  }, [startDateStr, endDateStr, onDateChange]);
 
   const clearDates = () => {
-    setRange([null, null]);
     onDateChange([null, null]);
-
     setSearchParams({});
   };
 
   const handleSelect = (date: Dayjs) => {
-    let newRange: [Dayjs | null, Dayjs | null] = [date, null];
+    let newRange: [Dayjs | null, Dayjs | null] =
+      range[0] && !range[1] ? [range[0], date] : [date, null];
 
-    if (!shouldStartNewRange) {
-      newRange = [range[0], date].sort(
+    if (newRange[0] && newRange[1]) {
+      newRange = [newRange[0], newRange[1]].sort(
         (a, b) => a!.valueOf() - b!.valueOf()
       ) as [Dayjs, Dayjs];
     }
 
-    setRange(newRange);
     onDateChange(newRange);
-
     if (newRange[0]) {
-      const startDate = newRange[0].format('DD/MM/YYYY');
-      const endDate = newRange[1]
+      const formattedStart = newRange[0].format('DD/MM/YYYY');
+      const formattedEnd = newRange[1]
         ? newRange[1].format('DD/MM/YYYY')
-        : startDate;
+        : formattedStart;
 
-      setSearchParams({ startDate, endDate });
+      setSearchParams({ startDate: formattedStart, endDate: formattedEnd });
     }
   };
 
