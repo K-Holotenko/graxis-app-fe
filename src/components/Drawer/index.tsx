@@ -7,6 +7,7 @@ import {
   Dropdown,
   Avatar,
   MenuProps,
+  Skeleton,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
 import { useUserStore } from 'src/stores/userStore';
+import { Loadable } from 'src/components/Loadable';
 
 import styles from './styles.module.scss';
 
@@ -48,7 +50,7 @@ export const menuItems = [
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { isAuthorized, signOut } = useAuthStore();
-  const { user } = useUserStore();
+  const { user, isAppInitializing } = useUserStore();
 
   const { requireAuth } = useRequireAuth();
   const { openNotification } = useNotification();
@@ -109,23 +111,37 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
         <Row className={styles.userSection} align="middle" justify="center">
           <Col span={24}>
             <ConfigProvider theme={localThemeDropdown}>
-              <Dropdown
-                menu={menu}
-                placement="bottom"
-                trigger={['click']}
-                rootClassName={styles.dropdownRoot}
-              >
-                <div className={styles.avatarSection}>
-                  <Avatar
+              <Loadable
+                skeleton={
+                  <Skeleton.Avatar
+                    active
                     size="large"
-                    src={user?.avatarUrl}
-                    className={styles.avatarLarge}
+                    style={{ width: '40px', height: '40px' }}
+                  />
+                }
+                component={() => (
+                  <Dropdown
+                    menu={menu}
+                    placement="bottom"
+                    trigger={['click']}
+                    rootClassName={styles.dropdownRoot}
                   >
-                    {usernameABBR}
-                  </Avatar>
-                  <span className={styles.userSectionUsername}>{username}</span>
-                </div>
-              </Dropdown>
+                    <div className={styles.avatarSection}>
+                      <Avatar
+                        size="large"
+                        src={user?.avatarUrl}
+                        className={styles.avatarLarge}
+                      >
+                        {usernameABBR}
+                      </Avatar>
+                      <span className={styles.userSectionUsername}>
+                        {username}
+                      </span>
+                    </div>
+                  </Dropdown>
+                )}
+                isLoading={isAppInitializing}
+              />
             </ConfigProvider>
           </Col>
         </Row>
