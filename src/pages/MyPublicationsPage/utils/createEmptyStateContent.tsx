@@ -1,34 +1,39 @@
 import { ROUTES } from 'src/router/routes';
 import { MyPublicationsEmptyState } from 'src/pages/MyPublicationsPage/children/MyPublicationsEmptyState';
 
+export enum EmptyStateType {
+  NO_PUBLICATIONS = 'NO_PUBLICATIONS',
+  NO_RENTALS = 'NO_RENTALS',
+}
+
 const emptyStateContentMap: Record<
-  number,
+  EmptyStateType,
   {
     message: string;
     buttonLabel: string;
-    navigateTo: string;
+    route: string;
     showIcon?: boolean;
   }
 > = {
-  1: {
+  [EmptyStateType.NO_PUBLICATIONS]: {
     message: 'У вас ще немає публікацій. Додайте першу річ!',
     buttonLabel: 'Додати оголошення',
-    navigateTo: ROUTES.ADD_PUBLICATION,
+    route: ROUTES.ADD_PUBLICATION,
     showIcon: true,
   },
-  2: {
+  [EmptyStateType.NO_RENTALS]: {
     message: 'Зараз у вас немає орендованих товарів. Додати перший?',
     buttonLabel: 'Переглянути оголошення',
-    navigateTo: ROUTES.SEARCH_RESULTS,
+    route: ROUTES.SEARCH_RESULTS,
   },
 };
 
-export const createEmptyState = (key: number) => {
+export const createEmptyState = (key: EmptyStateType) => {
   const {
     message,
     buttonLabel,
     showIcon = false,
-    navigateTo,
+    route,
   } = emptyStateContentMap[key];
 
   return (
@@ -36,7 +41,7 @@ export const createEmptyState = (key: number) => {
       message={message}
       buttonLabel={buttonLabel}
       showIcon={showIcon}
-      navigateTo={navigateTo}
+      route={route}
     />
   );
 };
