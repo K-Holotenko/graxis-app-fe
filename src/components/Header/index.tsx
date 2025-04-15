@@ -27,10 +27,10 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ROUTES } from 'src/router/routes';
 import { Drawer, menuItems } from 'src/components/Drawer';
 import { Button } from 'src/components/Button';
-import { useCountdown } from 'src/hooks/useCountdown';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { useUserStore } from 'src/stores/userStore';
 import { Loadable } from 'src/components/Loadable';
+import { useRequireAuth } from 'src/hooks/useRequireAuth';
 
 import styles from './styles.module.scss';
 
@@ -38,21 +38,13 @@ export const AppHeader = () => {
   const navigate = useNavigate();
 
   const { width } = useWindowSize();
-  const { timer, startCountdown } = useCountdown(5);
   const { isAuthorized, signOut } = useAuthStore();
   const { user, isAppInitializing } = useUserStore();
   const { openNotification } = useNotification();
+  const { requireAuth } = useRequireAuth();
 
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [hasNotifications] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
-
-  useEffect(() => {
-    if (timer === 0) {
-      navigate(ROUTES.LOGIN);
-      setIsNotificationOpen(false);
-    }
-  }, [navigate, timer]);
 
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
@@ -62,32 +54,6 @@ export const AppHeader = () => {
 
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
-  };
-
-  const onAddPublicationBtnClick = (): void => {
-    if (isFullyAuthorized) {
-      navigate(ROUTES.ADD_PUBLICATION);
-
-      return;
-    }
-
-    if (isNotificationOpen) {
-      return;
-    }
-
-    startCountdown();
-    setIsNotificationOpen(true);
-    openNotification(
-      NotificationType.INFO,
-      'Будь ласка, авторизуйтесь',
-      'Авторизуйтеся, щоб продовжити. Автоперехід через 5 секунд...',
-      <Button
-        label="Авторизуватися"
-        type={ButtonTypes.link}
-        className={styles.notificationButtonPadding}
-        onClick={() => navigate(ROUTES.LOGIN)}
-      />
-    );
   };
 
   useEffect(() => {
@@ -153,7 +119,7 @@ export const AppHeader = () => {
                   type={ButtonTypes.primary}
                   icon={<PlusIcon />}
                   iconPosition="end"
-                  onClick={onAddPublicationBtnClick}
+                  onClick={requireAuth.bind(null, ROUTES.ADD_PUBLICATION)}
                   dataTestId="add-publication-btn"
                   label="Додати оголошення"
                 />
