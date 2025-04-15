@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Dayjs } from 'dayjs';
+import { useLocation } from 'react-router-dom';
 
 import { Heading } from 'src/components/Heading';
 import { Picker } from 'src/pages/PublicationPage/children/Picker';
@@ -10,6 +11,7 @@ import {
   pricingPeriodEngToUkrMap,
 } from 'src/pages/PublicationPage/children/Price/utils/count';
 import { Publication } from 'src/services/PublicationService';
+import { useRequireAuth } from 'src/hooks/useRequireAuth';
 
 import styles from './styles.module.scss';
 
@@ -18,16 +20,13 @@ interface PriceProps {
 }
 
 export const Price = ({ prices }: PriceProps) => {
+  const { requireAuth } = useRequireAuth();
+
+  const location = useLocation();
+
   const [selectedRange, setSelectedRange] = useState<
     [Dayjs | null, Dayjs | null]
   >([null, null]);
-
-  const [, setPriceData] = useState<null | {
-    firstDay: string;
-    lastDay: string;
-    totalDays: number;
-    totalCost: number;
-  }>(null);
 
   const isRangeSelected = selectedRange[0] !== null;
   const { totalPrice, days, commission } = useMemo(
@@ -40,17 +39,11 @@ export const Price = ({ prices }: PriceProps) => {
     [selectedRange, prices]
   );
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (): void => {
     if (isRangeSelected) {
-      const firstDay = selectedRange[0]?.format('DD/MM/YYYY') || '';
-      const lastDay = selectedRange[1]?.format('DD/MM/YYYY') || firstDay;
+      const pathWithDate = location.pathname + location.search;
 
-      setPriceData({
-        firstDay,
-        lastDay,
-        totalDays: selectedRange[1] ? days : 1,
-        totalCost: totalPrice,
-      });
+      requireAuth(pathWithDate);
     }
   };
 

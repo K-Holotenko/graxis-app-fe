@@ -7,6 +7,7 @@ import {
   Dropdown,
   Avatar,
   MenuProps,
+  Skeleton,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,7 +22,9 @@ import { ButtonTypes, TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
-import { User, useUserStore } from 'src/stores/userStore';
+import { useRequireAuth } from 'src/hooks/useRequireAuth';
+import { useUserStore } from 'src/stores/userStore';
+import { Loadable } from 'src/components/Loadable';
 
 import styles from './styles.module.scss';
 
@@ -47,15 +50,18 @@ export const menuItems = [
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { isAuthorized, signOut } = useAuthStore();
-  const { user } = useUserStore();
+  const { user, isAppInitializing } = useUserStore();
 
+  const { requireAuth } = useRequireAuth();
   const { openNotification } = useNotification();
 
   const navigate = useNavigate();
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
-  const { name, surname } = user as User;
+  const name = user?.name;
+  const surname = user?.surname;
+
   const isName = !!name;
   const isSurname = !!surname;
   const isFullName = isName && isSurname;
@@ -69,19 +75,15 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
 
   const username = isFullName ? `${name} ${surname}` : name;
 
-  const onAddPublicationBtnClick = () => {
-    navigate(isAuthorized ? ROUTES.ADD_PUBLICATION : ROUTES.LOGIN);
-  };
-
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
-      '1': () => navigate(ROUTES.MY_PUBLICATIONS),
-      '2': () => navigate(ROUTES.USER_PROFILE),
-      '3': () => signOut(showError),
+      1: () => navigate(ROUTES.MY_PUBLICATIONS),
+      2: () => navigate(ROUTES.USER_PROFILE),
+      3: () => signOut(showError),
     };
 
     actions[e.key]();
@@ -109,23 +111,37 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
         <Row className={styles.userSection} align="middle" justify="center">
           <Col span={24}>
             <ConfigProvider theme={localThemeDropdown}>
-              <Dropdown
-                menu={menu}
-                placement="bottom"
-                trigger={['click']}
-                rootClassName={styles.dropdownRoot}
-              >
-                <div className={styles.avatarSection}>
-                  <Avatar
+              <Loadable
+                skeleton={
+                  <Skeleton.Avatar
+                    active
                     size="large"
-                    src={user?.avatarUrl}
-                    className={styles.avatarLarge}
+                    style={{ width: 40, height: 40 }}
+                  />
+                }
+                component={() => (
+                  <Dropdown
+                    menu={menu}
+                    placement="bottom"
+                    trigger={['click']}
+                    rootClassName={styles.dropdownRoot}
                   >
-                    {usernameABBR}
-                  </Avatar>
-                  <span className={styles.userSectionUsername}>{username}</span>
-                </div>
-              </Dropdown>
+                    <div className={styles.avatarSection}>
+                      <Avatar
+                        size="large"
+                        src={user?.avatarUrl}
+                        className={styles.avatarLarge}
+                      >
+                        {usernameABBR}
+                      </Avatar>
+                      <span className={styles.userSectionUsername}>
+                        {username}
+                      </span>
+                    </div>
+                  </Dropdown>
+                )}
+                isLoading={isAppInitializing}
+              />
             </ConfigProvider>
           </Col>
         </Row>
@@ -154,7 +170,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                 icon={<PlusIconDark />}
                 iconPosition="end"
                 className={styles.addPublicationButton}
-                onClick={onAddPublicationBtnClick}
+                onClick={requireAuth.bind(null, ROUTES.ADD_PUBLICATION)}
                 dataTestId="add-publication-btn"
                 label="Додати оголошення"
               />
