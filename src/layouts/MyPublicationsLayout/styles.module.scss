@@ -11,7 +11,6 @@
 
 .tabsContainer {
   margin-bottom: 40px;
-  height: 1837px;
 }
 
 @media (min-width: variables.$media-md) {
@@ -21,14 +20,12 @@
   }
 
   .tabsContainer {
-    height: 976px;
     margin-bottom: 80px;
   }
 }
 
 @media (min-width: variables.$media-lg) {
   .tabsContainer {
-    height: 1720px;
-    margin-bottom: 140px;
+    margin-bottom: 102px;
   }
 }
