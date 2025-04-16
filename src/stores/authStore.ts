@@ -60,6 +60,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (user) {
         const token = await user.getIdToken();
 
+        // eslint-disable-next-line no-console
+        console.log(user);
         CookieService.setCookie('accessToken', token, {
           path: '/',
           maxAge: 3600,
