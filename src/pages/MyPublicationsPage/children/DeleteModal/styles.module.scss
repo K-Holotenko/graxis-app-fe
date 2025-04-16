@@ -1,0 +1,56 @@
+@use 'src/styles/variables';
+
+.modal {
+  padding: 20px !important;
+  background-color: variables.$N1;
+  box-shadow: 0 8px 28px 0 rgba(70, 68, 88, 0.08);
+  border-radius: 12px;
+  max-width: 343px !important;
+}
+
+.modalText {
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: variables.$N6;
+}
+
+.myFooter {
+  margin-top: 24px !important;
+}
+
+.deleteBtn {
+  margin-bottom: 12px;
+}
+
+@media (min-width: variables.$media-md) {
+  .modal {
+    padding: 64px 64px 36px !important;
+    max-width: 552px !important;
+  }
+
+  .modalText {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  .myFooter {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 24px;
+    margin-top: 40px !important;
+  }
+
+  .deleteBtn {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .modal {
+    padding: 80px 80px 40px !important;
+    max-width: 584px !important;
+  }
+}

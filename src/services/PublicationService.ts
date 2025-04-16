@@ -128,3 +128,18 @@ export const getPublicationById = async (id: string): Promise<Publication> => {
 
   return responseBody;
 };
+
+export const deletePublicationById = async (id: string): Promise<boolean> => {
+  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+
+  const response = await fetch(`${PUBLICATIONS_API_URL}/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: token },
+  });
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  return true;
+};

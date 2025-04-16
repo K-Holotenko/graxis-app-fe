@@ -1,12 +1,19 @@
+import { useState } from 'react';
 import { Card, Dropdown, MenuProps, Tooltip } from 'antd';
 import { StarFilled, EyeOutlined, MoreOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 import { theme } from 'src/config/theme';
-import { PublicationCard as PublicationCardType } from 'src/services/PublicationService';
+import {
+  deletePublicationById,
+  PublicationCard as PublicationCardType,
+} from 'src/services/PublicationService';
 import { Button } from 'src/components/Button';
 import { ROUTES } from 'src/router/routes';
 import { ButtonTypes } from 'src/config/constants';
+import { VALIDATION_MESSAGE } from 'src/config/validation';
+import { DeleteModal } from 'src/pages/MyPublicationsPage/children/DeleteModal';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 import { getDisplayPrice } from './utils/utils';
@@ -36,6 +43,11 @@ export const PublicationCard = ({
   isEditable,
 }: PublicationCardProps) => {
   const navigate = useNavigate();
+
+  const { openNotification } = useNotification();
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const displayPrice = getDisplayPrice(price);
 
   const textLength = 35;
@@ -51,10 +63,11 @@ export const PublicationCard = ({
   const tooltip = isTruncated ? title : null;
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
+    e.domEvent.stopPropagation();
     const actions: { [key: string]: () => void } = {
       1: () => navigate(ROUTES.NOT_FOUND),
       2: () => navigate(ROUTES.NOT_FOUND),
-      3: () => navigate(ROUTES.NOT_FOUND),
+      3: () => setIsDeleteModalOpen(true),
     };
 
     actions[e.key]();
@@ -65,52 +78,84 @@ export const PublicationCard = ({
     onClick: handleMenuClick,
   };
 
-  return (
-    <Card
-      className={styles.productCard}
-      hoverable
-      cover={
-        <img src={thumbnailUrl} alt={title} className={styles.productImage} />
-      }
-      onClick={handleCardClick}
-    >
-      <div className={styles.infoBar}>
-        <div className={styles.activity}>
-          <div className={`${styles.iconWrapper} ${styles.marginRight}`}>
-            <EyeOutlined className={styles.icon} />
-            <span className={styles.activityValue}>
-              {reviewCount.toFixed(1)}
-            </span>
-          </div>
-          <div className={styles.iconWrapper}>
-            <StarFilled className={styles.icon} />
-            <span className={styles.activityValue}>{rate.toFixed(1)}</span>
-          </div>
-        </div>
-        {isEditable && (
-          <Dropdown
-            menu={menu}
-            placement="bottomRight"
-            trigger={['click']}
-            rootClassName={styles.dropdownRoot}
-          >
-            <div onClick={(e) => e.stopPropagation()}>
-              <Button
-                className={styles.editButton}
-                icon={<MoreOutlined style={{ fontSize: 25 }} />}
-                type={ButtonTypes.default}
-              />
-            </div>
-          </Dropdown>
-        )}
-      </div>
+  //TODO This function should be extracted to the page level, when publications are present
+  const handleDelete = () => {
+    deletePublicationById(id)
+      .then(() => {
+        openNotification(
+          NotificationType.SUCCESS,
+          'Готово',
+          'Публікацію видалено'
+        );
+      })
+      .catch(() => {
+        openNotification(
+          NotificationType.ERROR,
+          VALIDATION_MESSAGE.ERROR,
+          'Не вдалося видалити публікацію'
+        );
+      })
+      .finally(() => {
+        setIsDeleteModalOpen(false);
+      });
+  };
 
-      <Tooltip title={tooltip} color={theme.primary}>
-        <p className={styles.cardTitle}>{truncatedTitle}</p>
-      </Tooltip>
-      <p className={styles.price}>
-        {displayPrice?.value} грн / {displayPrice?.period}
-      </p>
-    </Card>
+  return (
+    <>
+      <Card
+        className={styles.productCard}
+        hoverable
+        cover={
+          <img src={thumbnailUrl} alt={title} className={styles.productImage} />
+        }
+        onClick={handleCardClick}
+      >
+        <div className={styles.infoBar}>
+          <div className={styles.activity}>
+            <div className={`${styles.iconWrapper} ${styles.marginRight}`}>
+              <EyeOutlined className={styles.icon} />
+              <span className={styles.activityValue}>
+                {reviewCount.toFixed(1)}
+              </span>
+            </div>
+            <div className={styles.iconWrapper}>
+              <StarFilled className={styles.icon} />
+              <span className={styles.activityValue}>{rate.toFixed(1)}</span>
+            </div>
+          </div>
+          {isEditable && (
+            <Dropdown
+              menu={menu}
+              placement="bottomRight"
+              trigger={['click']}
+              rootClassName={styles.dropdownRoot}
+            >
+              <div onClick={(e) => e.stopPropagation()}>
+                <Button
+                  className={styles.editButton}
+                  icon={<MoreOutlined style={{ fontSize: 25 }} />}
+                  type={ButtonTypes.default}
+                />
+              </div>
+            </Dropdown>
+          )}
+        </div>
+
+        <Tooltip title={tooltip} color={theme.primary}>
+          <p className={styles.cardTitle}>{truncatedTitle}</p>
+        </Tooltip>
+        <p className={styles.price}>
+          {displayPrice?.value} грн / {displayPrice?.period}
+        </p>
+      </Card>
+
+      {isDeleteModalOpen && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onCancel={() => setIsDeleteModalOpen(false)}
+          onConfirm={handleDelete}
+        />
+      )}
+    </>
   );
 };
