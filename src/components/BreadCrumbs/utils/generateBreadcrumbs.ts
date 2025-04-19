@@ -36,27 +36,42 @@ export const generateBreadcrumbs = ({
     ? [{ value: 'all', title: TEXT.ALL_CATEGORIES, children: [] }, ...pathItems]
     : pathItems;
 
-  return fullPath.map(({ value, title }, index) => {
+  const breadcrumbItems = fullPath.map(({ value, title }, index) => {
     const isLast = index === fullPath.length - 1;
     const base = ROUTES.SEARCH_RESULTS;
 
-    const categories =
-      value === 'all'
-        ? []
-        : isLast
-          ? [value]
-          : getAllDescendantsValues(findCategoryByValue(breadcrumbs, value)!);
+    let categories: string[];
 
-    const url =
-      categories.length > 0
-        ? `${base}?categories=${categories.join('%2C')}`
-        : base;
+    if (value === 'all') {
+      categories = [];
+    } else if (isLast) {
+      categories = [value];
+    } else {
+      const category = findCategoryByValue(breadcrumbs, value);
+
+      categories = getAllDescendantsValues(category!);
+    }
+
+    if (!categories.length) {
+      return {
+        key: value,
+        title,
+        url: base,
+        isLast,
+      };
+    }
+
+    const searchParams = new URLSearchParams();
+
+    searchParams.set('categories', categories.join(','));
 
     return {
       key: value,
       title,
-      url,
+      url: `${base}?${searchParams.toString()}`,
       isLast,
     };
   });
+
+  return breadcrumbItems;
 };

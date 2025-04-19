@@ -5,19 +5,22 @@ export interface BreadcrumbItem {
 }
 
 export const buildBreadcrumbsPath = (
-  nodes: BreadcrumbItem[],
-  pathValues: string[]
+  allBreadcrumbs: BreadcrumbItem[],
+  breadcrumbPath: string[]
 ): BreadcrumbItem[] => {
-  const result: BreadcrumbItem[] = [];
-  let currentLevel = nodes;
+  const matchedBreadcrumbs: BreadcrumbItem[] = [];
+  let nestedBreadcrumbs = allBreadcrumbs;
 
-  for (const value of pathValues) {
-    const next = currentLevel.find((item) => item.value === value);
+  for (const value of breadcrumbPath) {
+    const currentBreadcrumb = nestedBreadcrumbs.find(
+      (item) => item.value === value
+    );
 
-    if (!next) break;
-    result.push(next);
-    currentLevel = next.children ?? [];
+    if (!currentBreadcrumb) break;
+
+    matchedBreadcrumbs.push(currentBreadcrumb);
+    nestedBreadcrumbs = currentBreadcrumb.children ?? [];
   }
 
-  return result;
+  return matchedBreadcrumbs;
 };
