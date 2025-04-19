@@ -75,8 +75,6 @@ export const SearchPage = () => {
     fetchPublications(searchParams, (data) => {
       setPublicationsPage(data);
     });
-
-    window.scrollTo(0, 0);
   }, [searchParams]);
 
   return (

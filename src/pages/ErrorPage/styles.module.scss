@@ -1,0 +1,86 @@
+@use 'src/styles/variables';
+
+.container {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  margin: 20px auto 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 343px;
+}
+
+.errorImg {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 18px;
+  text-align: center;
+  color: variables.$N5;
+  margin-bottom: 12px;
+}
+
+.text {
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: variables.$N5;
+  margin-bottom: 40px;
+}
+
+.button {
+  margin-bottom: 12px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .container {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    max-width: 640px;
+  }
+
+  .errorImg {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .btnContainer {
+    display: flex;
+    gap: 24px;
+    width: 424px;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .container {
+    margin-top: 40px;
+    margin-bottom: 100px;
+    max-width: 784px;
+  }
+
+  .errorImg {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 40px;
+  }
+
+  .text {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 44px;
+  }
+}
