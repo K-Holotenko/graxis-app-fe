@@ -14,6 +14,15 @@ vi.mock('react-router-dom', async () => ({
 }));
 const mockNavigate = vi.fn();
 
+vi.mock('firebase/app', async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    getApps: vi.fn(() => []),
+  };
+});
+
 vi.mock('firebase/auth', async (importOriginal) => {
   const actual = await importOriginal();
 
