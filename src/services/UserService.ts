@@ -62,7 +62,7 @@ export const updateUser = async (user: UpdateUserData): Promise<Response> => {
 
   try {
     // Intentionally use an incorrect URL to make the request fail
-    const response = await fetch(`${GRAXIS_API_URL}/users/invalid-endpoint`, {
+    const response = await fetch(`${GRAXIS_API_URL}/users/update`, {
       method: 'PUT',
       headers: {
         Authorization: token,
