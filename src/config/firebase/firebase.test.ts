@@ -5,6 +5,7 @@ import { firebaseApp } from './index';
 
 vi.mock('firebase/app', () => ({
   initializeApp: vi.fn(),
+  getApps: vi.fn(() => []),
 }));
 
 vi.mock('firebase/analytics', () => ({

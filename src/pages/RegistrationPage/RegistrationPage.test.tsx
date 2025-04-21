@@ -6,6 +6,15 @@ import { ROUTES } from 'src/router/routes';
 
 import { RegistrationPage } from '.';
 
+vi.mock('firebase/app', async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    getApps: vi.fn(() => []),
+  };
+});
+
 vi.mock('firebase/auth', async (importOriginal) => {
   const actual = await importOriginal();
 
