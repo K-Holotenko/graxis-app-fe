@@ -1,7 +1,18 @@
 @use 'src/styles/variables';
 
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .firstCardWrapper {
   margin-bottom: 20px;
+  height: 100%;
+}
+
+.contactInfoWrapper {
+  height: 100%;
 }
 
 @media (min-width: variables.$media-lg) {
