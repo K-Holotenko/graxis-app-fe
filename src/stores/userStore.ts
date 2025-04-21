@@ -86,6 +86,13 @@ export const useUserStore = create<UserStore>((set) => ({
       const response = await updateUser(data);
       const updatedUser: User = await response.json();
 
+      if (!response.ok) {
+        response.status === 401 &&
+          showError('Оновіть сторінку та спробуйте ще раз');
+
+        return;
+      }
+
       set({
         user: updatedUser,
       });
