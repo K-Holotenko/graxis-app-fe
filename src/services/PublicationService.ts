@@ -89,10 +89,6 @@ export const createPublication = async (
 
   const responseBody = await response.json();
 
-  if (!response.ok) {
-    throw new Error();
-  }
-
   return responseBody;
 };
 
@@ -106,10 +102,6 @@ export const getAllPublications = async (
     headers: { Authorization: token },
   });
 
-  if (!response.ok) {
-    throw new Error();
-  }
-
   const responseBody = await response.json();
 
   return responseBody;
@@ -119,10 +111,6 @@ export const getPublicationById = async (id: string): Promise<Publication> => {
   const response = await fetch(`${PUBLICATIONS_API_URL}/${id}`, {
     method: 'GET',
   });
-
-  if (!response.ok) {
-    throw new Error();
-  }
 
   const responseBody = await response.json();
 

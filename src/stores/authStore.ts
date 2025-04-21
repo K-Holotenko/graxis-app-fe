@@ -15,7 +15,6 @@ import { firebaseAuth } from 'src/config/firebase';
 const firebaseAuthErrorCodes: { [key: string]: string } = {
   [AuthErrorCodes.INVALID_IDP_RESPONSE]: 'Неправильний логін або пароль',
   [AuthErrorCodes.EMAIL_EXISTS]: 'Акаунт з таким email вже зареєстровано',
-  [AuthErrorCodes.INVALID_CODE]: 'Невалідний код',
   [AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER]:
     'Забагато спроб. Спробуйте пізніше',
 };
@@ -58,7 +57,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ isLoading: true });
     const unsubscribe = onIdTokenChanged(firebaseAuth, async (user) => {
       if (user) {
-        const token = await user.getIdToken();
+        const token = await user.getIdToken(true);
 
         // eslint-disable-next-line no-console
         console.log(user);
@@ -66,8 +65,9 @@ export const useAuthStore = create<AuthState>((set) => ({
           path: '/',
           maxAge: 3600,
           sameSite: 'Lax',
-          secure: true,
-          domain: 'graxis.net',
+          // uncomment when going to production
+          // secure: true,
+          // domain: 'graxis.net',
         });
 
         set({ isAuthorized: true, user, isLoading: false });
