@@ -1,10 +1,11 @@
 /// <reference types="vite-plugin-svgr/client" />
 import { useEffect } from 'react';
-import { RouterProvider } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { useAuthStore } from 'src/stores/authStore';
-import { router } from 'src/router';
-import { useUserStore } from 'src/stores/userStore';
+
+import { useUserStore } from './stores/userStore';
+import { ScrollRestorationWithoutPublicationPage } from './components/ScrollRestorationWithoutPublicationPage';
 
 const App = () => {
   const { setAuthorized, initializeAuthListener } = useAuthStore();
@@ -31,7 +32,12 @@ const App = () => {
     checkAuth();
   }, [setAuthorized, fetchUser]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <Outlet />
+      <ScrollRestorationWithoutPublicationPage />
+    </>
+  );
 };
 
 export default App;

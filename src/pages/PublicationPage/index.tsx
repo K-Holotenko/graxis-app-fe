@@ -41,7 +41,6 @@ export const PublicationPage = () => {
 
   const [publication, setPublication] = useState<Publication | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
 
   const isMobileOrTablet = width <= SCREEN_WIDTH.XL;
   const isMobile = width < SCREEN_WIDTH.SM;
@@ -71,11 +70,6 @@ export const PublicationPage = () => {
         );
 
         setPublication(fetchedPublication);
-        setIsLoading(false);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        setHasError(true);
-        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }
@@ -83,14 +77,6 @@ export const PublicationPage = () => {
 
     fetchPublicationById();
   }, []);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  if (!publication && hasError) {
-    return <div>Error occurred. There is no page here</div>;
-  }
 
   return (
     <PageContainer pageTitle="Публікація">
