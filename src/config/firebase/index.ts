@@ -1,5 +1,5 @@
 import { getAnalytics } from 'firebase/analytics';
-import { initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -12,7 +12,9 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = !getApps().length
+  ? initializeApp(firebaseConfig)
+  : getApp();
 const firebaseAuth = getAuth(firebaseApp);
 const firebaseAnalytics = getAnalytics(firebaseApp);
 

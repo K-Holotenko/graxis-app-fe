@@ -12,13 +12,13 @@ import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { generateBreadcrumbs } from 'src/components/BreadCrumbs/utils/generateBreadcrumbs';
 import { Breadcrumbs } from 'src/components/BreadCrumbs';
-import { CATEGORIES_DROP_DATA } from 'src/pages/AddPublicationPage/children/CategoriesDropdown/utils/config';
 import {
   getPublicationById,
   Publication,
 } from 'src/services/PublicationService';
 import { Loadable } from 'src/components/Loadable';
 import { ROUTES } from 'src/router/routes';
+import { useCategories } from 'src/hooks/useCategories';
 
 import { ImageCarousel } from './children/ImageCarousel';
 import { Owner } from './children/Owner';
@@ -34,6 +34,7 @@ import {
 
 export const PublicationPage = () => {
   const { width } = useWindowSize();
+  const { categoriesTree } = useCategories();
 
   const params = useParams();
   const navigate = useNavigate();
@@ -44,11 +45,16 @@ export const PublicationPage = () => {
   const isMobileOrTablet = width <= SCREEN_WIDTH.XL;
   const isMobile = width < SCREEN_WIDTH.SM;
 
-  const breadcrumbItems = generateBreadcrumbs({
-    items: CATEGORIES_DROP_DATA,
-    currentItem: 'gamingConsoles',
-    showAllItems: true,
-  });
+  const currentCategory = publication?.category;
+
+  const breadcrumbItems =
+    categoriesTree.length && currentCategory
+      ? generateBreadcrumbs({
+          breadcrumbs: categoriesTree,
+          currentBreadcrumb: currentCategory,
+          showAllItems: true,
+        })
+      : null;
 
   useEffect(() => {
     if (!params?.id) {
