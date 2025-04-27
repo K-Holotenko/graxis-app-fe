@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 import { useAuthStore } from 'src/stores/authStore';
 
 import { useUserStore } from './stores/userStore';
-import { ScrollRestorationWithoutItemPage } from './components/ScrollRestorationWithoutItemPage';
+import { ScrollRestorationWithoutPublicationPage } from './components/ScrollRestorationWithoutPublicationPage';
 
 const App = () => {
   const { setAuthorized, initializeAuthListener } = useAuthStore();
@@ -38,7 +38,7 @@ const App = () => {
   return (
     <>
       <Outlet />
-      <ScrollRestorationWithoutItemPage />
+      <ScrollRestorationWithoutPublicationPage />
     </>
   );
 };

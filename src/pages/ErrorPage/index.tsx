@@ -12,11 +12,7 @@ import styles from './styles.module.scss';
 export const ErrorPage = () => {
   const navigate = useNavigate();
 
-  const error = useRouteError();
-
-  if (!error) {
-    return null;
-  }
+  const error = useRouteError() as Error;
 
   return (
     <AppLayout>
@@ -30,6 +26,7 @@ export const ErrorPage = () => {
           на свої місця. Спробуйте оновити сторінку або повернутися трохи
           пізніше.
         </p>
+        <code className={styles.errorMessage}>{error.message}</code>
         <div className={styles.btnContainer}>
           <Button
             className={styles.button}
