@@ -105,7 +105,7 @@ export const PersonalInfoTab = ({
   }, [shouldShowDialog]);
 
   return (
-    <section>
+    <section className={styles.sectionWrapper}>
       <div className={styles.firstCardWrapper}>
         <PersonalInfo
           form={form}
@@ -115,13 +115,15 @@ export const PersonalInfoTab = ({
           isPersonalInfoEditModeEnabled={isPersonalInfoEditModeEnabled}
         />
       </div>
-      <ContactInfo
-        form={form}
-        onChange={handleFieldChange}
-        onContactInfoValidation={onContactInfoValidation}
-        onContactInfoEditClick={onContactInfoEditClick}
-        isContactInfoEditModeEnabled={isContactInfoEditModeEnabled}
-      />
+      <div className={styles.contactInfoWrapper}>
+        <ContactInfo
+          form={form}
+          onChange={handleFieldChange}
+          onContactInfoValidation={onContactInfoValidation}
+          onContactInfoEditClick={onContactInfoEditClick}
+          isContactInfoEditModeEnabled={isContactInfoEditModeEnabled}
+        />
+      </div>
     </section>
   );
 };

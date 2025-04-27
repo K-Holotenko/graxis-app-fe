@@ -11,9 +11,6 @@ const App = () => {
   const { setAuthorized, initializeAuthListener } = useAuthStore();
   const { fetchUser } = useUserStore();
 
-  // Initializes Firebase authentication listener
-  // tha updates the access token in the cookie
-  // and sets the authorized state
   useEffect(() => {
     const unsubscribe = initializeAuthListener();
 
