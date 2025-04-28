@@ -11,12 +11,12 @@ interface GetCellRenderParams {
   isOwner: boolean;
 }
 
-export function getCellRender({
+export const getCellRender = ({
   current,
   range,
   bookedRanges,
   isOwner,
-}: GetCellRenderParams) {
+}: GetCellRenderParams) => {
   const currentDate = dayjs(current);
   const isBookedDay = bookedRanges.some(([from, to]) =>
     currentDate.isBetween(from, to, 'day', '[]')
@@ -62,4 +62,4 @@ export function getCellRender({
   }
 
   return cell;
-}
+};
