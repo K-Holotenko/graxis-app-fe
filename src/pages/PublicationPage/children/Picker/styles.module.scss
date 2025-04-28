@@ -93,3 +93,18 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+
+.ownerText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: variables.$N6;
+  margin-top: 16px;
+}
+
+.renterBookedColor {
+  background-color: variables.$N3 !important;
+  color: variables.$N6 !important;
+}

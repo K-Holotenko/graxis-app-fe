@@ -9,6 +9,7 @@ import ukUA from 'antd/es/date-picker/locale/uk_UA';
 import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
+import { getCellRender } from './utils/getCellRender';
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
 dayjs.extend(isBetween);
@@ -16,7 +17,9 @@ dayjs.locale('uk');
 
 export const Picker: FC<{
   onDateChange: (dates: [Dayjs | null, Dayjs | null]) => void;
-}> = ({ onDateChange }) => {
+  isOwner: boolean;
+  bookedDates: [];
+}> = ({ onDateChange, isOwner, bookedDates }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const startDateStr = searchParams.get('startDate');
@@ -27,6 +30,14 @@ export const Picker: FC<{
       ? dayjs(endDateStr, 'DD/MM/YYYY')
       : null;
   const range: [Dayjs | null, Dayjs | null] = [startDate, endDate];
+
+  const bookedRanges = bookedDates.map(
+    ({ startDate: startBook, endDate: endBook }) =>
+      [dayjs(startBook), dayjs(endBook)] as [Dayjs, Dayjs]
+  );
+
+  const bookedDays = (days: Dayjs) =>
+    bookedRanges.some(([from, to]) => days.isBetween(from, to, 'day', '[]'));
 
   useEffect(() => {
     if (startDateStr) {
@@ -47,6 +58,14 @@ export const Picker: FC<{
   };
 
   const handleSelect = (date: Dayjs) => {
+    if (isOwner) {
+      return;
+    }
+
+    if (!isOwner && bookedDays(date)) {
+      return;
+    }
+
     let newRange: [Dayjs | null, Dayjs | null] =
       range[0] && !range[1] ? [range[0], date] : [date, null];
 
@@ -67,8 +86,11 @@ export const Picker: FC<{
     }
   };
 
-  const disabledDate: RangePickerProps['disabledDate'] = (current) =>
-    current && current < dayjs().startOf('day');
+  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+    if (!current) return false;
+
+    return current < dayjs().startOf('day');
+  };
 
   const deleteButton = () => (
     <div className={styles.deleteBtnWrapper}>
@@ -82,40 +104,25 @@ export const Picker: FC<{
     </div>
   );
 
-  const getCellRender = (current: string | number | Dayjs) => {
-    const currentDate = dayjs(current);
-
-    const isInRange =
-      range[0] &&
-      range[1] &&
-      currentDate.isBetween(range[0], range[1], 'day', '[]');
-    const isStartDay = range[0] && currentDate.isSame(range[0], 'day');
-    const isEndDay = range[1] && currentDate.isSame(range[1], 'day');
-    const isToday = currentDate.isSame(dayjs(), 'day');
-
-    const isSelected =
-      range[0] && !range[1] && currentDate.isSame(range[0], 'day');
-    const rangeStyles = isInRange ? styles.inRange : '';
-    const startStyles = isStartDay ? styles.isStart : '';
-    const endStyles = isEndDay ? styles.isEnd : '';
-    const todayStyles = isToday ? styles.isToday : '';
-    const selectedStyles = isSelected ? styles.isSelected : '';
-
-    return (
-      <div
-        className={`
-        ${styles.dayWrapper} 
-        ${rangeStyles} 
-        ${startStyles} 
-        ${endStyles} 
-        ${todayStyles} 
-        ${selectedStyles}
-      `}
-      >
-        {currentDate.date()}
-      </div>
+  const ownerText = () =>
+    bookedRanges ? (
+      <p className={styles.ownerText}>
+        Тут відображаються підтверджені бронювання
+      </p>
+    ) : (
+      <p className={styles.ownerText}>
+        На цьому календарі відображаються дати, які вже заброньовані для оренди
+        або вже в оренді.
+      </p>
     );
-  };
+
+  const cellRender = (current: string | number | Dayjs) =>
+    getCellRender({
+      current,
+      range,
+      bookedRanges,
+      isOwner,
+    });
 
   return (
     <ConfigProvider theme={localTheme}>
@@ -131,8 +138,8 @@ export const Picker: FC<{
         onChange={handleSelect}
         format="DD.MM.YYYY"
         locale={ukUA}
-        renderExtraFooter={deleteButton}
-        cellRender={getCellRender}
+        renderExtraFooter={isOwner ? ownerText : deleteButton}
+        cellRender={cellRender}
       />
     </ConfigProvider>
   );
@@ -148,6 +155,10 @@ const localTheme = {
       colorText: theme.N6,
       boxShadowSecondary: 'none',
       colorSplit: 'transparent',
+    },
+    Tooltip: {
+      colorTextLightSolid: theme.N6,
+      boxShadowSecondary: '0 2px 8px 0 rgba(0, 0, 0, 0.15)',
     },
   },
 };
