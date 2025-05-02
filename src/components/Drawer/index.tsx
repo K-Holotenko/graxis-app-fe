@@ -56,6 +56,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { openNotification } = useNotification();
 
   const navigate = useNavigate();
+
   const shouldShowAddPublicationButton =
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
@@ -87,6 +88,12 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
     };
 
     actions[e.key]();
+    onClose();
+  };
+
+  const handleLogoClick = () => {
+    navigate(ROUTES.HOME);
+    onClose();
   };
 
   const menu = {
@@ -102,7 +109,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
       placement="left"
       width="100%"
       extra={<CloseIcon onClick={onClose} className={styles.drawerCloseBtn} />}
-      title={<Logo />}
+      title={<Logo onClick={handleLogoClick} className={styles.logo} />}
       style={{
         backgroundColor: theme.primary,
       }}
