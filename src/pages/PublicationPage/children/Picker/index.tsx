@@ -6,6 +6,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 import 'dayjs/locale/uk';
 import ukUA from 'antd/es/date-picker/locale/uk_UA';
 
+import { Publication } from 'src/services/PublicationService';
 import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
@@ -18,7 +19,7 @@ dayjs.locale('uk');
 export const Picker: FC<{
   onDateChange: (dates: [Dayjs | null, Dayjs | null]) => void;
   isOwner: boolean;
-  bookedDates: [];
+  bookedDates: Publication['bookedDates'];
 }> = ({ onDateChange, isOwner, bookedDates }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -36,7 +37,7 @@ export const Picker: FC<{
       [dayjs(startBook), dayjs(endBook)] as [Dayjs, Dayjs]
   );
 
-  const bookedDays = (days: Dayjs) =>
+  const isDateBooked = (days: Dayjs) =>
     bookedRanges.some(([from, to]) => days.isBetween(from, to, 'day', '[]'));
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export const Picker: FC<{
       return;
     }
 
-    if (!isOwner && bookedDays(date)) {
+    if (!isOwner && isDateBooked(date)) {
       return;
     }
 
@@ -86,11 +87,8 @@ export const Picker: FC<{
     }
   };
 
-  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
-    if (!current) return false;
-
-    return current < dayjs().startOf('day');
-  };
+  const disabledDate: RangePickerProps['disabledDate'] = (current) =>
+    !!current && current < dayjs().startOf('day');
 
   const deleteButton = () => (
     <div className={styles.deleteBtnWrapper}>
@@ -116,9 +114,9 @@ export const Picker: FC<{
       </p>
     );
 
-  const cellRender = (current: string | number | Dayjs) =>
+  const cellRender = (currentDate: string | number | Dayjs) =>
     getCellRender({
-      current,
+      currentDate,
       range,
       bookedRanges,
       isOwner,

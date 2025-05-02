@@ -5,39 +5,36 @@ import { theme } from 'src/config/theme';
 import styles from 'src/pages/PublicationPage/children/Picker/styles.module.scss';
 
 interface GetCellRenderParams {
-  current: string | number | Dayjs;
+  currentDate: string | number | Dayjs;
   range: [Dayjs | null, Dayjs | null];
   bookedRanges: [Dayjs, Dayjs][];
   isOwner: boolean;
 }
 
 export const getCellRender = ({
-  current,
+  currentDate,
   range,
   bookedRanges,
   isOwner,
 }: GetCellRenderParams) => {
-  const currentDate = dayjs(current);
-  const isBookedDay = bookedRanges.some(([from, to]) =>
-    currentDate.isBetween(from, to, 'day', '[]')
+  const date = dayjs(currentDate);
+  const isDateBookedByOthers = bookedRanges.some(([from, to]) =>
+    date.isBetween(from, to, 'day', '[]')
   );
 
-  const isInRange =
-    range[0] &&
-    range[1] &&
-    currentDate.isBetween(range[0], range[1], 'day', '[]');
-  const isStartDay = range[0] && currentDate.isSame(range[0], 'day');
-  const isEndDay = range[1] && currentDate.isSame(range[1], 'day');
-  const isToday = currentDate.isSame(dayjs(), 'day');
-  const isSelected =
-    range[0] && !range[1] && currentDate.isSame(range[0], 'day');
+  const isDateWithinSelectedRange =
+    range[0] && range[1] && date.isBetween(range[0], range[1], 'day', '[]');
+  const isStartDay = range[0] && date.isSame(range[0], 'day');
+  const isEndDay = range[1] && date.isSame(range[1], 'day');
+  const isToday = date.isSame(dayjs(), 'day');
+  const isSingleSelectedDay =
+    range[0] && !range[1] && date.isSame(range[0], 'day');
 
-  const unitedInRange = isInRange || isBookedDay;
+  const unitedInRange = isDateWithinSelectedRange || isDateBookedByOthers;
   const unitedStart =
-    isStartDay ||
-    bookedRanges.some(([from]) => currentDate.isSame(from, 'day'));
+    isStartDay || bookedRanges.some(([from]) => date.isSame(from, 'day'));
   const unitedEnd =
-    isEndDay || bookedRanges.some(([, to]) => currentDate.isSame(to, 'day'));
+    isEndDay || bookedRanges.some(([, to]) => date.isSame(to, 'day'));
 
   const className = [
     styles.dayWrapper,
@@ -45,15 +42,15 @@ export const getCellRender = ({
     unitedStart ? styles.isStart : '',
     unitedEnd ? styles.isEnd : '',
     isToday ? styles.isToday : '',
-    isSelected ? styles.isSelected : '',
-    !isOwner && isBookedDay ? styles.renterBookedColor : '',
+    isSingleSelectedDay ? styles.isSelected : '',
+    !isOwner && isDateBookedByOthers ? styles.renterBookedColor : '',
   ]
     .filter(Boolean)
     .join(' ');
 
-  const cell = <div className={className}>{currentDate.date()}</div>;
+  const cell = <div className={className}>{date.date()}</div>;
 
-  if (!isOwner && isBookedDay) {
+  if (!isOwner && isDateBookedByOthers) {
     return (
       <Tooltip placement="top" title="На ці дати є бронювання" color={theme.N1}>
         {cell}
