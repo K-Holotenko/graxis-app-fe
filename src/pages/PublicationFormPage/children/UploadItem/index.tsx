@@ -6,7 +6,7 @@ import CameraIcon from 'src/assets/icons/camera-icon.svg?react';
 import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 
-import { beforeUpload, getBase64 } from './utils/config';
+import { beforeUpload, getBase64 } from './utils/utils';
 import styles from './styles.module.scss';
 
 interface UploadItemProps {

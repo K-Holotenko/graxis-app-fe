@@ -1,4 +1,6 @@
-import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
+import { FormInstance } from 'antd';
+
+import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
 
 export const formatLocation = (
   place: google.maps.places.PlaceResult
@@ -30,4 +32,30 @@ export const formatLocation = (
   };
 
   return formatedLocation;
+};
+
+export const getLocationValue = (
+  searchValue: string,
+  form: FormInstance,
+  isEditMode: boolean
+): string => {
+  let value = searchValue;
+
+  if (!isEditMode) {
+    return value;
+  }
+
+  if (!form.getFieldValue('location')) {
+    return value;
+  }
+
+  if (form.getFieldValue('location')?.city) {
+    value = `${form.getFieldValue('location').city}, ${form.getFieldValue('location').country}`;
+  }
+
+  if (form.getFieldValue('location')?.address) {
+    value = `${form.getFieldValue('location').address}, ${form.getFieldValue('location').city}, ${form.getFieldValue('location').country}`;
+  }
+
+  return value;
 };

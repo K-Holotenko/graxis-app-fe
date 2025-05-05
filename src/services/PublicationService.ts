@@ -1,7 +1,7 @@
 import { UploadFile } from 'antd';
 
 import { GRAXIS_API_URL } from 'src/config/constants';
-import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
+import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
 import { PricingPeriod } from 'src/pages/PublicationPage/children/Price/utils/count';
 
 import CookieService from './CookieService';
@@ -37,8 +37,12 @@ export interface Publication {
   reviewsCount: number;
   feedbackCount: number;
   rate: number;
-  pictures: { url: string }[];
+  pictures: { url: string; id?: string }[];
 }
+
+export type MyPublication = Omit<Publication, 'location'> & {
+  location: Location;
+};
 
 interface CreatePublicationData {
   categoryName: string;
@@ -67,7 +71,7 @@ const PUBLICATIONS_API_URL = `${GRAXIS_API_URL}/publications`;
 
 export const createPublication = async (
   publicationData: CreatePublicationData
-): Promise<CreatePublicationData> => {
+): Promise<Publication> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
   const formData = new FormData();
 
@@ -115,6 +119,72 @@ export const getPublicationById = async (id: string): Promise<Publication> => {
   const responseBody = await response.json();
 
   return responseBody;
+};
+
+export const updatePublication = async (
+  publicationData: CreatePublicationData,
+  id?: string
+): Promise<MyPublication> => {
+  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+  const formData = new FormData();
+
+  formData.append('categoryName', publicationData.categoryName);
+  formData.append('title', publicationData.title);
+  formData.append('description', publicationData.description);
+  formData.append('prices', JSON.stringify(publicationData.prices));
+  formData.append('location', JSON.stringify(publicationData.location));
+
+  publicationData.files?.forEach(({ originFileObj }) => {
+    if (originFileObj) formData.append('files', originFileObj);
+  });
+
+  const response = await fetch(`${PUBLICATIONS_API_URL}/${id}`, {
+    method: 'PATCH',
+    headers: { Authorization: token },
+    body: formData,
+  });
+
+  const responseBody = await response.json();
+
+  return responseBody;
+};
+
+export const getMyPublicationById = async (
+  id: string
+): Promise<MyPublication> => {
+  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+
+  const response = await fetch(`${PUBLICATIONS_API_URL}/my/${id}`, {
+    method: 'GET',
+    headers: { Authorization: token },
+  });
+
+  const responseBody = await response.json();
+
+  return responseBody;
+};
+
+export const deletePublicationImageById = async (
+  publicationId: string | undefined,
+  imageId?: string
+): Promise<string> => {
+  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+
+  const response = await fetch(
+    `${PUBLICATIONS_API_URL}/${publicationId}/image/${imageId}`,
+    {
+      method: 'DELETE',
+      headers: { Authorization: token },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to delete image');
+  }
+
+  const responseText = await response.text();
+
+  return responseText;
 };
 
 export const deletePublicationById = async (id: string): Promise<boolean> => {

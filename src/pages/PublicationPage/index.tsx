@@ -1,7 +1,6 @@
 import { Col, Row, Skeleton } from 'antd';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 
+import { usePublication } from 'src/hooks/usePublication';
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { PublicationLayout } from 'src/layouts/PublicationLayout';
@@ -12,13 +11,9 @@ import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { generateBreadcrumbs } from 'src/components/BreadCrumbs/utils/generateBreadcrumbs';
 import { Breadcrumbs } from 'src/components/BreadCrumbs';
-import {
-  getPublicationById,
-  Publication,
-} from 'src/services/PublicationService';
 import { Loadable } from 'src/components/Loadable';
-import { ROUTES } from 'src/router/routes';
 import { useCategories } from 'src/hooks/useCategories';
+import { Publication } from 'src/services/PublicationService';
 import { useUserStore } from 'src/stores/userStore';
 
 import { ImageCarousel } from './children/ImageCarousel';
@@ -38,11 +33,7 @@ export const PublicationPage = () => {
   const { categoriesTree } = useCategories();
   const { user } = useUserStore();
 
-  const params = useParams();
-  const navigate = useNavigate();
-
-  const [publication, setPublication] = useState<Publication | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { publication, isPublicationLoading, isEditable } = usePublication();
 
   const isMobileOrTablet = width <= SCREEN_WIDTH.XL;
   const isMobile = width < SCREEN_WIDTH.SM;
@@ -58,28 +49,6 @@ export const PublicationPage = () => {
         })
       : null;
 
-  useEffect(() => {
-    if (!params?.id) {
-      navigate(ROUTES.NOT_FOUND);
-
-      return;
-    }
-
-    const fetchPublicationById = async () => {
-      try {
-        const fetchedPublication: Publication = await getPublicationById(
-          params.id!
-        );
-
-        setPublication(fetchedPublication);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPublicationById();
-  }, []);
-
   const isOwner =
     publication && user ? user.id === publication.ownerInfo.id : false;
 
@@ -89,8 +58,10 @@ export const PublicationPage = () => {
         <PublicationLayout
           breadcrumbs={
             <Loadable
-              isLoading={isLoading}
-              skeleton={<BreadcrumbsSkeleton isLoading={isLoading} />}
+              isLoading={isPublicationLoading}
+              skeleton={
+                <BreadcrumbsSkeleton isLoading={isPublicationLoading} />
+              }
               component={() => (
                 <Breadcrumbs
                   breadcrumbItems={breadcrumbItems}
@@ -103,7 +74,7 @@ export const PublicationPage = () => {
             <Row gutter={[0, { xs: 32, sm: 32, md: 55, xl: 40 }]}>
               <Col span={24}>
                 <Loadable
-                  isLoading={isLoading}
+                  isLoading={isPublicationLoading}
                   skeleton={<CarouselSkeleton />}
                   component={() => (
                     <ImageCarousel pictures={publication!.pictures} />
@@ -113,10 +84,12 @@ export const PublicationPage = () => {
               {isMobileOrTablet && (
                 <Col span={24}>
                   <Loadable
-                    isLoading={isLoading}
+                    isLoading={isPublicationLoading}
                     skeleton={<Skeleton.Input active />}
                     component={() => (
                       <PublicationName
+                        isEditable={isEditable}
+                        id={publication!.id}
                         title={publication!.title}
                         category={publication!.category}
                         rate={publication!.rate}
@@ -128,8 +101,10 @@ export const PublicationPage = () => {
               )}
               <Col span={24}>
                 <Loadable
-                  isLoading={isLoading}
-                  skeleton={<DescriptionSkeleton isLoading={isLoading} />}
+                  isLoading={isPublicationLoading}
+                  skeleton={
+                    <DescriptionSkeleton isLoading={isPublicationLoading} />
+                  }
                   component={() => (
                     <>
                       <Description description={publication!.description} />
@@ -145,10 +120,16 @@ export const PublicationPage = () => {
               {!isMobileOrTablet && (
                 <Col span={24}>
                   <Loadable
-                    isLoading={isLoading}
-                    skeleton={<PublicationNameSkeleton isLoading={isLoading} />}
+                    isLoading={isPublicationLoading}
+                    skeleton={
+                      <PublicationNameSkeleton
+                        isLoading={isPublicationLoading}
+                      />
+                    }
                     component={() => (
                       <PublicationName
+                        isEditable={isEditable}
+                        id={publication!.id}
                         title={publication!.title}
                         category={publication!.category}
                         rate={publication!.rate}
@@ -160,7 +141,7 @@ export const PublicationPage = () => {
               )}
               <Col span={24}>
                 <Loadable
-                  isLoading={isLoading}
+                  isLoading={isPublicationLoading}
                   skeleton={<PriceSkeleton />}
                   component={() => (
                     <Price
@@ -175,9 +156,13 @@ export const PublicationPage = () => {
           }
           map={
             <Loadable
-              isLoading={isLoading}
+              isLoading={isPublicationLoading}
               skeleton={<MapSkeleton />}
-              component={() => <Map location={publication!.location} />}
+              component={() => (
+                <Map
+                  location={publication!.location as Publication['location']}
+                />
+              )}
             />
           }
         />

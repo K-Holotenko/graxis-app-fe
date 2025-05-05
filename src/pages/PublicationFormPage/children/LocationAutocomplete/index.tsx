@@ -1,26 +1,24 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
-import { AutoComplete, ConfigProvider } from 'antd';
+import { AutoComplete, ConfigProvider, Form } from 'antd';
+import { useLocation } from 'react-router-dom';
 
 import logo from 'src/assets/images/google_on_white.png';
 import MapIcon from 'src/assets/icons/map-pin-icon-autocomplete.svg?react';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { theme } from 'src/config/theme';
 import { TEXT } from 'src/config/constants';
-import { Location } from 'src/pages/AddPublicationPage/children/AddPublicationForm';
 
 import styles from './styles.module.scss';
-import { formatLocation } from './utils/config';
-
-interface LocationAutocompleteProps {
-  onPlaceSelect: (location: Location | null) => void;
-}
+import { formatLocation, getLocationValue } from './utils/utils';
 
 const { Option } = AutoComplete;
 
-export const LocationAutocomplete = ({
-  onPlaceSelect,
-}: LocationAutocompleteProps) => {
+export const LocationAutocomplete = () => {
+  const form = Form.useFormInstance();
+  const location = useLocation();
+  const isEdit = location.pathname.includes('edit-publication');
+
   const [searchValue, setSearchValue] = useState('');
   const [predictions, setPredictions] = useState<
     google.maps.places.AutocompletePrediction[]
@@ -79,8 +77,8 @@ export const LocationAutocomplete = ({
   const handleSearch = (value: string) => {
     setSearchValue(value);
 
-    if (!value.trim()) {
-      onPlaceSelect(null);
+    if (!searchValue.trim()) {
+      form.setFieldsValue({ location: undefined });
     }
   };
 
@@ -110,16 +108,16 @@ export const LocationAutocomplete = ({
         if (status === 'OK' && place) {
           setSearchValue(place.formatted_address || value);
 
-          const formatedLocation = formatLocation(place);
+          const formattedLocation = formatLocation(place);
 
-          onPlaceSelect(formatedLocation);
+          form.setFieldsValue({ location: formattedLocation });
 
           sessionToken.current =
             new google.maps.places.AutocompleteSessionToken();
         }
       });
     },
-    [placesService.current, onPlaceSelect]
+    [placesService.current]
   );
 
   return (
@@ -127,7 +125,7 @@ export const LocationAutocomplete = ({
       <AutoComplete
         className={styles.searchBox}
         popupClassName={styles.popUp}
-        value={searchValue}
+        value={getLocationValue(searchValue, form, isEdit)}
         showSearch
         placeholder={TEXT.ENTER_LOCATION}
         suffixIcon={<MapIcon />}
