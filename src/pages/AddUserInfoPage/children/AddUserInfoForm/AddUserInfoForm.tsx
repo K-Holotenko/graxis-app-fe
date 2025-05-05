@@ -8,7 +8,7 @@ import { Button } from 'src/components/Button';
 import { FORMS, TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { VALIDATION_CONDITION } from 'src/config/validation';
-import { beforeUpload } from 'src/pages/AddPublicationPage/children/UploadItem/utils/config';
+import { beforeUpload } from 'src/pages/PublicationFormPage/children/UploadItem/utils/utils';
 import { useUserStore } from 'src/stores/userStore';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { ROUTES } from 'src/router/routes';
