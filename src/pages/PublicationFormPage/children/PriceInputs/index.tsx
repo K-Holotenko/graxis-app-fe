@@ -100,7 +100,9 @@ export const PriceInputs = () => {
         ))}
       </ConfigProvider>
       {showRequiredErr && (
-        <p className={styles.inputsError}>{TEXT.SET_AT_LEAST_ONE_PRICE}</p>
+        <p className={styles.inputsError}>
+          Принаймні одна ціна має бути вказана
+        </p>
       )}
     </div>
   );
