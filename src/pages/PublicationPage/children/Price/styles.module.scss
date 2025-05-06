@@ -70,34 +70,6 @@
   width: 298px;
 }
 
-.periodWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-  margin-bottom: 32px;
-}
-
-.price {
-  font-family: variables.$font-heading;
-  color: variables.$N6;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 1.25;
-  text-align: center;
-}
-
-.period {
-  @include textDefault;
-  font-size: 16px;
-  line-height: 1.5;
-  width: 240px;
-}
-
-.priceBtn:disabled {
-  width: 240px;
-}
-
 @media (min-width: variables.$media-sm) {
   .title {
     font-size: 32px;

@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 import { Heading } from 'src/components/Heading';
 import { Picker } from 'src/pages/PublicationPage/children/Picker';
-import { Button } from 'src/components/Button';
 import {
   calculatePrice,
   getErrorIfRangeIsInvalid,
@@ -12,14 +11,17 @@ import {
 } from 'src/pages/PublicationPage/children/Price/utils/count';
 import { Publication } from 'src/services/PublicationService';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
+import { PickerFooter } from 'src/pages/PublicationPage/children/PickerFooter';
 
 import styles from './styles.module.scss';
 
 interface PriceProps {
   prices: Publication['price'];
+  isOwner: boolean;
+  bookedDates: Publication['bookedDates'];
 }
 
-export const Price = ({ prices }: PriceProps) => {
+export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
   const { requireAuth } = useRequireAuth();
 
   const location = useLocation();
@@ -78,36 +80,20 @@ export const Price = ({ prices }: PriceProps) => {
         Виберіть період оренди
       </Heading>
       <div className={styles.pickerWrapper}>
-        <Picker onDateChange={setSelectedRange} />
-        <div>
-          {isRangeSelected ? (
-            <div className={styles.periodWrapper}>
-              <span className={styles.price}>
-                {rangeError ? 0 : totalPrice} грн.
-              </span>
-              <span className={styles.period}>
-                {rangeError || (
-                  <>
-                    На {days} днів {'('}включно з комісією
-                    <br />
-                    {commission} грн за бронювання{')'}
-                  </>
-                )}
-              </span>
-            </div>
-          ) : (
-            <div className={styles.periodWrapper}>
-              <span className={styles.price}>0 грн.</span>
-              <span className={styles.period}>Оберіть період оренди</span>
-            </div>
-          )}
-          <Button
-            className={`${styles.button} ${styles.priceBtn}`}
-            label="Відправити запит"
-            isDisabled={!isRangeSelected || !!rangeError}
-            onClick={handleButtonClick}
-          />
-        </div>
+        <Picker
+          onDateChange={setSelectedRange}
+          isOwner={isOwner}
+          bookedDates={bookedDates}
+        />
+        <PickerFooter
+          isOwner={isOwner}
+          isRangeSelected={isRangeSelected}
+          totalPrice={totalPrice}
+          days={days}
+          commission={commission}
+          rangeError={rangeError}
+          onClick={handleButtonClick}
+        />
       </div>
     </section>
   );

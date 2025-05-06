@@ -19,6 +19,7 @@ import {
 import { Loadable } from 'src/components/Loadable';
 import { ROUTES } from 'src/router/routes';
 import { useCategories } from 'src/hooks/useCategories';
+import { useUserStore } from 'src/stores/userStore';
 
 import { ImageCarousel } from './children/ImageCarousel';
 import { Owner } from './children/Owner';
@@ -35,6 +36,7 @@ import {
 export const PublicationPage = () => {
   const { width } = useWindowSize();
   const { categoriesTree } = useCategories();
+  const { user } = useUserStore();
 
   const params = useParams();
   const navigate = useNavigate();
@@ -77,6 +79,9 @@ export const PublicationPage = () => {
 
     fetchPublicationById();
   }, []);
+
+  const isOwner =
+    publication && user ? user.id === publication.ownerInfo.id : false;
 
   return (
     <PageContainer pageTitle="Публікація">
@@ -157,7 +162,13 @@ export const PublicationPage = () => {
                 <Loadable
                   isLoading={isLoading}
                   skeleton={<PriceSkeleton />}
-                  component={() => <Price prices={publication!.price} />}
+                  component={() => (
+                    <Price
+                      prices={publication!.price}
+                      isOwner={isOwner}
+                      bookedDates={publication?.bookedDates || []}
+                    />
+                  )}
                 />
               </Col>
             </Row>
