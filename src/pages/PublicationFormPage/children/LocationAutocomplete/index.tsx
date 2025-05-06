@@ -77,7 +77,7 @@ export const LocationAutocomplete = () => {
   const handleSearch = (value: string) => {
     setSearchValue(value);
 
-    if (!searchValue.trim()) {
+    if (!value.trim()) {
       form.setFieldsValue({ location: undefined });
     }
   };

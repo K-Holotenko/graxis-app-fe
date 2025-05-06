@@ -179,7 +179,7 @@ export const PublicationForm = () => {
   };
 
   const collectFileIdToRemove = (fileId: string) => {
-    setFileIdToRemove((prev) => [...prev, fileId]);
+    setFileIdToRemove((prev) => Array.from(new Set([...prev, fileId])));
   };
 
   return (

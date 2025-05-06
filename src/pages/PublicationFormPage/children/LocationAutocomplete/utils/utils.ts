@@ -40,21 +40,22 @@ export const getLocationValue = (
   isEditMode: boolean
 ): string => {
   let value = searchValue;
+  const location = form.getFieldValue('location');
 
   if (!isEditMode) {
     return value;
   }
 
-  if (!form.getFieldValue('location')) {
+  if (!location) {
     return value;
   }
 
-  if (form.getFieldValue('location')?.city) {
-    value = `${form.getFieldValue('location').city}, ${form.getFieldValue('location').country}`;
+  if (location?.city) {
+    value = `${location.city}, ${location.country}`;
   }
 
-  if (form.getFieldValue('location')?.address) {
-    value = `${form.getFieldValue('location').address}, ${form.getFieldValue('location').city}, ${form.getFieldValue('location').country}`;
+  if (location?.address) {
+    value = `${location.address}, ${location.city}, ${location.country}`;
   }
 
   return value;
