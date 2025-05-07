@@ -4,7 +4,7 @@ import { HomePage } from 'src/pages/HomePage';
 import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
 import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
-import { AddPublicationPage } from 'src/pages/AddPublicationPage';
+import { PublicationFormPage } from 'src/pages/PublicationFormPage';
 import { PublicationPage } from 'src/pages/PublicationPage';
 import { SearchPage } from 'src/pages/SearchPage';
 import { UserProfilePage } from 'src/pages/UserProfilePage';
@@ -31,12 +31,20 @@ export const router = createBrowserRouter([
         path: ROUTES.ADD_PUBLICATION,
         element: (
           <PrivateRoute>
-            <AddPublicationPage />
+            <PublicationFormPage />
           </PrivateRoute>
         ),
       },
       {
-        path: ROUTES.ITEM,
+        path: ROUTES.EDIT_PUBLICATION,
+        element: (
+          <PrivateRoute>
+            <PublicationFormPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: ROUTES.PUBLICATION,
         element: <PublicationPage />,
       },
       { path: ROUTES.SEARCH_RESULTS, element: <SearchPage /> },

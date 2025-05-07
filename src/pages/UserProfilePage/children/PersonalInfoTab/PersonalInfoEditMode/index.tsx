@@ -10,7 +10,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 
 import { VALIDATION_CONDITION } from 'src/config/validation';
-import { beforeUpload } from 'src/pages/AddPublicationPage/children/UploadItem/utils/config';
+import { beforeUpload } from 'src/pages/PublicationFormPage/children/UploadItem/utils/utils';
 import { Input, InputType } from 'src/components/Input';
 import { useUserStore } from 'src/stores/userStore';
 import { theme } from 'src/config/theme';

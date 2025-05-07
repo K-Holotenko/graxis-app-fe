@@ -6,6 +6,26 @@
   gap: 12px;
 }
 
+.editIcon {
+  margin-right: 12px;
+}
+
+.editWrapper {
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.editText {
+  color: variables.$N6;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  font-family: variables.$font-body;
+}
+
 .itemName {
   color: variables.$N6;
   font-weight: 600;

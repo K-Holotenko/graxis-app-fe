@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Card, Dropdown, MenuProps, Tooltip } from 'antd';
 import { StarFilled, EyeOutlined, MoreOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router-dom';
 
 import { theme } from 'src/config/theme';
 import {
@@ -53,7 +53,9 @@ export const PublicationCard = ({
   const textLength = 35;
 
   const handleCardClick = () => {
-    navigate(`/item/${id}`);
+    const path = generatePath(ROUTES.PUBLICATION, { id });
+
+    navigate(path);
   };
 
   const isTruncated = title.length > textLength;
