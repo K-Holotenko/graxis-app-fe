@@ -5,8 +5,6 @@ import TikTokIcon from 'src/assets/icons/tiktok-icon-dark.svg';
 import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
 
 export const TEXT = {
-  ADD_PHOTO: 'Додайте фото',
-  ADD_ANNOUNCEMENT: 'Додайте оголошення',
   ALL_CATEGORIES: 'Всі категорії',
   ALLOW_DATA_PROCESSING:
     'Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача',
@@ -19,8 +17,6 @@ export const TEXT = {
   CHOOSE_RENT_PERIOD: 'Виберіть період оренди',
   CONFIRMATION_PASSWORD: 'Повторіть пароль',
   CONTACT_US: 'Звʼяжіться з нами',
-
-  DESCRIPTION: 'Опис',
 
   EMAIL: 'Пошта',
   EMPTY_SELECTION_TEXT: 'Ви поки нічого не обрали',
@@ -43,16 +39,12 @@ export const TEXT = {
   INPUT_EMAIL: 'Введіть пошту',
   INPUT_PASSWORD: 'Введіть пароль',
   INPUT_PHONE: 'Введіть номер телефону',
-  INPUT_PUBLICATION_DESCRIPTION: 'Введіть інформацію про товар',
-  INPUT_PUBLICATION_NAME: 'Введіть назву оголошення',
   INPUT_SEARCH: 'Пошук товару',
 
-  LOCATION_NAME: 'Локація',
   LOGIN: 'Увійти',
 
   MORE: 'Більше',
 
-  NAME: 'Назва',
   NO_ACCOUNT: 'Немає акаунту?',
 
   OK: 'ОК',
@@ -64,7 +56,6 @@ export const TEXT = {
   POPULAR_NOW: 'Популярне зараз',
   PRODUCT_CATEGORY: 'Ігрові приставки',
   PRODUCT_NAME: 'Приставка ігрова Sony PlayStation 4',
-  PUBLISH: 'Опублікувати',
 
   REGISTER: 'Зареєструватися',
   RESERVATION_COST: 'грн за бронювання)',
@@ -77,11 +68,10 @@ export const TEXT = {
   SENT_SMS: 'Ми відправили вам підтвердження коду на ваш мобільний номер',
   SUCCESS: 'Успішно!',
   SUBMIT: 'Продовжити',
-  COST: 'Вартість',
   HRYVNIAS_PER_DAY: 'грн/день',
   HRYVNIAS_PER_WEEK: 'грн/тиждень',
   HRYVNIAS_PER_MONTH: 'грн/місяць',
-  SET_AT_LEAST_ONE_PRICE: 'Принаймні одна ціна має бути вказана',
+
   MIN_VALUE: (minValue: number | string) => `Мінімальне значення ${minValue}`,
   MAX_VALUE: (maxValue: number | string) => `Максимальне значення ${maxValue}`,
 

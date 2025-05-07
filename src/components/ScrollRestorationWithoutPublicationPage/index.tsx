@@ -5,7 +5,7 @@ import { ROUTES } from 'src/router/routes';
 export const ScrollRestorationWithoutPublicationPage = () => {
   const { pathname } = useLocation();
 
-  const isItemPage = matchPath(ROUTES.ITEM, pathname);
+  const isItemPage = matchPath(ROUTES.PUBLICATION, pathname);
 
   if (isItemPage) {
     return null;

@@ -67,7 +67,7 @@ export const useAuthStore = create<AuthState>((set) => ({
           sameSite: 'Lax',
           // uncomment when going to production
           // secure: true,
-          // domain: 'graxis.net',
+          domain: 'graxis.net',
         });
 
         set({ isAuthorized: true, user, isLoading: false });
