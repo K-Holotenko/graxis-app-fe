@@ -14,7 +14,7 @@ import { getAllPublications } from 'src/services/PublicationService';
 import { theme } from 'src/config/theme';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
-import { convertFirestoreTimestampToDate } from './utils';
+import { convertFirestoreTimestampToDate } from './utilsFixed';
 
 export interface DataPoint {
   date: string;
