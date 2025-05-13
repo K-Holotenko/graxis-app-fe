@@ -60,15 +60,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         const token = await user.getIdToken(true);
 
         // eslint-disable-next-line no-console
-        console.log(user);
-        CookieService.setCookie('accessToken', token, {
-          path: '/',
-          maxAge: 3600,
-          sameSite: 'Lax',
-          // uncomment when going to production
-          // secure: true,
-          domain: 'graxis.net',
-        });
+        CookieService.setCookie('accessToken', token);
 
         set({ isAuthorized: true, user, isLoading: false });
       } else {

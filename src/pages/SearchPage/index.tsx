@@ -7,7 +7,7 @@ import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { SearchLayout } from 'src/layouts/SearchLayout';
 import {
-  getAllPublications,
+  getPublicationsBySearch,
   PublicationPage,
 } from 'src/services/PublicationService';
 
@@ -32,7 +32,7 @@ export const SearchPage = () => {
   ) => {
     setIsLoading(true);
 
-    getAllPublications('?' + params.toString())
+    getPublicationsBySearch('?' + params.toString())
       .then((data) => {
         onSuccess(data);
       })
