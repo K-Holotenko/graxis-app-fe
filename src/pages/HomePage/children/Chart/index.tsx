@@ -23,6 +23,7 @@ export interface DataPoint {
 
 export const Chart = () => {
   const [publications, setPublications] = useState<DataPoint[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { openNotification } = useNotification();
 
@@ -32,6 +33,7 @@ export const Chart = () => {
         const formattedData = convertFirestoreTimestampToDate(data);
 
         setPublications(formattedData);
+        setIsLoading(false);
       })
       .catch((error) => {
         openNotification(
@@ -39,8 +41,19 @@ export const Chart = () => {
           error.message,
           'Не вдалося отримати дані'
         );
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
+
+  if (isLoading) {
+    return (
+      <h1 style={{ textAlign: 'center', color: theme.primary }}>
+        Завантаження...
+      </h1>
+    );
+  }
 
   return (
     <ResponsiveContainer width="100%" height={500}>
