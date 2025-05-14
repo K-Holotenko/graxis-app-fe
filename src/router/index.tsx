@@ -1,21 +1,24 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { HomePage } from 'src/pages/HomePage';
 import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
-import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
 import { PublicationFormPage } from 'src/pages/PublicationFormPage';
 import { PublicationPage } from 'src/pages/PublicationPage';
 import { SearchPage } from 'src/pages/SearchPage';
-import { UserProfilePage } from 'src/pages/UserProfilePage';
-import { AddUserInfoPage } from 'src/pages/AddUserInfoPage';
 import { MyPublicationsPage } from 'src/pages/MyPublicationsPage';
 import { NotFoundPage } from 'src/pages/NotFoundPage';
+import { AppLoadingPage } from 'src/pages/AppLoadingPage';
 import { ErrorPage } from 'src/pages/ErrorPage';
 import App from 'src/App';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
+
+const UserProfilePage = lazy(() => import('src/pages/UserProfilePage'));
+const AddUserInfoPage = lazy(() => import('src/pages/AddUserInfoPage'));
+const VerifyEmailPage = lazy(() => import('src/pages/VerifyEmailPage'));
 
 export const router = createBrowserRouter([
   {
@@ -52,7 +55,9 @@ export const router = createBrowserRouter([
         path: ROUTES.USER_PROFILE,
         element: (
           <PrivateRoute>
-            <UserProfilePage />
+            <Suspense fallback={<AppLoadingPage />}>
+              <UserProfilePage />
+            </Suspense>
           </PrivateRoute>
         ),
       },
@@ -60,7 +65,9 @@ export const router = createBrowserRouter([
         path: ROUTES.NOTIFICATIONS,
         element: (
           <PrivateRoute>
-            <UserProfilePage />
+            <Suspense fallback={<AppLoadingPage />}>
+              <UserProfilePage />
+            </Suspense>
           </PrivateRoute>
         ),
       },
@@ -68,7 +75,9 @@ export const router = createBrowserRouter([
         path: ROUTES.PAYMENT,
         element: (
           <PrivateRoute>
-            <UserProfilePage />
+            <Suspense fallback={<AppLoadingPage />}>
+              <UserProfilePage />
+            </Suspense>
           </PrivateRoute>
         ),
       },
@@ -76,7 +85,9 @@ export const router = createBrowserRouter([
         path: ROUTES.PRIVACY_POLICY,
         element: (
           <PrivateRoute>
-            <UserProfilePage />
+            <Suspense fallback={<AppLoadingPage />}>
+              <UserProfilePage />
+            </Suspense>
           </PrivateRoute>
         ),
       },
@@ -84,11 +95,20 @@ export const router = createBrowserRouter([
         path: ROUTES.FAQ,
         element: (
           <PrivateRoute>
-            <UserProfilePage />
+            <Suspense fallback={<AppLoadingPage />}>
+              <UserProfilePage />
+            </Suspense>
           </PrivateRoute>
         ),
       },
-      { path: ROUTES.ADD_USER_INFO, element: <AddUserInfoPage /> },
+      {
+        path: ROUTES.ADD_USER_INFO,
+        element: (
+          <Suspense fallback={<AppLoadingPage />}>
+            <AddUserInfoPage />
+          </Suspense>
+        ),
+      },
       {
         path: ROUTES.MY_PUBLICATIONS,
         element: (

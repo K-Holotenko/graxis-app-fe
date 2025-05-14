@@ -16,7 +16,7 @@ import { PaymentTab } from './children/PaymentTab';
 import { PrivacyPolicyTab } from './children/PrivacyPolicyTab';
 import { FaqTab } from './children/FaqTab';
 
-export const UserProfilePage = () => {
+const UserProfilePage = () => {
   const [form] = Form.useForm();
   const { user } = useUserStore();
   const location = useLocation();
@@ -102,3 +102,5 @@ export const UserProfilePage = () => {
     </PageContainer>
   );
 };
+
+export default UserProfilePage;

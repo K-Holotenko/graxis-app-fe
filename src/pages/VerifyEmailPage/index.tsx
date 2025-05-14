@@ -10,7 +10,7 @@ import { useAuthStore } from 'src/stores/authStore';
 import { VERIFY_EMAIL_PAGE_CONSTANTS } from './utils/constants';
 import styles from './styles.module.scss';
 
-export const VerifyEmailPage = () => {
+const VerifyEmailPage = () => {
   const navigate = useNavigate();
   const { emailToVerify } = useAuthStore();
 
@@ -42,3 +42,5 @@ export const VerifyEmailPage = () => {
     </PageContainer>
   );
 };
+
+export default VerifyEmailPage;

@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 
 const { Title } = Typography;
 
-export const AddUserInfoPage = () => (
+const AddUserInfoPage = () => (
   <PageContainer pageTitle="Додати інформацію">
     <AuthLayout>
       <Title level={2} className={styles.authPageTitle}>
@@ -18,3 +18,5 @@ export const AddUserInfoPage = () => (
     </AuthLayout>
   </PageContainer>
 );
+
+export default AddUserInfoPage;
