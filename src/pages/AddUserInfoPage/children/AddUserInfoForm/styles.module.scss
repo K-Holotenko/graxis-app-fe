@@ -1,9 +1,12 @@
 @use 'src/styles/variables';
 
 .upload {
+  display: flex;
+  justify-content: center;
   width: 120px;
   height: 120px;
   margin: 0 auto;
+  overflow: hidden;
 
   :global(.ant-upload-select) {
     width: 120px !important;
@@ -11,11 +14,6 @@
   }
 
   :global(.ant-upload-list-item-container) {
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
     width: 120px !important;
     height: 120px !important;
   }
