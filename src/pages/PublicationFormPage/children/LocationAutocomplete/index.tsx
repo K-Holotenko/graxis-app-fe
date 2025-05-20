@@ -120,6 +120,9 @@ export const LocationAutocomplete = () => {
     [placesService.current]
   );
 
+  const locationValue = Form.useWatch('location', form);
+  const localTheme = setLocalTheme(locationValue);
+
   return (
     <ConfigProvider theme={localTheme}>
       <AutoComplete
@@ -159,11 +162,11 @@ export const LocationAutocomplete = () => {
   );
 };
 
-const localTheme = {
+const setLocalTheme = (locationValue: boolean) => ({
   components: {
     Select: {
       borderRadius: 8,
-      colorBorder: theme.N3,
+      colorBorder: locationValue ? theme.success : theme.N3,
       hoverBorderColor: theme.N4,
       fontSize: 12,
       colorPrimary: theme.N5,
@@ -175,4 +178,4 @@ const localTheme = {
       optionSelectedFontWeight: 400,
     },
   },
-};
+});

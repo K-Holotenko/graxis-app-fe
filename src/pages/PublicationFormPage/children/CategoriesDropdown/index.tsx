@@ -22,6 +22,7 @@ export const CategoriesDropdown = ({
   const [treeExpandedKeys, setTreeExpandedKeys] = useState<SafeKey[]>([]);
 
   const { categoriesTree } = useCategories();
+  const form = Form.useFormInstance();
 
   const findParentPath = (value: string, tree: Category[]): string[] => {
     for (const category of tree) {
@@ -88,6 +89,9 @@ export const CategoriesDropdown = ({
     );
   };
 
+  const locationValue = Form.useWatch('location', form);
+  const localTheme = setLocalTheme(treeValue, locationValue);
+
   return (
     <ConfigProvider theme={localTheme}>
       <Form.Item
@@ -127,24 +131,27 @@ export const CategoriesDropdown = ({
   );
 };
 
-const localTheme = {
+const setLocalTheme = (treeValue: string | null, locationValue: boolean) => ({
   token: {
     borderRadius: 8,
     colorPrimaryHover: theme.N4,
-    colorPrimary: theme.N6,
+    colorPrimary: treeValue || locationValue ? theme.success : theme.N3,
+    colorBorder: treeValue || locationValue ? theme.success : theme.N3,
     boxShadow: 'none',
     boxShadowSecondary: 'none',
-    boxShadowTertiary: 'none',
     controlOutline: 'none',
+    boxShadowTertiary: 'none',
     controlInteractiveSize: 48,
+    controlHeight: 48,
+    colorTextPlaceholder: theme.N4,
   },
   components: {
     TreeSelect: {
-      activeBg: theme.secondaryLight,
-      controlOutline: 'none',
       controlItemBgHover: theme.N2,
       titleHeight: 48,
       controlItemBgActive: theme.secondary,
+      paddingXS: 16,
+      colorBgTextHover: 'transparent',
     },
   },
-};
+});
