@@ -72,8 +72,8 @@ export const TEXT = {
   HRYVNIAS_PER_WEEK: 'грн/тиждень',
   HRYVNIAS_PER_MONTH: 'грн/місяць',
 
-  MIN_VALUE: (minValue: number | string) => `Мінімальне значення ${minValue}`,
-  MAX_VALUE: (maxValue: number | string) => `Максимальне значення ${maxValue}`,
+  MIN_VALUE: (minValue: number | string) => `Мін. значення ${minValue}`,
+  MAX_VALUE: (maxValue: number | string) => `Макс. значення ${maxValue}`,
 
   UAH: 'грн',
   USER_NAME: 'Василь Симоненко',
