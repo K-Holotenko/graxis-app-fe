@@ -7,10 +7,16 @@
 }
 
 .priceLabel {
+  margin-bottom: 0;
+
   label {
     color: variables.$N5 !important;
     font-size: 14px !important;
   }
+}
+
+.errorMargin {
+  margin-bottom: 20px;
 }
 
 .priceInput {
@@ -29,9 +35,9 @@
 .inputsError {
   position: absolute;
   color: variables.$error;
-  bottom: 0;
+  bottom: -20px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
 }
 

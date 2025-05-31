@@ -8,7 +8,7 @@
 }
 
 .greyBackground {
-  background-color: variables.$N2;
+  background-color: variables.$N1;
 }
 
 .mainContainer {
@@ -24,8 +24,8 @@
   }
 }
 
-@media (max-width: variables.$media-sm) {
+@media (min-width: variables.$media-md) {
   .greyBackground {
-    background-color: variables.$N1;
+    background-color: variables.$N2;
   }
 }
