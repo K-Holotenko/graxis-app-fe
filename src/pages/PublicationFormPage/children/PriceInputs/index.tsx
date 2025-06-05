@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Form, Input, ConfigProvider } from 'antd';
+import { Form } from 'antd';
 
 import { TEXT } from 'src/config/constants';
-import { toFixedWithoutRounding } from 'src/utils/toFixedWithoutRounding';
-import { theme } from 'src/config/theme';
+import { NumberInput } from 'src/pages/PublicationFormPage/children/NumberInput';
 
 import type { RuleRender } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
@@ -21,38 +20,24 @@ export const PriceInputs = () => {
   const minValue = 10;
   const maxValue = 999_999;
 
-  const onChange = (inputName: string) => {
-    const value = form.getFieldValue(inputName);
-
+  const handleChange = (field: string, value: string) => {
     if (+value > maxValue) {
-      form.setFieldValue(inputName, `${maxValue}`);
-
-      return;
+      form.setFieldValue(field, `${maxValue}`);
+    } else {
+      form.setFieldValue(field, value);
     }
-
-    // Strip to 2 decimals
-    const decimals = value.split('.')[1];
-
-    if (decimals?.length > 2) {
-      form.setFieldValue(inputName, `${toFixedWithoutRounding(value, 2)}`);
-
-      return;
-    }
-
-    // restrict negative numbers
-    form.setFieldValue(inputName, Number(value) < 0 ? '0' : value);
 
     form.validateFields(inputs.map((input) => input.name)).catch(() => {});
   };
 
-  const onBlur = (inputName: string) => {
+  const handleBlur = (inputName: string) => {
     const value = form.getFieldValue(inputName);
 
-    form.setFieldValue(inputName, value ? Number(value).toFixed(2) : value);
+    form.setFieldValue(inputName, +value < minValue ? '' : value);
   };
 
   const priceInputValidator: RuleRender = ({ getFieldValue }) => ({
-    validator(_: unknown, value: string) {
+    validator(_, value: string) {
       setShowRequiredErr(false);
 
       if (value && +value < minValue) {
@@ -73,33 +58,39 @@ export const PriceInputs = () => {
     },
   });
 
+  const getItemClassName = (fieldName: string, idx: number) => {
+    const hasFieldError = form.getFieldError(fieldName).length > 0;
+
+    return [
+      styles.priceLabel,
+      idx === 1 && styles.middleFormItem,
+      showRequiredErr && hasFieldError && styles.errorMargin,
+    ]
+      .filter(Boolean)
+      .join(' ');
+  };
+
   return (
     <div className={styles.priceInputsRow}>
-      <ConfigProvider theme={localTheme}>
-        {inputs.map(({ label, name }, i) => (
-          <Form.Item
-            key={name}
-            label={label}
-            name={name}
-            rules={[priceInputValidator]}
-            validateStatus={showRequiredErr ? 'error' : undefined}
-            className={
-              i === 1
-                ? `${styles.middleFormItem} ${styles.priceLabel}`
-                : styles.priceLabel
-            }
-          >
-            <Input
-              type="number"
-              prefix="₴"
-              placeholder="0.00"
-              className={styles.priceInput}
-              onChange={() => onChange(name)}
-              onBlur={() => onBlur(name)}
-            />
-          </Form.Item>
-        ))}
-      </ConfigProvider>
+      {inputs.map(({ label, name }, idx) => (
+        <Form.Item
+          key={name}
+          label={label}
+          name={name}
+          rules={[priceInputValidator]}
+          validateStatus={showRequiredErr ? 'error' : undefined}
+          className={getItemClassName(name, idx)}
+        >
+          <NumberInput
+            value={form.getFieldValue(name) || ''}
+            prefix="₴"
+            placeholder="0.00"
+            className={styles.priceInput}
+            onChange={(val) => handleChange(name, val)}
+            onBlur={() => handleBlur(name)}
+          />
+        </Form.Item>
+      ))}
       {showRequiredErr && (
         <p className={styles.inputsError}>
           Принаймні одна ціна має бути вказана
@@ -107,16 +98,4 @@ export const PriceInputs = () => {
       )}
     </div>
   );
-};
-
-const localTheme = {
-  token: {
-    colorBorder: theme.N3,
-  },
-  components: {
-    InputNumber: {
-      inputFontSize: 16,
-      lineHeight: 1.5,
-    },
-  },
 };

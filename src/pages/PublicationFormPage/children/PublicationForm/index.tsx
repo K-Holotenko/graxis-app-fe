@@ -289,21 +289,14 @@ export const PublicationForm = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row>
-          <Col
-            xs={24}
-            sm={{ span: 10, offset: 14 }}
-            md={{ span: 7, offset: 17 }}
-            xl={{ span: 6, offset: 18 }}
-          >
-            <Button
-              className={styles.submitButton}
-              htmlType="submit"
-              label={isLoading ? '' : 'Опублікувати'}
-              isDisabled={!isValid}
-              isLoading={isLoading}
-            />
-          </Col>
+        <Row justify="end">
+          <Button
+            className={styles.submitButton}
+            htmlType="submit"
+            label={isLoading ? '' : 'Опублікувати'}
+            isDisabled={!isValid}
+            isLoading={isLoading}
+          />
         </Row>
       </Form>
       <SuccessModal isModalOpen={isModalOpen} handleClose={handleModalClose} />
