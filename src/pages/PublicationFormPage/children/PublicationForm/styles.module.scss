@@ -26,6 +26,10 @@
   .textArea {
     font-size: 18px;
   }
+
+  .submitButton {
+    width: 240px !important;
+  }
 }
 
 @media (min-width: variables.$media-md) {
