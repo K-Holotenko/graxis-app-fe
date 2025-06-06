@@ -71,11 +71,15 @@ export const SearchPage = () => {
     });
   };
 
+  const title = searchParams.get('title');
+  const city = searchParams.get('city');
+  const categories = searchParams.get('categories');
+
   useEffect(() => {
     fetchPublications(searchParams, (data) => {
       setPublicationsPage(data);
     });
-  }, [searchParams]);
+  }, [title, city, categories]);
 
   return (
     <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>
