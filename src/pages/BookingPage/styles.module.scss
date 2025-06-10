@@ -1,0 +1,12 @@
+.arrowLeft {
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.tabs {
+  :global {
+    .ant-tabs-nav::before {
+      display: none;
+    }
+  }
+}

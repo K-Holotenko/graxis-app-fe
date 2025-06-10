@@ -8,6 +8,7 @@ export const ROUTES = {
   ADD_PUBLICATION: '/add-publication',
   EDIT_PUBLICATION: '/edit-publication/:id',
   PUBLICATION: '/publication/:id',
+  BOOKING: '/booking/:id',
   SEARCH_RESULTS: '/search-results',
   NOTIFICATIONS: '/notifications',
   PAYMENT: '/payment',
