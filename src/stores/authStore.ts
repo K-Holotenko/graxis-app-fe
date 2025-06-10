@@ -64,6 +64,7 @@ export const useAuthStore = create<AuthState>((set) => ({
           // Now, get a guaranteed fresh token. Using true is still best practice.
           const token = await user.getIdToken(true);
 
+          // TODO set cookie with more secure options
           CookieService.setCookie('accessToken', token);
 
           // Check for the user in your DB.

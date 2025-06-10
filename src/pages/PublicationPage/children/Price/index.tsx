@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Dayjs } from 'dayjs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Heading } from 'src/components/Heading';
 import { Picker } from 'src/pages/PublicationPage/children/Picker';
@@ -12,6 +12,7 @@ import {
 import { Publication } from 'src/services/PublicationService';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
 import { PickerFooter } from 'src/pages/PublicationPage/children/PickerFooter';
+import { useBookingStore } from 'src/stores/bookingStore';
 
 import styles from './styles.module.scss';
 
@@ -23,9 +24,9 @@ interface PriceProps {
 
 export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
   const { requireAuth } = useRequireAuth();
-
+  const navigate = useNavigate();
   const location = useLocation();
-
+  const { createBooking } = useBookingStore();
   const [selectedRange, setSelectedRange] = useState<
     [Dayjs | null, Dayjs | null]
   >([null, null]);
@@ -41,22 +42,27 @@ export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
     [selectedRange, prices]
   );
 
-  const handleButtonClick = (): void => {
+  const handleButtonClick = async (): Promise<void> => {
     if (isRangeSelected) {
       const pathWithDate = location.pathname + location.search;
+      const publicationId = location.pathname.split('/')[2];
+      const startDate = selectedRange[0]?.format('YYYY-MM-DD');
+      const endDate = selectedRange[1]?.format('YYYY-MM-DD');
 
       requireAuth(pathWithDate);
+      const booking = await createBooking(startDate, endDate, publicationId);
+
+      if (booking) {
+        navigate(`/booking/${booking.id}`);
+      }
     }
   };
 
-  const priceItemWidthClassMap = {
+  const priceItemWidthClassMap: Record<number, string> = {
     1: styles.singlePrice,
     2: styles.dualPrice,
     3: styles.multiPrice,
   };
-
-  const getPriceItemClass = () =>
-    priceItemWidthClassMap[prices.length as 1 | 2 | 3];
 
   return (
     <section>
@@ -67,7 +73,7 @@ export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
         {prices.map(({ price, pricingPeriod }) => (
           <div
             key={pricingPeriod}
-            className={`${styles.priceItem} ${getPriceItemClass()}`}
+            className={`${styles.priceItem} ${priceItemWidthClassMap[prices.length]}`}
           >
             <dt className={styles.priceAmount}>₴{price}</dt>
             <dd className={styles.pricePeriod}>
