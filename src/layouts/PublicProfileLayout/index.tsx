@@ -23,7 +23,7 @@ export const PublicProfileLayout = ({
           <Alert
             message={
               <span>
-                Ця сторінка є повністю статичною. Всі данні замокані. Очікує на
+                Ця сторінка є повністю статичною. Всі дані замокані. Очікує на
                 реалізацію бекенду{' '}
                 <a href="https://graxis-web.atlassian.net/browse/GRX-399">
                   GRX-399
