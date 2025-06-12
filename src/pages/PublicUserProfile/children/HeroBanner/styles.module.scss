@@ -1,0 +1,95 @@
+@use 'src/styles/variables';
+
+.heroBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 342px;
+  // background:
+  //   linear-gradient(to top left, variables.$secondary, variables.$primary),
+  //   linear-gradient(to bottom right, variables.$secondary, variables.$primary);
+  // background-blend-mode: screen;
+  background-color: variables.$N2;
+  border-radius: 8px;
+}
+
+.avatar {
+  margin-bottom: 28px;
+}
+
+.name {
+  font-family: variables.$font-heading;
+  font-size: 22px;
+  font-weight: 600;
+  color: variables.$N6;
+  line-height: 125%;
+}
+
+.lastTimeActive {
+  font-family: variables.$font-body;
+  font-size: 14px;
+  font-weight: 400;
+  color: variables.$N4;
+  line-height: 150%;
+  margin-bottom: 16px;
+}
+
+.location {
+  font-family: variables.$font-body;
+  font-size: 18px;
+  font-weight: 400;
+  color: variables.$N6;
+  line-height: 150%;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.summary {
+  font-family: variables.$font-body;
+  font-size: 16px;
+  font-weight: 600;
+  color: variables.$N6;
+  line-height: 150%;
+}
+
+@media (min-width: variables.$media-md) {
+  .heroBanner {
+    border-radius: 16px;
+    height: 516px;
+  }
+
+  .name {
+    line-height: 150%;
+    font-size: 28px;
+  }
+
+  .lastTimeActive {
+    margin-bottom: 16px;
+  }
+
+  .avatar {
+    margin-bottom: 24px;
+  }
+
+  .summary {
+    font-size: 24px;
+    line-height: 125%;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .name {
+    font-size: 48px;
+    line-height: 125%;
+  }
+
+  .heroBanner {
+    height: 570px;
+  }
+}
