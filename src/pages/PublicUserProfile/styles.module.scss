@@ -1,9 +1,5 @@
 @use 'src/styles/variables';
 
-.container {
-  margin-bottom: 40px;
-}
-
 .title {
   font-family: variables.$font-heading;
   font-size: 22px;
@@ -24,10 +20,6 @@
 }
 
 @media (min-width: variables.$media-md) {
-  .container {
-    margin-bottom: 80px;
-  }
-
   .title {
     font-size: 32px;
     margin-bottom: 40px;
