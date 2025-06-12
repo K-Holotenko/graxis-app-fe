@@ -27,7 +27,7 @@ interface AuthState {
   user: AuthUser | null;
   emailToVerify: string | null;
   isLoading: boolean;
-  initializeAuthListener: () => () => void;
+  initializeAuthListener: (fetchUser: () => Promise<AuthUser>) => () => void;
   loginWithEmail: (
     email: string,
     password: string,
@@ -53,17 +53,34 @@ export const useAuthStore = create<AuthState>((set) => ({
   confirmationResult: null,
   emailToVerify: null,
 
-  initializeAuthListener: () => {
+  initializeAuthListener: (fetchUser) => {
     set({ isLoading: true });
     const unsubscribe = onIdTokenChanged(firebaseAuth, async (user) => {
       if (user) {
-        const token = await user.getIdToken(true);
+        // A Firebase user session exists (or has been refreshed).
+        try {
+          const token = await user.getIdToken(); // The listener provides the fresh token.
 
-        // TODO set cookie with more secureoptions
-        CookieService.setCookie('accessToken', token);
+          CookieService.setCookie('accessToken', token);
 
-        set({ isAuthorized: true, user, isLoading: false });
+          // NOW, with a guaranteed fresh token, check for the user in DB.
+          const appUser = await fetchUser();
+
+          if (appUser) {
+            // Success: User is in Firebase AND your DB. They are fully authorized.
+            set({ isAuthorized: true, user, isLoading: false });
+          } else {
+            // User in Firebase, but not your DB. This is an invalid state.
+            await AuthService.signOut(); // This will trigger this listener again with user = null
+            set({ isAuthorized: false, user: null, isLoading: false });
+          }
+        } catch {
+          // This can happen if fetchUser fails (e.g., network error)
+          await AuthService.signOut();
+          set({ isAuthorized: false, user: null, isLoading: false });
+        }
       } else {
+        // No Firebase user, so they are not authorized. Clean up.
         CookieService.deleteCookie('accessToken');
         set({ isAuthorized: false, user: null, isLoading: false });
       }
@@ -131,7 +148,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       await AuthService.signOut();
 
       CookieService.deleteCookie('accessToken');
-      set({ isAuthorized: false, user: {} });
+      set({ isAuthorized: false, user: null, isLoading: false });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
