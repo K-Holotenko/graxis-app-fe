@@ -22,7 +22,7 @@ export const Owner = ({
     <Heading level={4} className={styles.heading}>
       Про власника
     </Heading>
-    <Link to={`/user/${id}`} className={styles.infoWrap}>
+    <Link to={`/profile/${id}`} className={styles.infoWrap}>
       <Avatar
         style={{ backgroundColor: theme.primary }}
         size={{ xs: 82, sm: 98, md: 98, lg: 98, xl: 98, xxl: 98 }}
