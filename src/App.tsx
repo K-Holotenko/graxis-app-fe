@@ -8,29 +8,14 @@ import { useUserStore } from './stores/userStore';
 import { ScrollRestorationWithoutPublicationPage } from './components/ScrollRestorationWithoutPublicationPage';
 
 const App = () => {
-  const { setAuthorized, initializeAuthListener } = useAuthStore();
+  const { initializeAuthListener } = useAuthStore();
   const { fetchUser } = useUserStore();
 
   useEffect(() => {
-    const unsubscribe = initializeAuthListener();
+    const unsubscribe = initializeAuthListener(fetchUser);
 
     return () => unsubscribe();
-  }, []);
-
-  // Checks if the user is present in the DB
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const user = await fetchUser();
-
-        setAuthorized(!!user);
-      } catch {
-        setAuthorized(false);
-      }
-    };
-
-    checkAuth();
-  }, [setAuthorized, fetchUser]);
+  }, [initializeAuthListener, fetchUser]);
 
   return (
     <>
