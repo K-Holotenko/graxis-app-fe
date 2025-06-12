@@ -12,6 +12,7 @@ import { AddUserInfoPage } from 'src/pages/AddUserInfoPage';
 import { MyPublicationsPage } from 'src/pages/MyPublicationsPage';
 import { NotFoundPage } from 'src/pages/NotFoundPage';
 import { ErrorPage } from 'src/pages/ErrorPage';
+import { PublicUserProfile } from 'src/pages/PublicUserProfile';
 import App from 'src/App';
 
 import { PrivateRoute } from './PrivateRoute';
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
             <MyPublicationsPage />
           </PrivateRoute>
         ),
+      },
+      {
+        path: ROUTES.PUBLIC_USER_PROFILE,
+        element: <PublicUserProfile />,
       },
     ],
   },
