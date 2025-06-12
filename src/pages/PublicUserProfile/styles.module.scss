@@ -1,0 +1,27 @@
+@use 'src/styles/variables';
+
+.title {
+  font-family: variables.$font-heading;
+  font-size: 22px;
+  font-weight: 600;
+  color: variables.$N6;
+  line-height: 125%;
+  margin-bottom: 20px;
+}
+
+.feedbackContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedbackTitle {
+  text-align: center;
+}
+
+@media (min-width: variables.$media-md) {
+  .title {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+}
