@@ -1,8 +1,27 @@
 import { render } from '@testing-library/react';
+import { vi } from 'vitest';
 
 import { TEXT } from 'src/config/constants';
 
 import { PopularGoods } from './index';
+
+vi.mock('firebase/app', async (importOriginal: () => Promise<unknown>) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    getApps: vi.fn(() => []),
+  };
+});
+
+vi.mock('firebase/auth', async (importOriginal: () => Promise<unknown>) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    getAuth: vi.fn(() => ({})),
+  };
+});
 
 describe('PopularGoods', () => {
   it('should display the title of popular goods', () => {

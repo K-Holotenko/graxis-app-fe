@@ -1,6 +1,7 @@
 import { GRAXIS_API_URL } from 'src/config/constants';
+import { User } from 'src/stores/userStore';
 
-import CookieService from './CookieService';
+import { api } from './api';
 
 export interface SignUpUser {
   name: string;
@@ -16,42 +17,25 @@ export interface UpdateUserData {
   avatar?: File;
 }
 
-export const signUp = async (user: SignUpUser): Promise<Response> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
-
+export const signUp = async (user: SignUpUser): Promise<User> => {
   const formData = new FormData();
 
   formData.append('name', user.name || '');
   formData.append('surname', user.surname || '');
   user?.avatar && formData.append('avatar', user.avatar);
 
-  const response = await fetch(`${GRAXIS_API_URL}/users/sign-up`, {
-    method: 'POST',
-    headers: {
-      Authorization: token,
-    },
-    body: formData,
-  });
+  const response = await api.post(`${GRAXIS_API_URL}/users/sign-up`, formData);
 
-  return response;
+  return response.data;
 };
 
-export const fetchUser = async (): Promise<Response> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+export const fetchUser = async (): Promise<User> => {
+  const response = await api.get(`${GRAXIS_API_URL}/users/me`);
 
-  const response = await fetch(`${GRAXIS_API_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Authorization: token,
-    },
-  });
-
-  return response;
+  return response.data;
 };
 
-export const updateUser = async (user: UpdateUserData): Promise<Response> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
-
+export const updateUser = async (user: UpdateUserData): Promise<User> => {
   const formData = new FormData();
 
   user?.name && formData.append('name', user.name);
@@ -60,18 +44,7 @@ export const updateUser = async (user: UpdateUserData): Promise<Response> => {
   user?.phoneNumber && formData.append('phoneNumber', user.phoneNumber);
   user?.avatar && formData.append('avatar', user.avatar);
 
-  try {
-    // Intentionally use an incorrect URL to make the request fail
-    const response = await fetch(`${GRAXIS_API_URL}/users/update`, {
-      method: 'PUT',
-      headers: {
-        Authorization: token,
-      },
-      body: formData,
-    });
+  const response = await api.put('/users/update', formData);
 
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  return response.data;
 };

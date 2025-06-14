@@ -4,6 +4,7 @@ import PageNotFound from 'src/assets/images/page-not-found.svg?react';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { AppLayout } from 'src/layouts/AppLayout';
+import { ButtonTypes } from 'src/config/constants';
 
 import styles from './styles.module.scss';
 
@@ -14,15 +15,20 @@ export const NotFoundPage = () => {
     <AppLayout>
       <div className={styles.container}>
         <PageNotFound className={styles.pageNotFound} />
-        <p className={styles.text}>
-          Упс! Сторінка не існує, або доступна тільки для авторизованих
-          користувачів
-        </p>
-        <Button
-          className={styles.button}
-          label="На головну"
-          onClick={() => navigate(ROUTES.HOME)}
-        />
+        <p className={styles.text}>Упс! Сторінка не існує.</p>
+        <div className={styles.buttons}>
+          <Button
+            className={styles.button}
+            type={ButtonTypes.default}
+            label="Назад"
+            onClick={() => navigate(-1)}
+          />
+          <Button
+            className={styles.button}
+            label="На головну"
+            onClick={() => navigate(ROUTES.HOME)}
+          />
+        </div>
       </div>
     </AppLayout>
   );

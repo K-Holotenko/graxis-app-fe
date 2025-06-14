@@ -2,7 +2,7 @@ import {
   ConfirmationResult,
   User,
   AuthErrorCodes,
-  onIdTokenChanged,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { FirebaseError } from '@firebase/util';
 import { create } from 'zustand';
@@ -27,6 +27,7 @@ interface AuthState {
   user: AuthUser | null;
   emailToVerify: string | null;
   isLoading: boolean;
+  isAppInitializing: boolean;
   initializeAuthListener: (fetchUser: () => Promise<AuthUser>) => () => void;
   loginWithEmail: (
     email: string,
@@ -41,7 +42,7 @@ interface AuthState {
   loginWithGoogle: (
     showError: (err: string) => void
   ) => Promise<AuthUser | void>;
-  signOut: (showError: (err: string) => void) => Promise<void>;
+  signOut: (showError?: (err: string) => void) => Promise<void>;
   setAuthorized: (state: boolean) => void;
   confirmationResult: ConfirmationResult | null;
 }
@@ -52,37 +53,60 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   confirmationResult: null,
   emailToVerify: null,
-
+  isAppInitializing: true,
   initializeAuthListener: (fetchUser) => {
     set({ isLoading: true });
-    const unsubscribe = onIdTokenChanged(firebaseAuth, async (user) => {
+    // Use onAuthStateChanged for a reliable initial check on page load.
+    const unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
       if (user) {
-        // A Firebase user session exists (or has been refreshed).
+        // The user session has been successfully restored.
         try {
-          const token = await user.getIdToken(); // The listener provides the fresh token.
+          // Now, get a guaranteed fresh token. Using true is still best practice.
+          const token = await user.getIdToken(true);
 
           CookieService.setCookie('accessToken', token);
 
-          // NOW, with a guaranteed fresh token, check for the user in DB.
+          // Check for the user in your DB.
           const appUser = await fetchUser();
 
           if (appUser) {
-            // Success: User is in Firebase AND your DB. They are fully authorized.
-            set({ isAuthorized: true, user, isLoading: false });
+            // Success: User is fully authorized.
+            set({
+              isAuthorized: true,
+              user,
+              isLoading: false,
+              isAppInitializing: false,
+            });
           } else {
-            // User in Firebase, but not your DB. This is an invalid state.
-            await AuthService.signOut(); // This will trigger this listener again with user = null
-            set({ isAuthorized: false, user: null, isLoading: false });
+            // User in Firebase, but not your DB. Sign them out.
+            await AuthService.signOut();
+            set({
+              isAuthorized: false,
+              user: null,
+              isLoading: false,
+              isAppInitializing: false,
+            });
           }
         } catch {
-          // This can happen if fetchUser fails (e.g., network error)
           await AuthService.signOut();
-          set({ isAuthorized: false, user: null, isLoading: false });
+          set({
+            isAuthorized: false,
+            user: null,
+            isLoading: false,
+            isAppInitializing: false,
+          });
         }
       } else {
-        // No Firebase user, so they are not authorized. Clean up.
+        // onAuthStateChanged confirmed there is no valid session.
+        // eslint-disable-next-line no-console
+        console.log('Firebase confirms no user is signed in.');
         CookieService.deleteCookie('accessToken');
-        set({ isAuthorized: false, user: null, isLoading: false });
+        set({
+          isAuthorized: false,
+          user: null,
+          isLoading: false,
+          isAppInitializing: false,
+        });
       }
     });
 
@@ -151,7 +175,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ isAuthorized: false, user: null, isLoading: false });
     } catch (err) {
       if (err instanceof FirebaseError) {
-        showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
+        showError?.(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
         throw err;
       }
     }

@@ -1,10 +1,11 @@
 import { UploadFile } from 'antd';
+import axios from 'axios';
 
 import { GRAXIS_API_URL } from 'src/config/constants';
 import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
 import { PricingPeriod } from 'src/pages/PublicationPage/children/Price/utils/count';
 
-import CookieService from './CookieService';
+import { api } from './api';
 
 interface Price {
   price: number;
@@ -67,12 +68,11 @@ export interface PublicationPage {
   nextPage: number | null;
 }
 
-const PUBLICATIONS_API_URL = `${GRAXIS_API_URL}/publications`;
+const PUBLICATIONS_API_URL = '/publications';
 
 export const createPublication = async (
   publicationData: CreatePublicationData
 ): Promise<Publication> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
   const formData = new FormData();
 
   formData.append('categoryName', publicationData.categoryName);
@@ -85,47 +85,31 @@ export const createPublication = async (
     if (originFileObj) formData.append('files', originFileObj);
   });
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}`, {
-    method: 'POST',
-    headers: { Authorization: token },
-    body: formData,
-  });
+  const response = await api.post(`${PUBLICATIONS_API_URL}`, formData);
 
-  const responseBody = await response.json();
-
-  return responseBody;
+  return response.data;
 };
 
 export const getAllPublications = async (
   search: string = ''
 ): Promise<PublicationPage> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+  const response = await axios.get(
+    `${GRAXIS_API_URL}${PUBLICATIONS_API_URL}/search${search}`
+  );
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}/search${search}`, {
-    method: 'GET',
-    headers: { Authorization: token },
-  });
-
-  const responseBody = await response.json();
-
-  return responseBody;
+  return response.data;
 };
 
 export const getPublicationById = async (id: string): Promise<Publication> => {
-  const response = await fetch(`${PUBLICATIONS_API_URL}/${id}`, {
-    method: 'GET',
-  });
+  const response = await axios.get(`${PUBLICATIONS_API_URL}/${id}`);
 
-  const responseBody = await response.json();
-
-  return responseBody;
+  return response.data;
 };
 
 export const updatePublication = async (
   publicationData: CreatePublicationData,
   id?: string
 ): Promise<MyPublication> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
   const formData = new FormData();
 
   formData.append('categoryName', publicationData.categoryName);
@@ -138,66 +122,32 @@ export const updatePublication = async (
     if (originFileObj) formData.append('files', originFileObj);
   });
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}/${id}`, {
-    method: 'PATCH',
-    headers: { Authorization: token },
-    body: formData,
-  });
+  const response = await api.patch(`${PUBLICATIONS_API_URL}/${id}`, formData);
 
-  const responseBody = await response.json();
-
-  return responseBody;
+  return response.data;
 };
 
 export const getMyPublicationById = async (
   id: string
 ): Promise<MyPublication> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+  const response = await api.get(`${PUBLICATIONS_API_URL}/my/${id}`);
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}/my/${id}`, {
-    method: 'GET',
-    headers: { Authorization: token },
-  });
-
-  const responseBody = await response.json();
-
-  return responseBody;
+  return response.data;
 };
 
 export const deletePublicationImageById = async (
   publicationId: string | undefined,
   imageId?: string
 ): Promise<string> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
-
-  const response = await fetch(
-    `${PUBLICATIONS_API_URL}/${publicationId}/image/${imageId}`,
-    {
-      method: 'DELETE',
-      headers: { Authorization: token },
-    }
+  const response = await api.delete(
+    `${PUBLICATIONS_API_URL}/${publicationId}/image/${imageId}`
   );
 
-  if (!response.ok) {
-    throw new Error('Failed to delete image');
-  }
-
-  const responseText = await response.text();
-
-  return responseText;
+  return response.data;
 };
 
 export const deletePublicationById = async (id: string): Promise<boolean> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+  const response = await api.delete(`${PUBLICATIONS_API_URL}/${id}`);
 
-  const response = await fetch(`${PUBLICATIONS_API_URL}/${id}`, {
-    method: 'DELETE',
-    headers: { Authorization: token },
-  });
-
-  if (!response.ok) {
-    throw new Error();
-  }
-
-  return true;
+  return response.data;
 };
