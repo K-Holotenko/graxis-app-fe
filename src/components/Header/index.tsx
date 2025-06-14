@@ -38,8 +38,8 @@ export const AppHeader = () => {
   const navigate = useNavigate();
 
   const { width } = useWindowSize();
-  const { isAuthorized, signOut } = useAuthStore();
-  const { user, isAppInitializing } = useUserStore();
+  const { isAuthorized, signOut, isAppInitializing } = useAuthStore();
+  const { user } = useUserStore();
   const { openNotification } = useNotification();
   const { requireAuth } = useRequireAuth();
 

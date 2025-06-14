@@ -23,8 +23,17 @@
   color: variables.$N5;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+
 .button {
-  max-width: 200px;
+  width: 100% !important;
 }
 
 @media (min-width: variables.$media-sm) {
@@ -39,6 +48,14 @@
 
   .text {
     font-size: 26px;
+  }
+
+  .buttons {
+    flex-direction: row;
+  }
+
+  .button {
+    max-width: 200px;
   }
 }
 

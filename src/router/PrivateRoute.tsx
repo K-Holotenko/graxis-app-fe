@@ -12,12 +12,12 @@ interface PrivateRouteProps {
 }
 
 export const PrivateRoute = ({ children }: PrivateRouteProps): JSX.Element => {
-  const { isAuthorized } = useAuthStore();
-  const { user, isAppInitializing } = useUserStore();
+  const { isAuthorized, isAppInitializing } = useAuthStore();
+  const { user } = useUserStore();
 
   if (isAppInitializing) {
     return <AppLoadingPage />;
   }
 
-  return isAuthorized && user ? children : <Navigate to={ROUTES.NOT_FOUND} />;
+  return isAuthorized && user ? children : <Navigate to={ROUTES.LOGIN} />;
 };
