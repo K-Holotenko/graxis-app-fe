@@ -50,7 +50,7 @@ export const menuItems = [
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { isAuthorized, signOut } = useAuthStore();
-  const { user, isAppInitializing } = useUserStore();
+  const { user, isLoading } = useUserStore();
 
   const { requireAuth } = useRequireAuth();
   const { openNotification } = useNotification();
@@ -147,7 +147,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
                     </div>
                   </Dropdown>
                 )}
-                isLoading={isAppInitializing}
+                isLoading={isLoading}
               />
             </ConfigProvider>
           </Col>

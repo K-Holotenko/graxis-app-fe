@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { getAllCategories } from 'src/services/CategoriesService';
 
-interface Category {
+export interface Category {
   id: string;
   createdAt: string;
   name: string;
@@ -32,15 +32,9 @@ export const useCategoriesStore = create<CategoriesStore>((set, get) => ({
     try {
       const response = await getAllCategories();
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch categories');
-      }
+      set({ categories: response, isLoading: false });
 
-      const categoriesData: Category[] = await response.json();
-
-      set({ categories: categoriesData, isLoading: false });
-
-      return categoriesData;
+      return response;
     } catch {
       set({ isLoading: false });
       showError('Категорії наразі недоступні. Спробуйте ще раз');

@@ -49,6 +49,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
         await createUser({ name, surname }, triggerNotification);
       }
     } finally {
+      // TODO: This might be a problem if the user already jumped on the other page and then this block will be executed and returned him back to home page
       navigate(ROUTES.HOME);
     }
   };
