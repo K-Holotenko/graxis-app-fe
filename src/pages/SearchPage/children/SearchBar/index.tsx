@@ -35,6 +35,7 @@ export const SearchBar = () => {
       newParams.delete('title');
     }
 
+    newParams.delete('page');
     setSearchParams(newParams);
   };
 
@@ -48,12 +49,14 @@ export const SearchBar = () => {
       newParams.delete('city');
     }
 
+    newParams.delete('page');
     setSearchParams(newParams);
   };
 
   const onClear = () => {
     const newParams = new URLSearchParams(searchParams);
 
+    newParams.delete('page');
     newParams.delete('title');
     setSearchParams(newParams);
   };
