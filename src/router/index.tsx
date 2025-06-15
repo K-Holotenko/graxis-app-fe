@@ -13,6 +13,7 @@ import { MyPublicationsPage } from 'src/pages/MyPublicationsPage';
 import { NotFoundPage } from 'src/pages/NotFoundPage';
 import { ErrorPage } from 'src/pages/ErrorPage';
 import { PublicUserProfile } from 'src/pages/PublicUserProfile';
+import { BookingPage } from 'src/pages/BookingPage';
 import App from 'src/App';
 
 import { PrivateRoute } from './PrivateRoute';
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.PUBLICATION,
         element: <PublicationPage />,
+      },
+      {
+        path: ROUTES.BOOKING,
+        element: <BookingPage />,
       },
       { path: ROUTES.SEARCH_RESULTS, element: <SearchPage /> },
       {

@@ -6,9 +6,9 @@ export const ScrollRestorationConfig = () => {
   const { pathname } = useLocation();
 
   const isItemPage = matchPath(ROUTES.PUBLICATION, pathname);
-  const searchPage = matchPath(ROUTES.SEARCH_RESULTS, pathname);
+  const isSearchResultsPage = matchPath(ROUTES.SEARCH_RESULTS, pathname);
 
-  if (isItemPage || searchPage) {
+  if (isItemPage || isSearchResultsPage) {
     return null;
   }
 
