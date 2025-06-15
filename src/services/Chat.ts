@@ -28,7 +28,7 @@ export const getChat = async (): Promise<unknown> => {
   const token = `Bearer ${CookieService.getCookie('accessToken')}`;
 
   const response = await fetch(
-    `${GRAXIS_API_URL}/chat/HuBvtmVJ4rQpydDW9SW3/message`,
+    `${GRAXIS_API_URL}/chat/fhiFbu5rrVNlBMsrHLsP/message`,
     {
       method: 'GET',
       headers: { Authorization: token },
@@ -41,3 +41,23 @@ export const getChat = async (): Promise<unknown> => {
 
   return response.json();
 };
+
+export const sendMessage = async (text: string): Promise<unknown> => {
+  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+
+  const response = await fetch(
+    `${GRAXIS_API_URL}/chat/fhiFbu5rrVNlBMsrHLsP/message`,
+    {
+      method: 'POST',
+      headers: { Authorization: token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to send message');
+  }
+
+  return response.json();
+};
+//vHer1mSrEhL1zdEZ9Mp8 - bookingId
