@@ -6,7 +6,6 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
 import { changeBookingStatus } from 'src/services/Booking';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { usePublication } from 'src/hooks/usePublication';
 
 import styles from './styles.module.scss';
 
@@ -14,12 +13,11 @@ export const BookingDialog = () => {
   const { width } = useWindowSize();
   const isTablet = width < SCREEN_WIDTH.XL;
   const { booking } = useBookingStore();
-  const { isEditable } = usePublication();
 
   return (
     <Row className={styles.bookingDialog}>
       <Col xs={isTablet ? 24 : 14} className={styles.buttonsContainer}>
-        {!isEditable && (
+        {
           <Button
             type={ButtonTypes.default}
             className={styles.button}
@@ -28,8 +26,8 @@ export const BookingDialog = () => {
               changeBookingStatus(booking!.id, BookingStatus.CANCELLED)
             }
           />
-        )}
-        {isEditable && (
+        }
+        {
           <>
             <Button
               type={ButtonTypes.default}
@@ -46,7 +44,7 @@ export const BookingDialog = () => {
               }}
             />
           </>
-        )}
+        }
       </Col>
     </Row>
   );

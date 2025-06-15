@@ -9,7 +9,7 @@ import { BookingDialog } from 'src/pages/BookingPage/children/BookingDialog';
 import ArrowLeft from 'src/assets/icons/arrow-left.svg?react';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH } from 'src/config/constants';
-import { createChat } from 'src/services/Chat';
+import { createChat, sendMessage } from 'src/services/Chat';
 
 import { Booking } from './children/Booking';
 import { Chat } from './children/Chat';
@@ -34,7 +34,7 @@ export const BookingPage = () => {
   const isMobile = width < SCREEN_WIDTH.SM;
 
   const [, setIsConnected] = useState<boolean>(socket.connected);
-  const [, setFooEvents] = useState<string[]>([]);
+  const [newMessage, setNewMessage] = useState<string[]>([]);
 
   useEffect(() => {
     const onConnect = () => {
@@ -45,20 +45,23 @@ export const BookingPage = () => {
       setIsConnected(false);
     };
 
-    const onFooEvent = (value: string) => {
-      setFooEvents((previous) => [...previous, value]);
+    const onNewMessageEvent = (value: string) => {
+      setNewMessage((previous) => [...previous, value]);
     };
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-    socket.on('foo', onFooEvent);
+    socket.on('chat.new-message', onNewMessageEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
-      socket.off('foo', onFooEvent);
+      socket.off('chat.new-message', onNewMessageEvent);
     };
   }, []);
+
+  // eslint-disable-next-line no-console
+  console.log(newMessage);
 
   return (
     <PageContainer pageTitle="Профіль">
@@ -79,6 +82,11 @@ export const BookingPage = () => {
         )}
         <BookingDialog />
         <Button onClick={async () => await createChat()}>Create chat</Button>
+        <Button
+          onClick={async () => await sendMessage('Hello on the other side')}
+        >
+          Send message
+        </Button>
       </AppLayout>
     </PageContainer>
   );
