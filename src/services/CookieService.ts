@@ -9,6 +9,7 @@ export class CookieService {
           sameSite?: 'Strict' | 'Lax' | 'None';
           domain?: string;
           maxAge?: number;
+          httpOnly?: boolean;
         }
       | string = '/'
   ): void {
@@ -19,6 +20,7 @@ export class CookieService {
       sameSite?: 'Strict' | 'Lax' | 'None';
       domain?: string;
       maxAge?: number;
+      httpOnly?: boolean;
     } = {};
 
     if (typeof options === 'string') {
@@ -48,6 +50,10 @@ export class CookieService {
 
     if (cookieOptions.maxAge !== undefined) {
       cookieString += `; Max-Age=${cookieOptions.maxAge}`;
+    }
+
+    if (cookieOptions.httpOnly) {
+      cookieString += '; HttpOnly';
     }
 
     document.cookie = cookieString;

@@ -1,0 +1,29 @@
+@use 'src/styles/variables';
+
+.bookingDialog {
+  margin-top: 40px;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .buttonsContainer {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .button {
+    width: 200px !important;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .bookingDialog {
+    margin-top: 24px;
+  }
+}

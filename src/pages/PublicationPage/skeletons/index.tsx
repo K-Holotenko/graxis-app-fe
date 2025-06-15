@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { Skeleton } from 'antd';
 
 import styles from './styles.module.scss';
 
-export const PriceSkeleton = () => (
+const PriceSkeletonComponent = () => (
   <>
     <div className={styles.priceSkeletonWrapper}>
       {[...Array(3)].map(() => (
@@ -18,6 +19,8 @@ export const PriceSkeleton = () => (
     </div>
   </>
 );
+
+export const PriceSkeleton = memo(PriceSkeletonComponent);
 
 export const MapSkeleton = () => (
   <Skeleton.Image active className={styles.mapSkeleton} />
