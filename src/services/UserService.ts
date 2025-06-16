@@ -48,3 +48,9 @@ export const updateUser = async (user: UpdateUserData): Promise<User> => {
 
   return response.data;
 };
+
+export const getUserById = async (id: string): Promise<User> => {
+  const response = await api.get(`${GRAXIS_API_URL}/users/${id}`);
+
+  return response.data;
+};
