@@ -101,7 +101,9 @@ export const getAllPublications = async (
 };
 
 export const getPublicationById = async (id: string): Promise<Publication> => {
-  const response = await axios.get(`${PUBLICATIONS_API_URL}/${id}`);
+  const response = await axios.get(
+    `${GRAXIS_API_URL}${PUBLICATIONS_API_URL}/${id}`
+  );
 
   return response.data;
 };

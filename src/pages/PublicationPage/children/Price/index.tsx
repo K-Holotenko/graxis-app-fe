@@ -23,10 +23,12 @@ interface PriceProps {
 }
 
 export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
-  const { requireAuth } = useRequireAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { requireAuth } = useRequireAuth();
   const { createBooking } = useBookingStore();
+
   const [selectedRange, setSelectedRange] = useState<
     [Dayjs | null, Dayjs | null]
   >([null, null]);
@@ -46,10 +48,12 @@ export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
     if (isRangeSelected) {
       const pathWithDate = location.pathname + location.search;
       const publicationId = location.pathname.split('/')[2];
+
       const startDate = selectedRange[0]?.format('YYYY-MM-DD');
       const endDate = selectedRange[1]?.format('YYYY-MM-DD');
 
       requireAuth(pathWithDate);
+
       const booking = await createBooking(startDate, endDate, publicationId);
 
       if (booking) {

@@ -1,6 +1,6 @@
-import { GRAXIS_API_URL } from 'src/config/constants';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
-import CookieService from 'src/services/CookieService';
+
+import { api } from './api';
 
 export interface Booking {
   id: string;
@@ -33,62 +33,34 @@ export const createBooking = async (
   endDate: string | undefined,
   publicationId: string
 ): Promise<Booking> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
-
-  const response = await fetch(`${GRAXIS_API_URL}/booking/create`, {
-    method: 'POST',
-    headers: {
-      Authorization: token,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      startDate,
-      endDate,
-      publicationId,
-    }),
+  const response = await api.post(`/booking/create`, {
+    startDate,
+    endDate,
+    publicationId,
   });
 
-  const responseBody = await response.json();
-
-  return responseBody;
+  return response.data;
 };
 
 export const getBooking = async (id: string): Promise<Booking> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+  const response = await api.get(`/booking/${id}`);
 
-  const response = await fetch(`${GRAXIS_API_URL}/booking/${id}`, {
-    method: 'GET',
-    headers: {
-      Authorization: token,
-    },
-  });
+  return response.data;
+};
 
-  const responseBody = await response.json();
+export const getAllMyBookings = async (): Promise<Booking[]> => {
+  const response = await api.get(`/booking/all`);
 
-  return responseBody;
+  return response.data;
 };
 
 export const changeBookingStatus = async (
   id: string,
   bookingStatus: BookingStatus
 ): Promise<Booking> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+  const response = await api.put(`/booking/change-status/${id}`, {
+    bookingStatus,
+  });
 
-  const response = await fetch(
-    `${GRAXIS_API_URL}/booking/change-status/${id}`,
-    {
-      method: 'PUT',
-      headers: {
-        Authorization: token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        bookingStatus,
-      }),
-    }
-  );
-
-  const responseBody = await response.json();
-
-  return responseBody;
+  return response.data;
 };
