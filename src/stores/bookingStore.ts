@@ -1,27 +1,62 @@
 import { create } from 'zustand';
 
-import { Booking, createBooking, getBooking } from 'src/services/Booking';
+import {
+  Booking,
+  createBooking,
+  getAllMyBookings,
+  getBooking,
+} from 'src/services/Booking';
+import { getChat } from 'src/services/Chat';
+
+export interface ChatMessage {
+  id: string;
+  text: string;
+  senderId: string;
+  sentAt: string;
+}
+
+export interface Chat {
+  id: string;
+  bookingId: string;
+  messages: ChatMessage[];
+  updatedAt: string;
+  participants: {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    surname: string;
+    hasNewMessages: boolean;
+  }[];
+}
 
 interface BookingStore {
   booking: Booking | null;
-  isLoading: boolean;
+  bookings: Booking[] | null;
+  isBookingLoading: boolean;
+  chat: Chat | null;
+  isChatLoading: boolean;
   createBooking: (
     startDate: string | undefined,
     endDate: string | undefined,
     publicationId: string
   ) => Promise<Booking | null>;
   getBooking: (id: string) => Promise<Booking | null>;
+  getAllMyBookings: () => Promise<Booking[] | null>;
+  getChat: (id: string) => Promise<Chat | null>;
 }
 
 export const useBookingStore = create<BookingStore>((set) => ({
   booking: null,
-  isLoading: false,
+  bookings: null,
+  isBookingLoading: false,
+  chat: null,
+  isChatLoading: false,
   createBooking: async (
     startDate: string | undefined,
     endDate: string | undefined,
     publicationId: string
   ) => {
-    set({ isLoading: true });
+    set({ isBookingLoading: true });
 
     try {
       const response = await createBooking(startDate, endDate, publicationId);
@@ -33,11 +68,11 @@ export const useBookingStore = create<BookingStore>((set) => ({
       // showError('Категорії наразі недоступні. Спробуйте ще раз');
       return null;
     } finally {
-      set({ isLoading: false });
+      set({ isBookingLoading: false });
     }
   },
   getBooking: async (id: string) => {
-    set({ isLoading: true });
+    set({ isBookingLoading: true });
 
     try {
       const response = await getBooking(id);
@@ -48,7 +83,37 @@ export const useBookingStore = create<BookingStore>((set) => ({
     } catch {
       return null;
     } finally {
-      set({ isLoading: false });
+      set({ isBookingLoading: false });
+    }
+  },
+  getAllMyBookings: async () => {
+    set({ isBookingLoading: true });
+
+    try {
+      const response = await getAllMyBookings();
+
+      set({ bookings: response });
+
+      return response;
+    } catch {
+      return null;
+    } finally {
+      set({ isBookingLoading: false });
+    }
+  },
+  getChat: async (id: string) => {
+    set({ isChatLoading: true });
+
+    try {
+      const response = await getChat(id);
+
+      set({ chat: response as Chat });
+
+      return response as Chat;
+    } catch {
+      return null;
+    } finally {
+      set({ isChatLoading: false });
     }
   },
 }));

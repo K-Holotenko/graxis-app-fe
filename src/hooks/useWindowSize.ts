@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 
 interface UseWindowSizeRes {
   width: number;
@@ -11,17 +11,31 @@ export const useWindowSize = (): UseWindowSizeRes => {
     height: window.innerHeight,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const handleResize = (): void => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      // it will only update after the user has finished resizing or paused for 150ms
+      timeoutId = setTimeout(() => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }, 150);
     };
 
     window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []);
 
   return windowSize;
