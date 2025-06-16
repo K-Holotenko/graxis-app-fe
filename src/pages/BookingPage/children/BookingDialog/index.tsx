@@ -27,7 +27,7 @@ export const BookingDialog = () => {
             }
           />
         }
-        {
+        {/* {
           <>
             <Button
               type={ButtonTypes.default}
@@ -44,7 +44,7 @@ export const BookingDialog = () => {
               }}
             />
           </>
-        }
+        } */}
       </Col>
     </Row>
   );

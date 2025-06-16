@@ -1,63 +1,30 @@
-import { GRAXIS_API_URL } from 'src/config/constants';
+import { api } from './api';
 
-import CookieService from './CookieService';
-
-export const createChat = async (): Promise<unknown> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
-
-  const response = await fetch(`${GRAXIS_API_URL}/chat/create`, {
-    method: 'POST',
-    headers: { Authorization: token, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      bookingId: '5MsyAzI2DY18Li4md9zP',
-      participantIds: [
-        'FL4frfAtbdbFI6YhcTAkkwJ2r242',
-        'X0RcrNMkOmROrAv54VHA5XZFlVE3',
-      ],
-    }),
+export const createChat = async (
+  bookingId: string,
+  participantIds: string[]
+): Promise<unknown> => {
+  const response = await api.post(`/chat/create`, {
+    bookingId,
+    participantIds,
   });
 
-  if (!response.ok) {
-    throw new Error('Failed to create chat');
-  }
-
-  return response.json();
+  return response.data;
 };
 
-export const getChat = async (): Promise<unknown> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+export const getChat = async (id: string): Promise<unknown> => {
+  const response = await api.get(`/chat/${id}`);
 
-  const response = await fetch(
-    `${GRAXIS_API_URL}/chat/fhiFbu5rrVNlBMsrHLsP/message`,
-    {
-      method: 'GET',
-      headers: { Authorization: token },
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error('Failed to get chat');
-  }
-
-  return response.json();
+  return response.data;
 };
 
-export const sendMessage = async (text: string): Promise<unknown> => {
-  const token = `Bearer ${CookieService.getCookie('accessToken')}`;
+export const sendMessage = async (
+  id: string,
+  text: string
+): Promise<unknown> => {
+  const response = await api.post(`/chat/${id}/message`, {
+    text,
+  });
 
-  const response = await fetch(
-    `${GRAXIS_API_URL}/chat/fhiFbu5rrVNlBMsrHLsP/message`,
-    {
-      method: 'POST',
-      headers: { Authorization: token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error('Failed to send message');
-  }
-
-  return response.json();
+  return response.data;
 };
-//vHer1mSrEhL1zdEZ9Mp8 - bookingId
