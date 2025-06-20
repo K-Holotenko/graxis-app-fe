@@ -10,12 +10,14 @@ interface SearchLayoutProps {
   filters: ReactNode;
   publicationsGrids: ReactNode;
   loadMoreButton: ReactNode;
+  pagination: ReactNode;
 }
 
 export const SearchLayout = ({
   filters,
   publicationsGrids,
   loadMoreButton,
+  pagination,
 }: SearchLayoutProps) => (
   <>
     <Row className={styles.topContentContainer}>
@@ -36,6 +38,9 @@ export const SearchLayout = ({
     <ConfigProvider theme={localTheme}>
       <FloatButton.BackTop className={styles.floatBtn} icon={<ArrowUpIcon />} />
     </ConfigProvider>
+    <Row className={styles.paginationContainer}>
+      <Col span={24}>{pagination}</Col>
+    </Row>
   </>
 );
 

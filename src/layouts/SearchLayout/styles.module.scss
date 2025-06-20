@@ -10,7 +10,7 @@
 }
 
 .bottomContentContainer {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   width: 100%;
   justify-content: center;
 }
@@ -24,13 +24,17 @@
   left: 100%;
 }
 
+.paginationContainer {
+  margin-bottom: 40px;
+}
+
 @media (min-width: variables.$media-md) {
   .topContentContainer {
     margin-top: 40px;
     margin-bottom: 24px;
   }
 
-  .bottomContentContainer {
+  .paginationContainer {
     margin-bottom: 80px;
   }
 }
@@ -45,7 +49,7 @@
     margin-bottom: 80px;
   }
 
-  .bottomContentContainer {
+  .paginationContainer {
     margin-bottom: 140px;
   }
 }
