@@ -1,50 +1,49 @@
 import { Col, Row } from 'antd';
 
 import { Button } from 'src/components/Button';
-import { ButtonTypes, SCREEN_WIDTH } from 'src/config/constants';
+import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
-import { changeBookingStatus } from 'src/services/Booking';
 import { useBookingStore } from 'src/stores/bookingStore';
+import { useUserStore } from 'src/stores/userStore';
+import { useBookingStatus } from 'src/hooks/useBookingStatus';
 
 import styles from './styles.module.scss';
+import {
+  getCurrentActions,
+  getUserRole,
+  UserRole,
+  type BookingAction,
+} from './utils';
 
 export const BookingDialog = () => {
   const { width } = useWindowSize();
   const isTablet = width < SCREEN_WIDTH.XL;
   const { booking } = useBookingStore();
+  const { user } = useUserStore();
+
+  const userRole: UserRole = getUserRole(booking, user?.id);
+  const { bookingStatus } = useBookingStatus();
+
+  const actions: BookingAction[] = getCurrentActions(bookingStatus, userRole);
+  const visibleActions = actions.filter((action) => action.isVisible);
+
+  if (visibleActions.length === 0) {
+    return null;
+  }
 
   return (
     <Row className={styles.bookingDialog}>
       <Col xs={isTablet ? 24 : 14} className={styles.buttonsContainer}>
-        {
+        {visibleActions.map((action) => (
           <Button
-            type={ButtonTypes.default}
+            key={action.id}
+            type={action.type}
             className={styles.button}
-            label="Скасувати"
-            onClick={() =>
-              changeBookingStatus(booking!.id, BookingStatus.CANCELLED)
-            }
+            label={action.label}
+            onClick={() => action.action(booking!.id)}
+            isDisabled={action.isDisabled}
           />
-        }
-        {/* {
-          <>
-            <Button
-              type={ButtonTypes.default}
-              className={styles.button}
-              label="Відхилити запит"
-              onClick={() => {}}
-            />
-            <Button
-              type={ButtonTypes.primary}
-              className={styles.button}
-              label="Підтвердити запит"
-              onClick={() => {
-                changeBookingStatus(booking!.id, BookingStatus.CONFIRMED);
-              }}
-            />
-          </>
-        } */}
+        ))}
       </Col>
     </Row>
   );

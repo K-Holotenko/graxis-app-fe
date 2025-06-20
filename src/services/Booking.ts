@@ -4,7 +4,7 @@ import { api } from './api';
 
 export interface Booking {
   id: string;
-  bookingStatus: 'PENDING';
+  bookingStatus: BookingStatus;
   chatId: string;
   chatShow: boolean;
   startDate: string;

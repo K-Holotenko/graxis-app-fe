@@ -27,6 +27,8 @@ export enum BookingStatus {
   COMPLETED = 'COMPLETED',
   RETURNED = 'RETURNED',
   RATED = 'RATED',
+  //This status is not available in the backend, but it is used in the frontend
+  PAID = 'PAID',
 }
 
 export enum PaymentStatus {
@@ -36,71 +38,7 @@ export enum PaymentStatus {
   REFUNDED = 'REFUNDED',
   REFUNDED_IN_PROGRESS = 'REFUNDED_IN_PROGRESS',
 }
-// Depending on the status, the steps will be rendered differently
-// For example, if the status is PENDING, the steps will be rendered as follows:
-// {
-//   title: 'Надіслано',
-//   icon: statusToIconMap.finish,
-//   status: 'finish',
-// },
-// {
-//   title: 'Прийнято',
-// },
-// {
-//   title: 'Сплачено',
-// },
-// {
-//   title: 'В оренді',
-// },
-// {
-//   title: 'Повернено',
-// },
-// {
-//   title: 'Відгук',
-// },
-// in case the status is CONFIRMED, the steps will be rendered as follows:
-// {
-//   title: 'Надіслано',
-//   icon: statusToIconMap.finish,
-//   status: 'finish',
-// },
-// {
-//   title: 'Прийнято',
-//   icon: statusToIconMap.finish,
-//   status: 'finish'
-// },
-// {
-//   title: 'В оренді',
-// },
-// {
-//   title: 'Повернено',
-// },
-// {
-//   title: 'Відгук',
-// },
-// in case the status is IN_PROGRESS, the steps will be rendered as follows:
-// {
-//   title: 'Надіслано',
-//   icon: statusToIconMap.finish,
-//   status: 'finish',
-// },
-// {
-//   title: 'Прийнято',
-//   icon: statusToIconMap.finish,
-//   status: 'finish'
-// },
-// {
-//   title: 'Сплачено',
-//   icon: statusToIconMap.finish,
-//   status: 'finish'
-// },
-// {
-//   title: 'Повернено',
-// },
-// {
-//   title: 'Відгук',
-// },
-// and so on
+
 const getStepStatus = (
   currentStatus: BookingStatus,
   stepIndex: number
@@ -111,7 +49,8 @@ const getStepStatus = (
   > = {
     [BookingStatus.PENDING]: 0,
     [BookingStatus.CONFIRMED]: 1,
-    [BookingStatus.IN_PROGRESS]: 2,
+    [BookingStatus.PAID]: 2,
+    [BookingStatus.IN_PROGRESS]: 3,
     [BookingStatus.COMPLETED]: 4,
     [BookingStatus.RETURNED]: 5,
     [BookingStatus.RATED]: 6,
