@@ -1,3 +1,4 @@
+import { ConfigProvider, Pagination } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ import {
   getAllPublications,
   PublicationPage,
 } from 'src/services/PublicationService';
+import { theme } from 'src/config/theme';
 
 import { PublicationsSection } from './children/PublicationsSection';
 import { SEARCH_RESULTS_CONFIG } from './utils/config';
@@ -20,6 +22,7 @@ export const SearchPage = () => {
   const [publicationsPage, setPublicationsPage] = useState<PublicationPage>({
     publications: [],
     nextPage: 1,
+    total: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -67,7 +70,26 @@ export const SearchPage = () => {
           ...nextPagePublications.publications,
         ],
         nextPage: nextPagePublications.nextPage,
+        total: nextPagePublications.total,
       }));
+    });
+  };
+
+  const handlePageChange = (page: number) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+
+    newSearchParams.set('page', String(page));
+
+    title && newSearchParams.set('title', title);
+    city && newSearchParams.set('city', city);
+    categories && newSearchParams.set('categories', categories);
+
+    setSearchParams(newSearchParams);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    fetchPublications(newSearchParams, (data) => {
+      setPublicationsPage(data);
     });
   };
 
@@ -97,8 +119,30 @@ export const SearchPage = () => {
               <LoadMore loadMore={loadMode} isLoading={isLoading} />
             )
           }
+          pagination={
+            !isLoading && (
+              <ConfigProvider theme={localTheme}>
+                <Pagination
+                  size="default"
+                  align="center"
+                  current={Number(searchParams.get('page')) || 1}
+                  pageSize={16}
+                  total={publicationsPage.total}
+                  onChange={handlePageChange}
+                />
+              </ConfigProvider>
+            )
+          }
         />
       </AppLayout>
     </PageContainer>
   );
+};
+
+const localTheme = {
+  token: {
+    colorPrimary: theme.primary,
+    colorBgTextActive: theme.N3,
+    colorBgTextHover: theme.N2,
+  },
 };
