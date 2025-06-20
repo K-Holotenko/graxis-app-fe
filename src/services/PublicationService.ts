@@ -66,6 +66,7 @@ export interface PublicationCard {
 export interface PublicationPage {
   publications: PublicationCard[];
   nextPage: number | null;
+  total: number;
 }
 
 const PUBLICATIONS_API_URL = '/publications';
