@@ -1,4 +1,7 @@
+import axios from 'axios';
+
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
+import { GRAXIS_API_URL } from 'src/config/constants';
 
 import { api } from './api';
 
@@ -61,6 +64,18 @@ export const changeBookingStatus = async (
   const response = await api.put(`/booking/change-status/${id}`, {
     bookingStatus,
   });
+
+  return response.data;
+};
+
+export const paymentTransaction = async (id: string): Promise<unknown> => {
+  const response = await axios.post(
+    `${GRAXIS_API_URL}/payment-transaction/mark-paid`,
+    {
+      bookingId: id,
+      transactionId: id,
+    }
+  );
 
   return response.data;
 };

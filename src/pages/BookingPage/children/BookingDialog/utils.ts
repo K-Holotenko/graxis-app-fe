@@ -1,6 +1,7 @@
 import { ButtonTypes } from 'src/config/constants';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
-import { changeBookingStatus } from 'src/services/Booking';
+import { ROUTES } from 'src/router/routes';
+import { changeBookingStatus, paymentTransaction } from 'src/services/Booking';
 
 export enum UserRole {
   RENTER = 'RENTER',
@@ -11,7 +12,7 @@ export interface BookingAction {
   id: string;
   label: string;
   type: ButtonTypes;
-  action: (bookingId: string) => void;
+  action: (bookingId: string, navigate?: (path: string) => void) => void;
   isVisible: boolean;
   isDisabled?: boolean;
 }
@@ -22,7 +23,10 @@ export type BookingDialogConfig = {
   };
 };
 
-export const bookingDialogConfig: BookingDialogConfig = {
+export const bookingDialogConfig: Omit<
+  BookingDialogConfig,
+  BookingStatus.BOOKED
+> = {
   [BookingStatus.PENDING]: {
     [UserRole.RENTER]: [
       {
@@ -60,8 +64,9 @@ export const bookingDialogConfig: BookingDialogConfig = {
         label: 'Скасувати бронювання',
         type: ButtonTypes.default,
         action: (bookingId: string) =>
-          // TODO: change to PAID
-          changeBookingStatus(bookingId, BookingStatus.CANCELLED),
+          paymentTransaction(bookingId).then(() => {
+            changeBookingStatus(bookingId, BookingStatus.PAID);
+          }),
         isVisible: true,
       },
       {
@@ -155,9 +160,10 @@ export const bookingDialogConfig: BookingDialogConfig = {
         id: 'return',
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
-        action: (bookingId: string) =>
-          // TODO: navigate renter to the publications page
-          changeBookingStatus(bookingId, BookingStatus.RETURNED),
+        action: (bookingId: string, navigate?: (path: string) => void) => {
+          changeBookingStatus(bookingId, BookingStatus.RETURNED);
+          navigate?.(ROUTES.SEARCH_RESULTS);
+        },
         isVisible: true,
       },
     ],
@@ -166,9 +172,10 @@ export const bookingDialogConfig: BookingDialogConfig = {
         id: 'confirm_return',
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
-        action: (bookingId: string) =>
-          // TODO: navigate owner to the publications page
-          changeBookingStatus(bookingId, BookingStatus.RETURNED),
+        action: (bookingId: string, navigate?: (path: string) => void) => {
+          changeBookingStatus(bookingId, BookingStatus.RETURNED);
+          navigate?.(ROUTES.SEARCH_RESULTS);
+        },
         isVisible: true,
       },
     ],
@@ -195,7 +202,7 @@ export const getUserRole = (
 
 // Helper function to get current actions
 export const getCurrentActions = (
-  bookingStatus: BookingStatus | null,
+  bookingStatus: Exclude<BookingStatus, BookingStatus.BOOKED> | null,
   userRole: UserRole
 ): BookingAction[] => {
   if (!bookingStatus) return [];
