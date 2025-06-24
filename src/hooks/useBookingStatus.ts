@@ -11,6 +11,10 @@ export const useBookingStatus = (): { bookingStatus: BookingStatus | null } => {
   );
 
   useEffect(() => {
+    setBookingStatus(booking?.bookingStatus || null);
+  }, [booking]);
+
+  useEffect(() => {
     socket.on('booking.status-update', (status: BookingStatus) => {
       setBookingStatus(status);
     });

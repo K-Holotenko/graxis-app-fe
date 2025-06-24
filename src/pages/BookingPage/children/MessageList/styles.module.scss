@@ -2,6 +2,8 @@
 
 .message {
   display: flex;
+  flex-wrap: wrap;
+  word-break: break-word;
   flex-direction: column;
   padding: 16px 12px;
   border-radius: 8px;

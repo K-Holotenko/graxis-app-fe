@@ -9,6 +9,7 @@ import { theme } from 'src/config/theme';
 import { Container } from 'src/pages/BookingPage/children/Container';
 import { Shelf } from 'src/pages/BookingPage/children/Shelf';
 import { useBookingStore } from 'src/stores/bookingStore';
+import { useBookingStatus } from 'src/hooks/useBookingStatus';
 
 import styles from './styles.module.scss';
 
@@ -27,8 +28,9 @@ export enum BookingStatus {
   COMPLETED = 'COMPLETED',
   RETURNED = 'RETURNED',
   RATED = 'RATED',
-  //This status is not available in the backend, but it is used in the frontend
+  //These statuses are not available in the backend, but it is used in the frontend
   PAID = 'PAID',
+  BOOKED = 'BOOKED',
 }
 
 export enum PaymentStatus {
@@ -50,20 +52,25 @@ const getStepStatus = (
     [BookingStatus.PENDING]: 0,
     [BookingStatus.CONFIRMED]: 1,
     [BookingStatus.PAID]: 2,
-    [BookingStatus.IN_PROGRESS]: 3,
-    [BookingStatus.COMPLETED]: 4,
-    [BookingStatus.RETURNED]: 5,
-    [BookingStatus.RATED]: 6,
+    [BookingStatus.BOOKED]: 3,
+    [BookingStatus.IN_PROGRESS]: 4,
+    [BookingStatus.COMPLETED]: 5,
+    [BookingStatus.RETURNED]: 6,
+    [BookingStatus.RATED]: 7,
   };
 
+  // Convert PAID to BOOKED for display purposes
+  const displayStatus =
+    currentStatus === BookingStatus.PAID ? BookingStatus.BOOKED : currentStatus;
+
   const currentStep =
-    currentStatus === BookingStatus.CANCELLED
+    displayStatus === BookingStatus.CANCELLED
       ? -1
       : (statusOrder[
-          currentStatus as Exclude<BookingStatus, BookingStatus.CANCELLED>
+          displayStatus as Exclude<BookingStatus, BookingStatus.CANCELLED>
         ] ?? -1);
 
-  if (currentStatus === BookingStatus.CANCELLED) {
+  if (displayStatus === BookingStatus.CANCELLED) {
     return stepIndex === 0 ? 'finish' : stepIndex === 2 ? 'error' : 'wait';
   }
 
@@ -74,7 +81,7 @@ const getStepStatus = (
   return 'wait';
 };
 
-const renderItems = (status: BookingStatus | undefined): StepProps[] => {
+const renderItems = (status: BookingStatus | null): StepProps[] => {
   const steps: StepProps[] = [
     { title: 'Надіслано' },
     { title: 'Прийнято' },
@@ -87,9 +94,14 @@ const renderItems = (status: BookingStatus | undefined): StepProps[] => {
 
   if (!status) return steps;
 
+  // Convert PAID to BOOKED for display purposes
+  const displayStatus =
+    status === BookingStatus.PAID ? BookingStatus.BOOKED : status;
+
   return steps.map((step, index) => {
-    const stepStatus = getStepStatus(status, index);
-    const isCancelled = status === BookingStatus.CANCELLED && index === 2;
+    const stepStatus = getStepStatus(displayStatus, index);
+    const isCancelled =
+      displayStatus === BookingStatus.CANCELLED && index === 2;
 
     return {
       ...step,
@@ -107,6 +119,7 @@ const renderItems = (status: BookingStatus | undefined): StepProps[] => {
 
 export const Booking = () => {
   const { booking, getBooking } = useBookingStore();
+  const { bookingStatus } = useBookingStatus();
   const params = useParams();
 
   useEffect(() => {
@@ -124,30 +137,13 @@ export const Booking = () => {
   return (
     <Container>
       <div className={styles.booking}>
-        <ConfigProvider
-          theme={{
-            token: {
-              lineWidth: 2,
-              colorSplit: theme.N3,
-              colorPrimary: theme.primary,
-              marginXS: 20,
-              lineHeight: 1.5,
-            },
-            components: {
-              Steps: {
-                titleLineHeight: 1.5,
-                fontSize: 16,
-                iconSizeSM: 20,
-              },
-            },
-          }}
-        >
+        <ConfigProvider theme={stepsTheme}>
           <Steps
             className={styles.steps}
             size="small"
             responsive={false}
             labelPlacement="vertical"
-            items={renderItems(booking?.bookingStatus as BookingStatus)}
+            items={renderItems(bookingStatus)}
           />
         </ConfigProvider>
       </div>
@@ -161,7 +157,6 @@ export const Booking = () => {
               alt={booking?.publication.title}
             />
           </div>
-
           <span className={styles.shelfItem}>{booking?.publication.title}</span>
         </div>
       </Shelf>
@@ -170,7 +165,7 @@ export const Booking = () => {
           {booking?.owner.name} {booking?.owner.surname}
         </span>
       </Shelf>
-      <Shelf to="">
+      <Shelf to="TODO update in a separate ticket">
         <span className={styles.shelfItem}>
           Детальна адреса буде доступна після підтвердження оплати
         </span>
@@ -191,4 +186,21 @@ export const Booking = () => {
       </div>
     </Container>
   );
+};
+
+const stepsTheme = {
+  token: {
+    lineWidth: 2,
+    colorSplit: theme.N3,
+    colorPrimary: theme.primary,
+    marginXS: 20,
+    lineHeight: 1.5,
+  },
+  components: {
+    Steps: {
+      titleLineHeight: 1.5,
+      fontSize: 16,
+      iconSizeSM: 20,
+    },
+  },
 };

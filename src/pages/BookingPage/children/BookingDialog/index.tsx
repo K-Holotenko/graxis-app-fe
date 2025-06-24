@@ -1,4 +1,6 @@
 import { Col, Row } from 'antd';
+import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'src/components/Button';
 import { SCREEN_WIDTH } from 'src/config/constants';
@@ -6,6 +8,7 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useUserStore } from 'src/stores/userStore';
 import { useBookingStatus } from 'src/hooks/useBookingStatus';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
 
 import styles from './styles.module.scss';
 import {
@@ -17,14 +20,20 @@ import {
 
 export const BookingDialog = () => {
   const { width } = useWindowSize();
-  const isTablet = width < SCREEN_WIDTH.XL;
-  const { booking } = useBookingStore();
   const { user } = useUserStore();
+  const { bookingStatus } = useBookingStatus();
+  const { booking } = useBookingStore();
+
+  const navigate = useNavigate();
+
+  const isTablet = useMemo(() => width < SCREEN_WIDTH.XL, [width]);
 
   const userRole: UserRole = getUserRole(booking, user?.id);
-  const { bookingStatus } = useBookingStatus();
 
-  const actions: BookingAction[] = getCurrentActions(bookingStatus, userRole);
+  const actions: BookingAction[] = getCurrentActions(
+    bookingStatus as Exclude<BookingStatus, BookingStatus.BOOKED>,
+    userRole
+  );
   const visibleActions = actions.filter((action) => action.isVisible);
 
   if (visibleActions.length === 0) {
@@ -40,7 +49,7 @@ export const BookingDialog = () => {
             type={action.type}
             className={styles.button}
             label={action.label}
-            onClick={() => action.action(booking!.id)}
+            onClick={() => action.action(booking!.id, navigate)}
             isDisabled={action.isDisabled}
           />
         ))}
