@@ -1,5 +1,5 @@
 import { Form } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 
 import { socket } from 'src/sockets';
@@ -33,7 +33,7 @@ export const Chat = () => {
     setMessages([
       ...messages,
       {
-        id: '',
+        id: dayjs().unix().toString(),
         text: values.text,
         senderId: user?.id || '',
         sentAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
@@ -41,9 +41,48 @@ export const Chat = () => {
     ]);
   };
 
-  const onNewMessageEvent = (message: ChatMessage) => {
-    setMessages([...messages, message]);
+  const onNewMessageEvent = (data: {
+    chatId: string;
+    message: ChatMessage;
+  }) => {
+    const completeMessage: ChatMessage = {
+      id: data.message.id,
+      text: data.message.text,
+      senderId: data.message.senderId,
+      sentAt: data.message.sentAt,
+    };
+
+    setMessages((prevMessages) => [...prevMessages, completeMessage]);
   };
+
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const chatContainer = chatContainerRef.current;
+
+    if (!chatContainer) return;
+
+    const { scrollHeight, scrollTop, clientHeight } = chatContainer;
+
+    // A threshold to determine if the user is "close enough" to the bottom.
+    const scrollOffset = scrollHeight - (scrollTop + clientHeight);
+
+    // Only auto-scroll if the user is already at the bottom (or very close to it)
+    // This prevents snapping the user to the bottom if they've scrolled up to read history.
+    if (scrollOffset <= 100) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    if (!isChatLoading && chat && isConnected && !isLoading && user) {
+      const chatContainer = chatContainerRef.current;
+
+      if (chatContainer && messages.length > 0) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+    }
+  }, [isChatLoading, chat, isConnected, isLoading, user]);
 
   useEffect(() => {
     if (booking?.chatId) {
@@ -94,7 +133,7 @@ export const Chat = () => {
   return (
     <Container>
       <p className={styles.title}>Чат</p>
-      <div className={styles.chat}>
+      <div className={styles.chat} ref={chatContainerRef}>
         <MessageList
           messages={messages}
           userId={user.id}
