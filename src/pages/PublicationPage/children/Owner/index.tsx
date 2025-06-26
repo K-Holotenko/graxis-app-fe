@@ -7,9 +7,9 @@ import Smiley from 'src/assets/icons/smiley-icon.svg?react';
 import { IMAGE_DESCRIPTION } from 'src/config/constants';
 import { Publication } from 'src/services/PublicationService';
 import { theme } from 'src/config/theme';
+import { formatRegistrationDate } from 'src/utils/formatDate';
 
 import styles from './styles.module.scss';
-import { getTimeWithUs } from './utils/utils';
 
 interface OwnerProps {
   ownerInfo: Publication['ownerInfo'];
@@ -42,7 +42,7 @@ export const Owner = ({
         <div className={styles.info}>
           <Smiley />
           <span className={styles.text}>
-            {getTimeWithUs(joinedAt)} з Graxis
+            {formatRegistrationDate(joinedAt ?? '')} з Graxis
           </span>
         </div>
       </div>
