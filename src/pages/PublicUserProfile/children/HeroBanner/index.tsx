@@ -4,7 +4,10 @@ import Star from 'src/assets/icons/star-icon.svg?react';
 import Smiley from 'src/assets/icons/smiley-icon.svg?react';
 import Circle from 'src/assets/icons/yellow-circle-icon.svg?react';
 import { useUserProfileStore } from 'src/stores/userProfileStore';
-import { formatRegistrationDate } from 'src/utils/formatDate';
+import {
+  formatLastActiveTime,
+  formatRegistrationDate,
+} from 'src/utils/formatDate';
 
 import styles from './styles.module.scss';
 
@@ -21,11 +24,13 @@ export const HeroBanner = () => {
         {profile?.author.name?.charAt(0)}
         {profile?.author.surname?.charAt(0)}
       </Avatar>
-      <div className={styles.location}>Локація</div>
+      <div className={styles.location}>Локація (Треба додати)</div>
       <div className={styles.name}>
         {profile?.author.name} {profile?.author.surname}
       </div>
-      <div className={styles.lastTimeActive}>Last time active</div>
+      <div className={styles.lastTimeActive}>
+        {formatLastActiveTime(profile?.author.activeAt ?? '')}
+      </div>
       <div className={styles.info}>
         <Star style={{ width: '27px', height: '25px' }} />
         <span className={styles.summary}>{profile?.author.rate}</span>
