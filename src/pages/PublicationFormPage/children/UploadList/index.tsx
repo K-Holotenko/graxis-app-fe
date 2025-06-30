@@ -1,21 +1,21 @@
-import { Carousel, UploadFile, Form } from 'antd';
+import { Carousel, UploadFile, Form, App } from 'antd';
+import { useParams } from 'react-router-dom';
 
 import { UploadItem } from 'src/pages/PublicationFormPage/children/UploadItem/index';
 import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
+import { deletePublicationImageById } from 'src/services/PublicationService';
 
 import styles from './styles.module.scss';
 
 interface UploadListProps {
   isEdit: boolean;
-  collectFileIdToRemove?: (fileId: string) => void;
 }
 
-export const UploadList = ({
-  isEdit,
-  collectFileIdToRemove,
-}: UploadListProps) => {
+export const UploadList = ({ isEdit }: UploadListProps) => {
   const form = Form.useFormInstance();
+  const { id } = useParams();
+  const { modal } = App.useApp();
 
   const { width } = useWindowSize();
   const currentFiles: UploadFile[] = form.getFieldValue('photos') || [];
@@ -35,8 +35,22 @@ export const UploadList = ({
       (file) => file.uid !== fileToRemove.uid
     );
 
-    if (isEdit) {
-      collectFileIdToRemove?.(fileToRemove.uid);
+    if (isEdit && id) {
+      modal.confirm({
+        title: 'Ви впевнені, що хочете видалити це фото?',
+        content: 'Це дія не може бути відмінена',
+        className: styles.customModal,
+        centered: true,
+        okText: 'Підтвердити',
+        cancelText: 'Скасувати',
+        okType: 'danger',
+        onOk: async () => {
+          await deletePublicationImageById(id, fileToRemove.uid);
+        },
+        onCancel: () => {
+          form.setFieldsValue({ photos: currentFiles });
+        },
+      });
     }
 
     setTimeout(() => {

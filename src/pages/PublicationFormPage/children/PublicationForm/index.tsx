@@ -24,7 +24,6 @@ import { LocationAutocomplete } from 'src/pages/PublicationFormPage/children/Loc
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import {
   createPublication,
-  deletePublicationImageById,
   MyPublication,
   updatePublication,
 } from 'src/services/PublicationService';
@@ -72,8 +71,6 @@ export const PublicationForm = () => {
   const { openNotification } = useNotification();
 
   const { publication, isPublicationLoading } = usePublication();
-
-  const [fileIdToRemove, setFileIdToRemove] = useState<string[]>([]);
 
   useEffect(() => {
     if (!isEdit || !publication || isPublicationLoading) {
@@ -136,9 +133,10 @@ export const PublicationForm = () => {
       files: values.photos,
     };
 
+    setIsLoading(true);
+
     try {
       if (!isEdit) {
-        setIsLoading(true);
         const createdPublication = await createPublication(publicationData);
 
         setNewPublicationId(createdPublication.id);
@@ -148,17 +146,7 @@ export const PublicationForm = () => {
         return;
       }
 
-      setIsLoading(true);
       await updatePublication(publicationData, publication?.id);
-      setIsLoading(false);
-
-      if (fileIdToRemove.length) {
-        await Promise.all(
-          fileIdToRemove.map((uid) =>
-            deletePublicationImageById(params.id, uid)
-          )
-        );
-      }
 
       openNotification(
         NotificationType.SUCCESS,
@@ -176,10 +164,6 @@ export const PublicationForm = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const collectFileIdToRemove = (fileId: string) => {
-    setFileIdToRemove((prev) => Array.from(new Set([...prev, fileId])));
   };
 
   return (
@@ -249,10 +233,7 @@ export const PublicationForm = () => {
               name="photos"
               rules={[{ required: true, message: 'Додайте фото' }]}
             >
-              <UploadList
-                isEdit={isEdit}
-                collectFileIdToRemove={collectFileIdToRemove}
-              />
+              <UploadList isEdit={isEdit} />
             </Form.Item>
           </Col>
         </Row>
