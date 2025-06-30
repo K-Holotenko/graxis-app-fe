@@ -45,6 +45,26 @@ export const getYearsDifference = (
   return end.diff(start, 'year');
 };
 
+export const getHoursDifference = (
+  startDate: string | Date,
+  endDate?: string | Date
+): number => {
+  const start = dayjs(startDate);
+  const end = endDate ? dayjs(endDate) : dayjs();
+
+  return end.diff(start, 'hour');
+};
+
+export const getMinutesDifference = (
+  startDate: string | Date,
+  endDate?: string | Date
+): number => {
+  const start = dayjs(startDate);
+  const end = endDate ? dayjs(endDate) : dayjs();
+
+  return end.diff(start, 'minute');
+};
+
 export const formatRegistrationDate = (
   registrationDate: string | Date
 ): string => {
@@ -61,5 +81,24 @@ export const formatRegistrationDate = (
     return `${weeks} ${weeks === 1 ? 'тиждень' : weeks < 5 ? 'тижні' : 'тижнів'}`;
   } else {
     return `${days} ${days === 1 ? 'день' : days < 5 ? 'дні' : 'днів'}`;
+  }
+};
+
+export const formatLastActiveTime = (lastActiveDate: string | Date): string => {
+  const days = getDaysDifference(lastActiveDate);
+  const hours = getHoursDifference(lastActiveDate);
+  const minutes = getMinutesDifference(lastActiveDate);
+  const months = getMonthsDifference(lastActiveDate);
+
+  if (months > 0) {
+    return `${months} ${months === 1 ? 'місяць' : months < 5 ? 'місяці' : 'місяців'} тому`;
+  } else if (days > 0) {
+    return `${days} ${days === 1 ? 'день' : days < 5 ? 'дні' : 'днів'} тому`;
+  } else if (hours > 0) {
+    return `${hours} ${hours === 1 ? 'годину' : hours < 5 ? 'години' : 'годин'} тому`;
+  } else {
+    const minutesToShow = Math.max(1, minutes); // Show at least 1 minute
+
+    return `${minutesToShow} ${minutesToShow === 1 ? 'хвилину' : minutesToShow < 5 ? 'хвилини' : 'хвилин'} тому`;
   }
 };
