@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 const { Meta } = Card;
 const { Paragraph } = Typography;
 
-interface Feedback {
+export interface Feedback {
   id: string;
   title: string;
   image: string;

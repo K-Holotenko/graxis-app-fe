@@ -1,5 +1,6 @@
 import { GRAXIS_API_URL } from 'src/config/constants';
 import { User } from 'src/stores/userStore';
+import { UserProfileData } from 'src/stores/userProfileStore';
 
 import { api } from './api';
 
@@ -51,6 +52,14 @@ export const updateUser = async (user: UpdateUserData): Promise<User> => {
 
 export const getUserById = async (id: string): Promise<User> => {
   const response = await api.get(`${GRAXIS_API_URL}/users/${id}`);
+
+  return response.data;
+};
+
+export const getUserPublicProfile = async (
+  id: string
+): Promise<UserProfileData> => {
+  const response = await api.get(`/publications/user/${id}`);
 
   return response.data;
 };
