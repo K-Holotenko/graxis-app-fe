@@ -1,40 +1,50 @@
 import { Avatar } from 'antd';
 
-import { useUserStore } from 'src/stores/userStore';
 import Star from 'src/assets/icons/star-icon.svg?react';
 import Smiley from 'src/assets/icons/smiley-icon.svg?react';
 import Circle from 'src/assets/icons/yellow-circle-icon.svg?react';
+import { useUserProfileStore } from 'src/stores/userProfileStore';
+import {
+  formatLastActiveTime,
+  formatRegistrationDate,
+} from 'src/utils/formatDate';
 
 import styles from './styles.module.scss';
 
 export const HeroBanner = () => {
-  // TODO: change to use not the current user, but the user from the url
-  const { user } = useUserStore();
+  const { profile } = useUserProfileStore();
 
   return (
     <div className={styles.heroBanner}>
       <Avatar
         size={{ xs: 100, sm: 100, md: 168, lg: 168, xl: 168, xxl: 168 }}
-        src={user?.avatarUrl}
+        src={null}
         className={styles.avatar}
       >
-        {user?.name?.charAt(0)}
-        {user?.surname?.charAt(0)}
+        {profile?.author.name?.charAt(0)}
+        {profile?.author.surname?.charAt(0)}
       </Avatar>
-      <div className={styles.location}>Локація</div>
+      <div className={styles.location}>Локація (Треба додати)</div>
       <div className={styles.name}>
-        {user?.name} {user?.surname}
+        {profile?.author.name} {profile?.author.surname}
       </div>
-      <div className={styles.lastTimeActive}>Last time active</div>
+      <div className={styles.lastTimeActive}>
+        {formatLastActiveTime(profile?.author.activeAt ?? '')}
+      </div>
       <div className={styles.info}>
         <Star style={{ width: '27px', height: '25px' }} />
-        <span className={styles.summary}>4.5</span>
+        <span className={styles.summary}>{profile?.author.rate}</span>
         <Circle style={{ width: '16px', height: '16px', marginLeft: '12px' }} />
-        <span className={styles.summary}>10 Відгуків</span>
+        <span className={styles.summary}>
+          {profile?.author.reviewCount} Відгуків
+        </span>
       </div>
       <div className={styles.info}>
         <Smiley style={{ width: '24px', height: '24px' }} />
-        <span className={styles.summary}>1.5 років з Graxis</span>
+        <span className={styles.summary}>
+          {formatRegistrationDate(profile?.author.registrationDate ?? '')} з
+          Graxis
+        </span>
       </div>
     </div>
   );
