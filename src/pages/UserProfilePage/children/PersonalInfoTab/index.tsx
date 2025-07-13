@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FormInstance } from 'antd';
 
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 
 import { PersonalInfo } from './PersonalInfo';
 import { ContactInfo } from './ContactInfo';
@@ -32,7 +32,7 @@ export const PersonalInfoTab = ({
   onPersonalInfoValidation,
   onContactInfoValidation,
 }: PersonalInfoTabProps) => {
-  const { user } = useUserStore();
+  const { user } = useAuthStore();
   const [hasPersonalInfoChanged, setHasPersonalInfoChanged] = useState(false);
   const [hasContactInfoChanged, setHasContactInfoChanged] = useState(false);
 

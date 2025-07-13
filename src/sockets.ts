@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-import { CookieService } from './services/CookieService';
+// import { CookieService } from './services/CookieService';
 import { GRAXIS_API_URL } from './config/constants';
 
 // "undefined" means the URL will be computed from the `window.location` object
@@ -9,6 +9,7 @@ const URL =
 
 export const socket = io(URL, {
   auth: {
-    token: CookieService.getCookie('accessToken'),
+    includeCredentials: true,
+    // token: CookieService.getCookie('accessToken'),
   },
 });

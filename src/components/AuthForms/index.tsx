@@ -1,8 +1,8 @@
+import { AxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Divider, Row, Col, Typography, ConfigProvider } from 'antd';
 import { ReactNode } from 'react';
 
-import { useUserStore } from 'src/stores/userStore';
 import { ROUTES } from 'src/router/routes';
 import { ButtonTypes, SCREEN_WIDTH, TEXT } from 'src/config/constants';
 import GoogleIcon from 'src/assets/icons/google-icon.svg?react';
@@ -24,9 +24,13 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.SM;
   const navigate = useNavigate();
-  const { isLoading: isAuthLoading, loginWithGoogle } = useAuthStore();
+  const {
+    isLoading: isAuthLoading,
+    loginWithGoogle,
+    fetchUser,
+  } = useAuthStore();
 
-  const { createUser, fetchUser, isLoading } = useUserStore();
+  const { isLoading } = useAuthStore();
   const { openNotification } = useNotification();
 
   const triggerNotification = (description: string) => {
@@ -34,23 +38,33 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
   };
 
   const onGoogleClick = async () => {
-    // when the user sign up with Google we need to check if the user already exists in the database
-    // with fetchUser() method, if the user doesn't exist we need to create a new user with createUser() method
     try {
       const firebaseUser = await loginWithGoogle(triggerNotification);
 
-      try {
-        await fetchUser();
-      } catch {
-        const fullName =
-          (firebaseUser as { displayName?: string }).displayName || '';
-        const [name, surname] = fullName.split(' ');
+      if (firebaseUser) {
+        try {
+          await fetchUser();
 
-        await createUser({ name, surname }, triggerNotification);
+          navigate(ROUTES.HOME);
+        } catch (error) {
+          if (error instanceof AxiosError && error.status === 404) {
+            const fullName =
+              (firebaseUser as { displayName?: string }).displayName || '';
+            const [name, surname] = fullName.split(' ');
+
+            navigate(ROUTES.ADD_USER_INFO, {
+              state: {
+                name,
+                surname,
+              },
+            });
+          }
+        }
       }
-    } finally {
-      // TODO: This might be a problem if the user already jumped on the other page and then this block will be executed and returned him back to home page
-      navigate(ROUTES.HOME);
+    } catch {
+      triggerNotification(
+        'Не вдалося авторизуватися. Спробуйте, будь ласка, пізніше'
+      );
     }
   };
 

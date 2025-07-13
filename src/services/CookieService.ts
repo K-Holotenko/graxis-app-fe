@@ -1,4 +1,4 @@
-export class CookieService {
+class CookieService {
   static setCookie(
     name: string,
     value: string,

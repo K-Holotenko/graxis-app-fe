@@ -28,7 +28,6 @@ import { ROUTES } from 'src/router/routes';
 import { Drawer, menuItems } from 'src/components/Drawer';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
-import { useUserStore } from 'src/stores/userStore';
 import { Loadable } from 'src/components/Loadable';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
 
@@ -38,8 +37,7 @@ export const AppHeader = () => {
   const navigate = useNavigate();
 
   const { width } = useWindowSize();
-  const { isAuthorized, signOut, isAppInitializing } = useAuthStore();
-  const { user } = useUserStore();
+  const { user, signOut, isAppInitializing } = useAuthStore();
   const { openNotification } = useNotification();
   const { requireAuth } = useRequireAuth();
 
@@ -50,7 +48,6 @@ export const AppHeader = () => {
     window.location.pathname !== ROUTES.ADD_PUBLICATION;
 
   const isDesktop = width > SCREEN_WIDTH.MD;
-  const isFullyAuthorized = isAuthorized && !!user;
 
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
@@ -102,7 +99,7 @@ export const AppHeader = () => {
             )}
           </Row>
           <Row gutter={30} align="middle" wrap={false}>
-            {isFullyAuthorized && (
+            {user && (
               <Col>
                 <Badge dot={hasNotifications}>
                   <Image
@@ -125,7 +122,7 @@ export const AppHeader = () => {
                 />
               </Col>
             )}
-            {!isFullyAuthorized && isDesktop && !isAppInitializing && (
+            {!user && isDesktop && !isAppInitializing && (
               <Col className={styles.buttonPaddingCall}>
                 <Button
                   type={ButtonTypes.default}
@@ -138,7 +135,7 @@ export const AppHeader = () => {
                 />
               </Col>
             )}
-            {(isFullyAuthorized || isAppInitializing) && isDesktop && (
+            {(user || isAppInitializing) && isDesktop && (
               <Col>
                 <Loadable
                   skeleton={

@@ -1,6 +1,8 @@
-import { GRAXIS_API_URL } from 'src/config/constants';
-import { User } from 'src/stores/userStore';
+import axios from 'axios';
+
+import { User } from 'src/stores/authStore';
 import { UserProfileData } from 'src/stores/userProfileStore';
+import { GRAXIS_API_URL } from 'src/config/constants';
 
 import { api } from './api';
 
@@ -8,6 +10,7 @@ export interface SignUpUser {
   name: string;
   surname: string;
   avatar?: File;
+  city?: string;
 }
 
 export interface UpdateUserData {
@@ -24,14 +27,20 @@ export const signUp = async (user: SignUpUser): Promise<User> => {
   formData.append('name', user.name || '');
   formData.append('surname', user.surname || '');
   user?.avatar && formData.append('avatar', user.avatar);
+  formData.append('country', 'Ukraine');
+  user?.city && formData.append('city', user.city);
 
-  const response = await api.post(`${GRAXIS_API_URL}/users/sign-up`, formData);
+  const response = await axios.post(
+    `${GRAXIS_API_URL}/users/sign-up`,
+    formData,
+    { withCredentials: true }
+  );
 
   return response.data;
 };
 
 export const fetchUser = async (): Promise<User> => {
-  const response = await api.get(`${GRAXIS_API_URL}/users/me`);
+  const response = await api.get('/users/me');
 
   return response.data;
 };
@@ -51,7 +60,7 @@ export const updateUser = async (user: UpdateUserData): Promise<User> => {
 };
 
 export const getUserById = async (id: string): Promise<User> => {
-  const response = await api.get(`${GRAXIS_API_URL}/users/${id}`);
+  const response = await api.get(`/users/${id}`);
 
   return response.data;
 };

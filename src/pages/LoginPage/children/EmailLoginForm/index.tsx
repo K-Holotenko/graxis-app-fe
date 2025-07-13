@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ConfigProvider, Form } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 import { FORMS, REGEXS, TEXT } from 'src/config/constants';
 import { VALIDATION_CONDITION } from 'src/config/validation';
@@ -8,7 +9,7 @@ import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
 import { theme } from 'src/config/theme';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
-import { useUserStore } from 'src/stores/userStore';
+import { ROUTES } from 'src/router/routes';
 
 import styles from './styles.module.scss';
 
@@ -18,12 +19,13 @@ interface EmailLoginFormValues {
 }
 
 export const EmailLoginForm = () => {
-  const { loginWithEmail } = useAuthStore();
+  const { loginWithEmail, fetchUser, isLoading, isAppInitializing } =
+    useAuthStore();
   const [form] = Form.useForm();
   const [isValid, setIsValid] = useState(false);
+  const navigate = useNavigate();
 
   const { openNotification } = useNotification();
-  const { fetchUser } = useUserStore();
 
   const triggerNotification = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
@@ -53,6 +55,8 @@ export const EmailLoginForm = () => {
     try {
       await loginWithEmail(values.email, values.password, triggerNotification);
       await fetchUser();
+
+      navigate(ROUTES.HOME);
     } catch {
       form.resetFields(['password']);
     }
@@ -91,7 +95,12 @@ export const EmailLoginForm = () => {
           <Input type={InputType.PASSWORD} placeholder={TEXT.INPUT_PASSWORD} />
         </Form.Item>
         <Form.Item className={styles.buttonMargin}>
-          <Button htmlType="submit" isDisabled={!isValid} label={TEXT.SUBMIT} />
+          <Button
+            htmlType="submit"
+            isDisabled={!isValid}
+            label={isAppInitializing || isLoading ? undefined : TEXT.SUBMIT}
+            isLoading={isLoading || isAppInitializing}
+          />
         </Form.Item>
       </Form>
     </ConfigProvider>
