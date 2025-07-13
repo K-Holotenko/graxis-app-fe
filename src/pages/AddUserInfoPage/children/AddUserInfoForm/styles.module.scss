@@ -19,6 +19,13 @@
   }
 }
 
+:global {
+  .ant-form-item-has-success .ant-select-selector,
+  .ant-select-status-success {
+    border-color: variables.$success !important;
+  }
+}
+
 .uploadFormItem {
   margin-bottom: 40px;
 
@@ -27,12 +34,34 @@
   }
 }
 
-.nameFormItem {
-  margin-bottom: 24px;
+.city {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 48px;
 }
 
-.surnameFormItem {
-  margin-bottom: 48px;
+.cityFormItem {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.citySelect {
+  height: 48px !important;
+}
+
+.cityTooltipContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.infoIcon {
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: #1890ff;
+  }
 }
 
 .uploadButton {

@@ -7,7 +7,7 @@ import {
   VALIDATION_MESSAGE,
 } from 'src/config/validation';
 import { REGEXS } from 'src/config/constants';
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 
 import styles from './styles.module.scss';
 
@@ -23,7 +23,7 @@ export const ContactInfoEditMode = ({
   onContactInfoValidation,
 }: ContactInfoEditModeProps) => {
   const [isValid, setIsValid] = useState(false);
-  const { user } = useUserStore();
+  const { user } = useAuthStore();
 
   const rules = [
     { required: false, message: VALIDATION_MESSAGE.REQUIRED },

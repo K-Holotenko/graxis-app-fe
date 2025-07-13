@@ -6,7 +6,7 @@ import { ROUTES } from 'src/router/routes';
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { ProfileLayout } from 'src/layouts/ProfileLayout';
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 
 import { UpdateProfileDialog } from './children/PersonalInfoTab/UpdateProfileDialog';
 import { PersonalInfoTab } from './children/PersonalInfoTab';
@@ -18,7 +18,7 @@ import { FaqTab } from './children/FaqTab';
 
 export const UserProfilePage = () => {
   const [form] = Form.useForm();
-  const { user } = useUserStore();
+  const { user } = useAuthStore();
   const location = useLocation();
 
   const [isPersonalInfoEditModeEnabled, setIsPersonalInfoEditModeEnabled] =

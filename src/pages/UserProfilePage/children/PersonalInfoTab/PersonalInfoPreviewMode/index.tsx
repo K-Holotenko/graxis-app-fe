@@ -1,11 +1,11 @@
 import { Avatar } from 'antd';
 
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 
 import styles from './styles.module.scss';
 
 export const PersonalInfoPreviewMode = () => {
-  const { user } = useUserStore();
+  const { user } = useAuthStore();
 
   return (
     <div className={styles.contentContainer}>

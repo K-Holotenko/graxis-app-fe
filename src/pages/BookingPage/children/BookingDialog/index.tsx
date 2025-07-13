@@ -6,7 +6,7 @@ import { Button } from 'src/components/Button';
 import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 import { useBookingStatus } from 'src/hooks/useBookingStatus';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
 
@@ -20,7 +20,7 @@ import {
 
 export const BookingDialog = () => {
   const { width } = useWindowSize();
-  const { user } = useUserStore();
+  const { user } = useAuthStore();
   const { bookingStatus } = useBookingStatus();
   const { booking } = useBookingStore();
 

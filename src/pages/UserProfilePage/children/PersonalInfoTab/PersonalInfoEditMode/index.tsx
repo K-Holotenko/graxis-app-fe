@@ -12,7 +12,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { beforeUpload } from 'src/pages/PublicationFormPage/children/UploadItem/utils/utils';
 import { Input, InputType } from 'src/components/Input';
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
@@ -30,7 +30,7 @@ export const PersonalInfoEditMode = ({
 }: PersonalInfoEditModeProps) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [isValid, setIsValid] = useState(false);
-  const { user } = useUserStore();
+  const { user } = useAuthStore();
 
   const allValues = Form.useWatch([], form);
 

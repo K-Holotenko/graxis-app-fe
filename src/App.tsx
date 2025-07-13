@@ -1,21 +1,28 @@
 /// <reference types="vite-plugin-svgr/client" />
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { useAuthStore } from 'src/stores/authStore';
 
-import { useUserStore } from './stores/userStore';
 import { ScrollRestorationConfig } from './components/ScrollRestorationConfig';
+import { ROUTES } from './router/routes';
 
 const App = () => {
   const { initializeAuthListener } = useAuthStore();
-  const { fetchUser } = useUserStore();
+  const location = useLocation();
 
   useEffect(() => {
-    const unsubscribe = initializeAuthListener(fetchUser);
+    const shouldInitialize =
+      location.pathname !== ROUTES.LOGIN ||
+      location.pathname !== ROUTES.REGISTRATION ||
+      location.pathname !== ROUTES.ADD_USER_INFO;
 
-    return () => unsubscribe();
-  }, [initializeAuthListener, fetchUser]);
+    if (shouldInitialize) {
+      const unsubscribe = initializeAuthListener();
+
+      return () => unsubscribe();
+    }
+  }, [initializeAuthListener]);
 
   return (
     <>
