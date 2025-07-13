@@ -1,15 +1,25 @@
 import {
   ConfirmationResult,
-  User,
+  User as FirebaseUser,
   AuthErrorCodes,
   onAuthStateChanged,
 } from 'firebase/auth';
 import { FirebaseError } from '@firebase/util';
 import { create } from 'zustand';
+import axios from 'axios';
 
-import { AuthService } from 'src/services/AuthService';
-import CookieService from 'src/services/CookieService';
+import {
+  AuthService,
+  updateAuthTokenOnTheServer,
+} from 'src/services/AuthService';
 import { firebaseAuth } from 'src/config/firebase';
+import {
+  fetchUser,
+  signUp,
+  SignUpUser,
+  updateUser,
+  UpdateUserData,
+} from 'src/services/UserService';
 
 // List of errors visit https://firebase.google.com/docs/auth/admin/errors
 const firebaseAuthErrorCodes: { [key: string]: string } = {
@@ -21,14 +31,31 @@ const firebaseAuthErrorCodes: { [key: string]: string } = {
 
 const DEFAULT_ERROR_MESSAGE = 'Щось пішло не так. Спробуйте ще раз';
 
-export type AuthUser = (User & { displayName?: string }) | unknown;
+export type AuthUser = (FirebaseUser & { displayName?: string }) | unknown;
+
+export interface User {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  registrationDate: string;
+  activeAt: string;
+  avatarUrl: string;
+  email_verified: boolean;
+}
+
+export interface ContactInfoForm {
+  email: string;
+  phoneNumber: string;
+}
 interface AuthState {
-  isAuthorized: boolean;
-  user: AuthUser | null;
+  user: User | null;
   emailToVerify: string | null;
   isLoading: boolean;
   isAppInitializing: boolean;
-  initializeAuthListener: (fetchUser: () => Promise<AuthUser>) => () => void;
+  fetchUser: () => Promise<void>;
+  initializeAuthListener: () => () => void;
   loginWithEmail: (
     email: string,
     password: string,
@@ -43,67 +70,80 @@ interface AuthState {
     showError: (err: string) => void
   ) => Promise<AuthUser | void>;
   signOut: (showError?: (err: string) => void) => Promise<void>;
-  setAuthorized: (state: boolean) => void;
+  createUser: (
+    user: SignUpUser,
+    showError: (err: string) => void
+  ) => Promise<void>;
+  updateUser: (
+    data: UpdateUserData,
+    showError: (err: string) => void
+  ) => Promise<void>;
   confirmationResult: ConfirmationResult | null;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  isAuthorized: CookieService.hasCookie('accessToken'),
   isLoading: false,
+  isAppInitializing: true,
   user: null,
   confirmationResult: null,
   emailToVerify: null,
-  isAppInitializing: true,
-  initializeAuthListener: (fetchUser) => {
+
+  fetchUser: async () => {
     set({ isLoading: true });
-    // Use onAuthStateChanged for a reliable initial check on page load.
+    const firebaseUser = firebaseAuth.currentUser;
+    const appUser = await fetchUser();
+
+    if (appUser && firebaseUser) {
+      set({
+        isLoading: false,
+        isAppInitializing: false,
+        user: appUser,
+      });
+    } else {
+      set({ isLoading: false, user: null });
+    }
+  },
+
+  initializeAuthListener: () => {
+    set({ isAppInitializing: true }); // Use a separate flag for initial app load
+
     const unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
       if (user) {
-        // The user session has been successfully restored.
         try {
-          // Now, get a guaranteed fresh token. Using true is still best practice.
           const token = await user.getIdToken(true);
 
-          // TODO set cookie with more secure options
-          CookieService.setCookie('accessToken', token);
+          await updateAuthTokenOnTheServer(token);
 
-          // Check for the user in your DB.
           const appUser = await fetchUser();
 
-          if (appUser) {
-            // Success: User is fully authorized.
+          // This is the success path: User exists in Firebase AND our DB.
+          set({
+            isLoading: false,
+            isAppInitializing: false,
+            user: appUser,
+          });
+        } catch (error) {
+          if (axios.isAxiosError(error) && error.response?.status === 404) {
+            // This is a NEW USER. They are authenticated with Firebase but have no profile yet.
+            // Keep them unauthorized, with no local user object.
             set({
-              isAuthorized: true,
-              user,
+              user: null,
               isLoading: false,
               isAppInitializing: false,
             });
           } else {
-            // User in Firebase, but not your DB. Sign them out.
+            // This is a REAL error (e.g., server is down, network error).
+            // For these cases, signing out is the safe action.
             await AuthService.signOut();
             set({
-              isAuthorized: false,
               user: null,
               isLoading: false,
               isAppInitializing: false,
             });
           }
-        } catch {
-          await AuthService.signOut();
-          set({
-            isAuthorized: false,
-            user: null,
-            isLoading: false,
-            isAppInitializing: false,
-          });
         }
       } else {
-        // onAuthStateChanged confirmed there is no valid session.
-        // eslint-disable-next-line no-console
-        console.log('Firebase confirms no user is signed in.');
-        CookieService.deleteCookie('accessToken');
         set({
-          isAuthorized: false,
           user: null,
           isLoading: false,
           isAppInitializing: false,
@@ -114,12 +154,35 @@ export const useAuthStore = create<AuthState>((set) => ({
     return unsubscribe;
   },
 
+  createUser: async (user, showError) => {
+    set({ isLoading: true });
+    try {
+      const userData: User = await signUp(user);
+
+      set({ user: userData });
+    } catch {
+      showError('Щось пішло не так. Спробуйте ще раз');
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  updateUser: async (data, showError) => {
+    try {
+      const updatedUser: User = await updateUser(data);
+
+      set({ user: updatedUser });
+    } catch {
+      showError('Щось пішло не так. Спробуйте ще раз');
+    }
+  },
+
   loginWithEmail: async (email, password, showError) => {
     set({ isLoading: true });
     try {
-      const response = await AuthService.loginWithEmail(email, password);
+      await AuthService.loginWithEmail(email, password);
 
-      set({ isAuthorized: true, user: response, isLoading: false });
+      set({ isLoading: false });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
@@ -132,11 +195,9 @@ export const useAuthStore = create<AuthState>((set) => ({
   registerWithEmail: async (email, password, showError) => {
     set({ isLoading: true });
     try {
-      const response = await AuthService.registerWithEmail(email, password);
+      await AuthService.registerWithEmail(email, password);
 
       set({
-        isAuthorized: !!response,
-        user: response,
         emailToVerify: email,
         isLoading: false,
       });
@@ -144,7 +205,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
       }
-      set({ isLoading: false });
+      set({ isLoading: false, isAppInitializing: false });
       throw err;
     }
   },
@@ -154,16 +215,14 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       const user = await AuthService.loginWithGoogle();
 
-      if (user) {
-        set({ isAuthorized: true, user, isLoading: false });
+      set({ isLoading: false });
 
-        return user;
-      }
+      return user;
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
       }
-      set({ isLoading: false });
+      set({ isLoading: false, isAppInitializing: false });
       throw err;
     }
   },
@@ -172,17 +231,12 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       await AuthService.signOut();
 
-      CookieService.deleteCookie('accessToken');
-      set({ isAuthorized: false, user: null, isLoading: false });
+      set({ isLoading: false, user: null });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError?.(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
         throw err;
       }
     }
-  },
-
-  setAuthorized: (state: boolean) => {
-    set({ isAuthorized: state });
   },
 }));

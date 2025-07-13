@@ -2,7 +2,6 @@ import { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useAuthStore } from 'src/stores/authStore';
-import { useUserStore } from 'src/stores/userStore';
 import { AppLoadingPage } from 'src/pages/AppLoadingPage';
 
 import { ROUTES } from './routes';
@@ -12,12 +11,11 @@ interface PrivateRouteProps {
 }
 
 export const PrivateRoute = ({ children }: PrivateRouteProps): JSX.Element => {
-  const { isAuthorized, isAppInitializing } = useAuthStore();
-  const { user } = useUserStore();
+  const { isAppInitializing, user } = useAuthStore();
 
   if (isAppInitializing) {
     return <AppLoadingPage />;
   }
 
-  return isAuthorized && user ? children : <Navigate to={ROUTES.LOGIN} />;
+  return user ? children : <Navigate to={ROUTES.LOGIN} />;
 };

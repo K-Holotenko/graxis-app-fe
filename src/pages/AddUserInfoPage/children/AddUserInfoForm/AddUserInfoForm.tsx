@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
-import { ConfigProvider, Form, Upload, UploadFile, UploadProps } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import {
+  ConfigProvider,
+  Form,
+  Upload,
+  UploadFile,
+  UploadProps,
+  Select,
+  Tooltip,
+} from 'antd';
+import { InfoCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Input, InputType } from 'src/components/Input';
 import { Button } from 'src/components/Button';
@@ -9,11 +17,18 @@ import { FORMS, TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { beforeUpload } from 'src/pages/PublicationFormPage/children/UploadItem/utils/utils';
-import { useUserStore } from 'src/stores/userStore';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { ROUTES } from 'src/router/routes';
+import { useAuthStore } from 'src/stores/authStore';
 
 import styles from './styles.module.scss';
+
+const cities = [
+  {
+    label: 'Львів',
+    value: 'Lviv',
+  },
+];
 
 export const AddUserInfoForm = () => {
   const [form] = Form.useForm();
@@ -22,10 +37,23 @@ export const AddUserInfoForm = () => {
 
   const navigate = useNavigate();
 
-  const { isLoading, createUser } = useUserStore();
+  const location = useLocation();
+  const stateParams = location.state;
+
+  const { isLoading, isAppInitializing, fetchUser, createUser } =
+    useAuthStore();
   const { openNotification } = useNotification();
 
   const allValues = Form.useWatch([], form);
+
+  useEffect(() => {
+    if (stateParams) {
+      form.setFieldsValue({
+        name: stateParams.name,
+        surname: stateParams.surname,
+      });
+    }
+  }, [stateParams]);
 
   useEffect(() => {
     form
@@ -44,9 +72,16 @@ export const AddUserInfoForm = () => {
         name: allValues.name,
         surname: allValues.surname,
         avatar: allValues?.avatar?.file,
+        city: allValues.city,
       },
       triggerNotification
-    ).then(() => !isLoading && navigate(ROUTES.HOME));
+    )
+      .then(() => {
+        fetchUser();
+      })
+      .then(() => {
+        navigate(ROUTES.HOME);
+      });
   };
 
   const onChange = () => {
@@ -103,7 +138,6 @@ export const AddUserInfoForm = () => {
           </Upload>
         </Form.Item>
         <Form.Item
-          rootClassName={styles.nameFormItem}
           label="Імʼя"
           name="name"
           rules={[VALIDATION_CONDITION.REQUIRED, VALIDATION_CONDITION.NAME]}
@@ -113,7 +147,6 @@ export const AddUserInfoForm = () => {
           <Input placeholder="Введіть імʼя" onChange={onChange} />
         </Form.Item>
         <Form.Item
-          rootClassName={styles.surnameFormItem}
           label="Прізвище"
           name="surname"
           rules={[VALIDATION_CONDITION.REQUIRED, VALIDATION_CONDITION.NAME]}
@@ -122,13 +155,34 @@ export const AddUserInfoForm = () => {
         >
           <Input placeholder="Введіть прізвище" type={InputType.TEXT} />
         </Form.Item>
+        <div className={styles.city}>
+          <Form.Item
+            rootClassName={styles.cityFormItem}
+            label="Місто"
+            name="city"
+            rules={[VALIDATION_CONDITION.REQUIRED]}
+            validateTrigger="onChange"
+            validateStatus={isValid ? 'success' : undefined}
+          >
+            <Select options={cities} className={styles.citySelect} />
+          </Form.Item>
+          <div className={styles.cityTooltipContainer}>
+            <Tooltip
+              color={theme.primary}
+              title="Кількість міст тимчасово обмежена, ми працюємо над розширенням можливостей"
+            >
+              <InfoCircleOutlined className={styles.infoIcon} />
+            </Tooltip>
+          </div>
+        </div>
+
         <Form.Item>
           <Button
             htmlType="submit"
             size="large"
             isDisabled={!isValid}
-            label={!isLoading ? TEXT.SUBMIT : undefined}
-            isLoading={isLoading}
+            label={isLoading || isAppInitializing ? undefined : TEXT.SUBMIT}
+            isLoading={isLoading || isAppInitializing}
           />
         </Form.Item>
       </Form>
@@ -145,6 +199,13 @@ const localTheme = {
     Upload: {
       paddingXS: 0,
       colorPrimary: theme.primary,
+    },
+    Select: {
+      colorPrimary: theme.N5,
+      hoverBorderColor: theme.N4,
+      activeBorderColor: theme.N5,
+      activeOutlineColor: 'none',
+      optionSelectedBg: theme.N2,
     },
   },
 };

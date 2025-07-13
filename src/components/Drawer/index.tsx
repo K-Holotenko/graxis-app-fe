@@ -23,7 +23,6 @@ import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
-import { useUserStore } from 'src/stores/userStore';
 import { Loadable } from 'src/components/Loadable';
 
 import styles from './styles.module.scss';
@@ -49,8 +48,7 @@ export const menuItems = [
 ];
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
-  const { isAuthorized, signOut } = useAuthStore();
-  const { user, isLoading } = useUserStore();
+  const { user, isLoading, signOut } = useAuthStore();
 
   const { requireAuth } = useRequireAuth();
   const { openNotification } = useNotification();
@@ -114,7 +112,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
         backgroundColor: theme.primary,
       }}
     >
-      {isAuthorized && (
+      {user && (
         <Row className={styles.userSection} align="middle" justify="center">
           <Col span={24}>
             <ConfigProvider theme={localThemeDropdown}>
@@ -153,7 +151,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
           </Col>
         </Row>
       )}
-      {!isAuthorized && (
+      {!user && (
         <Row>
           <Col span={24}>
             <ConfigProvider theme={localThemeAuth}>

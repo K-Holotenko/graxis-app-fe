@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -8,8 +9,20 @@ import {
   User,
 } from 'firebase/auth';
 
-import { EMAIL_VERIFICATION_REDIRECT_LINK } from 'src/config/constants';
+import {
+  EMAIL_VERIFICATION_REDIRECT_LINK,
+  GRAXIS_API_URL,
+} from 'src/config/constants';
 import { firebaseAuth } from 'src/config/firebase';
+
+export const updateAuthTokenOnTheServer = async (
+  token: string
+): Promise<void> =>
+  await axios.post(
+    `${GRAXIS_API_URL}/auth/login`,
+    { token },
+    { withCredentials: true }
+  );
 
 export const AuthService = {
   loginWithEmail: async (
