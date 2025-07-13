@@ -9,6 +9,8 @@ import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import EditIcon from 'src/assets/icons/edit-fields-icon.svg?react';
 import { ROUTES } from 'src/router/routes';
+import { findCategoryByValue } from 'src/pages/SearchPage/children/Filters/utils/filters';
+import { useCategories } from 'src/hooks/useCategories';
 
 import styles from './styles.module.scss';
 
@@ -30,6 +32,7 @@ export const PublicationName = ({
   isEditable,
 }: ProductData) => {
   const { width } = useWindowSize();
+  const { categoriesTree } = useCategories();
 
   const navigate = useNavigate();
 
@@ -49,6 +52,8 @@ export const PublicationName = ({
     navigate(path);
   };
 
+  const categoryName = findCategoryByValue(categoriesTree, category);
+
   return (
     <section className={styles.itemNameWrapper}>
       {isEditable && (
@@ -62,7 +67,7 @@ export const PublicationName = ({
           {truncatedTitle}
         </Tooltip>
       </Heading>
-      <p className={styles.category}>{category}</p>
+      <p className={styles.category}>{categoryName?.title}</p>
       <div className={styles.descriptionWrapper}>
         <div className={styles.description}>
           <Star />
