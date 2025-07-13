@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 import {
   getMyPublicationById,
   getPublicationById,
@@ -28,7 +28,7 @@ export const usePublication = (): UsePublication => {
   const [hasError, setHasError] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
 
-  const { user, isLoading: isUserLoading } = useUserStore();
+  const { user, isLoading: isUserLoading } = useAuthStore();
 
   useEffect(() => {
     const fetchPublicationById = async (): Promise<void> => {

@@ -14,7 +14,7 @@ import { Breadcrumbs } from 'src/components/BreadCrumbs';
 import { Loadable } from 'src/components/Loadable';
 import { useCategories } from 'src/hooks/useCategories';
 import { Publication } from 'src/services/PublicationService';
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 
 import { ImageCarousel } from './children/ImageCarousel';
 import { Owner } from './children/Owner';
@@ -31,7 +31,7 @@ import {
 export const PublicationPage = () => {
   const { width } = useWindowSize();
   const { categoriesTree } = useCategories();
-  const { user } = useUserStore();
+  const { user } = useAuthStore();
 
   const { publication, isPublicationLoading, isEditable } = usePublication();
 

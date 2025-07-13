@@ -4,8 +4,9 @@ import axios from 'axios';
 
 import { firebaseAuth } from 'src/config/firebase';
 import { GRAXIS_API_URL } from 'src/config/constants';
-import CookieService from 'src/services/CookieService';
 import { useAuthStore } from 'src/stores/authStore';
+
+import { updateAuthTokenOnTheServer } from './AuthService';
 
 // Create an axios instance
 export const api = axios.create({
@@ -13,17 +14,12 @@ export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
-// Request Interceptor: Attach the token to every request
+// Request Interceptor: Handle FormData content type
 api.interceptors.request.use(
   (config) => {
-    const token = CookieService.getCookie('accessToken');
-
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-
     // Handle FormData: remove Content-Type to let browser set multipart/form-data
     if (config.data instanceof FormData) {
       delete config.headers['Content-Type'];
@@ -52,18 +48,15 @@ api.interceptors.response.use(
           // 1. Force a token refresh
           const newToken = await currentUser.getIdToken(true);
 
-          // 2. Update the cookie
-          CookieService.setCookie('accessToken', newToken);
+          // 2. Update the cookie on the server - this should set the httpOnly cookie
+          await updateAuthTokenOnTheServer(newToken);
 
-          // 3. Update the authorization header for the original request
-          originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
-
-          // 4. Retry the original request with the new token
+          // 3. Retry the original request - the server should now have the updated cookie
+          // Don't set Authorization header since we're using httpOnly cookies
           return api(originalRequest);
         }
       } catch (refreshError) {
         // If refreshing the token fails, the user's session is likely invalid.
-        // Log them out or redirect to the login page.
 
         useAuthStore.getState().signOut();
 

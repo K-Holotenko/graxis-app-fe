@@ -2,7 +2,7 @@ import { Col, FormInstance, Row } from 'antd';
 
 import { ButtonTypes } from 'src/config/constants';
 import { Button } from 'src/components/Button';
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
@@ -22,7 +22,7 @@ export const UpdateProfileDialog = ({
   onContactInfoEditClick,
   handleShowDialog,
 }: UpdateProfileDialogProps) => {
-  const { user, updateUser } = useUserStore();
+  const { user, updateUser } = useAuthStore();
 
   const { openNotification } = useNotification();
   const showError = (description: string) => {

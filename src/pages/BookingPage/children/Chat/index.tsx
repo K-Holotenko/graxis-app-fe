@@ -9,7 +9,7 @@ import { Button } from 'src/components/Button';
 import SendIcon from 'src/assets/icons/send.svg?react';
 import { sendMessage } from 'src/services/Chat';
 import { ChatMessage, useBookingStore } from 'src/stores/bookingStore';
-import { useUserStore } from 'src/stores/userStore';
+import { useAuthStore } from 'src/stores/authStore';
 import { MessageList } from 'src/pages/BookingPage/children/MessageList';
 
 import styles from './styles.module.scss';
@@ -18,7 +18,7 @@ export const Chat = () => {
   const [form] = Form.useForm();
 
   const { booking, chat, isChatLoading, getChat } = useBookingStore();
-  const { user, isLoading } = useUserStore();
+  const { user, isLoading } = useAuthStore();
 
   const [messages, setMessages] = useState<ChatMessage[]>(chat?.messages || []);
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
