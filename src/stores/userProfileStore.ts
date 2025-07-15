@@ -7,12 +7,17 @@ import { Feedback } from 'src/pages/HomePage/children/FeedbackSectionCard';
 interface PublicUserProfile {
   id: string;
   name: string;
+  avatarUrl: string;
   surname: string;
   feedbacks: Feedback[];
   activeAt: string;
   rate: number;
   reviewCount: number;
   registrationDate: string;
+  location: {
+    country: string;
+    city: string;
+  };
 }
 
 export interface UserProfileData {

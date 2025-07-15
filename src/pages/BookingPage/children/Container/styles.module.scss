@@ -10,3 +10,9 @@
   padding: 26px 16px 54px 16px;
   box-shadow: 0px 16px 48px rgba(70, 68, 88, 0.1);
 }
+
+@media (max-width: variables.$media-xl) {
+  .chatContainer {
+    min-height: 560px;
+  }
+}
