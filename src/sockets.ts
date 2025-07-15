@@ -7,9 +7,6 @@ const URL =
   import.meta.env.VITE_APP_ENV === 'production' ? undefined : GRAXIS_API_URL;
 
 export const socket = io(URL, {
+  autoConnect: false,
   withCredentials: true,
-  timeout: 10000,
-  reconnection: true,
-  reconnectionDelay: 1000,
-  reconnectionAttempts: 5,
 });
