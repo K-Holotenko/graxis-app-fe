@@ -26,7 +26,7 @@ import styles from './styles.module.scss';
 const cities = [
   {
     label: 'Львів',
-    value: 'Lviv',
+    value: 'Львів',
   },
 ];
 
