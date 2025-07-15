@@ -51,7 +51,11 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.BOOKING,
-        element: <BookingPage />,
+        element: (
+          <PrivateRoute>
+            <BookingPage />
+          </PrivateRoute>
+        ),
       },
       { path: ROUTES.SEARCH_RESULTS, element: <SearchPage /> },
       {
