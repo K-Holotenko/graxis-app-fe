@@ -117,12 +117,14 @@ export const PublicationCard = ({
             <div className={`${styles.iconWrapper} ${styles.marginRight}`}>
               <EyeOutlined className={styles.icon} />
               <span className={styles.activityValue}>
-                {reviewCount.toFixed(1)}
+                {reviewCount?.toFixed(1) || 0}
               </span>
             </div>
             <div className={styles.iconWrapper}>
               <StarFilled className={styles.icon} />
-              <span className={styles.activityValue}>{rate.toFixed(1)}</span>
+              <span className={styles.activityValue}>
+                {rate?.toFixed(1) || 0}
+              </span>
             </div>
           </div>
           {isEditable && (
