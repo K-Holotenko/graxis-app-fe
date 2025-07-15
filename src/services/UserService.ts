@@ -27,7 +27,7 @@ export const signUp = async (user: SignUpUser): Promise<User> => {
   formData.append('name', user.name || '');
   formData.append('surname', user.surname || '');
   user?.avatar && formData.append('avatar', user.avatar);
-  formData.append('country', 'Ukraine');
+  formData.append('country', 'Україна');
   user?.city && formData.append('city', user.city);
 
   const response = await axios.post(
