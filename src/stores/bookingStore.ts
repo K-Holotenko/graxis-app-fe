@@ -51,6 +51,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
   isBookingLoading: false,
   chat: null,
   isChatLoading: false,
+
   createBooking: async (
     startDate: string | undefined,
     endDate: string | undefined,
@@ -65,12 +66,12 @@ export const useBookingStore = create<BookingStore>((set) => ({
 
       return response;
     } catch {
-      // showError('Категорії наразі недоступні. Спробуйте ще раз');
       return null;
     } finally {
       set({ isBookingLoading: false });
     }
   },
+
   getBooking: async (id: string) => {
     set({ isBookingLoading: true });
 
@@ -86,6 +87,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
       set({ isBookingLoading: false });
     }
   },
+
   getAllMyBookings: async () => {
     set({ isBookingLoading: true });
 
@@ -101,6 +103,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
       set({ isBookingLoading: false });
     }
   },
+
   getChat: async (id: string) => {
     set({ isChatLoading: true });
 

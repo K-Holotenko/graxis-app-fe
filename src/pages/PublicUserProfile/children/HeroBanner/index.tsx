@@ -18,13 +18,15 @@ export const HeroBanner = () => {
     <div className={styles.heroBanner}>
       <Avatar
         size={{ xs: 100, sm: 100, md: 168, lg: 168, xl: 168, xxl: 168 }}
-        src={null}
+        src={profile?.author.avatarUrl}
         className={styles.avatar}
       >
         {profile?.author.name?.charAt(0)}
         {profile?.author.surname?.charAt(0)}
       </Avatar>
-      <div className={styles.location}>Локація (Треба додати)</div>
+      <div className={styles.location}>
+        {profile?.author.location?.country} {profile?.author.location?.city}
+      </div>
       <div className={styles.name}>
         {profile?.author.name} {profile?.author.surname}
       </div>
@@ -33,10 +35,10 @@ export const HeroBanner = () => {
       </div>
       <div className={styles.info}>
         <Star style={{ width: '27px', height: '25px' }} />
-        <span className={styles.summary}>{profile?.author.rate}</span>
+        <span className={styles.summary}>{profile?.author.rate || 0}</span>
         <Circle style={{ width: '16px', height: '16px', marginLeft: '12px' }} />
         <span className={styles.summary}>
-          {profile?.author.reviewCount} Відгуків
+          {profile?.author.reviewCount || 0} Відгуків
         </span>
       </div>
       <div className={styles.info}>
