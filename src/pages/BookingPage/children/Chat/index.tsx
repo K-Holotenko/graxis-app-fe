@@ -116,8 +116,6 @@ export const Chat = () => {
     };
   }, []);
 
-  // eslint-disable-next-line no-console
-  console.log('isConnected', isConnected);
   if (isChatLoading || !chat || isLoading || !user) {
     return (
       <Container>
