@@ -11,6 +11,7 @@ import { Shelf } from 'src/pages/BookingPage/children/Shelf';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useBookingStatus } from 'src/hooks/useBookingStatus';
 
+import type { Booking as BookingType } from 'src/services/Booking';
 import styles from './styles.module.scss';
 
 const statusToIconMap = {
@@ -41,38 +42,46 @@ export enum PaymentStatus {
   REFUNDED_IN_PROGRESS = 'REFUNDED_IN_PROGRESS',
 }
 
+const statusToStepMap: Record<
+  Exclude<BookingStatus, BookingStatus.CANCELLED>,
+  number
+> = {
+  [BookingStatus.PENDING]: 0,
+  [BookingStatus.CONFIRMED]: 1,
+  [BookingStatus.PAID]: 2,
+  [BookingStatus.BOOKED]: 3,
+  [BookingStatus.IN_PROGRESS]: 4,
+  [BookingStatus.COMPLETED]: 5,
+  [BookingStatus.RETURNED]: 6,
+  [BookingStatus.RATED]: 7,
+};
+
 const getStepStatus = (
   currentStatus: BookingStatus,
-  stepIndex: number
+  stepIndex: number,
+  cancellationStep?: number
 ): StepProps['status'] => {
-  const statusOrder: Record<
-    Exclude<BookingStatus, BookingStatus.CANCELLED>,
-    number
-  > = {
-    [BookingStatus.PENDING]: 0,
-    [BookingStatus.CONFIRMED]: 1,
-    [BookingStatus.PAID]: 2,
-    [BookingStatus.BOOKED]: 3,
-    [BookingStatus.IN_PROGRESS]: 4,
-    [BookingStatus.COMPLETED]: 5,
-    [BookingStatus.RETURNED]: 6,
-    [BookingStatus.RATED]: 7,
-  };
-
   // Convert PAID to BOOKED for display purposes
   const displayStatus =
     currentStatus === BookingStatus.PAID ? BookingStatus.BOOKED : currentStatus;
 
-  const currentStep =
-    displayStatus === BookingStatus.CANCELLED
-      ? -1
-      : (statusOrder[
-          displayStatus as Exclude<BookingStatus, BookingStatus.CANCELLED>
-        ] ?? -1);
-
   if (displayStatus === BookingStatus.CANCELLED) {
-    return stepIndex === 0 ? 'finish' : stepIndex === 2 ? 'error' : 'wait';
+    // If cancellationStep is provided, use it; otherwise default to step 1 (after PENDING)
+    const cancelledAtStep = cancellationStep ?? 1;
+
+    if (stepIndex < cancelledAtStep) {
+      return 'finish'; // Steps before cancellation are completed
+    } else if (stepIndex === cancelledAtStep) {
+      return 'error'; // The step where cancellation occurred
+    } else {
+      return 'wait'; // Steps after cancellation
+    }
   }
+
+  const currentStep =
+    statusToStepMap[
+      displayStatus as Exclude<BookingStatus, BookingStatus.CANCELLED>
+    ] ?? -1;
 
   if (stepIndex <= currentStep) {
     return 'finish';
@@ -81,7 +90,37 @@ const getStepStatus = (
   return 'wait';
 };
 
-const renderItems = (status: BookingStatus | null): StepProps[] => {
+const determineCancellationStep = (
+  booking: BookingType | null,
+  lastStatus?: Exclude<BookingStatus, BookingStatus.CANCELLED>
+): number => {
+  // This function determines at which step the cancellation likely occurred
+  // Using lastStatus parameter for precise cancellation step detection
+  //
+  // If lastStatus is provided, use it to determine exact cancellation point
+  // Otherwise, fall back to payment status heuristic
+
+  if (lastStatus) {
+    // Cancellation occurs at the step after the last completed status
+    return Math.min(statusToStepMap[lastStatus] + 1, 6); // Cap at step 6 (before final rating)
+  }
+
+  // Fallback logic when lastStatus is not available
+  // Current logic:
+  // - If there's no payment info or payment is unpaid, cancellation happened before payment (step 1 - "Прийнято")
+  // - If payment was made, cancellation happened after payment (step 3 - "Заброньовано")
+
+  if (!booking?.paymentStatus || booking.paymentStatus === 'UNPAID') {
+    return 1; // Cancelled during confirmation phase
+  }
+
+  return 3; // Cancelled after payment/booking phase
+};
+
+const renderItems = (
+  status: BookingStatus | null,
+  booking: BookingType | null
+): StepProps[] => {
   const steps: StepProps[] = [
     { title: 'Надіслано' },
     { title: 'Прийнято' },
@@ -98,10 +137,18 @@ const renderItems = (status: BookingStatus | null): StepProps[] => {
   const displayStatus =
     status === BookingStatus.PAID ? BookingStatus.BOOKED : status;
 
+  // Determine cancellation step if status is cancelled
+  // TODO: When backend provides lastStatus before cancellation, pass it here for precise cancellation step detection
+  // Example: const lastStatus = booking?.lastStatusBeforeCancellation;
+  const cancellationStep =
+    displayStatus === BookingStatus.CANCELLED
+      ? determineCancellationStep(booking, undefined) // Pass undefined until backend provides lastStatus
+      : undefined;
+
   return steps.map((step, index) => {
-    const stepStatus = getStepStatus(displayStatus, index);
+    const stepStatus = getStepStatus(displayStatus, index, cancellationStep);
     const isCancelled =
-      displayStatus === BookingStatus.CANCELLED && index === 2;
+      displayStatus === BookingStatus.CANCELLED && index === cancellationStep;
 
     return {
       ...step,
@@ -143,7 +190,7 @@ export const Booking = () => {
             size="small"
             responsive={false}
             labelPlacement="vertical"
-            items={renderItems(bookingStatus)}
+            items={renderItems(bookingStatus, booking)}
           />
         </ConfigProvider>
       </div>

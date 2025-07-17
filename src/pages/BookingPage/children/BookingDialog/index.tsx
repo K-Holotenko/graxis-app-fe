@@ -22,7 +22,7 @@ export const BookingDialog = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
   const { bookingStatus } = useBookingStatus();
-  const { booking } = useBookingStore();
+  const { booking, updateBookingStatus } = useBookingStore();
 
   const navigate = useNavigate();
 
@@ -32,8 +32,10 @@ export const BookingDialog = () => {
 
   const actions: BookingAction[] = getCurrentActions(
     bookingStatus as Exclude<BookingStatus, BookingStatus.BOOKED>,
-    userRole
+    userRole,
+    updateBookingStatus
   );
+
   const visibleActions = actions.filter((action) => action.isVisible);
 
   if (visibleActions.length === 0) {
