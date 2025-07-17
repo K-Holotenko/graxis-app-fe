@@ -1,7 +1,7 @@
 import { ButtonTypes } from 'src/config/constants';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
 import { ROUTES } from 'src/router/routes';
-import { changeBookingStatus, paymentTransaction } from 'src/services/Booking';
+import { paymentTransaction } from 'src/services/Booking';
 
 export enum UserRole {
   RENTER = 'RENTER',
@@ -23,18 +23,21 @@ export type BookingDialogConfig = {
   };
 };
 
-export const bookingDialogConfig: Omit<
-  BookingDialogConfig,
-  BookingStatus.BOOKED
-> = {
+export const bookingDialogConfig = (
+  updateBookingStatus: (
+    bookingId: string,
+    status: BookingStatus
+  ) => Promise<void>
+): Omit<BookingDialogConfig, BookingStatus.BOOKED> => ({
   [BookingStatus.PENDING]: {
     [UserRole.RENTER]: [
       {
         id: 'cancel',
         label: 'Скасувати запит',
         type: ButtonTypes.default,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.CANCELLED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        },
         isVisible: true,
       },
     ],
@@ -43,16 +46,18 @@ export const bookingDialogConfig: Omit<
         id: 'reject',
         label: 'Відхилити запит',
         type: ButtonTypes.default,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.CANCELLED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        },
         isVisible: true,
       },
       {
         id: 'confirm',
         label: 'Підтвердити запит',
         type: ButtonTypes.primary,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.CONFIRMED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.CONFIRMED);
+        },
         isVisible: true,
       },
     ],
@@ -63,18 +68,19 @@ export const bookingDialogConfig: Omit<
         id: 'cancel',
         label: 'Скасувати бронювання',
         type: ButtonTypes.default,
-        action: (bookingId: string) =>
-          paymentTransaction(bookingId).then(() => {
-            changeBookingStatus(bookingId, BookingStatus.PAID);
-          }),
+        action: async (bookingId: string) => {
+          await paymentTransaction(bookingId);
+          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        },
         isVisible: true,
       },
       {
-        id: 'cancel',
+        id: 'pay',
         label: 'Оплатити бронювання',
         type: ButtonTypes.default,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.CANCELLED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.PAID);
+        },
         isVisible: true,
       },
     ],
@@ -83,8 +89,9 @@ export const bookingDialogConfig: Omit<
         id: 'cancel',
         label: 'Скасувати бронювання',
         type: ButtonTypes.default,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.CANCELLED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        },
         isVisible: true,
       },
     ],
@@ -95,16 +102,18 @@ export const bookingDialogConfig: Omit<
         id: 'start',
         label: 'Почати оренду',
         type: ButtonTypes.primary,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.IN_PROGRESS),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.IN_PROGRESS);
+        },
         isVisible: true,
       },
       {
         id: 'cancel',
         label: 'Скасувати бронювання',
         type: ButtonTypes.default,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.CANCELLED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        },
         isVisible: true,
       },
     ],
@@ -113,8 +122,9 @@ export const bookingDialogConfig: Omit<
         id: 'cancel',
         label: 'Скасувати бронювання',
         type: ButtonTypes.default,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.CANCELLED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        },
         isVisible: true,
       },
     ],
@@ -126,8 +136,9 @@ export const bookingDialogConfig: Omit<
         id: 'complete',
         label: 'Підтвердити повернення',
         type: ButtonTypes.primary,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.COMPLETED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.COMPLETED);
+        },
         isVisible: true,
       },
     ],
@@ -138,8 +149,9 @@ export const bookingDialogConfig: Omit<
         id: 'rate',
         label: 'Залишити відгук',
         type: ButtonTypes.primary,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.RATED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.RATED);
+        },
         isVisible: true,
       },
     ],
@@ -148,8 +160,9 @@ export const bookingDialogConfig: Omit<
         id: 'rate',
         label: 'Залишити відгук',
         type: ButtonTypes.primary,
-        action: (bookingId: string) =>
-          changeBookingStatus(bookingId, BookingStatus.RATED),
+        action: (bookingId: string) => {
+          updateBookingStatus(bookingId, BookingStatus.RATED);
+        },
         isVisible: true,
       },
     ],
@@ -161,7 +174,7 @@ export const bookingDialogConfig: Omit<
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
         action: (bookingId: string, navigate?: (path: string) => void) => {
-          changeBookingStatus(bookingId, BookingStatus.RETURNED);
+          updateBookingStatus(bookingId, BookingStatus.RETURNED);
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
         isVisible: true,
@@ -173,7 +186,7 @@ export const bookingDialogConfig: Omit<
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
         action: (bookingId: string, navigate?: (path: string) => void) => {
-          changeBookingStatus(bookingId, BookingStatus.RETURNED);
+          updateBookingStatus(bookingId, BookingStatus.RETURNED);
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
         isVisible: true,
@@ -188,7 +201,7 @@ export const bookingDialogConfig: Omit<
     [UserRole.RENTER]: [],
     [UserRole.OWNER]: [],
   },
-};
+});
 
 // Helper function to get user role
 export const getUserRole = (
@@ -203,11 +216,15 @@ export const getUserRole = (
 // Helper function to get current actions
 export const getCurrentActions = (
   bookingStatus: Exclude<BookingStatus, BookingStatus.BOOKED> | null,
-  userRole: UserRole
+  userRole: UserRole,
+  updateBookingStatus: (
+    bookingId: string,
+    status: BookingStatus
+  ) => Promise<void>
 ): BookingAction[] => {
   if (!bookingStatus) return [];
 
-  const statusConfig = bookingDialogConfig[bookingStatus];
+  const statusConfig = bookingDialogConfig(updateBookingStatus)[bookingStatus];
 
   return statusConfig ? statusConfig[userRole] : [];
 };
