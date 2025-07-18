@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Heading } from 'src/components/Heading';
 import Star from 'src/assets/icons/star-icon.svg?react';
+import Circle from 'src/assets/icons/yellow-circle-icon.svg?react';
 import Smiley from 'src/assets/icons/smiley-icon.svg?react';
 import { IMAGE_DESCRIPTION } from 'src/config/constants';
 import { Publication } from 'src/services/PublicationService';
@@ -36,7 +37,8 @@ export const Owner = ({
         <p className={styles.name}>{`${name} ${surname}`}</p>
         <div className={styles.info}>
           <Star />
-          <span className={styles.text}>{rate}</span>
+          <span className={styles.text}>{rate || 0}</span>
+          <Circle />
           <span className={styles.text}>{reviewCount} відгуків</span>
         </div>
         <div className={styles.info}>
