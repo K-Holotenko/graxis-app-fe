@@ -79,3 +79,18 @@ export const paymentTransaction = async (id: string): Promise<unknown> => {
 
   return response.data;
 };
+
+export const submitFeedback = async (
+  bookingId: string,
+  stars: number,
+  text: string
+): Promise<Booking> => {
+  const response = await api.post('/feedback', {
+    bookingId,
+    title: 'remove title field for now',
+    stars,
+    text,
+  });
+
+  return response.data;
+};

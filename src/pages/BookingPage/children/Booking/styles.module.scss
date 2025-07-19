@@ -46,7 +46,33 @@
   }
 }
 
-.detailsTitles {
+.feedbackContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.feedbackTitle {
+  color: variables.$N6;
+  font-family: variables.$font-heading;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.feedbackSuccess {
+  color: variables.$N6;
+  font-family: variables.$font-body;
+  font-size: 18px;
+}
+
+.feedbackRate {
+  margin-bottom: 12px;
+}
+
+.titles {
   color: variables.$N6;
   font-family: variables.$font-heading;
   font-size: 24px;

@@ -1,6 +1,8 @@
 import { Tabs } from 'antd';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
+import { useBookingStore } from 'src/stores/bookingStore';
 import { socket } from 'src/sockets';
 import { BookingLayout } from 'src/layouts/BookingLayout';
 import { AppLayout } from 'src/layouts/AppLayout';
@@ -15,14 +17,19 @@ import { Booking } from './children/Booking';
 import { Chat } from './children/Chat';
 import styles from './styles.module.scss';
 
+const TABS = {
+  DETAILS: 'details',
+  CHAT: 'chat',
+} as const;
+
 const items = [
   {
-    key: '1',
+    key: TABS.DETAILS,
     label: 'Деталі',
     children: <Booking />,
   },
   {
-    key: '2',
+    key: TABS.CHAT,
     label: 'Чат',
     children: <Chat />,
   },
@@ -31,8 +38,21 @@ const items = [
 export const BookingPage = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
+  const { getBooking } = useBookingStore();
+  const navigate = useNavigate();
+
+  const { id, tab } = useParams<{ id: string; tab?: string }>(); // Only get booking ID
+  const [activeTab, setActiveTab] = useState<string>(tab || TABS.DETAILS); // Local state for active tab
+
   const isTablet = width < SCREEN_WIDTH.XL;
   const isMobile = width < SCREEN_WIDTH.SM;
+
+  // Fetch booking data
+  useEffect(() => {
+    if (id) {
+      getBooking(id);
+    }
+  }, [id, getBooking]);
 
   useEffect(() => {
     if (user) {
@@ -46,6 +66,11 @@ export const BookingPage = () => {
     };
   }, []);
 
+  const handleTabChange = (newTab: string) => {
+    setActiveTab(newTab as (typeof TABS)[keyof typeof TABS]);
+    navigate(`/booking/${id}/${newTab}`, { replace: true });
+  };
+
   return (
     <PageContainer pageTitle="Профіль">
       <AppLayout>
@@ -55,10 +80,11 @@ export const BookingPage = () => {
         />
         {isTablet ? (
           <Tabs
-            defaultActiveKey="1"
+            activeKey={activeTab}
             items={items}
             rootClassName={styles.tabs}
             centered={isMobile}
+            onChange={handleTabChange}
           />
         ) : (
           <BookingLayout booking={<Booking />} chat={<Chat />} />

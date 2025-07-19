@@ -1,7 +1,7 @@
 import { ButtonTypes } from 'src/config/constants';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
 import { ROUTES } from 'src/router/routes';
-import { paymentTransaction } from 'src/services/Booking';
+import { paymentTransaction, submitFeedback } from 'src/services/Booking';
 
 export enum UserRole {
   RENTER = 'RENTER',
@@ -12,7 +12,12 @@ export interface BookingAction {
   id: string;
   label: string;
   type: ButtonTypes;
-  action: (bookingId: string, navigate?: (path: string) => void) => void;
+  action: (
+    bookingId: string,
+    navigate?: (path: string) => void,
+    rating?: number,
+    feedback?: string
+  ) => void;
   isVisible: boolean;
   isDisabled?: boolean;
 }
@@ -43,7 +48,7 @@ export const bookingDialogConfig = (
     ],
     [UserRole.OWNER]: [
       {
-        id: 'reject',
+        id: 'cancel',
         label: 'Відхилити запит',
         type: ButtonTypes.default,
         action: (bookingId: string) => {
@@ -66,7 +71,7 @@ export const bookingDialogConfig = (
     [UserRole.RENTER]: [
       {
         id: 'cancel',
-        label: 'Скасувати бронювання',
+        label: 'Скасувати',
         type: ButtonTypes.default,
         action: async (bookingId: string) => {
           await paymentTransaction(bookingId);
@@ -76,9 +81,10 @@ export const bookingDialogConfig = (
       },
       {
         id: 'pay',
-        label: 'Оплатити бронювання',
-        type: ButtonTypes.default,
+        label: 'Оплатити',
+        type: ButtonTypes.primary,
         action: (bookingId: string) => {
+          paymentTransaction(bookingId);
           updateBookingStatus(bookingId, BookingStatus.PAID);
         },
         isVisible: true,
@@ -87,7 +93,7 @@ export const bookingDialogConfig = (
     [UserRole.OWNER]: [
       {
         id: 'cancel',
-        label: 'Скасувати бронювання',
+        label: 'Скасувати',
         type: ButtonTypes.default,
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.CANCELLED);
@@ -99,20 +105,20 @@ export const bookingDialogConfig = (
   [BookingStatus.PAID]: {
     [UserRole.RENTER]: [
       {
-        id: 'start',
-        label: 'Почати оренду',
-        type: ButtonTypes.primary,
+        id: 'cancel',
+        label: 'Скасувати',
+        type: ButtonTypes.default,
         action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.IN_PROGRESS);
+          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
         },
         isVisible: true,
       },
       {
-        id: 'cancel',
-        label: 'Скасувати бронювання',
-        type: ButtonTypes.default,
+        id: 'confirm-return',
+        label: 'Підтвердити повернення',
+        type: ButtonTypes.primary,
         action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+          updateBookingStatus(bookingId, BookingStatus.IN_PROGRESS);
         },
         isVisible: true,
       },
@@ -120,7 +126,7 @@ export const bookingDialogConfig = (
     [UserRole.OWNER]: [
       {
         id: 'cancel',
-        label: 'Скасувати бронювання',
+        label: 'Скасувати',
         type: ButtonTypes.default,
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.CANCELLED);
@@ -133,11 +139,11 @@ export const bookingDialogConfig = (
     [UserRole.RENTER]: [],
     [UserRole.OWNER]: [
       {
-        id: 'complete',
+        id: 'confirm-return',
         label: 'Підтвердити повернення',
         type: ButtonTypes.primary,
         action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.COMPLETED);
+          updateBookingStatus(bookingId, BookingStatus.RETURNED);
         },
         isVisible: true,
       },
@@ -149,8 +155,14 @@ export const bookingDialogConfig = (
         id: 'rate',
         label: 'Залишити відгук',
         type: ButtonTypes.primary,
-        action: (bookingId: string) => {
+        action: (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          rating?: number,
+          feedback?: string
+        ) => {
           updateBookingStatus(bookingId, BookingStatus.RATED);
+          submitFeedback(bookingId, rating!, feedback!);
         },
         isVisible: true,
       },
@@ -160,8 +172,14 @@ export const bookingDialogConfig = (
         id: 'rate',
         label: 'Залишити відгук',
         type: ButtonTypes.primary,
-        action: (bookingId: string) => {
+        action: (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          rating?: number,
+          feedback?: string
+        ) => {
           updateBookingStatus(bookingId, BookingStatus.RATED);
+          submitFeedback(bookingId, rating!, feedback!);
         },
         isVisible: true,
       },
@@ -170,11 +188,10 @@ export const bookingDialogConfig = (
   [BookingStatus.RATED]: {
     [UserRole.RENTER]: [
       {
-        id: 'return',
+        id: 'return-to-publications',
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
-        action: (bookingId: string, navigate?: (path: string) => void) => {
-          updateBookingStatus(bookingId, BookingStatus.RETURNED);
+        action: (_bookingId: string, navigate?: (path: string) => void) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
         isVisible: true,
@@ -182,11 +199,10 @@ export const bookingDialogConfig = (
     ],
     [UserRole.OWNER]: [
       {
-        id: 'confirm_return',
+        id: 'return-to-publications',
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
-        action: (bookingId: string, navigate?: (path: string) => void) => {
-          updateBookingStatus(bookingId, BookingStatus.RETURNED);
+        action: (_bookingId: string, navigate?: (path: string) => void) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
         isVisible: true,
@@ -194,8 +210,28 @@ export const bookingDialogConfig = (
     ],
   },
   [BookingStatus.CANCELLED]: {
-    [UserRole.RENTER]: [],
-    [UserRole.OWNER]: [],
+    [UserRole.RENTER]: [
+      {
+        id: 'return-to-publications',
+        label: 'Повернутися до публікацій',
+        type: ButtonTypes.primary,
+        action: (_bookingId: string, navigate?: (path: string) => void) => {
+          navigate?.(ROUTES.SEARCH_RESULTS);
+        },
+        isVisible: true,
+      },
+    ],
+    [UserRole.OWNER]: [
+      {
+        id: 'return-to-publications',
+        label: 'Повернутися до публікацій',
+        type: ButtonTypes.primary,
+        action: (_bookingId: string, navigate?: (path: string) => void) => {
+          navigate?.(ROUTES.SEARCH_RESULTS);
+        },
+        isVisible: true,
+      },
+    ],
   },
   [BookingStatus.COMPLETED]: {
     [UserRole.RENTER]: [],
