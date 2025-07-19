@@ -11,6 +11,14 @@ import styles from './styles.module.scss';
 export const NotFoundPage = () => {
   const navigate = useNavigate();
 
+  const handleBackClick = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate(ROUTES.HOME);
+    }
+  };
+
   return (
     <AppLayout>
       <div className={styles.container}>
@@ -21,7 +29,7 @@ export const NotFoundPage = () => {
             className={styles.button}
             type={ButtonTypes.default}
             label="Назад"
-            onClick={() => navigate(-1)}
+            onClick={handleBackClick}
           />
           <Button
             className={styles.button}
