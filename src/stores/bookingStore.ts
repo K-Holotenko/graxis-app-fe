@@ -37,6 +37,15 @@ interface BookingStore {
   isBookingLoading: boolean;
   chat: Chat | null;
   isChatLoading: boolean;
+  rating: number | undefined;
+  feedback: string | undefined;
+  setFeedback: ({
+    rating,
+    feedback,
+  }: {
+    rating?: number;
+    feedback?: string;
+  }) => void;
   createBooking: (
     startDate: string | undefined,
     endDate: string | undefined,
@@ -57,7 +66,8 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
   isBookingLoading: false,
   chat: null,
   isChatLoading: false,
-
+  rating: undefined,
+  feedback: undefined,
   createBooking: async (
     startDate: string | undefined,
     endDate: string | undefined,
@@ -143,6 +153,22 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
       }
     } catch (error) {
       throw error;
+    }
+  },
+
+  setFeedback: async ({
+    rating,
+    feedback,
+  }: {
+    rating?: number;
+    feedback?: string;
+  }) => {
+    if (rating) {
+      set({ rating });
+    }
+
+    if (feedback) {
+      set({ feedback });
     }
   },
 }));

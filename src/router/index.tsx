@@ -50,6 +50,14 @@ export const router = createBrowserRouter([
         element: <PublicationPage />,
       },
       {
+        path: ROUTES.BOOKING_BASE,
+        element: (
+          <PrivateRoute>
+            <BookingPage />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: ROUTES.BOOKING,
         element: (
           <PrivateRoute>

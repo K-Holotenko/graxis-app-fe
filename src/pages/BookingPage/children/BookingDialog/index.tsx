@@ -22,7 +22,7 @@ export const BookingDialog = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
   const { bookingStatus } = useBookingStatus();
-  const { booking, updateBookingStatus } = useBookingStore();
+  const { booking, updateBookingStatus, rating, feedback } = useBookingStore();
 
   const navigate = useNavigate();
 
@@ -46,12 +46,15 @@ export const BookingDialog = () => {
     <Row className={styles.bookingDialog}>
       <Col xs={isTablet ? 24 : 14} className={styles.buttonsContainer}>
         {visibleActions.map((action) => (
+          // disable button if bookingStatus is rated
           <Button
             key={action.id}
             type={action.type}
             className={styles.button}
             label={action.label}
-            onClick={() => action.action(booking!.id, navigate)}
+            onClick={() =>
+              action.action(booking!.id, navigate, rating, feedback)
+            }
             isDisabled={action.isDisabled}
           />
         ))}

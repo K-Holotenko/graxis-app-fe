@@ -131,7 +131,7 @@ export const Chat = () => {
   };
 
   return (
-    <Container isChat>
+    <Container>
       <p className={styles.title}>Чат</p>
       <div className={styles.chat} ref={chatContainerRef}>
         <MessageList
