@@ -57,7 +57,7 @@ export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
       const booking = await createBooking(startDate, endDate, publicationId);
 
       if (booking) {
-        navigate(`/booking/${booking.id}`);
+        navigate(`/booking/${booking.id}/details`);
       }
     }
   };
