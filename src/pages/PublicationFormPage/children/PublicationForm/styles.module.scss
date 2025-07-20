@@ -11,6 +11,15 @@
   font-size: 12px;
 }
 
+.infoIcon {
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: #1890ff;
+  }
+  margin-left: 10px;
+}
+
 .submitButton {
   font-weight: 500;
 }
@@ -29,6 +38,13 @@
 
   .submitButton {
     width: 240px !important;
+  }
+
+  .infoIcon {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
 
