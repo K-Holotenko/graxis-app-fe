@@ -82,6 +82,20 @@ export const PublicationForm = () => {
     form.setFieldsValue(formFieldValues);
   }, [isEdit, isPublicationLoading, publication]);
 
+  useEffect(() => {
+    if (isEdit) return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isEdit]);
+
   const allValues = Form.useWatch([], form);
 
   const photos = Form.useWatch('photos', form);
