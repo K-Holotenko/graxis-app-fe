@@ -35,9 +35,7 @@
 }
 
 .city {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
+  position: relative;
   margin-bottom: 48px;
 }
 
@@ -50,12 +48,13 @@
   height: 48px !important;
 }
 
-.cityTooltipContainer {
-  display: flex;
-  align-items: center;
-  margin-bottom: 14px;
+.cityTooltip {
+  position: absolute;
+  right: -25px;
+  bottom: 14px;
 }
 
+// TODO: Try to set via config provider
 .infoIcon {
   svg {
     width: 20px;
@@ -78,4 +77,10 @@
   font-size: 12px;
   font-family: variables.$font-body;
   color: variables.$N5;
+}
+
+@media (min-width: variables.$media-sm) {
+  .cityTooltip {
+    right: -30px;
+  }
 }

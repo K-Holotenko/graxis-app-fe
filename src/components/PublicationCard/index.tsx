@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Card, Dropdown, MenuProps, Tooltip } from 'antd';
-import { StarFilled, EyeOutlined, MoreOutlined } from '@ant-design/icons';
+import { Card, Dropdown, MenuProps } from 'antd';
+import { EyeOutlined, MoreOutlined, StarOutlined } from '@ant-design/icons';
 import { useNavigate, generatePath } from 'react-router-dom';
 
-import { theme } from 'src/config/theme';
 import {
   deletePublicationById,
   PublicationCard as PublicationCardType,
@@ -50,19 +49,11 @@ export const PublicationCard = ({
 
   const displayPrice = getDisplayPrice(price);
 
-  const textLength = 35;
-
   const handleCardClick = () => {
     const path = generatePath(ROUTES.PUBLICATION, { id });
 
     navigate(path);
   };
-
-  const isTruncated = title.length > textLength;
-  const truncatedTitle = isTruncated
-    ? `${title.substring(0, textLength)}...`
-    : title;
-  const tooltip = isTruncated ? title : null;
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     e.domEvent.stopPropagation();
@@ -121,7 +112,7 @@ export const PublicationCard = ({
               </span>
             </div>
             <div className={styles.iconWrapper}>
-              <StarFilled className={styles.icon} />
+              <StarOutlined className={styles.icon} />
               <span className={styles.activityValue}>
                 {rate?.toFixed(1) || 0}
               </span>
@@ -144,10 +135,7 @@ export const PublicationCard = ({
             </Dropdown>
           )}
         </div>
-
-        <Tooltip title={tooltip} color={theme.primary}>
-          <p className={styles.cardTitle}>{truncatedTitle}</p>
-        </Tooltip>
+        <p className={styles.cardTitle}>{title}</p>
         <p className={styles.price}>
           {displayPrice?.value} грн / {displayPrice?.period}
         </p>

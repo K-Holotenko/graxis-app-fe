@@ -12,9 +12,9 @@ export const Description = ({ description }: DescriptionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 500;
 
-  const showShortText = description.length > maxLength;
+  const shouldShowShortText = description.length > maxLength;
   const displayedText =
-    showShortText && !isExpanded
+    shouldShowShortText && !isExpanded
       ? `${description.slice(0, maxLength)}...`
       : description;
 
@@ -24,7 +24,7 @@ export const Description = ({ description }: DescriptionProps) => {
         Опис
       </Heading>
       <p className={styles.description}>{displayedText}</p>
-      {showShortText && (
+      {shouldShowShortText && (
         <button
           className={styles.moreButton}
           onClick={() => setIsExpanded(!isExpanded)}
