@@ -72,6 +72,9 @@ export const PublicationForm = () => {
 
   const { publication, isPublicationLoading } = usePublication();
 
+  const locationValue = Form.useWatch('location', form);
+  const isLocationPicked = !!locationValue?.lat && !!locationValue?.lng;
+
   useEffect(() => {
     if (!isEdit || !publication || isPublicationLoading) {
       return;
@@ -104,6 +107,8 @@ export const PublicationForm = () => {
       })
       .catch(() => setIsValid(false));
   }, [form, allValues, photos]);
+
+  const canSubmit = isValid && isLocationPicked;
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -258,15 +263,15 @@ export const PublicationForm = () => {
             <Form.Item
               label={<label className={styles.formItemLabel}>Локація</label>}
               name="location"
-              rules={[{ required: true, message: 'Введіть локацію' }]}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
               <APIProvider apiKey={API_KEY} libraries={['places']}>
-                <LocationAutocomplete />
+                <LocationAutocomplete isLocationPicked={isLocationPicked} />
               </APIProvider>
-              <p className={styles.helperText}>
-                Почніть вводити адресу та оберіть відповідний варіант із списку,
-                що з’явиться.
-              </p>
             </Form.Item>
           </Col>
         </Row>
@@ -275,7 +280,7 @@ export const PublicationForm = () => {
             className={styles.submitButton}
             htmlType="submit"
             label={isLoading ? '' : 'Опублікувати'}
-            isDisabled={!isValid}
+            isDisabled={!canSubmit}
             isLoading={isLoading}
           />
         </Row>

@@ -20,6 +20,12 @@
       border-radius: 8px !important;
     }
   }
+
+  &.error {
+    :global(.ant-select-selector) {
+      border: 1px solid #ea2a2a !important;
+    }
+  }
 }
 
 .popUp {
@@ -51,6 +57,19 @@
 
 .googleLogoImg {
   height: 14px;
+}
+
+.helperText {
+  padding-top: 8px;
+  font-size: 14px;
+  color: variables.$N4;
+  font-family: variables.$font-body;
+}
+
+.helperTextError {
+  color: variables.$error;
+  font-weight: 500;
+  font-size: 12px;
 }
 
 @media (min-width: variables.$media-sm) {
