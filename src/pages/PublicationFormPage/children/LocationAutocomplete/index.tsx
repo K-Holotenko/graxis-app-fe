@@ -14,10 +14,18 @@ import { formatLocation, getLocationValue } from './utils/utils';
 
 const { Option } = AutoComplete;
 
-export const LocationAutocomplete = () => {
+interface LocationAutocompleteProps {
+  isLocationPicked: boolean;
+}
+
+export const LocationAutocomplete = ({
+  isLocationPicked,
+}: LocationAutocompleteProps) => {
   const form = Form.useFormInstance();
   const location = useLocation();
   const isEdit = location.pathname.includes('edit-publication');
+
+  const [hasManuallyEdited, setHasManuallyEdited] = useState(false);
 
   const [searchValue, setSearchValue] = useState('');
   const [predictions, setPredictions] = useState<
@@ -76,10 +84,10 @@ export const LocationAutocomplete = () => {
 
   const handleSearch = (value: string) => {
     setSearchValue(value);
+    setHasManuallyEdited(true);
 
-    if (!value.trim()) {
-      form.setFieldsValue({ location: undefined });
-    }
+    // We accept only the value user selected from dropdown
+    form.setFieldsValue({ location: undefined });
   };
 
   const handleSelect = useCallback(
@@ -120,13 +128,16 @@ export const LocationAutocomplete = () => {
     [placesService.current]
   );
 
-  const locationValue = Form.useWatch('location', form);
-  const localTheme = setLocalTheme(locationValue);
+  const localTheme = setLocalTheme(isLocationPicked);
+  const showError = hasManuallyEdited && !isLocationPicked;
 
   return (
     <ConfigProvider theme={localTheme}>
       <AutoComplete
-        className={styles.searchBox}
+        className={`
+    ${styles.searchBox}
+    ${showError ? styles.error : ''}
+  `}
         popupClassName={styles.popUp}
         value={getLocationValue(searchValue, form, isEdit)}
         showSearch
@@ -158,15 +169,21 @@ export const LocationAutocomplete = () => {
           </Option>
         )}
       </AutoComplete>
+      <p
+        className={`${styles.helperText} ${showError ? styles.helperTextError : ''}`}
+      >
+        Почніть вводити адресу та оберіть відповідний варіант із списку, що
+        з’явиться.
+      </p>
     </ConfigProvider>
   );
 };
 
-const setLocalTheme = (locationValue: boolean) => ({
+const setLocalTheme = (isLocationPicked: boolean) => ({
   components: {
     Select: {
       borderRadius: 8,
-      colorBorder: locationValue ? theme.success : theme.N3,
+      colorBorder: isLocationPicked ? theme.success : theme.N3,
       hoverBorderColor: theme.N4,
       fontSize: 12,
       colorPrimary: theme.N5,
