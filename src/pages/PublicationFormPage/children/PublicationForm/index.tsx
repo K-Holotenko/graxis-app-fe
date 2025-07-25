@@ -5,8 +5,9 @@ import {
   useParams,
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Form, Col, Row, ConfigProvider, UploadFile } from 'antd';
+import { Form, Col, Row, ConfigProvider, UploadFile, Tooltip } from 'antd';
 import { APIProvider } from '@vis.gl/react-google-maps';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { ROUTES } from 'src/router/routes';
 import { FORMS } from 'src/config/constants';
@@ -17,7 +18,6 @@ import {
 } from 'src/config/validation';
 import { CategoriesDropdown } from 'src/pages/PublicationFormPage/children/CategoriesDropdown';
 import { PriceInputs } from 'src/pages/PublicationFormPage/children/PriceInputs';
-import { SuccessModal } from 'src/pages/PublicationFormPage/children/SuccessModal';
 import { Button } from 'src/components/Button';
 import { theme } from 'src/config/theme';
 import { LocationAutocomplete } from 'src/pages/PublicationFormPage/children/LocationAutocomplete';
@@ -58,8 +58,6 @@ export const PublicationForm = () => {
   const [form] = Form.useForm();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [newPublicationId, setNewPublicationId] = useState<string>();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
   const locationUrl = useLocation();
@@ -87,6 +85,20 @@ export const PublicationForm = () => {
     form.setFieldsValue(formFieldValues);
   }, [isEdit, isPublicationLoading, publication]);
 
+  useEffect(() => {
+    if (isEdit) return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isEdit]);
+
   const allValues = Form.useWatch([], form);
 
   const photos = Form.useWatch('photos', form);
@@ -108,26 +120,6 @@ export const PublicationForm = () => {
       .catch(() => setIsValid(false));
   }, [form, allValues, photos]);
 
-  const canSubmit = isValid && isLocationPicked;
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-
-    if (!newPublicationId) {
-      navigate(ROUTES.SEARCH_RESULTS);
-    }
-
-    const path = generatePath(ROUTES.PUBLICATION, {
-      id: newPublicationId || '',
-    });
-
-    navigate(path);
-  };
-
   const onFinish = async (values: PublicationInputs) => {
     const publicationData = {
       categoryName: values.category,
@@ -144,9 +136,17 @@ export const PublicationForm = () => {
       if (!isEdit) {
         const createdPublication = await createPublication(publicationData);
 
-        setNewPublicationId(createdPublication.id);
+        const path = generatePath(ROUTES.PUBLICATION, {
+          id: createdPublication.id || '',
+        });
 
-        showModal();
+        openNotification(
+          NotificationType.SUCCESS,
+          'Готово',
+          'Публікацію успішно створено'
+        );
+
+        navigate(path);
 
         return;
       }
@@ -171,6 +171,8 @@ export const PublicationForm = () => {
     }
   };
 
+  const canSubmit = isValid && isLocationPicked;
+
   return (
     <ConfigProvider theme={formTheme}>
       <Form
@@ -189,7 +191,7 @@ export const PublicationForm = () => {
           <Col span={24}>
             <ConfigProvider theme={textAreaTheme}>
               <Form.Item
-                label={<label className={styles.formItemLabel}>Назва</label>}
+                label={<p className={styles.formItemLabel}>Назва</p>}
                 name="title"
                 rules={[VALIDATION_CONDITION.REQUIRED]}
               >
@@ -211,7 +213,7 @@ export const PublicationForm = () => {
           <Col span={24}>
             <ConfigProvider theme={textAreaTheme}>
               <Form.Item
-                label={<label className={styles.formItemLabel}>Опис</label>}
+                label={<p className={styles.formItemLabel}>Опис</p>}
                 name="description"
                 rules={[VALIDATION_CONDITION.REQUIRED]}
               >
@@ -232,9 +234,7 @@ export const PublicationForm = () => {
         <Row>
           <Col span={24}>
             <Form.Item
-              label={
-                <label className={styles.formItemLabel}>Додайте фото</label>
-              }
+              label={<p className={styles.formItemLabel}>Додайте фото</p>}
               name="photos"
               rules={[{ required: true, message: 'Додайте фото' }]}
             >
@@ -245,7 +245,7 @@ export const PublicationForm = () => {
         <Row>
           <Col span={24}>
             <Form.Item
-              label={<label className={styles.formItemLabel}>Вартість</label>}
+              label={<p className={styles.formItemLabel}>Вартість</p>}
               className={styles.label}
               rules={[
                 {
@@ -261,7 +261,18 @@ export const PublicationForm = () => {
         <Row>
           <Col span={24}>
             <Form.Item
-              label={<label className={styles.formItemLabel}>Локація</label>}
+              label={
+                <span className={styles.formItemLabel}>
+                  <Tooltip
+                    color={theme.primary}
+                    title={`Кількість міст тимчасово обмежена, ми працюємо над розширенням можливостей. Доступні міста: Львів`}
+                    className={styles.cityTooltip}
+                  >
+                    Локація
+                    <InfoCircleOutlined className={styles.infoIcon} />
+                  </Tooltip>
+                </span>
+              }
               name="location"
               rules={[
                 {
@@ -285,7 +296,6 @@ export const PublicationForm = () => {
           />
         </Row>
       </Form>
-      <SuccessModal isModalOpen={isModalOpen} handleClose={handleModalClose} />
     </ConfigProvider>
   );
 };

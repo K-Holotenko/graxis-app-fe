@@ -29,6 +29,10 @@
   font-weight: 500;
   font-size: 14px;
   color: variables.$N6;
+
+  &:first-of-type {
+    margin-right: 2px;
+  }
 }
 
 .name {

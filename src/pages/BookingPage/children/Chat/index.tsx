@@ -116,8 +116,6 @@ export const Chat = () => {
     };
   }, []);
 
-  // eslint-disable-next-line no-console
-  console.log('isConnected', isConnected);
   if (isChatLoading || !chat || isLoading || !user) {
     return (
       <Container>
@@ -133,7 +131,7 @@ export const Chat = () => {
   };
 
   return (
-    <Container isChat>
+    <Container>
       <p className={styles.title}>Чат</p>
       <div className={styles.chat} ref={chatContainerRef}>
         <MessageList
