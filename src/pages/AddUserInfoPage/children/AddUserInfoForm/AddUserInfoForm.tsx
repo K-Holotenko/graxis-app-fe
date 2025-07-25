@@ -166,16 +166,14 @@ export const AddUserInfoForm = () => {
           >
             <Select options={cities} className={styles.citySelect} />
           </Form.Item>
-          <div className={styles.cityTooltipContainer}>
-            <Tooltip
-              color={theme.primary}
-              title="Кількість міст тимчасово обмежена, ми працюємо над розширенням можливостей"
-            >
-              <InfoCircleOutlined className={styles.infoIcon} />
-            </Tooltip>
-          </div>
+          <Tooltip
+            color={theme.primary}
+            title="Кількість міст тимчасово обмежена, ми працюємо над розширенням можливостей"
+            className={styles.cityTooltip}
+          >
+            <InfoCircleOutlined className={styles.infoIcon} />
+          </Tooltip>
         </div>
-
         <Form.Item>
           <Button
             htmlType="submit"

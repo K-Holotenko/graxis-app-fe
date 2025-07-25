@@ -5,8 +5,10 @@ import {
   createBooking,
   getAllMyBookings,
   getBooking,
+  changeBookingStatus,
 } from 'src/services/Booking';
 import { getChat } from 'src/services/Chat';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
 
 export interface ChatMessage {
   id: string;
@@ -35,6 +37,15 @@ interface BookingStore {
   isBookingLoading: boolean;
   chat: Chat | null;
   isChatLoading: boolean;
+  rating: number | undefined;
+  feedback: string | undefined;
+  setFeedback: ({
+    rating,
+    feedback,
+  }: {
+    rating?: number;
+    feedback?: string;
+  }) => void;
   createBooking: (
     startDate: string | undefined,
     endDate: string | undefined,
@@ -43,15 +54,20 @@ interface BookingStore {
   getBooking: (id: string) => Promise<Booking | null>;
   getAllMyBookings: () => Promise<Booking[] | null>;
   getChat: (id: string) => Promise<Chat | null>;
+  updateBookingStatus: (
+    bookingId: string,
+    status: BookingStatus
+  ) => Promise<void>;
 }
 
-export const useBookingStore = create<BookingStore>((set) => ({
+export const useBookingStore = create<BookingStore>((set, get) => ({
   booking: null,
   bookings: null,
   isBookingLoading: false,
   chat: null,
   isChatLoading: false,
-
+  rating: undefined,
+  feedback: undefined,
   createBooking: async (
     startDate: string | undefined,
     endDate: string | undefined,
@@ -117,6 +133,42 @@ export const useBookingStore = create<BookingStore>((set) => ({
       return null;
     } finally {
       set({ isChatLoading: false });
+    }
+  },
+
+  updateBookingStatus: async (bookingId: string, status: BookingStatus) => {
+    try {
+      await changeBookingStatus(bookingId, status);
+
+      // Update local state immediately for better UX
+      const currentBooking = get().booking;
+
+      if (currentBooking && currentBooking.id === bookingId) {
+        set({
+          booking: {
+            ...currentBooking,
+            bookingStatus: status,
+          },
+        });
+      }
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  setFeedback: async ({
+    rating,
+    feedback,
+  }: {
+    rating?: number;
+    feedback?: string;
+  }) => {
+    if (rating) {
+      set({ rating });
+    }
+
+    if (feedback) {
+      set({ feedback });
     }
   },
 }));

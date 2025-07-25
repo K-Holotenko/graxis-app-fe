@@ -25,7 +25,7 @@ export const LocationAutocomplete = ({
   const location = useLocation();
   const isEdit = location.pathname.includes('edit-publication');
 
-  const [hasManuallyEdited, setHasManuallyEdited] = useState(false);
+  const [isManuallyEdited, setIsManuallyEdited] = useState(false);
 
   const [searchValue, setSearchValue] = useState('');
   const [predictions, setPredictions] = useState<
@@ -61,12 +61,20 @@ export const LocationAutocomplete = ({
         return;
       }
 
+      // This is Lviv bounds
+      const cityBounds: google.maps.LatLngBoundsLiteral = {
+        south: 49.7681,
+        west: 23.8978,
+        north: 49.9036,
+        east: 24.1333,
+      };
+
       const request: google.maps.places.AutocompletionRequest = {
         input: debouncedSearch,
         sessionToken: sessionToken.current || undefined,
         componentRestrictions: { country: 'ua' },
-        types: ['address'],
         language: 'uk',
+        locationRestriction: cityBounds,
       };
 
       try {
@@ -84,7 +92,7 @@ export const LocationAutocomplete = ({
 
   const handleSearch = (value: string) => {
     setSearchValue(value);
-    setHasManuallyEdited(true);
+    setIsManuallyEdited(true);
 
     // We accept only the value user selected from dropdown
     form.setFieldsValue({ location: undefined });
@@ -129,7 +137,7 @@ export const LocationAutocomplete = ({
   );
 
   const localTheme = setLocalTheme(isLocationPicked);
-  const showError = hasManuallyEdited && !isLocationPicked;
+  const showError = isManuallyEdited && !isLocationPicked;
 
   return (
     <ConfigProvider theme={localTheme}>

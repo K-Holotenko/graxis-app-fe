@@ -50,6 +50,14 @@ export const router = createBrowserRouter([
         element: <PublicationPage />,
       },
       {
+        path: ROUTES.BOOKING_BASE,
+        element: (
+          <PrivateRoute>
+            <BookingPage />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: ROUTES.BOOKING,
         element: (
           <PrivateRoute>
@@ -116,6 +124,6 @@ export const router = createBrowserRouter([
   { path: ROUTES.NOT_FOUND, element: <NotFoundPage /> },
   {
     path: '*',
-    element: <Navigate to={ROUTES.NOT_FOUND} />,
+    element: <Navigate to={ROUTES.NOT_FOUND} replace />,
   },
 ]);
