@@ -24,6 +24,22 @@
   color: variables.$N6;
 }
 
+.notificationDropdown {
+  width: 300px;
+
+  :global {
+    .ant-dropdown-menu-item,
+    .ant-dropdown-menu-item:hover {
+      background-color: #fff !important;
+      padding: 0 !important;
+    }
+
+    .ant-dropdown-menu {
+      padding: 12px 10px !important;
+    }
+  }
+}
+
 .dropdownRoot {
   width: 256px;
 
@@ -32,6 +48,10 @@
       background-color: variables.$secondary !important;
     }
   }
+}
+
+.notificationIcon {
+  cursor: pointer;
 }
 
 .logo {
