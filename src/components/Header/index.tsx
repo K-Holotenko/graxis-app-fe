@@ -8,6 +8,7 @@ import {
   Image,
   MenuProps,
   Skeleton,
+  ConfigProvider,
 } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -30,6 +31,7 @@ import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { Loadable } from 'src/components/Loadable';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
+import { Notification } from 'src/components/Notification';
 
 import styles from './styles.module.scss';
 
@@ -74,6 +76,38 @@ export const AppHeader = () => {
     onClick: handleMenuClick,
   };
 
+  // TODO: Fetch notifications from backend
+  const notificationMenu = {
+    items: [
+      {
+        key: '1',
+        label: (
+          <Notification
+            title="Нова нотифікація з довгим заголовком"
+            description="Детальний опис нотифікації нотифікації"
+            time="00:00"
+            date="12.07.2025"
+            seen={false}
+            id="1"
+          />
+        ),
+      },
+      {
+        key: '2',
+        label: (
+          <Notification
+            title="Нова нотифікація"
+            description="Детальний опис нотифікації нотифікації"
+            time="00:00"
+            date="12.07.2025"
+            seen={false}
+            id="1"
+          />
+        ),
+      },
+    ],
+  };
+
   return (
     <>
       <header className={`container ${styles.headerContainer}`}>
@@ -101,13 +135,33 @@ export const AppHeader = () => {
           <Row gutter={30} align="middle" wrap={false}>
             {user && (
               <Col>
-                <Badge dot={hasNotifications}>
-                  <Image
-                    src={notificationIconSrc}
-                    alt={IMAGE_DESCRIPTION.LOGO}
-                    preview={false}
-                  />
-                </Badge>
+                <ConfigProvider
+                  theme={{
+                    components: {
+                      Menu: {
+                        itemHoverBg: 'white',
+                      },
+                    },
+                  }}
+                >
+                  <Dropdown
+                    rootClassName={styles.notificationDropdown}
+                    menu={notificationMenu}
+                    placement="bottomRight"
+                    trigger={['click']}
+                  >
+                    <Badge
+                      dot={hasNotifications}
+                      className={styles.notificationIcon}
+                    >
+                      <Image
+                        src={notificationIconSrc}
+                        alt={IMAGE_DESCRIPTION.LOGO}
+                        preview={false}
+                      />
+                    </Badge>
+                  </Dropdown>
+                </ConfigProvider>
               </Col>
             )}
             {isDesktop && shouldShowAddPublicationButton && (

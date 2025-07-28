@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, matchPath } from 'react-router-dom';
 import { ConfigProvider, Menu } from 'antd';
 
 import { ROUTES } from 'src/router/routes';
@@ -19,7 +19,7 @@ interface MenuItemProps {
 
 const items: MenuItemProps[] = [
   { key: ROUTES.USER_PROFILE, label: 'Профіль' },
-  { key: ROUTES.NOTIFICATIONS, label: 'Повідомлення' },
+  { key: ROUTES.NOTIFICATIONS_BASE, label: 'Повідомлення' },
   { key: ROUTES.PAYMENT, label: 'Платіжна інформація', isTwoLines: true },
   {
     key: ROUTES.PRIVACY_POLICY,
@@ -44,12 +44,32 @@ export const Sidebar = ({ onTabClick }: SidebarProps) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
 
+  // Function to determine which menu item should be selected based on current route
+  const getSelectedKeys = (): string[] => {
+    const { pathname } = location;
+
+    // Check if current path matches notifications with ID parameter
+    if (matchPath({ path: ROUTES.NOTIFICATIONS }, pathname)) {
+      return [ROUTES.NOTIFICATIONS_BASE];
+    }
+
+    // For other routes, use exact match
+    const exactMatch = items.find((item) => item.key === pathname);
+
+    if (exactMatch) {
+      return [exactMatch.key];
+    }
+
+    // Default to empty if no match
+    return [];
+  };
+
   return (
     <div className={styles.sidebarContainer}>
       <ConfigProvider theme={localTheme}>
         <Menu
           onClick={handleMenuClick}
-          selectedKeys={[location.pathname]}
+          selectedKeys={getSelectedKeys()}
           className={styles.menu}
         >
           {items.map(({ key, label, isTwoLines }) => (

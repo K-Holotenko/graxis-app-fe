@@ -1,0 +1,71 @@
+@use 'src/styles/variables';
+
+.link {
+  &:hover > div {
+    background-color: variables.$secondary-light;
+  }
+}
+
+.notificationItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: 12px;
+}
+
+.notificationItemOpen {
+  background-color: variables.$secondary-light;
+}
+
+.notificationItemHeader,
+.notificationItemFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.text {
+  font-size: 12px;
+  color: variables.$N6;
+}
+
+.description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 0;
+  min-width: calc(100% - 24px);
+  margin: 0;
+  font-size: 12px;
+  color: variables.$N6;
+}
+
+.notificationItemTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: variables.$N6;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 0;
+  min-width: 100%;
+}
+
+.textOpen {
+  overflow: visible;
+  white-space: normal;
+  width: 100%;
+}
+
+.chevronRight {
+  transform: translateX(7px);
+}
+
+.chevronDown {
+  transform: translateX(7px) rotate(90deg);
+}
