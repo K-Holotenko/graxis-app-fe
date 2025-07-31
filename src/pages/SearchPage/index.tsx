@@ -29,6 +29,10 @@ export const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { openNotification } = useNotification();
 
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(searchParams.get('page')) || 1
+  );
+
   const fetchPublications = (
     params: URLSearchParams,
     onSuccess: (data: PublicationPage) => void
@@ -57,11 +61,10 @@ export const SearchPage = () => {
     }
 
     const newSearchParams = new URLSearchParams(searchParams);
-    const currentPage = Number(newSearchParams.get('page') || '1');
     const nextPage = currentPage + 1;
 
     newSearchParams.set('page', String(nextPage));
-    setSearchParams(newSearchParams);
+    setCurrentPage(nextPage);
 
     fetchPublications(newSearchParams, (nextPagePublications) => {
       setPublicationsPage((prev) => ({
@@ -87,10 +90,6 @@ export const SearchPage = () => {
     setSearchParams(newSearchParams);
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    fetchPublications(newSearchParams, (data) => {
-      setPublicationsPage(data);
-    });
   };
 
   const title = searchParams.get('title');
@@ -98,10 +97,27 @@ export const SearchPage = () => {
   const categories = searchParams.get('categories');
 
   useEffect(() => {
-    fetchPublications(searchParams, (data) => {
+    const params = new URLSearchParams(searchParams);
+
+    params.set('page', '1');
+    setSearchParams(params, { replace: true });
+    setCurrentPage(1);
+    fetchPublications(params, (data) => {
       setPublicationsPage(data);
     });
   }, [title, city, categories]);
+
+  useEffect(() => {
+    const urlPage = Number(searchParams.get('page')) || 1;
+
+    if (urlPage !== currentPage) {
+      setCurrentPage(urlPage);
+      const params = new URLSearchParams(searchParams);
+
+      params.set('page', String(urlPage));
+      fetchPublications(params, (data) => setPublicationsPage(data));
+    }
+  }, [searchParams.get('page')]);
 
   return (
     <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>
@@ -125,7 +141,7 @@ export const SearchPage = () => {
                 <Pagination
                   size="default"
                   align="center"
-                  current={Number(searchParams.get('page')) || 1}
+                  current={currentPage}
                   pageSize={16}
                   total={publicationsPage.total}
                   onChange={handlePageChange}
