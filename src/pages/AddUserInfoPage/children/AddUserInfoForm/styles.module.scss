@@ -19,13 +19,6 @@
   }
 }
 
-:global {
-  .ant-form-item-has-success .ant-select-selector,
-  .ant-select-status-success {
-    border-color: variables.$success !important;
-  }
-}
-
 .uploadFormItem {
   margin-bottom: 40px;
 
@@ -37,6 +30,13 @@
 .city {
   position: relative;
   margin-bottom: 48px;
+
+  :global {
+    .ant-form-item-has-success .ant-select-selector,
+    .ant-select-status-success {
+      border-color: variables.$success !important;
+    }
+  }
 }
 
 .cityFormItem {

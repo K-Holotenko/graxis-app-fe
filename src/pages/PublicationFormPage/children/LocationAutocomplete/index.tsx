@@ -14,20 +14,15 @@ import { formatLocation, getLocationValue } from './utils/utils';
 
 const { Option } = AutoComplete;
 
-interface LocationAutocompleteProps {
-  isLocationPicked: boolean;
-}
-
-export const LocationAutocomplete = ({
-  isLocationPicked,
-}: LocationAutocompleteProps) => {
+export const LocationAutocomplete = () => {
   const form = Form.useFormInstance();
   const location = useLocation();
   const isEdit = location.pathname.includes('edit-publication');
 
-  const [isManuallyEdited, setIsManuallyEdited] = useState(false);
-
   const [searchValue, setSearchValue] = useState('');
+
+  const locationValue = Form.useWatch('location', form);
+
   const [predictions, setPredictions] = useState<
     google.maps.places.AutocompletePrediction[]
   >([]);
@@ -92,8 +87,6 @@ export const LocationAutocomplete = ({
 
   const handleSearch = (value: string) => {
     setSearchValue(value);
-    setIsManuallyEdited(true);
-
     // We accept only the value user selected from dropdown
     form.setFieldsValue({ location: undefined });
   };
@@ -136,8 +129,8 @@ export const LocationAutocomplete = ({
     [placesService.current]
   );
 
-  const localTheme = setLocalTheme(isLocationPicked);
-  const showError = isManuallyEdited && !isLocationPicked;
+  const localTheme = setLocalTheme(!!locationValue);
+  const showError = form.isFieldTouched('location') && !locationValue;
 
   return (
     <ConfigProvider theme={localTheme}>
