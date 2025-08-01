@@ -70,9 +70,6 @@ export const PublicationForm = () => {
 
   const { publication, isPublicationLoading } = usePublication();
 
-  const locationValue = Form.useWatch('location', form);
-  const isLocationPicked = !!locationValue?.lat && !!locationValue?.lng;
-
   useEffect(() => {
     if (!isEdit || !publication || isPublicationLoading) {
       return;
@@ -170,8 +167,6 @@ export const PublicationForm = () => {
       setIsLoading(false);
     }
   };
-
-  const canSubmit = isValid && isLocationPicked;
 
   return (
     <ConfigProvider theme={formTheme}>
@@ -281,7 +276,7 @@ export const PublicationForm = () => {
               ]}
             >
               <APIProvider apiKey={API_KEY} libraries={['places']}>
-                <LocationAutocomplete isLocationPicked={isLocationPicked} />
+                <LocationAutocomplete />
               </APIProvider>
             </Form.Item>
           </Col>
@@ -291,7 +286,7 @@ export const PublicationForm = () => {
             className={styles.submitButton}
             htmlType="submit"
             label={isLoading ? '' : 'Опублікувати'}
-            isDisabled={!canSubmit}
+            isDisabled={!isValid}
             isLoading={isLoading}
           />
         </Row>
