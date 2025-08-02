@@ -1,8 +1,6 @@
 import { CategoriesSection } from 'src/pages/HomePage/children/CategoriesSection';
-import { FeedbackSection } from 'src/pages/HomePage/children/FeedbackSection';
 import { HeroSection } from 'src/pages/HomePage/children/HeroSection';
 import { PageContainer } from 'src/layouts/PageContainer';
-import { PopularGoods } from 'src/pages/HomePage/children/PopularGoods';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { HOME_PAGE_CONFIG } from 'src/pages/HomePage/utils/config';
 
@@ -11,8 +9,6 @@ export const HomePage = () => (
     <AppLayout>
       <HeroSection />
       <CategoriesSection />
-      <PopularGoods />
-      <FeedbackSection />
     </AppLayout>
   </PageContainer>
 );
