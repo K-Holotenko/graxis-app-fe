@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { socket } from 'src/sockets';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 
 export const useBookingStatus = (): {
   bookingStatus: BookingStatus | null;
@@ -14,7 +14,9 @@ export const useBookingStatus = (): {
   );
 
   useEffect(() => {
-    setBookingStatus(booking?.bookingStatus || null);
+    if (booking) {
+      setBookingStatus(booking.bookingStatus);
+    }
   }, [booking]);
 
   useEffect(() => {
