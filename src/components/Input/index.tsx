@@ -23,6 +23,7 @@ interface InputProps {
   ref?: Ref<InputRef>;
   defaultValue?: string;
   allowClear?: boolean;
+  disabled?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
   onPressEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -42,6 +43,7 @@ export const Input = ({
   ref,
   defaultValue,
   allowClear,
+  disabled,
   onChange,
   onBlur,
   onPressEnter,
@@ -75,6 +77,7 @@ export const Input = ({
           showCount={showCount}
           defaultValue={defaultValue}
           allowClear={allowClear}
+          disabled={disabled}
           onChange={onChange}
           onClear={onClear}
           onBlur={onBlur}
