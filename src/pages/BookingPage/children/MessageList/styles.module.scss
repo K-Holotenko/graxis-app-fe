@@ -1,5 +1,16 @@
 @use 'src/styles/variables';
 
+.chatDisabledMessage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: 1;
+}
+
+.chatDisabledMessageAlert {
+  margin-bottom: 24px;
+}
+
 .message {
   display: flex;
   flex-wrap: wrap;

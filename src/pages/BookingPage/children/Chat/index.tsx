@@ -1,6 +1,8 @@
-import { Form } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { Form, Spin } from 'antd';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import dayjs from 'dayjs';
+import { useParams } from 'react-router-dom';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { socket } from 'src/sockets';
 import { Input } from 'src/components/Input';
@@ -11,14 +13,26 @@ import { sendMessage } from 'src/services/Chat';
 import { ChatMessage, useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
 import { MessageList } from 'src/pages/BookingPage/children/MessageList';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { useBookingStatus } from 'src/hooks/useBookingStatus';
 
 import styles from './styles.module.scss';
 
 export const Chat = () => {
   const [form] = Form.useForm();
 
-  const { booking, chat, isChatLoading, getChat } = useBookingStore();
+  const {
+    booking,
+    chat,
+    isChatLoading,
+    isBookingLoading,
+    getChat,
+    getBooking,
+  } = useBookingStore();
   const { user, isLoading } = useAuthStore();
+  const { bookingStatus } = useBookingStatus();
+
+  const { id } = useParams();
 
   const [messages, setMessages] = useState<ChatMessage[]>(chat?.messages || []);
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
@@ -116,11 +130,42 @@ export const Chat = () => {
     };
   }, []);
 
-  if (isChatLoading || !chat || isLoading || !user) {
+  useEffect(() => {
+    const shouldUpdateBooking =
+      id &&
+      booking &&
+      bookingStatus === BookingStatus.PAID &&
+      !booking.publicationAddressShow;
+
+    if (shouldUpdateBooking) {
+      getBooking(id);
+    }
+  }, [booking, bookingStatus, id]);
+
+  const isChatDisabled = useMemo(
+    () =>
+      !booking?.chatShow ||
+      bookingStatus === BookingStatus.RETURNED ||
+      bookingStatus === BookingStatus.RATED ||
+      bookingStatus === BookingStatus.CANCELLED ||
+      bookingStatus === BookingStatus.COMPLETED,
+    [booking, bookingStatus]
+  );
+
+  if (isChatLoading || isBookingLoading || !chat || !user) {
     return (
       <Container>
         <p className={styles.title}>Чат</p>
-        <div className={styles.chat}>Loading...</div>
+        <div className={styles.spinnerContainer}>
+          <Spin
+            indicator={
+              <LoadingOutlined
+                style={{ fontSize: 36, color: '#003342' }}
+                spin
+              />
+            }
+          />
+        </div>
       </Container>
     );
   }
@@ -138,18 +183,24 @@ export const Chat = () => {
           messages={messages}
           userId={user.id}
           participantsNames={participantsNames}
+          showChat={booking?.chatShow}
+          bookingStatus={bookingStatus}
         />
       </div>
       <div className={styles.formContainer}>
         <Form form={form} onFinish={onFinish}>
           <div className={styles.inputContainer}>
             <Form.Item name="text" className={styles.input}>
-              <Input placeholder="Напишіть повідомлення..." />
+              <Input
+                placeholder="Напишіть повідомлення..."
+                disabled={isChatDisabled}
+              />
             </Form.Item>
             <Button
               htmlType="submit"
               className={styles.sendButton}
               icon={<SendIcon />}
+              isDisabled={isChatDisabled}
             />
           </div>
         </Form>
