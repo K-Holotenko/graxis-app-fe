@@ -8,7 +8,7 @@ import {
   changeBookingStatus,
 } from 'src/services/Booking';
 import { getChat } from 'src/services/Chat';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 
 export interface ChatMessage {
   id: string;
@@ -39,13 +39,8 @@ interface BookingStore {
   isChatLoading: boolean;
   rating: number | undefined;
   feedback: string | undefined;
-  setFeedback: ({
-    rating,
-    feedback,
-  }: {
-    rating?: number;
-    feedback?: string;
-  }) => void;
+  setFeedback: (feedback: string) => void;
+  setRating: (rating: number) => void;
   createBooking: (
     startDate: string | undefined,
     endDate: string | undefined,
@@ -147,6 +142,7 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
         set({
           booking: {
             ...currentBooking,
+            lastStatusBeforeCancellation: currentBooking.bookingStatus,
             bookingStatus: status,
           },
         });
@@ -156,19 +152,11 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
     }
   },
 
-  setFeedback: async ({
-    rating,
-    feedback,
-  }: {
-    rating?: number;
-    feedback?: string;
-  }) => {
-    if (rating) {
-      set({ rating });
-    }
+  setRating: async (rating: number) => {
+    set({ rating });
+  },
 
-    if (feedback) {
-      set({ feedback });
-    }
+  setFeedback: async (feedback: string) => {
+    set({ feedback });
   },
 }));

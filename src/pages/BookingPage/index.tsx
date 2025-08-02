@@ -2,6 +2,7 @@ import { Tabs } from 'antd';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
+import { ROUTES } from 'src/router/routes';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { socket } from 'src/sockets';
 import { BookingLayout } from 'src/layouts/BookingLayout';
@@ -38,16 +39,15 @@ const items = [
 export const BookingPage = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
-  const { getBooking } = useBookingStore();
+  const { booking, getBooking, isBookingLoading } = useBookingStore();
   const navigate = useNavigate();
 
-  const { id, tab } = useParams<{ id: string; tab?: string }>(); // Only get booking ID
-  const [activeTab, setActiveTab] = useState<string>(tab || TABS.DETAILS); // Local state for active tab
+  const { id, tab } = useParams<{ id: string; tab?: string }>();
+  const [activeTab, setActiveTab] = useState<string>(tab || TABS.DETAILS);
 
-  const isTablet = width < SCREEN_WIDTH.XL;
+  const isTablet = width < SCREEN_WIDTH.LG;
   const isMobile = width < SCREEN_WIDTH.SM;
 
-  // Fetch booking data
   useEffect(() => {
     if (id) {
       getBooking(id);
@@ -71,8 +71,12 @@ export const BookingPage = () => {
     navigate(`/booking/${id}/${newTab}`, { replace: true });
   };
 
+  if (!booking && !isBookingLoading) {
+    navigate(ROUTES.NOT_FOUND);
+  }
+
   return (
-    <PageContainer pageTitle="Профіль">
+    <PageContainer pageTitle={booking?.publication.title || 'Букінг'}>
       <AppLayout>
         <ArrowLeft
           className={styles.arrowLeft}
