@@ -4,7 +4,7 @@ export const ROUTES = {
   REGISTRATION: '/registration',
   VERIFY_EMAIL: '/verify-email',
   SETTINGS: '/settings',
-  MY_PUBLICATIONS: '/my-publications',
+  MY_PUBLICATIONS: '/my-publications/:tab',
   ADD_PUBLICATION: '/add-publication',
   EDIT_PUBLICATION: '/edit-publication/:id',
   PUBLICATION: '/publication/:id',

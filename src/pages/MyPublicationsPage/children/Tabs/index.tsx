@@ -1,47 +1,40 @@
 import { Tabs, type TabsProps } from 'antd';
+import { useNavigate, generatePath, useParams } from 'react-router-dom';
 
-import {
-  createEmptyState,
-  EmptyStateType,
-} from 'src/pages/MyPublicationsPage/utils/createEmptyStateContent';
+import { PublicationFilters } from 'src/stores/myPublicationStore';
+import { ROUTES } from 'src/router/routes';
 
-// TODO Remove when publications are present
-const shouldShowPublications = false;
-
-const emptyStateMapping: Record<number, EmptyStateType> = {
-  1: EmptyStateType.NO_PUBLICATIONS,
-  3: EmptyStateType.NO_RENTALS,
-};
-
-const tabContentMap: Record<number, string> = {
-  1: 'Content of Tab Pane 1',
-  2: 'Content of Tab Pane 2',
-  3: 'Content of Tab Pane 3',
-};
-
-const getTabContent = (key: number) =>
-  shouldShowPublications
-    ? tabContentMap[key]
-    : createEmptyState(emptyStateMapping[key]);
+import { TabsContent } from './TabsContent';
 
 const items: TabsProps['items'] = [
   {
-    key: '1',
+    key: PublicationFilters.LISTED,
     label: 'Здаю',
-    children: getTabContent(1),
+    children: <TabsContent />,
   },
   {
-    key: '2',
+    key: PublicationFilters.RENTED_OUT,
     label: 'В оренді',
-    //TODO Add children after empty state is confirmed
+    children: <TabsContent />,
   },
   {
-    key: '3',
+    key: PublicationFilters.RENTING,
     label: 'Орендую',
-    children: getTabContent(3),
+    children: <TabsContent />,
   },
 ];
 
-export const MyTabs = () => (
-  <Tabs defaultActiveKey="1" items={items} onChange={() => {}} />
-);
+export const MyTabs = () => {
+  const navigate = useNavigate();
+  const { tab } = useParams<{ tab: PublicationFilters }>();
+
+  return (
+    <Tabs
+      activeKey={tab}
+      items={items}
+      onChange={(selectedTab) =>
+        navigate(generatePath(ROUTES.MY_PUBLICATIONS, { tab: selectedTab }))
+      }
+    />
+  );
+};
