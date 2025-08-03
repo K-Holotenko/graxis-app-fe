@@ -9,8 +9,9 @@ import {
   MenuProps,
   Skeleton,
 } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 
+import { PublicationFilters } from 'src/stores/myPublicationStore';
 import CloseIcon from 'src/assets/icons/close-icon.svg?react';
 import Logo from 'src/assets/icons/logo-light.svg?react';
 import PlusIconDark from 'src/assets/icons/plus-icon-dark.svg?react';
@@ -80,7 +81,12 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
-      1: () => navigate(ROUTES.MY_PUBLICATIONS),
+      1: () =>
+        navigate(
+          generatePath(ROUTES.MY_PUBLICATIONS, {
+            tab: PublicationFilters.LISTED,
+          })
+        ),
       2: () => navigate(ROUTES.USER_PROFILE),
       3: () => signOut(showError),
     };
