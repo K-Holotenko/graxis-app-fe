@@ -74,7 +74,7 @@ export const BookingDetails = () => {
           <Shelf
             to={
               booking?.publicationAddressShow
-                ? `https://www.google.com/maps?q=${booking?.publicationAddress.lat},${booking?.publicationAddress.lng}`
+                ? `https://www.google.com/maps?q=${booking?.publicationAddress?.lat},${booking?.publicationAddress?.lng}`
                 : undefined
             }
             target="_blank"

@@ -12,12 +12,20 @@ interface Price {
   pricingPeriod: PricingPeriod;
 }
 
+export enum PublicationStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  RENTED_OUT = 'RENTED_OUT',
+  DELETED = 'DELETED',
+  UNDER_REVIEW = 'UNDER_REVIEW',
+}
+
 export interface Publication {
   id: string;
   title: string;
   category: string;
   description: string;
-  status: 'ACTIVE';
+  status: PublicationStatus;
   bookedDates: [];
   createdAt: string;
   price: Price[];
@@ -97,6 +105,14 @@ export const getAllPublications = async (
   const response = await axios.get(
     `${GRAXIS_API_URL}${PUBLICATIONS_API_URL}/search${search}`
   );
+
+  return response.data;
+};
+
+export const getAllMyPublications = async (
+  search: string = ''
+): Promise<Publication[]> => {
+  const response = await api.get(`${PUBLICATIONS_API_URL}/my${search}`);
 
   return response.data;
 };

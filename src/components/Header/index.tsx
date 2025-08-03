@@ -10,7 +10,7 @@ import {
   Skeleton,
   ConfigProvider,
 } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { generatePath, Link, useNavigate } from 'react-router-dom';
 
 import notificationIconSrc from 'src/assets/icons/notification-icon.svg';
 import PlusIcon from 'src/assets/icons/plus-icon.svg?react';
@@ -32,6 +32,7 @@ import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { Loadable } from 'src/components/Loadable';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
 import { Notification } from 'src/components/Notification';
+import { PublicationFilters } from 'src/stores/myPublicationStore';
 
 import styles from './styles.module.scss';
 
@@ -63,7 +64,12 @@ export const AppHeader = () => {
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
-      1: () => navigate(ROUTES.MY_PUBLICATIONS),
+      1: () =>
+        navigate(
+          generatePath(ROUTES.MY_PUBLICATIONS, {
+            tab: PublicationFilters.LISTED,
+          })
+        ),
       2: () => navigate(ROUTES.USER_PROFILE),
       3: () => signOut(showError),
     };
