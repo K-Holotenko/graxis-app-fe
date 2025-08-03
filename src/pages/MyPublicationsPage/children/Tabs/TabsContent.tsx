@@ -52,7 +52,14 @@ export const TabsContent = () => {
   return !isLoading ? (
     <CardsGridLayout>
       {publications?.map((publication) => (
-        <PublicationCard key={publication.id} publicationCard={publication} />
+        <PublicationCard
+          key={publication.id}
+          publicationCard={publication}
+          isEditable={
+            tab === PublicationFilters.LISTED ||
+            tab === PublicationFilters.RENTED_OUT
+          }
+        />
       ))}
     </CardsGridLayout>
   ) : (
