@@ -65,6 +65,8 @@ export const handleCategoriesChange = (
 
   const search = new URLSearchParams(searchParams);
 
+  search.delete('page');
+
   if (!flattenedAll.length) {
     search.delete('categories');
   } else {
