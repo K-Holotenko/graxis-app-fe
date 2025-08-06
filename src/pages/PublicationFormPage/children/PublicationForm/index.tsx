@@ -269,11 +269,7 @@ export const PublicationForm = () => {
                 </span>
               }
               name="location"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
             >
               <APIProvider apiKey={API_KEY} libraries={['places']}>
                 <LocationAutocomplete />
