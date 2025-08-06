@@ -63,6 +63,6 @@ export const TabsContent = () => {
       ))}
     </CardsGridLayout>
   ) : (
-    <PublicationsGridSkeleton numberOfCards={8} />
+    <PublicationsGridSkeleton numberOfCards={10} />
   );
 };

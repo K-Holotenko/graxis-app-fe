@@ -1,5 +1,5 @@
 import { ConfigProvider, Pagination } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { VALIDATION_MESSAGE } from 'src/config/validation';
@@ -25,9 +25,13 @@ export const SearchPage = () => {
     total: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState<number | undefined>();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const { openNotification } = useNotification();
+
+  // Flag to prevent useEffect from triggering when we manually handle the fetch
+  const skipFetchPublicationsRef = useRef(false);
 
   const fetchPublications = (
     params: URLSearchParams,
@@ -61,17 +65,26 @@ export const SearchPage = () => {
     const nextPage = currentPage + 1;
 
     newSearchParams.set('page', String(nextPage));
+
+    // Skip the next fetchPublications in useEffect since we're handling the fetch manually
+    skipFetchPublicationsRef.current = true;
     setSearchParams(newSearchParams);
 
     fetchPublications(newSearchParams, (nextPagePublications) => {
-      setPublicationsPage((prev) => ({
-        publications: [
-          ...prev.publications,
-          ...nextPagePublications.publications,
-        ],
-        nextPage: nextPagePublications.nextPage,
-        total: nextPagePublications.total,
-      }));
+      setPublicationsPage((prev) => {
+        setTotalPages(
+          nextPagePublications.total - currentPage * prev.publications.length
+        );
+
+        return {
+          publications: [
+            ...prev.publications,
+            ...nextPagePublications.publications,
+          ],
+          nextPage: nextPagePublications.nextPage,
+          total: nextPagePublications.total,
+        };
+      });
     });
   };
 
@@ -80,28 +93,41 @@ export const SearchPage = () => {
 
     newSearchParams.set('page', String(page));
 
+    const title = searchParams.get('title');
+    const city = searchParams.get('city');
+    const categories = searchParams.get('categories');
+
     title && newSearchParams.set('title', title);
     city && newSearchParams.set('city', city);
     categories && newSearchParams.set('categories', categories);
 
+    // Skip the next fetchPublications in useEffect since we're handling the fetch manually
+    skipFetchPublicationsRef.current = true;
     setSearchParams(newSearchParams);
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
+    setTotalPages(undefined);
     fetchPublications(newSearchParams, (data) => {
       setPublicationsPage(data);
     });
   };
 
-  const title = searchParams.get('title');
-  const city = searchParams.get('city');
-  const categories = searchParams.get('categories');
-
   useEffect(() => {
-    fetchPublications(searchParams, (data) => {
+    // If we've set the skip flag, reset it and don't trigger the fetch
+    if (skipFetchPublicationsRef.current) {
+      skipFetchPublicationsRef.current = false;
+
+      return;
+    }
+
+    const newSearchParams = new URLSearchParams(searchParams);
+
+    setTotalPages(undefined);
+
+    fetchPublications(newSearchParams, (data) => {
       setPublicationsPage(data);
     });
-  }, [title, city, categories]);
+  }, [searchParams]);
 
   return (
     <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>
@@ -126,8 +152,8 @@ export const SearchPage = () => {
                   size="default"
                   align="center"
                   current={Number(searchParams.get('page')) || 1}
-                  pageSize={16}
-                  total={publicationsPage.total}
+                  pageSize={20}
+                  total={totalPages || publicationsPage.total}
                   onChange={handlePageChange}
                 />
               </ConfigProvider>

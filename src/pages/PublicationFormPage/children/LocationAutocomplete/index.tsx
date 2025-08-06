@@ -53,7 +53,7 @@ export const LocationAutocomplete = () => {
         return;
       }
 
-      // This is Lviv bounds
+      // TODO This is Lviv bounds (not precise and must be updated)
       const cityBounds: google.maps.LatLngBoundsLiteral = {
         south: 49.7681,
         west: 23.8978,
