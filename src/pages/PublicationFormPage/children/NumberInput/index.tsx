@@ -31,6 +31,10 @@ export const NumberInput = ({
   };
 
   const handleFocus = () => {
+    if (!value) {
+      return;
+    }
+
     onChange(value.split('.')[0] || '');
     onFocus?.();
   };
