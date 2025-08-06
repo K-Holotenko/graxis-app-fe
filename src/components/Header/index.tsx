@@ -8,8 +8,9 @@ import {
   Image,
   MenuProps,
   Skeleton,
+  ConfigProvider,
 } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { generatePath, Link, useNavigate } from 'react-router-dom';
 
 import notificationIconSrc from 'src/assets/icons/notification-icon.svg';
 import PlusIcon from 'src/assets/icons/plus-icon.svg?react';
@@ -30,6 +31,8 @@ import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { Loadable } from 'src/components/Loadable';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
+import { Notification } from 'src/components/Notification';
+import { PublicationFilters } from 'src/stores/myPublicationStore';
 
 import styles from './styles.module.scss';
 
@@ -61,7 +64,12 @@ export const AppHeader = () => {
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
-      1: () => navigate(ROUTES.MY_PUBLICATIONS),
+      1: () =>
+        navigate(
+          generatePath(ROUTES.MY_PUBLICATIONS, {
+            tab: PublicationFilters.LISTED,
+          })
+        ),
       2: () => navigate(ROUTES.USER_PROFILE),
       3: () => signOut(showError),
     };
@@ -72,6 +80,38 @@ export const AppHeader = () => {
   const menu = {
     items: menuItems,
     onClick: handleMenuClick,
+  };
+
+  // TODO: Fetch notifications from backend
+  const notificationMenu = {
+    items: [
+      {
+        key: '1',
+        label: (
+          <Notification
+            title="Нова нотифікація з довгим заголовком"
+            description="Детальний опис нотифікації нотифікації"
+            time="00:00"
+            date="12.07.2025"
+            seen={false}
+            id="1"
+          />
+        ),
+      },
+      {
+        key: '2',
+        label: (
+          <Notification
+            title="Нова нотифікація"
+            description="Детальний опис нотифікації нотифікації"
+            time="00:00"
+            date="12.07.2025"
+            seen={false}
+            id="1"
+          />
+        ),
+      },
+    ],
   };
 
   return (
@@ -101,13 +141,33 @@ export const AppHeader = () => {
           <Row gutter={30} align="middle" wrap={false}>
             {user && (
               <Col>
-                <Badge dot={hasNotifications}>
-                  <Image
-                    src={notificationIconSrc}
-                    alt={IMAGE_DESCRIPTION.LOGO}
-                    preview={false}
-                  />
-                </Badge>
+                <ConfigProvider
+                  theme={{
+                    components: {
+                      Menu: {
+                        itemHoverBg: 'white',
+                      },
+                    },
+                  }}
+                >
+                  <Dropdown
+                    rootClassName={styles.notificationDropdown}
+                    menu={notificationMenu}
+                    placement="bottomRight"
+                    trigger={['click']}
+                  >
+                    <Badge
+                      dot={hasNotifications}
+                      className={styles.notificationIcon}
+                    >
+                      <Image
+                        src={notificationIconSrc}
+                        alt={IMAGE_DESCRIPTION.LOGO}
+                        preview={false}
+                      />
+                    </Badge>
+                  </Dropdown>
+                </ConfigProvider>
               </Col>
             )}
             {isDesktop && shouldShowAddPublicationButton && (

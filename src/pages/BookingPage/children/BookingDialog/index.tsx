@@ -8,7 +8,7 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
 import { useBookingStatus } from 'src/hooks/useBookingStatus';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 
 import styles from './styles.module.scss';
 import {
@@ -29,33 +29,42 @@ export const BookingDialog = () => {
   const isTablet = useMemo(() => width < SCREEN_WIDTH.XL, [width]);
 
   const userRole: UserRole = getUserRole(booking, user?.id);
-
   const actions: BookingAction[] = getCurrentActions(
-    bookingStatus as Exclude<BookingStatus, BookingStatus.BOOKED>,
+    bookingStatus === BookingStatus.BOOKED ? null : bookingStatus,
     userRole,
     updateBookingStatus
   );
 
-  const visibleActions = actions.filter((action) => action.isVisible);
+  const isFeedbackValid = useMemo(
+    () => rating || (rating && feedback),
+    [rating, feedback]
+  );
 
-  if (visibleActions.length === 0) {
+  if (actions.length === 0) {
     return null;
   }
 
   return (
     <Row className={styles.bookingDialog}>
       <Col xs={isTablet ? 24 : 14} className={styles.buttonsContainer}>
-        {visibleActions.map((action) => (
-          // disable button if bookingStatus is rated
+        {actions.map((action) => (
           <Button
             key={action.id}
             type={action.type}
             className={styles.button}
             label={action.label}
             onClick={() =>
-              action.action(booking!.id, navigate, rating, feedback)
+              action.action(
+                booking!.id,
+                navigate,
+                rating,
+                feedback,
+                booking?.publication.title
+              )
             }
-            isDisabled={action.isDisabled}
+            isDisabled={
+              bookingStatus === BookingStatus.RETURNED && !isFeedbackValid
+            }
           />
         ))}
       </Col>

@@ -1,5 +1,5 @@
 import { ButtonTypes } from 'src/config/constants';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 import { ROUTES } from 'src/router/routes';
 import { paymentTransaction, submitFeedback } from 'src/services/Booking';
 
@@ -16,10 +16,9 @@ export interface BookingAction {
     bookingId: string,
     navigate?: (path: string) => void,
     rating?: number,
-    feedback?: string
+    feedback?: string,
+    publicationTitle?: string
   ) => void;
-  isVisible: boolean;
-  isDisabled?: boolean;
 }
 
 export type BookingDialogConfig = {
@@ -43,7 +42,6 @@ export const bookingDialogConfig = (
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.CANCELLED);
         },
-        isVisible: true,
       },
     ],
     [UserRole.OWNER]: [
@@ -54,7 +52,6 @@ export const bookingDialogConfig = (
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.CANCELLED);
         },
-        isVisible: true,
       },
       {
         id: 'confirm',
@@ -63,7 +60,6 @@ export const bookingDialogConfig = (
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.CONFIRMED);
         },
-        isVisible: true,
       },
     ],
   },
@@ -74,10 +70,8 @@ export const bookingDialogConfig = (
         label: 'Скасувати',
         type: ButtonTypes.default,
         action: async (bookingId: string) => {
-          await paymentTransaction(bookingId);
           updateBookingStatus(bookingId, BookingStatus.CANCELLED);
         },
-        isVisible: true,
       },
       {
         id: 'pay',
@@ -87,7 +81,6 @@ export const bookingDialogConfig = (
           paymentTransaction(bookingId);
           updateBookingStatus(bookingId, BookingStatus.PAID);
         },
-        isVisible: true,
       },
     ],
     [UserRole.OWNER]: [
@@ -98,7 +91,6 @@ export const bookingDialogConfig = (
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.CANCELLED);
         },
-        isVisible: true,
       },
     ],
   },
@@ -111,16 +103,14 @@ export const bookingDialogConfig = (
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.CANCELLED);
         },
-        isVisible: true,
       },
       {
         id: 'confirm-return',
-        label: 'Підтвердити повернення',
+        label: 'Підтвердити отримання',
         type: ButtonTypes.primary,
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.IN_PROGRESS);
         },
-        isVisible: true,
       },
     ],
     [UserRole.OWNER]: [
@@ -131,7 +121,6 @@ export const bookingDialogConfig = (
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.CANCELLED);
         },
-        isVisible: true,
       },
     ],
   },
@@ -145,7 +134,6 @@ export const bookingDialogConfig = (
         action: (bookingId: string) => {
           updateBookingStatus(bookingId, BookingStatus.RETURNED);
         },
-        isVisible: true,
       },
     ],
   },
@@ -159,12 +147,12 @@ export const bookingDialogConfig = (
           bookingId: string,
           _navigate?: (path: string) => void,
           rating?: number,
-          feedback?: string
+          feedback?: string,
+          publicationTitle?: string
         ) => {
           updateBookingStatus(bookingId, BookingStatus.RATED);
-          submitFeedback(bookingId, rating!, feedback!);
+          submitFeedback(bookingId, publicationTitle!, rating!, feedback!);
         },
-        isVisible: true,
       },
     ],
     [UserRole.OWNER]: [
@@ -172,16 +160,21 @@ export const bookingDialogConfig = (
         id: 'rate',
         label: 'Залишити відгук',
         type: ButtonTypes.primary,
-        action: (
+        action: async (
           bookingId: string,
           _navigate?: (path: string) => void,
           rating?: number,
-          feedback?: string
+          feedback?: string,
+          publicationTitle?: string
         ) => {
-          updateBookingStatus(bookingId, BookingStatus.RATED);
-          submitFeedback(bookingId, rating!, feedback!);
+          await updateBookingStatus(bookingId, BookingStatus.RATED);
+          await submitFeedback(
+            bookingId,
+            publicationTitle!,
+            rating!,
+            feedback!
+          );
         },
-        isVisible: true,
       },
     ],
   },
@@ -194,7 +187,6 @@ export const bookingDialogConfig = (
         action: (_bookingId: string, navigate?: (path: string) => void) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
-        isVisible: true,
       },
     ],
     [UserRole.OWNER]: [
@@ -205,7 +197,6 @@ export const bookingDialogConfig = (
         action: (_bookingId: string, navigate?: (path: string) => void) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
-        isVisible: true,
       },
     ],
   },
@@ -218,7 +209,6 @@ export const bookingDialogConfig = (
         action: (_bookingId: string, navigate?: (path: string) => void) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
-        isVisible: true,
       },
     ],
     [UserRole.OWNER]: [
@@ -229,7 +219,6 @@ export const bookingDialogConfig = (
         action: (_bookingId: string, navigate?: (path: string) => void) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
-        isVisible: true,
       },
     ],
   },

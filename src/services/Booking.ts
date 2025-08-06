@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 import { GRAXIS_API_URL } from 'src/config/constants';
 
 import { api } from './api';
@@ -19,7 +19,15 @@ export interface Booking {
   };
   paymentStatus: 'UNPAID';
   renterId: string;
-  publicationAddressShow: false;
+  publicationAddressShow: boolean;
+  publicationAddress: {
+    country: string;
+    city: string;
+    address: string;
+    lat: number;
+    lng: number;
+  };
+  lastStatusBeforeCancellation: BookingStatus | null;
   owner: {
     id: string;
     name: string;
@@ -82,12 +90,13 @@ export const paymentTransaction = async (id: string): Promise<unknown> => {
 
 export const submitFeedback = async (
   bookingId: string,
+  publicationTitle: string,
   stars: number,
   text: string
 ): Promise<Booking> => {
   const response = await api.post('/feedback', {
     bookingId,
-    title: 'remove title field for now',
+    publicationTitle,
     stars,
     text,
   });

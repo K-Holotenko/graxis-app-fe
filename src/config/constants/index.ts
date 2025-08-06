@@ -23,7 +23,6 @@ export const TEXT = {
   ENTER_LOCATION: 'Введіть назву локації',
 
   FAST_LINKS: 'Швидкі посилання',
-  FEEDBACK_AMOUNT: 'відгуків',
   FEEDBACKS: 'Відгуки',
   FOR: 'На',
 

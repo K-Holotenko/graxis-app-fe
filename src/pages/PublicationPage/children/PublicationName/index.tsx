@@ -4,7 +4,7 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import { Heading } from 'src/components/Heading';
 import Star from 'src/assets/icons/star-icon.svg?react';
 import Circle from 'src/assets/icons/yellow-circle-icon.svg?react';
-import { SCREEN_WIDTH, TEXT } from 'src/config/constants';
+import { SCREEN_WIDTH } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import EditIcon from 'src/assets/icons/edit-fields-icon.svg?react';
@@ -75,9 +75,7 @@ export const PublicationName = ({
         </div>
         <div className={styles.description}>
           <Circle />
-          <span className={styles.feedback}>
-            {feedbackCount} {TEXT.FEEDBACK_AMOUNT}
-          </span>
+          <span className={styles.feedback}>{feedbackCount || 0} відгуків</span>
         </div>
       </div>
     </section>
