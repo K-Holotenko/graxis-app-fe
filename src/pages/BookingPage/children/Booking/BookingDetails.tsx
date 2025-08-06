@@ -81,7 +81,13 @@ export const BookingDetails = () => {
           >
             <span className={styles.shelfItem}>
               {booking?.publicationAddressShow
-                ? `${booking?.publicationAddress.country}, ${booking?.publicationAddress.city || ''}, ${booking?.publicationAddress.address || ''}`
+                ? [
+                    booking?.publicationAddress?.country,
+                    booking?.publicationAddress?.city,
+                    booking?.publicationAddress?.address,
+                  ]
+                    .filter(Boolean)
+                    .join(', ')
                 : 'Детальна адреса буде доступна після підтвердження оплати'}
             </span>
           </Shelf>
