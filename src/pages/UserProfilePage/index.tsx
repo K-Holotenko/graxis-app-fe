@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { Form } from 'antd';
-import { useLocation } from 'react-router-dom';
+import { useLocation, matchPath } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
 import { PageContainer } from 'src/layouts/PageContainer';
@@ -18,8 +18,8 @@ import { FaqTab } from './children/FaqTab';
 
 export const UserProfilePage = () => {
   const [form] = Form.useForm();
-  const { user } = useAuthStore();
   const location = useLocation();
+  const { user } = useAuthStore();
 
   const [isPersonalInfoEditModeEnabled, setIsPersonalInfoEditModeEnabled] =
     useState(false);
@@ -58,12 +58,35 @@ export const UserProfilePage = () => {
   const handleShowDialog = (shouldShow: boolean) =>
     setShouldShowDialog(shouldShow);
 
-  const tabComponents: { [key: string]: ReactNode } = {
-    [ROUTES.NOTIFICATIONS]: <NotificationTab />,
-    [ROUTES.PAYMENT]: <PaymentTab />,
-    [ROUTES.PRIVACY_POLICY]: <PrivacyPolicyTab />,
-    [ROUTES.FAQ]: <FaqTab />,
-    [ROUTES.USER_PROFILE]: (
+  // Function to get the current tab component based on route matching
+  const getCurrentTabComponent = (): ReactNode => {
+    const { pathname } = location;
+
+    // Check for notifications with ID parameter
+    if (matchPath({ path: ROUTES.NOTIFICATIONS }, pathname)) {
+      return <NotificationTab />;
+    }
+
+    // Check for notifications base route
+    if (matchPath({ path: ROUTES.NOTIFICATIONS_BASE }, pathname)) {
+      return <NotificationTab />;
+    }
+
+    // Check for other routes
+    if (pathname === ROUTES.PAYMENT) {
+      return <PaymentTab />;
+    }
+
+    if (pathname === ROUTES.PRIVACY_POLICY) {
+      return <PrivacyPolicyTab />;
+    }
+
+    if (pathname === ROUTES.FAQ) {
+      return <FaqTab />;
+    }
+
+    // Default to PersonalInfoTab for user profile route
+    return (
       <PersonalInfoTab
         handleShowDialog={handleShowDialog}
         onPersonalInfoEditClick={handlePersonalInfoEditClick}
@@ -76,7 +99,7 @@ export const UserProfilePage = () => {
         isValid={isPersonalInfoValid && isContactInfoValid}
         form={form}
       />
-    ),
+    );
   };
 
   return (
@@ -84,7 +107,7 @@ export const UserProfilePage = () => {
       <AppLayout>
         <ProfileLayout
           title="Профіль"
-          tabContent={tabComponents[location.pathname]}
+          tabContent={getCurrentTabComponent()}
           sidebar={<Sidebar />}
           dialog={
             shouldShowDialog && (

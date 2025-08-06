@@ -15,7 +15,7 @@ export const PublicationsSection = ({
 }: PublicationsSectionProps) => {
   const isNoResults = publications.length === 0 && !isLoading;
   const areSomePublicationsLoaded = publications.length > 0;
-  const skeletonsCount = areSomePublicationsLoaded ? 8 : 16;
+  const skeletonsCount = areSomePublicationsLoaded ? 10 : 20;
   const addMarginIfNextPageLoading = isLoading && areSomePublicationsLoaded;
 
   return isNoResults ? (

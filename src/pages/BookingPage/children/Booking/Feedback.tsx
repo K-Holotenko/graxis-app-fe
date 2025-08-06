@@ -4,12 +4,12 @@ import { TextArea } from 'src/components/TextArea';
 import { theme } from 'src/config/theme';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useBookingStatus } from 'src/hooks/useBookingStatus';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking';
+import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 
 import styles from './styles.module.scss';
 
 export const Feedback = () => {
-  const { setFeedback } = useBookingStore();
+  const { setFeedback, setRating } = useBookingStore();
   const { bookingStatus } = useBookingStatus();
 
   if (bookingStatus === BookingStatus.RATED) {
@@ -21,6 +21,8 @@ export const Feedback = () => {
     );
   }
 
+  // TODO: add view for COMPLETED status
+
   return (
     <>
       <p className={styles.titles}>Залиште відгук</p>
@@ -28,11 +30,11 @@ export const Feedback = () => {
         <Rate
           className={styles.feedbackRate}
           data-testid="feedback-rate"
-          onChange={(number) => setFeedback({ rating: number })}
+          onChange={(number) => setRating(number)}
         />
         <TextArea
           placeholder="Залиште відгук"
-          onChange={(e) => setFeedback({ feedback: e.target.value })}
+          onChange={(e) => setFeedback(e.target.value)}
           rows={5}
           maxLength={250}
           autoSize={{ minRows: 5, maxRows: 5 }}

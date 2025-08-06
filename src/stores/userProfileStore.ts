@@ -2,7 +2,17 @@ import { create } from 'zustand';
 
 import { getUserPublicProfile } from 'src/services/UserService';
 import { PublicationCard } from 'src/services/PublicationService';
-import { Feedback } from 'src/pages/HomePage/children/FeedbackSectionCard';
+
+export interface Feedback {
+  id: string;
+  title: string;
+  image: string;
+  authorName: string;
+  authorSurname: string;
+  review: string;
+  rating: number;
+  createdAt: string;
+}
 
 interface PublicUserProfile {
   id: string;
