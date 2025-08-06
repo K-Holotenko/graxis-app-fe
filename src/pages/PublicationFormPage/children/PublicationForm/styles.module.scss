@@ -24,13 +24,6 @@
   font-weight: 500;
 }
 
-.helperText {
-  padding-top: 8px;
-  font-size: 14px;
-  color: variables.$N4;
-  font-family: variables.$font-body;
-}
-
 @media (min-width: variables.$media-sm) {
   .textArea {
     font-size: 18px;
