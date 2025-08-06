@@ -1,16 +1,23 @@
-import { matchPath, ScrollRestoration, useLocation } from 'react-router-dom';
+import { matchPath, ScrollRestoration, Location } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
 
-export const ScrollRestorationConfig = () => {
-  const { pathname } = useLocation();
+const getKey = (location: Location) => {
+  const publicationMatch = matchPath(ROUTES.PUBLICATION, location.pathname);
+  const searchMatch = matchPath(ROUTES.SEARCH_RESULTS, location.pathname);
+  const hasQueryParams = new URLSearchParams(location.search).size > 0;
 
-  const isItemPage = matchPath(ROUTES.PUBLICATION, pathname);
-  const isSearchResultsPage = matchPath(ROUTES.SEARCH_RESULTS, pathname);
+  if (publicationMatch) {
+    return location.pathname;
+  }
 
-  if (isItemPage || isSearchResultsPage) {
+  if (searchMatch || hasQueryParams) {
     return null;
   }
 
-  return <ScrollRestoration />;
+  return location.pathname + location.search;
 };
+
+export const ScrollRestorationConfig = () => (
+  <ScrollRestoration getKey={getKey} />
+);
