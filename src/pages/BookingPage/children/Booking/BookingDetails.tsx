@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Shelf } from 'src/pages/BookingPage/children/Shelf';
@@ -16,6 +16,7 @@ export const BookingDetails = () => {
   const { bookingStatus } = useBookingStatus();
 
   const { id } = useParams();
+  const hasUpdatedForPaidStatus = useRef(false);
 
   const startDate = dayjs(booking?.startDate);
   const endDate = dayjs(booking?.endDate);
@@ -23,14 +24,22 @@ export const BookingDetails = () => {
 
   useEffect(() => {
     const shouldUpdateBooking =
-      id && booking && bookingStatus === BookingStatus.PAID;
+      id &&
+      booking &&
+      bookingStatus === BookingStatus.PAID &&
+      !hasUpdatedForPaidStatus.current;
 
     if (shouldUpdateBooking) {
       // eslint-disable-next-line no-console
       console.log('booking update', bookingStatus, booking);
+      hasUpdatedForPaidStatus.current = true;
       getBooking(id);
     }
-  }, [booking, bookingStatus, id]);
+
+    if (bookingStatus !== BookingStatus.PAID) {
+      hasUpdatedForPaidStatus.current = false;
+    }
+  }, [bookingStatus, id, getBooking]);
 
   return (
     <>
