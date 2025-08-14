@@ -15,18 +15,14 @@ export const formatLocation = (
     component.types.includes('locality')
   )?.long_name;
 
-  const street = place.address_components?.find((component) =>
-    component.types.includes('route')
-  )?.long_name;
-
-  const streetNumber = place.address_components?.find((component) =>
-    component.types.includes('street_number')
+  const district = place.address_components?.find((component) =>
+    component.types.includes('sublocality')
   )?.long_name;
 
   const formatedLocation: Location = {
     country: country || '',
     city: city || '',
-    address: `${street || ''} ${streetNumber || ''}`.trim(),
+    locality: district || '',
     lat: location?.lat() || 0,
     lng: location?.lng() || 0,
   };

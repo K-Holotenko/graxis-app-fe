@@ -11,18 +11,18 @@ const App = () => {
   const { initializeAuthListener } = useAuthStore();
   const location = useLocation();
 
+  const skipInit = [
+    ROUTES.LOGIN,
+    ROUTES.REGISTRATION,
+    ROUTES.ADD_USER_INFO,
+  ].includes(location.pathname);
+
   useEffect(() => {
-    const shouldInitialize =
-      location.pathname !== ROUTES.LOGIN ||
-      location.pathname !== ROUTES.REGISTRATION ||
-      location.pathname !== ROUTES.ADD_USER_INFO;
+    if (skipInit) return;
+    const unsubscribe = initializeAuthListener();
 
-    if (shouldInitialize) {
-      const unsubscribe = initializeAuthListener();
-
-      return () => unsubscribe();
-    }
-  }, [initializeAuthListener]);
+    return () => unsubscribe();
+  }, [initializeAuthListener, skipInit]);
 
   return (
     <>
