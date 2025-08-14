@@ -9,6 +9,7 @@ import { useUserProfileStore } from 'src/stores/userProfileStore';
 
 import styles from './styles.module.scss';
 import { FeedbackCard } from './children/FeedbackCard';
+import { transformTimestampToDate } from './utils';
 
 export const PublicUserProfile = () => {
   const { profile, isLoading, getUserPublicProfile } = useUserProfileStore();
@@ -51,17 +52,16 @@ export const PublicUserProfile = () => {
           <div className={styles.feedbackContainer}>
             {profile?.author.feedbacks.length ? (
               profile?.author.feedbacks.map((feedback) => (
-                // TODO: pass feedback from BE
                 <FeedbackCard
                   key={feedback.id}
-                  rate={feedback.rating}
-                  date={feedback.createdAt}
-                  title={feedback.title}
-                  description={feedback.review}
+                  rate={feedback.stars}
+                  date={transformTimestampToDate(feedback.createdAt)}
+                  title={feedback.publicationTitle}
+                  description={feedback.text}
                   author={{
                     name: feedback.authorName,
                     surname: feedback.authorSurname,
-                    avatarUrl: feedback.image,
+                    avatarUrl: feedback.authorImage,
                   }}
                 />
               ))

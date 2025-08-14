@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 import { HomePage } from 'src/pages/HomePage';
 import { LoginPage } from 'src/pages/LoginPage';
@@ -127,11 +127,11 @@ export const router = createBrowserRouter([
         path: ROUTES.PUBLIC_USER_PROFILE,
         element: <PublicUserProfile />,
       },
+      { path: ROUTES.NOT_FOUND, element: <NotFoundPage /> },
+      {
+        path: '*',
+        element: <NotFoundPage />,
+      },
     ],
-  },
-  { path: ROUTES.NOT_FOUND, element: <NotFoundPage /> },
-  {
-    path: '*',
-    element: <Navigate to={ROUTES.NOT_FOUND} replace />,
   },
 ]);

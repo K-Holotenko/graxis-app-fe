@@ -1,4 +1,5 @@
 import { Col, Row, Skeleton } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 import { usePublication } from 'src/hooks/usePublication';
 import { PageContainer } from 'src/layouts/PageContainer';
@@ -15,6 +16,7 @@ import { Loadable } from 'src/components/Loadable';
 import { useCategories } from 'src/hooks/useCategories';
 import { Publication } from 'src/services/PublicationService';
 import { useAuthStore } from 'src/stores/authStore';
+import { ROUTES } from 'src/router/routes';
 
 import { ImageCarousel } from './children/ImageCarousel';
 import { Owner } from './children/Owner';
@@ -33,6 +35,7 @@ export const PublicationPage = () => {
   const { categoriesTree } = useCategories();
   const { user } = useAuthStore();
 
+  const navigate = useNavigate();
   const { publication, isPublicationLoading, isEditable } = usePublication();
 
   const isMobileOrTablet = width <= SCREEN_WIDTH.XL;
@@ -51,6 +54,12 @@ export const PublicationPage = () => {
 
   const isOwner =
     publication && user ? user.id === publication.ownerInfo.id : false;
+
+  if (!publication && !isPublicationLoading) {
+    navigate(ROUTES.NOT_FOUND);
+
+    return;
+  }
 
   return (
     <PageContainer pageTitle="Публікація">

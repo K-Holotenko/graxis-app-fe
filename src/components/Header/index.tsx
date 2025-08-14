@@ -141,15 +141,7 @@ export const AppHeader = () => {
           <Row gutter={30} align="middle" wrap={false}>
             {user && (
               <Col>
-                <ConfigProvider
-                  theme={{
-                    components: {
-                      Menu: {
-                        itemHoverBg: 'white',
-                      },
-                    },
-                  }}
-                >
+                <ConfigProvider theme={localTheme}>
                   <Dropdown
                     rootClassName={styles.notificationDropdown}
                     menu={notificationMenu}
@@ -234,4 +226,12 @@ export const AppHeader = () => {
       )}
     </>
   );
+};
+
+const localTheme = {
+  components: {
+    Menu: {
+      itemHoverBg: 'white',
+    },
+  },
 };

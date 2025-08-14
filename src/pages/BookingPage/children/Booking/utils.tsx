@@ -18,6 +18,8 @@ export enum BookingStatus {
   COMPLETED = 'COMPLETED',
   RETURNED = 'RETURNED',
   RATED = 'RATED',
+  OWNER_RATED = 'OWNER_RATED',
+  RENTER_RATED = 'RENTER_RATED',
   PAID = 'PAID',
   //This status is not available in the backend, but it is used in the frontend
   BOOKED = 'BOOKED',
@@ -32,7 +34,12 @@ export enum PaymentStatus {
 }
 
 const statusToStepMap: Record<
-  Exclude<BookingStatus, BookingStatus.CANCELLED>,
+  Exclude<
+    BookingStatus,
+    | BookingStatus.CANCELLED
+    | BookingStatus.OWNER_RATED
+    | BookingStatus.RENTER_RATED
+  >,
   number
 > = {
   [BookingStatus.PENDING]: 0,
@@ -56,7 +63,12 @@ const getStepStatus = (
   // Get the current step number
   const currentStep =
     statusToStepMap[
-      displayStatus as Exclude<BookingStatus, BookingStatus.CANCELLED>
+      displayStatus as Exclude<
+        BookingStatus,
+        | BookingStatus.CANCELLED
+        | BookingStatus.OWNER_RATED
+        | BookingStatus.RENTER_RATED
+      >
     ] ?? -1;
 
   // Mark as finished if within current progress
@@ -106,7 +118,12 @@ export const renderItems = (
       statusToStepMap[
         lastStatus === BookingStatus.PAID
           ? BookingStatus.BOOKED
-          : (lastStatus as Exclude<BookingStatus, BookingStatus.CANCELLED>)
+          : (lastStatus as Exclude<
+              BookingStatus,
+              | BookingStatus.CANCELLED
+              | BookingStatus.OWNER_RATED
+              | BookingStatus.RENTER_RATED
+            >)
       ];
 
     const cancelledStep = {
