@@ -23,12 +23,11 @@ export const BookingDetails = () => {
 
   useEffect(() => {
     const shouldUpdateBooking =
-      id &&
-      booking &&
-      bookingStatus === BookingStatus.PAID &&
-      !booking.publicationAddressShow;
+      id && booking && bookingStatus === BookingStatus.PAID;
 
     if (shouldUpdateBooking) {
+      // eslint-disable-next-line no-console
+      console.log('booking update', bookingStatus, booking);
       getBooking(id);
     }
   }, [booking, bookingStatus, id]);
@@ -80,15 +79,7 @@ export const BookingDetails = () => {
             target="_blank"
           >
             <span className={styles.shelfItem}>
-              {booking?.publicationAddressShow
-                ? [
-                    booking?.publicationAddress?.country,
-                    booking?.publicationAddress?.city,
-                    booking?.publicationAddress?.address,
-                  ]
-                    .filter(Boolean)
-                    .join(', ')
-                : 'Детальна адреса буде доступна після підтвердження оплати'}
+              {`${booking?.publicationAddress?.country}, ${booking?.publicationAddress?.city}, ${booking?.publicationAddress?.locality}`}
             </span>
           </Shelf>
         )}
