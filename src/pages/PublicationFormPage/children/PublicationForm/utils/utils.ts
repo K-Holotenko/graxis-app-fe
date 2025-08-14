@@ -52,7 +52,7 @@ export const mapPublicationToFormFields = (
   const transformedLocation = {
     country: location?.country || '',
     city: location?.city || '',
-    address: location?.address || '',
+    locality: location?.locality || '',
     lat: location?.lat || 0,
     lng: location?.lng || 0,
   };
