@@ -33,6 +33,7 @@ export const Chat = () => {
   const { bookingStatus } = useBookingStatus();
 
   const { id } = useParams();
+  const hasUpdatedForPaidStatus = useRef(false);
 
   const [messages, setMessages] = useState<ChatMessage[]>(chat?.messages || []);
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
@@ -135,12 +136,19 @@ export const Chat = () => {
       id &&
       booking &&
       bookingStatus === BookingStatus.PAID &&
-      !booking.publicationAddressShow;
+      !hasUpdatedForPaidStatus.current;
 
     if (shouldUpdateBooking) {
+      // eslint-disable-next-line no-console
+      console.log('booking update', bookingStatus, booking);
+      hasUpdatedForPaidStatus.current = true;
       getBooking(id);
     }
-  }, [booking, bookingStatus, id]);
+
+    if (bookingStatus !== BookingStatus.PAID) {
+      hasUpdatedForPaidStatus.current = false;
+    }
+  }, [bookingStatus, id, getBooking]);
 
   const isChatDisabled = useMemo(
     () =>
