@@ -41,8 +41,9 @@ export interface Publication {
   location: {
     country: string;
     city: string;
+    locality: string;
     staticMapImage: string;
-  };
+  } & Location;
   reviewsCount: number;
   feedbackCount: number;
   rate: number;

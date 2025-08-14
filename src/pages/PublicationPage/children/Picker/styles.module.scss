@@ -11,6 +11,7 @@
 }
 
 .datePicker {
+  // TODO: position static blocks the scroll to top
   position: static !important;
 
   :global(.ant-picker-ranges) {

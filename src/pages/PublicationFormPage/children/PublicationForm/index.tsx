@@ -36,7 +36,7 @@ import { formatPrices, mapPublicationToFormFields } from './utils/utils';
 export interface Location {
   country: string;
   city: string;
-  address: string;
+  locality: string;
   lat: number;
   lng: number;
 }

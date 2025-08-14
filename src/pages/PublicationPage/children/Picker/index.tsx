@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ConfigProvider, DatePicker, type GetProps } from 'antd';
 import dayjs, { type Dayjs } from 'dayjs';
@@ -41,16 +41,18 @@ export const Picker: FC<{
     bookedRanges.some(([from, to]) => days.isBetween(from, to, 'day', '[]'));
 
   useEffect(() => {
-    if (startDateStr) {
-      const newRange: [Dayjs | null, Dayjs | null] = [
-        dayjs(startDateStr, 'DD/MM/YYYY'),
-        endDateStr && endDateStr !== startDateStr
-          ? dayjs(endDateStr, 'DD/MM/YYYY')
-          : null,
-      ];
-
-      onDateChange(newRange);
+    if (!startDateStr) {
+      return;
     }
+
+    const newRange: [Dayjs | null, Dayjs | null] = [
+      dayjs(startDateStr, 'DD/MM/YYYY'),
+      endDateStr && endDateStr !== startDateStr
+        ? dayjs(endDateStr, 'DD/MM/YYYY')
+        : null,
+    ];
+
+    onDateChange(newRange);
   }, [startDateStr, endDateStr, onDateChange]);
 
   const clearDates = () => {
@@ -114,13 +116,16 @@ export const Picker: FC<{
       </p>
     );
 
-  const cellRender = (currentDate: string | number | Dayjs) =>
-    getCellRender({
-      currentDate,
-      range,
-      bookedRanges,
-      isOwner,
-    });
+  const cellRender = useCallback(
+    (currentDate: string | number | Dayjs) =>
+      getCellRender({
+        currentDate,
+        range,
+        bookedRanges,
+        isOwner,
+      }),
+    [range, bookedRanges, isOwner]
+  );
 
   return (
     <ConfigProvider theme={localTheme}>

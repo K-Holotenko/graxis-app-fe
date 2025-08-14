@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 import { GRAXIS_API_URL } from 'src/config/constants';
+import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
 
 import { api } from './api';
 
@@ -20,13 +21,7 @@ export interface Booking {
   paymentStatus: 'UNPAID';
   renterId: string;
   publicationAddressShow: boolean;
-  publicationAddress: {
-    country: string;
-    city: string;
-    address: string;
-    lat: number;
-    lng: number;
-  };
+  publicationAddress: Location;
   lastStatusBeforeCancellation: BookingStatus | null;
   owner: {
     id: string;
