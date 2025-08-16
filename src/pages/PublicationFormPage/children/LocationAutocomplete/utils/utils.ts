@@ -50,8 +50,8 @@ export const getLocationValue = (
     value = `${location.city}, ${location.country}`;
   }
 
-  if (location?.address) {
-    value = `${location.address}, ${location.city}, ${location.country}`;
+  if (location?.locality) {
+    value = `${location.country}, ${location.city}, ${location.locality}`;
   }
 
   return value;
