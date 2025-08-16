@@ -2,6 +2,7 @@ import { StepProps } from 'antd';
 
 import CheckIcon from 'src/assets/icons/check.svg?react';
 import CrossIcon from 'src/assets/icons/cross-icon.svg?react';
+import { UserRole } from 'src/pages/BookingPage/children/BookingDialog/utils';
 
 const statusToIconMap = {
   finish: <CheckIcon />,
@@ -81,7 +82,8 @@ const getStepStatus = (
 
 export const renderItems = (
   status: BookingStatus | null,
-  lastStatus: BookingStatus | undefined
+  lastStatus: BookingStatus | undefined,
+  userRole: UserRole
 ): StepProps[] => {
   const steps: StepProps[] = [
     { title: 'Надіслано' },
@@ -96,9 +98,28 @@ export const renderItems = (
   if (!status) return steps;
 
   // Convert PAID to BOOKED for display purposes
-  const displayStatus =
-    status === BookingStatus.PAID ? BookingStatus.BOOKED : status;
+  let displayStatus = status;
 
+  if (status === BookingStatus.PAID) {
+    displayStatus = BookingStatus.BOOKED;
+  } else if (
+    userRole === UserRole.OWNER &&
+    status === BookingStatus.RENTER_RATED
+  ) {
+    displayStatus = BookingStatus.RETURNED;
+  } else if (
+    userRole === UserRole.RENTER &&
+    status === BookingStatus.OWNER_RATED
+  ) {
+  } else if (
+    userRole === UserRole.RENTER &&
+    status === BookingStatus.OWNER_RATED
+  ) {
+    displayStatus = BookingStatus.RETURNED;
+  }
+
+  // eslint-disable-next-line no-console
+  console.log('displayStatus', displayStatus, userRole, status);
   const processedSteps = steps.map((step, index) => {
     const statusToUse =
       displayStatus === BookingStatus.CANCELLED ? lastStatus : displayStatus;
