@@ -97,30 +97,33 @@ export const renderItems = (
 
   if (!status) return steps;
 
-  // Convert PAID to BOOKED for display purposes
-  let displayStatus = status;
+  // Convert status for display purposes based on user role
+  const getDisplayStatus = (
+    bookingStatus: BookingStatus,
+    role: UserRole
+  ): BookingStatus => {
+    if (bookingStatus === BookingStatus.PAID) {
+      return BookingStatus.BOOKED;
+    }
 
-  if (status === BookingStatus.PAID) {
-    displayStatus = BookingStatus.BOOKED;
-  } else if (
-    userRole === UserRole.OWNER &&
-    status === BookingStatus.RENTER_RATED
-  ) {
-    displayStatus = BookingStatus.RETURNED;
-  } else if (
-    userRole === UserRole.RENTER &&
-    status === BookingStatus.OWNER_RATED
-  ) {
-    displayStatus = BookingStatus.RETURNED;
-  } else if (
-    userRole === UserRole.RENTER &&
-    status === BookingStatus.OWNER_RATED
-  ) {
-    displayStatus = BookingStatus.RETURNED;
-  }
+    // Handle rating-based status transitions
+    const statusMap: Partial<
+      Record<BookingStatus, Record<UserRole, BookingStatus>>
+    > = {
+      [BookingStatus.RENTER_RATED]: {
+        [UserRole.OWNER]: BookingStatus.RETURNED,
+        [UserRole.RENTER]: BookingStatus.RATED,
+      },
+      [BookingStatus.OWNER_RATED]: {
+        [UserRole.OWNER]: BookingStatus.RATED,
+        [UserRole.RENTER]: BookingStatus.RETURNED,
+      },
+    };
 
-  // eslint-disable-next-line no-console
-  console.log('displayStatus', displayStatus, userRole, status);
+    return statusMap[bookingStatus]?.[role] || bookingStatus;
+  };
+
+  const displayStatus = getDisplayStatus(status, userRole);
   const processedSteps = steps.map((step, index) => {
     const statusToUse =
       displayStatus === BookingStatus.CANCELLED ? lastStatus : displayStatus;
