@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { FORMS, REGEXS, TEXT } from 'src/config/constants';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { useAuthStore } from 'src/stores/authStore';
+import { updateAuthTokenOnTheServer } from 'src/services/AuthService';
+import { firebaseAuth } from 'src/config/firebase';
 import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
 import { theme } from 'src/config/theme';
@@ -54,6 +56,16 @@ export const EmailLoginForm = () => {
   const onFinish = async (values: EmailLoginFormValues) => {
     try {
       await loginWithEmail(values.email, values.password, triggerNotification);
+
+      // Get Firebase ID token and update auth token on server before fetching user
+      const currentUser = firebaseAuth.currentUser;
+
+      if (currentUser) {
+        const token = await currentUser.getIdToken();
+
+        await updateAuthTokenOnTheServer(token);
+      }
+
       await fetchUser();
 
       navigate(ROUTES.HOME);
