@@ -23,6 +23,8 @@ const alertMessages: Partial<Record<BookingStatus, string>> = {
   [BookingStatus.IN_PROGRESS]: 'Чат буде закрито після повернення товару.',
   [BookingStatus.RETURNED]: 'Ви більше не можете писати в чаті.',
   [BookingStatus.RATED]: 'Ви більше не можете писати в чаті.',
+  [BookingStatus.OWNER_RATED]: 'Ви більше не можете писати в чаті.',
+  [BookingStatus.RENTER_RATED]: 'Ви більше не можете писати в чаті.',
   [BookingStatus.COMPLETED]: 'Ви більше не можете писати в чаті.',
   [BookingStatus.CANCELLED]: 'Ви більше не можете писати в чаті.',
 };

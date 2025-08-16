@@ -71,6 +71,7 @@ export const AppHeader = () => {
           })
         ),
       2: () => navigate(ROUTES.USER_PROFILE),
+      4: () => navigate(ROUTES.BOOKINGS_HISTORY),
       3: () => signOut(showError),
     };
 

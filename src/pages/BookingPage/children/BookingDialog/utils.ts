@@ -186,11 +186,23 @@ export const bookingDialogConfig = (
   [BookingStatus.OWNER_RATED]: {
     [UserRole.RENTER]: [
       {
-        id: 'return-to-publications',
-        label: 'Повернутися до публікацій',
+        id: 'rate',
+        label: 'Залишити відгук',
         type: ButtonTypes.primary,
-        action: (_bookingId: string, navigate?: (path: string) => void) => {
-          navigate?.(ROUTES.SEARCH_RESULTS);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          rating?: number,
+          feedback?: string,
+          publicationTitle?: string
+        ) => {
+          await submitFeedback(
+            bookingId,
+            publicationTitle!,
+            rating!,
+            feedback!
+          );
+          await updateBookingStatus(bookingId, BookingStatus.RATED);
         },
       },
     ],
@@ -218,11 +230,23 @@ export const bookingDialogConfig = (
     ],
     [UserRole.OWNER]: [
       {
-        id: 'return-to-publications',
-        label: 'Повернутися до публікацій',
+        id: 'rate',
+        label: 'Залишити відгук',
         type: ButtonTypes.primary,
-        action: (_bookingId: string, navigate?: (path: string) => void) => {
-          navigate?.(ROUTES.SEARCH_RESULTS);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          rating?: number,
+          feedback?: string,
+          publicationTitle?: string
+        ) => {
+          await submitFeedback(
+            bookingId,
+            publicationTitle!,
+            rating!,
+            feedback!
+          );
+          await updateBookingStatus(bookingId, BookingStatus.RATED);
         },
       },
     ],

@@ -7,6 +7,11 @@ import { useBookingStore } from 'src/stores/bookingStore';
 import { useBookingStatus } from 'src/hooks/useBookingStatus';
 import { Loadable } from 'src/components/Loadable';
 import { StepsSkeleton } from 'src/pages/BookingPage/skeletons';
+import {
+  getUserRole,
+  UserRole,
+} from 'src/pages/BookingPage/children/BookingDialog/utils';
+import { useAuthStore } from 'src/stores/authStore';
 
 import styles from './styles.module.scss';
 import { BookingDetails } from './BookingDetails';
@@ -17,9 +22,13 @@ export const Booking = () => {
   const { booking, isBookingLoading } = useBookingStore();
   const { bookingStatus } = useBookingStatus();
 
+  const { user } = useAuthStore();
+  const userRole: UserRole = getUserRole(booking, user?.id);
+
   const isFeedbackStep = useMemo(
     () =>
       bookingStatus === BookingStatus.RETURNED ||
+      bookingStatus === BookingStatus.RATED ||
       bookingStatus === BookingStatus.OWNER_RATED ||
       bookingStatus === BookingStatus.RENTER_RATED,
     [bookingStatus]
@@ -41,7 +50,8 @@ export const Booking = () => {
                 items={renderItems(
                   bookingStatus,
                   booking?.lastStatusBeforeCancellation ||
-                    booking?.bookingStatus
+                    booking?.bookingStatus,
+                  userRole
                 )}
               />
             )}
