@@ -111,6 +111,7 @@ export const renderItems = (
     userRole === UserRole.RENTER &&
     status === BookingStatus.OWNER_RATED
   ) {
+    displayStatus = BookingStatus.RETURNED;
   } else if (
     userRole === UserRole.RENTER &&
     status === BookingStatus.OWNER_RATED
