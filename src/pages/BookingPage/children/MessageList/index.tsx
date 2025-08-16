@@ -42,6 +42,8 @@ export const MessageList = ({
       bookingStatus === BookingStatus.IN_PROGRESS ||
       bookingStatus === BookingStatus.RETURNED ||
       bookingStatus === BookingStatus.RATED ||
+      bookingStatus === BookingStatus.OWNER_RATED ||
+      bookingStatus === BookingStatus.RENTER_RATED ||
       bookingStatus === BookingStatus.COMPLETED ||
       bookingStatus === BookingStatus.CANCELLED,
     [showChat, bookingStatus]
