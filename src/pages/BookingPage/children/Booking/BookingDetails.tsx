@@ -30,8 +30,6 @@ export const BookingDetails = () => {
       !hasUpdatedForPaidStatus.current;
 
     if (shouldUpdateBooking) {
-      // eslint-disable-next-line no-console
-      console.log('booking update', bookingStatus, booking);
       hasUpdatedForPaidStatus.current = true;
       getBooking(id);
     }
@@ -80,11 +78,7 @@ export const BookingDetails = () => {
         skeleton={<DetailsSkeleton />}
         component={() => (
           <Shelf
-            to={
-              booking?.publicationAddressShow
-                ? `https://www.google.com/maps?q=${booking?.publicationAddress?.lat},${booking?.publicationAddress?.lng}`
-                : undefined
-            }
+            to={`https://www.google.com/maps?q=${booking?.publicationAddress?.lat},${booking?.publicationAddress?.lng}`}
             target="_blank"
           >
             <span className={styles.shelfItem}>

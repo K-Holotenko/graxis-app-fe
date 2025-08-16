@@ -1,7 +1,6 @@
 import { Form, Spin } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import dayjs from 'dayjs';
-import { useParams } from 'react-router-dom';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { socket } from 'src/sockets';
@@ -21,19 +20,10 @@ import styles from './styles.module.scss';
 export const Chat = () => {
   const [form] = Form.useForm();
 
-  const {
-    booking,
-    chat,
-    isChatLoading,
-    isBookingLoading,
-    getChat,
-    getBooking,
-  } = useBookingStore();
+  const { booking, chat, isChatLoading, isBookingLoading, getChat } =
+    useBookingStore();
   const { user, isLoading } = useAuthStore();
   const { bookingStatus } = useBookingStatus();
-
-  const { id } = useParams();
-  const hasUpdatedForPaidStatus = useRef(false);
 
   const [messages, setMessages] = useState<ChatMessage[]>(chat?.messages || []);
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
@@ -117,6 +107,8 @@ export const Chat = () => {
     };
 
     const onDisconnect = () => {
+      // eslint-disable-next-line no-console
+      console.log('onDisconnect');
       setIsConnected(false);
     };
 
@@ -131,30 +123,13 @@ export const Chat = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const shouldUpdateBooking =
-      id &&
-      booking &&
-      bookingStatus === BookingStatus.PAID &&
-      !hasUpdatedForPaidStatus.current;
-
-    if (shouldUpdateBooking) {
-      // eslint-disable-next-line no-console
-      console.log('booking update', bookingStatus, booking);
-      hasUpdatedForPaidStatus.current = true;
-      getBooking(id);
-    }
-
-    if (bookingStatus !== BookingStatus.PAID) {
-      hasUpdatedForPaidStatus.current = false;
-    }
-  }, [bookingStatus, id, getBooking]);
-
   const isChatDisabled = useMemo(
     () =>
       !booking?.chatShow ||
       bookingStatus === BookingStatus.RETURNED ||
       bookingStatus === BookingStatus.RATED ||
+      bookingStatus === BookingStatus.OWNER_RATED ||
+      bookingStatus === BookingStatus.RENTER_RATED ||
       bookingStatus === BookingStatus.CANCELLED ||
       bookingStatus === BookingStatus.COMPLETED,
     [booking, bookingStatus]
