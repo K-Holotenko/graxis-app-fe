@@ -17,6 +17,7 @@ export const ROUTES = {
   PRIVACY_POLICY: '/privacy-policy',
   FAQ: '/faq',
   USER_PROFILE: '/profile',
+  BOOKINGS_HISTORY: '/bookings-history',
   PUBLIC_USER_PROFILE: '/profile/:id',
   ADD_USER_INFO: '/add-user-info',
   NOT_FOUND: '/not-found',

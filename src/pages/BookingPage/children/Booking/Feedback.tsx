@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { ConfigProvider, Rate } from 'antd';
 
 import { TextArea } from 'src/components/TextArea';
@@ -5,14 +6,33 @@ import { theme } from 'src/config/theme';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useBookingStatus } from 'src/hooks/useBookingStatus';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { useAuthStore } from 'src/stores/authStore';
+import {
+  getUserRole,
+  UserRole,
+} from 'src/pages/BookingPage/children/BookingDialog/utils';
 
 import styles from './styles.module.scss';
 
 export const Feedback = () => {
   const { setFeedback, setRating } = useBookingStore();
   const { bookingStatus } = useBookingStatus();
+  const { booking } = useBookingStore();
 
-  if (bookingStatus === BookingStatus.RATED) {
+  const { user } = useAuthStore();
+  const userRole: UserRole = getUserRole(booking, user?.id);
+
+  const shouldShowGreeting = useMemo(
+    () =>
+      (userRole === UserRole.RENTER &&
+        bookingStatus === BookingStatus.RENTER_RATED) ||
+      (userRole === UserRole.OWNER &&
+        bookingStatus === BookingStatus.OWNER_RATED) ||
+      bookingStatus === BookingStatus.RATED,
+    [bookingStatus, userRole]
+  );
+
+  if (shouldShowGreeting) {
     return (
       <div className={styles.feedbackContainer}>
         <p className={styles.feedbackTitle}>Дякуємо за відгук!</p>
