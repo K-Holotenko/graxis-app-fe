@@ -2,11 +2,13 @@ import { AxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Divider, Row, Col, Typography, ConfigProvider } from 'antd';
 import { ReactNode } from 'react';
+import { User as FirebaseUser } from 'firebase/auth';
 
 import { ROUTES } from 'src/router/routes';
 import { ButtonTypes, SCREEN_WIDTH, TEXT } from 'src/config/constants';
 import GoogleIcon from 'src/assets/icons/google-icon.svg?react';
 import { useAuthStore } from 'src/stores/authStore';
+import { updateAuthTokenOnTheServer } from 'src/services/AuthService';
 import { Button } from 'src/components/Button';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
@@ -40,9 +42,11 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
   const onGoogleClick = async () => {
     try {
       const firebaseUser = await loginWithGoogle(triggerNotification);
+      const token = await (firebaseUser as FirebaseUser).getIdToken();
 
       if (firebaseUser) {
         try {
+          await updateAuthTokenOnTheServer(token);
           await fetchUser();
 
           navigate(ROUTES.HOME);
@@ -58,10 +62,16 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
                 surname,
               },
             });
+          } else {
+            // Reset loading state on other errors and provide user feedback
+            triggerNotification(
+              'Не вдалося завершити авторизацію. Спробуйте, будь ласка, пізніше'
+            );
           }
         }
       }
     } catch {
+      // Ensure loading state is reset on any error
       triggerNotification(
         'Не вдалося авторизуватися. Спробуйте, будь ласка, пізніше'
       );
