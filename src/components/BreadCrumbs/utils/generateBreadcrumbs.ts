@@ -1,4 +1,3 @@
-import { TEXT } from 'src/config/constants';
 import {
   findCategoryByValue,
   findPathByValue,
@@ -33,7 +32,7 @@ export const generateBreadcrumbs = ({
   const pathItems = buildBreadcrumbsPath(breadcrumbs, path);
 
   const fullPath = showAllItems
-    ? [{ value: 'all', title: TEXT.ALL_CATEGORIES, children: [] }, ...pathItems]
+    ? [{ value: 'all', title: 'Всі категорії', children: [] }, ...pathItems]
     : pathItems;
 
   const breadcrumbItems = fullPath.map(({ value, title }, index) => {

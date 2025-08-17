@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Input, InputType } from 'src/components/Input';
 import { Button } from 'src/components/Button';
-import { FORMS, TEXT } from 'src/config/constants';
+import { FORMS } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { beforeUpload } from 'src/pages/PublicationFormPage/children/UploadItem/utils/utils';
@@ -179,7 +179,7 @@ export const AddUserInfoForm = () => {
             htmlType="submit"
             size="large"
             isDisabled={!isValid}
-            label={isLoading || isAppInitializing ? undefined : TEXT.SUBMIT}
+            label={isLoading || isAppInitializing ? undefined : 'Продовжити'}
             isLoading={isLoading || isAppInitializing}
           />
         </Form.Item>

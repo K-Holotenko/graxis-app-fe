@@ -4,7 +4,6 @@ import Icon from '@ant-design/icons';
 import { SafeKey } from 'antd/es/table/interface';
 
 import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
-import { TEXT } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import ClearIcon from 'src/assets/icons/clear-icon.svg?react';
 import { Category, useCategories } from 'src/hooks/useCategories';
@@ -95,9 +94,9 @@ export const CategoriesDropdown = ({
   return (
     <ConfigProvider theme={localTheme}>
       <Form.Item
-        label={<label className={labelStyles}>{TEXT.CHOOSE_CATEGORY}</label>}
+        label={<label className={labelStyles}>Виберіть категорію</label>}
         name="category"
-        rules={[{ required: true, message: TEXT.CHOOSE_CATEGORY }]}
+        rules={[{ required: true, message: 'Виберіть категорію' }]}
       >
         <TreeSelect
           className={styles.categoriesDropdownTree}
@@ -106,7 +105,7 @@ export const CategoriesDropdown = ({
           treeTitleRender={treeTitleRender}
           treeExpandedKeys={treeExpandedKeys}
           treeData={categoriesTree}
-          placeholder={TEXT.CHOOSE_CATEGORY}
+          placeholder="Виберіть категорію"
           onTreeExpand={(expandedKeys) => setTreeExpandedKeys(expandedKeys)}
           onClear={() => setTreeExpandedKeys([])}
           allowClear={{

@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import MapPinSrc from 'src/assets/icons/map-pin-icon.svg?react';
 import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import { Input } from 'src/components/Input';
-import { CITY_LIST, TEXT } from 'src/config/constants';
+import { CITY_LIST } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { getCurrentCityOption } from 'src/pages/SearchPage/children/Filters/utils/filters';
 
@@ -74,7 +74,7 @@ export const SearchBar = () => {
           className={styles.input}
           ref={inputRef}
           onClear={onClear}
-          placeholder={TEXT.INPUT_SEARCH}
+          placeholder="Пошук товару"
           prefix={<SearchOutlined />}
           value={value}
           onChange={handleInput}

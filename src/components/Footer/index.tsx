@@ -1,10 +1,6 @@
 import { Col, ConfigProvider, Image, Row, Typography } from 'antd';
 
-import {
-  APP_CONTACT_DATA,
-  SOCIAL_MEDIA_LIST,
-  TEXT,
-} from 'src/config/constants';
+import { APP_CONTACT_DATA, SOCIAL_MEDIA_LIST } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { Logo } from 'src/components/Logo';
 import FooterImg from 'src/assets/images/Footer.svg?react';
@@ -21,15 +17,15 @@ export const Footer = () => (
           <Logo height={28} />
         </Col>
         <Col xs={24} md={7} lg={{ span: 8 }} className={styles.footerCol}>
-          <Text className={styles.title}>{TEXT.FAST_LINKS}</Text>
+          <Text className={styles.title}>Швидкі посилання</Text>
           <Link href="" className={styles.link}>
-            {TEXT.CATEGORIES}
+            Категорії
           </Link>
           <Link href="" className={styles.link}>
-            {TEXT.POPULAR_NOW}
+            Популярне зараз
           </Link>
           <Link href="" className={styles.link}>
-            {TEXT.FEEDBACKS}
+            Відгуки
           </Link>
         </Col>
         <Col
@@ -38,13 +34,13 @@ export const Footer = () => (
           lg={{ span: 8, offset: 0 }}
           className={styles.footerCol}
         >
-          <Text className={styles.title}>{TEXT.CONTACT_US}</Text>
+          <Text className={styles.title}>Звʼяжіться з нами</Text>
           <div className={styles.footerEmailBlock}>
-            <Text>{TEXT.EMAIL}:</Text>
+            <Text>Пошта:</Text>
             <Link className={styles.link}>{APP_CONTACT_DATA.email}</Link>
           </div>
           <Text className={styles.link}>
-            {TEXT.PHONE}:{' '}
+            Номер телефону:{' '}
             <Link className={styles.link}>{APP_CONTACT_DATA.phone}</Link>
           </Text>
           <div className={styles.footerMediaSection}>
@@ -59,7 +55,7 @@ export const Footer = () => (
     </ConfigProvider>
     <Row>
       <Col span={24} className={styles.footerRights}>
-        {TEXT.RIGHTS}
+        © 2025 Graxis. Всі права захищено. Політика конфіденційності
       </Col>
     </Row>
     <FooterImg className={styles.footerImg} />

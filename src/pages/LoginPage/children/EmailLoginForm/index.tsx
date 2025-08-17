@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ConfigProvider, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import { FORMS, REGEXS, TEXT } from 'src/config/constants';
+import { FORMS, REGEXS } from 'src/config/constants';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { useAuthStore } from 'src/stores/authStore';
 import { updateAuthTokenOnTheServer } from 'src/services/AuthService';
@@ -86,7 +86,7 @@ export const EmailLoginForm = () => {
         requiredMark={false}
       >
         <Form.Item
-          label={TEXT.EMAIL}
+          label="Пошта"
           name="email"
           rules={[VALIDATION_CONDITION.EMAIL]}
           validateTrigger="onBlur"
@@ -95,24 +95,24 @@ export const EmailLoginForm = () => {
           <Input
             onChange={onChange}
             type={InputType.EMAIL}
-            placeholder={TEXT.INPUT_EMAIL}
+            placeholder="Введіть пошту"
           />
         </Form.Item>
         <Form.Item
           name="password"
-          label={TEXT.PASSWORD}
+          label="Пароль"
           rules={[VALIDATION_CONDITION.REQUIRED]}
           validateTrigger="onBlur"
           validateStatus={isValid ? 'success' : undefined}
           className={styles.marginBottom}
         >
-          <Input type={InputType.PASSWORD} placeholder={TEXT.INPUT_PASSWORD} />
+          <Input type={InputType.PASSWORD} placeholder="Введіть пароль" />
         </Form.Item>
         <Form.Item className={styles.buttonMargin}>
           <Button
             htmlType="submit"
             isDisabled={!isValid}
-            label={isLoading ? undefined : TEXT.SUBMIT}
+            label={isLoading ? undefined : 'Продовжити'}
             isLoading={isLoading}
           />
         </Form.Item>
