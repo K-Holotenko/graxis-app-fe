@@ -21,8 +21,7 @@ interface EmailLoginFormValues {
 }
 
 export const EmailLoginForm = () => {
-  const { loginWithEmail, fetchUser, isLoading, isAppInitializing } =
-    useAuthStore();
+  const { loginWithEmail, fetchUser, isLoading } = useAuthStore();
   const [form] = Form.useForm();
   const [isValid, setIsValid] = useState(false);
   const navigate = useNavigate();
@@ -57,7 +56,7 @@ export const EmailLoginForm = () => {
     try {
       await loginWithEmail(values.email, values.password, triggerNotification);
 
-      // Get Firebase ID token and update auth token on server before fetching user
+      // Get Firebase ID token and update auth token on server before fetching (user)
       const currentUser = firebaseAuth.currentUser;
 
       if (currentUser) {
@@ -73,6 +72,9 @@ export const EmailLoginForm = () => {
       form.resetFields(['password']);
     }
   };
+
+  // eslint-disable-next-line no-console
+  console.log('email login isLoading', isLoading);
 
   return (
     <ConfigProvider theme={localTheme}>
@@ -110,8 +112,8 @@ export const EmailLoginForm = () => {
           <Button
             htmlType="submit"
             isDisabled={!isValid}
-            label={isAppInitializing || isLoading ? undefined : TEXT.SUBMIT}
-            isLoading={isLoading || isAppInitializing}
+            label={isLoading ? undefined : TEXT.SUBMIT}
+            isLoading={isLoading}
           />
         </Form.Item>
       </Form>
