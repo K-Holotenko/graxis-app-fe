@@ -45,6 +45,12 @@ export const fetchUser = async (): Promise<User> => {
   return response.data;
 };
 
+export const fetchUserWithToken = async (): Promise<User> => {
+  const response = await axios.get('/users/me', { withCredentials: true });
+
+  return response.data;
+};
+
 export const updateUser = async (user: UpdateUserData): Promise<User> => {
   const formData = new FormData();
 
