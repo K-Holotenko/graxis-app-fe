@@ -56,7 +56,7 @@ export const EmailLoginForm = () => {
     try {
       await loginWithEmail(values.email, values.password, triggerNotification);
 
-      // Get Firebase ID token and update auth token on server before fetching user
+      // Get Firebase ID token and update auth token on server before fetching (user)
       const currentUser = firebaseAuth.currentUser;
 
       if (currentUser) {
