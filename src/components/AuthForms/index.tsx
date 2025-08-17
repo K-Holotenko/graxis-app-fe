@@ -12,7 +12,7 @@ import { updateAuthTokenOnTheServer } from 'src/services/AuthService';
 import { Button } from 'src/components/Button';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
-import { fetchUserWithToken } from 'src/services/UserService';
+// import { fetchUserWithToken } from 'src/services/UserService';
 
 import styles from './styles.module.scss';
 
@@ -50,9 +50,9 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
       if (firebaseUser) {
         try {
           await updateAuthTokenOnTheServer(token);
-          await fetchUserWithToken();
+          // await fetchUserWithToken();
 
-          navigate(ROUTES.HOME);
+          // navigate(ROUTES.HOME);
         } catch (error) {
           if (error instanceof AxiosError && error.status === 404) {
             const fullName =
