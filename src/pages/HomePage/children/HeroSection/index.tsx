@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import HeroImage from 'src/assets/images/Group.svg?react';
-import { TEXT } from 'src/config/constants';
 import { Heading } from 'src/components/Heading';
 import { Input } from 'src/components/Input';
 
@@ -33,11 +32,13 @@ export const HeroSection = () => {
     <Row align="middle" justify="center" className={styles.heroSectionRow} wrap>
       <Col xs={{ span: 24, order: 1 }} md={{ span: 14, order: 0 }}>
         <Heading level={1} className={styles.heading}>
-          {TEXT.HERO_SECTION_TITLE}
+          ТВОЯ ПЛАТФОРМА ДЛЯ ШЕРІНГУ
         </Heading>
-        <p className={styles.paragraph}>{TEXT.HERO_SECTION_SUBTITLE}</p>
+        <p className={styles.paragraph}>
+          Шерінг речей без зайвого клопоту, коли завгодно, де завгодно
+        </p>
         <Input
-          placeholder={TEXT.INPUT_SEARCH}
+          placeholder="Пошук товару"
           prefix={<SearchOutlined />}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}

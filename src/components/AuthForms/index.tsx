@@ -5,14 +5,14 @@ import { ReactNode } from 'react';
 import { User as FirebaseUser } from 'firebase/auth';
 
 import { ROUTES } from 'src/router/routes';
-import { ButtonTypes, SCREEN_WIDTH, TEXT } from 'src/config/constants';
+import { ButtonTypes, SCREEN_WIDTH } from 'src/config/constants';
 import GoogleIcon from 'src/assets/icons/google-icon.svg?react';
 import { useAuthStore } from 'src/stores/authStore';
 import { updateAuthTokenOnTheServer } from 'src/services/AuthService';
 import { Button } from 'src/components/Button';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
-// import { fetchUserWithToken } from 'src/services/UserService';
+import { fetchUserWithToken } from 'src/services/UserService';
 
 import styles from './styles.module.scss';
 
@@ -50,9 +50,9 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
       if (firebaseUser) {
         try {
           await updateAuthTokenOnTheServer(token);
-          // await fetchUserWithToken();
+          await fetchUserWithToken();
 
-          // navigate(ROUTES.HOME);
+          navigate(ROUTES.HOME);
         } catch (error) {
           if (error instanceof AxiosError && error.status === 404) {
             const fullName =
@@ -92,7 +92,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
           Забули пароль?
         </Link>
       </Row>
-      <Divider plain>{TEXT.OR}</Divider>
+      <Divider plain>Або</Divider>
       <Row justify="space-between" className={styles.buttonMargins} gutter={40}>
         <Col span={24}>
           <Button
@@ -111,12 +111,12 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
           <span className={styles.authorizeLink}>
             Немає акаунту?
             <Link to={ROUTES.REGISTRATION} className={styles.registerStyle}>
-              {TEXT.REGISTER}
+              Зареєструватися
             </Link>
           </span>
         ) : (
           <span className={styles.authorizeLink}>
-            {TEXT.ALREADY_HAVE_ACCOUNT}{' '}
+            У вас є акаунт?{' '}
             <Link to={ROUTES.LOGIN} className={styles.authorizeStyle}>
               Авторизуватися
             </Link>

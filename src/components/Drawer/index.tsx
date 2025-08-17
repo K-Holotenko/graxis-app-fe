@@ -19,7 +19,7 @@ import UserIconDark from 'src/assets/icons/user-icon-dark.svg?react';
 import { theme } from 'src/config/theme';
 import { useAuthStore } from 'src/stores/authStore';
 import { SelectLocation } from 'src/components/SelectLocation';
-import { ButtonTypes, TEXT } from 'src/config/constants';
+import { ButtonTypes } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
@@ -192,7 +192,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
       <Row className={styles.verticalPadding}>
         <Col span={24}>
           <Typography className={styles.locationTitle}>
-            {TEXT.CHOOSE_LOCATION}
+            Виберіть локацію
           </Typography>
         </Col>
       </Row>

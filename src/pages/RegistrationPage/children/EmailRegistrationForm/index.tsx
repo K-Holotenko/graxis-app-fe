@@ -3,7 +3,7 @@ import { ConfigProvider, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { Checkbox } from 'src/components/Checkbox';
-import { FORMS, REGEXS, TEXT } from 'src/config/constants';
+import { FORMS, REGEXS } from 'src/config/constants';
 import {
   VALIDATION_CONDITION,
   VALIDATION_MESSAGE,
@@ -73,30 +73,30 @@ export const EmailRegistrationForm = () => {
         requiredMark={false}
       >
         <Form.Item
-          label={TEXT.EMAIL}
+          label="Пошта"
           name="email"
           rules={[VALIDATION_CONDITION.EMAIL]}
           validateTrigger="onBlur"
           validateStatus={isValid ? 'success' : undefined}
         >
-          <Input placeholder={TEXT.INPUT_EMAIL} onChange={onChange} />
+          <Input placeholder="Введіть пошту" onChange={onChange} />
         </Form.Item>
         <Form.Item
           name="password"
-          label={TEXT.PASSWORD}
+          label="Пароль"
           rules={CREATE_PASSWORD_VALIDATION_CONDITIONS}
           validateTrigger="onBlur"
           validateStatus={isValid ? 'success' : undefined}
         >
           <Input
-            placeholder={TEXT.INPUT_PASSWORD}
+            placeholder="Введіть парольS"
             type={InputType.PASSWORD}
             id="password"
           />
         </Form.Item>
         <Form.Item
           name="confirmationPassword"
-          label={TEXT.CONFIRMATION_PASSWORD}
+          label="Повторіть пароль"
           validateTrigger="onBlur"
           validateStatus={isValid ? 'success' : undefined}
           rules={[
@@ -116,7 +116,7 @@ export const EmailRegistrationForm = () => {
           validateFirst
         >
           <Input
-            placeholder={TEXT.INPUT_PASSWORD}
+            placeholder="Введіть пароль"
             type={InputType.PASSWORD}
             id="duplicated-password"
           />
@@ -127,13 +127,15 @@ export const EmailRegistrationForm = () => {
           rules={[VALIDATION_CONDITION.CHECKED]}
           className={styles.marginBottom}
         >
-          <Checkbox label={TEXT.ALLOW_DATA_PROCESSING} />
+          <Checkbox
+            label={`Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача`}
+          />
         </Form.Item>
         <Form.Item>
           <Button
             htmlType="submit"
             isDisabled={!isValid}
-            label={TEXT.SUBMIT}
+            label="Продовжити"
             className={styles.buttonMargin}
           />
         </Form.Item>
