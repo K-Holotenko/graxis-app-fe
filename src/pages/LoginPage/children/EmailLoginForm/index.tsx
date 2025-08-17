@@ -21,8 +21,7 @@ interface EmailLoginFormValues {
 }
 
 export const EmailLoginForm = () => {
-  const { loginWithEmail, fetchUser, isLoading, isAppInitializing } =
-    useAuthStore();
+  const { loginWithEmail, fetchUser, isLoading } = useAuthStore();
   const [form] = Form.useForm();
   const [isValid, setIsValid] = useState(false);
   const navigate = useNavigate();
@@ -74,6 +73,9 @@ export const EmailLoginForm = () => {
     }
   };
 
+  // eslint-disable-next-line no-console
+  console.log('email login isLoading', isLoading);
+
   return (
     <ConfigProvider theme={localTheme}>
       <Form
@@ -110,8 +112,8 @@ export const EmailLoginForm = () => {
           <Button
             htmlType="submit"
             isDisabled={!isValid}
-            label={isAppInitializing || isLoading ? undefined : TEXT.SUBMIT}
-            isLoading={isLoading || isAppInitializing}
+            label={isLoading ? undefined : TEXT.SUBMIT}
+            isLoading={isLoading}
           />
         </Form.Item>
       </Form>

@@ -12,6 +12,7 @@ import { updateAuthTokenOnTheServer } from 'src/services/AuthService';
 import { Button } from 'src/components/Button';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
+import { fetchUserWithToken } from 'src/services/UserService';
 
 import styles from './styles.module.scss';
 
@@ -29,7 +30,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
   const {
     isLoading: isAuthLoading,
     loginWithGoogle,
-    fetchUser,
+    // fetchUser,
   } = useAuthStore();
 
   const { isLoading } = useAuthStore();
@@ -39,6 +40,8 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
 
+  // eslint-disable-next-line no-console
+  console.log('isAuthLoading', isAuthLoading, 'isLoading', isLoading);
   const onGoogleClick = async () => {
     try {
       const firebaseUser = await loginWithGoogle(triggerNotification);
@@ -47,7 +50,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
       if (firebaseUser) {
         try {
           await updateAuthTokenOnTheServer(token);
-          await fetchUser();
+          await fetchUserWithToken();
 
           navigate(ROUTES.HOME);
         } catch (error) {
@@ -106,7 +109,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
       <Row justify="center">
         {location.pathname === ROUTES.LOGIN ? (
           <span className={styles.authorizeLink}>
-            {TEXT.NO_ACCOUNT}{' '}
+            Немає акаунту?
             <Link to={ROUTES.REGISTRATION} className={styles.registerStyle}>
               {TEXT.REGISTER}
             </Link>
