@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
-import { GRAXIS_API_URL } from 'src/config/constants';
 import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
 
 import { api } from './api';
@@ -73,7 +72,7 @@ export const changeBookingStatus = async (
 
 export const paymentTransaction = async (id: string): Promise<unknown> => {
   const response = await axios.post(
-    `${GRAXIS_API_URL}/payment-transaction/mark-paid`,
+    `${import.meta.env.VITE_APP_GRAXIS_API_URL}/payment-transaction/mark-paid`,
     {
       bookingId: id,
       transactionId: id,

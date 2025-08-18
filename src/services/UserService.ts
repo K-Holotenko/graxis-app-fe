@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { User } from 'src/stores/authStore';
 import { UserProfileData } from 'src/stores/userProfileStore';
-import { GRAXIS_API_URL } from 'src/config/constants';
 
 import { api } from './api';
 
@@ -31,7 +30,7 @@ export const signUp = async (user: SignUpUser): Promise<User> => {
   user?.city && formData.append('city', user.city);
 
   const response = await axios.post(
-    `${GRAXIS_API_URL}/users/sign-up`,
+    `${import.meta.env.VITE_APP_GRAXIS_API_URL}/users/sign-up`,
     formData,
     { withCredentials: true }
   );
@@ -41,12 +40,6 @@ export const signUp = async (user: SignUpUser): Promise<User> => {
 
 export const fetchUser = async (): Promise<User> => {
   const response = await api.get('/users/me');
-
-  return response.data;
-};
-
-export const fetchUserWithToken = async (): Promise<User> => {
-  const response = await axios.get('/users/me', { withCredentials: true });
 
   return response.data;
 };
