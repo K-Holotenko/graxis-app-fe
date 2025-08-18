@@ -40,8 +40,7 @@ export const AddUserInfoForm = () => {
   const location = useLocation();
   const stateParams = location.state;
 
-  const { isLoading, isAppInitializing, fetchUser, createUser } =
-    useAuthStore();
+  const { isLoading, fetchUser, createUser } = useAuthStore();
   const { openNotification } = useNotification();
 
   const allValues = Form.useWatch([], form);
@@ -179,8 +178,8 @@ export const AddUserInfoForm = () => {
             htmlType="submit"
             size="large"
             isDisabled={!isValid}
-            label={isLoading || isAppInitializing ? undefined : 'Продовжити'}
-            isLoading={isLoading || isAppInitializing}
+            label={isLoading ? undefined : 'Продовжити'}
+            isLoading={isLoading}
           />
         </Form.Item>
       </Form>
