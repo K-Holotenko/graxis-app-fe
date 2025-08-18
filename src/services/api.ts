@@ -3,14 +3,13 @@
 import axios from 'axios';
 
 import { firebaseAuth } from 'src/config/firebase';
-import { GRAXIS_API_URL } from 'src/config/constants';
 import { useAuthStore } from 'src/stores/authStore';
 
 import { updateAuthTokenOnTheServer } from './AuthService';
 
 // Create an axios instance
 export const api = axios.create({
-  baseURL: GRAXIS_API_URL,
+  baseURL: import.meta.env.VITE_APP_GRAXIS_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },

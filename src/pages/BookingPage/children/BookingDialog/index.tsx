@@ -39,6 +39,10 @@ export const BookingDialog = () => {
     () => rating || (rating && feedback),
     [rating, feedback]
   );
+  // WE NEED to force component rerender when the bookingStatus changes
+
+  // eslint-disable-next-line no-console
+  console.log(bookingStatus, booking);
 
   if (actions.length === 0) {
     return null;
