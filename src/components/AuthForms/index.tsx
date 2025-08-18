@@ -63,7 +63,6 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
               },
             });
           } else {
-            // Reset loading state on other errors and provide user feedback
             triggerNotification(
               'Не вдалося завершити авторизацію. Спробуйте, будь ласка, пізніше'
             );
@@ -71,7 +70,6 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
         }
       }
     } catch {
-      // Ensure loading state is reset on any error
       triggerNotification(
         'Не вдалося авторизуватися. Спробуйте, будь ласка, пізніше'
       );

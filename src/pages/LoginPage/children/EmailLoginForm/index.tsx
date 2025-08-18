@@ -73,9 +73,6 @@ export const EmailLoginForm = () => {
     }
   };
 
-  // eslint-disable-next-line no-console
-  console.log('email login isLoading', isLoading);
-
   return (
     <ConfigProvider theme={localTheme}>
       <Form
