@@ -6,7 +6,7 @@ import { SearchBar } from 'src/pages/SearchPage/children/SearchBar';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH } from 'src/config/constants';
 import { Loadable } from 'src/components/Loadable';
-import { useCategories } from 'src/hooks/useCategories';
+import { useCategoriesStore } from 'src/stores/categoriesStore';
 
 import styles from './styles.module.scss';
 
@@ -28,8 +28,8 @@ const SearchQueryResults = ({
 
 export const Filters = () => {
   const [searchParams] = useSearchParams();
-  const { isLoading } = useCategories();
 
+  const { isLoading } = useCategoriesStore();
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.MD;
 

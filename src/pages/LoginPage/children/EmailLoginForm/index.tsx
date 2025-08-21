@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { FORMS, REGEXS } from 'src/config/constants';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { useAuthStore } from 'src/stores/authStore';
-import { updateAuthTokenOnTheServer } from 'src/services/AuthService';
 import { firebaseAuth } from 'src/config/firebase';
 import { Button } from 'src/components/Button/index';
 import { Input, InputType } from 'src/components/Input';
@@ -21,7 +20,8 @@ interface EmailLoginFormValues {
 }
 
 export const EmailLoginForm = () => {
-  const { loginWithEmail, fetchUser, isLoading } = useAuthStore();
+  const { isLoading, loginWithEmail, fetchUser, updateAuthTokenOnTheServer } =
+    useAuthStore();
   const [form] = Form.useForm();
   const [isValid, setIsValid] = useState(false);
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export const EmailLoginForm = () => {
       if (currentUser) {
         const token = await currentUser.getIdToken();
 
-        await updateAuthTokenOnTheServer(token);
+        await updateAuthTokenOnTheServer(token, triggerNotification);
       }
 
       await fetchUser();

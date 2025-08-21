@@ -40,7 +40,7 @@ export const AddUserInfoForm = () => {
   const location = useLocation();
   const stateParams = location.state;
 
-  const { isLoading, fetchUser, createUser } = useAuthStore();
+  const { isLoading, createUser } = useAuthStore();
   const { openNotification } = useNotification();
 
   const allValues = Form.useWatch([], form);
@@ -65,8 +65,8 @@ export const AddUserInfoForm = () => {
     openNotification(NotificationType.ERROR, 'Помилка', err);
   };
 
-  const onFinish = () => {
-    createUser(
+  const onFinish = async () => {
+    await createUser(
       {
         name: allValues.name,
         surname: allValues.surname,
@@ -74,13 +74,8 @@ export const AddUserInfoForm = () => {
         city: allValues.city,
       },
       triggerNotification
-    )
-      .then(() => {
-        fetchUser();
-      })
-      .then(() => {
-        navigate(ROUTES.HOME);
-      });
+    );
+    navigate(ROUTES.HOME);
   };
 
   const onChange = () => {

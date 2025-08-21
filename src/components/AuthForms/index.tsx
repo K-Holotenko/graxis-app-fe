@@ -8,7 +8,6 @@ import { ROUTES } from 'src/router/routes';
 import { ButtonTypes, SCREEN_WIDTH } from 'src/config/constants';
 import GoogleIcon from 'src/assets/icons/google-icon.svg?react';
 import { useAuthStore } from 'src/stores/authStore';
-import { updateAuthTokenOnTheServer } from 'src/services/AuthService';
 import { Button } from 'src/components/Button';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
@@ -26,13 +25,9 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.SM;
   const navigate = useNavigate();
-  const {
-    isLoading: isAuthLoading,
-    loginWithGoogle,
-    fetchUser,
-  } = useAuthStore();
+  const { isLoading, loginWithGoogle, fetchUser, updateAuthTokenOnTheServer } =
+    useAuthStore();
 
-  const { isLoading } = useAuthStore();
   const { openNotification } = useNotification();
 
   const triggerNotification = (description: string) => {
@@ -46,7 +41,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
 
       if (firebaseUser) {
         try {
-          await updateAuthTokenOnTheServer(token);
+          await updateAuthTokenOnTheServer(token, triggerNotification);
           await fetchUser();
 
           navigate(ROUTES.HOME);
@@ -92,12 +87,12 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
         <Col span={24}>
           <Button
             label="Увійти через Google"
-            icon={isLoading || isAuthLoading ? undefined : <GoogleIcon />}
+            icon={isLoading || isLoading ? undefined : <GoogleIcon />}
             type={ButtonTypes.default}
             className={styles.socialMediaButton}
             onClick={onGoogleClick}
-            isDisabled={isLoading || isAuthLoading}
-            isLoading={isLoading || isAuthLoading}
+            isDisabled={isLoading || isLoading}
+            isLoading={isLoading || isLoading}
           />
         </Col>
       </Row>

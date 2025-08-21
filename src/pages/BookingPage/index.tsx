@@ -1,5 +1,5 @@
 import { Tabs } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
@@ -39,14 +39,20 @@ const items = [
 export const BookingPage = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
-  const { booking, getBooking, isBookingLoading } = useBookingStore();
-  const navigate = useNavigate();
+  const {
+    booking,
+    isBookingLoading,
+    getBooking,
+    connectToBookingStatusUpdate,
+  } = useBookingStore();
 
+  const navigate = useNavigate();
   const { id, tab } = useParams<{ id: string; tab?: string }>();
+
   const [activeTab, setActiveTab] = useState<string>(tab || TABS.DETAILS);
 
-  const isTablet = width < SCREEN_WIDTH.LG;
-  const isMobile = width < SCREEN_WIDTH.SM;
+  const isTablet = useMemo(() => width < SCREEN_WIDTH.LG, [width]);
+  const isMobile = useMemo(() => width < SCREEN_WIDTH.SM, [width]);
 
   useEffect(() => {
     if (id) {
@@ -65,6 +71,14 @@ export const BookingPage = () => {
       socket.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    if (booking) {
+      const unsubscribe = connectToBookingStatusUpdate(booking.id);
+
+      return () => unsubscribe();
+    }
+  }, [booking]);
 
   const handleTabChange = (newTab: string) => {
     setActiveTab(newTab as (typeof TABS)[keyof typeof TABS]);
