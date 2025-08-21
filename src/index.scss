@@ -9,7 +9,6 @@
 
 body {
   background-color: variables.$N1;
-  // font-family: fonts.$font-body;
   min-width: 375px;
 }
 
@@ -22,6 +21,10 @@ body {
 
 .ant-modal-content {
   padding: 0 !important;
+}
+
+.ant-modal-body {
+  padding: 20px !important;
 }
 
 @media (min-width: variables.$media-sm) {

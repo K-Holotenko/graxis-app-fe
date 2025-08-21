@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 import { Shelf } from 'src/pages/BookingPage/children/Shelf';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { useBookingStatus } from 'src/hooks/useBookingStatus';
 import { CardSkeleton, DetailsSkeleton } from 'src/pages/BookingPage/skeletons';
 import { Loadable } from 'src/components/Loadable';
 
@@ -13,7 +12,6 @@ import { BookingStatus } from './utils';
 
 export const BookingDetails = () => {
   const { booking, isBookingLoading, getBooking } = useBookingStore();
-  const { bookingStatus } = useBookingStatus();
 
   const { id } = useParams();
   const hasUpdatedForPaidStatus = useRef(false);
@@ -26,7 +24,7 @@ export const BookingDetails = () => {
     const shouldUpdateBooking =
       id &&
       booking &&
-      bookingStatus === BookingStatus.PAID &&
+      booking.bookingStatus === BookingStatus.PAID &&
       !hasUpdatedForPaidStatus.current;
 
     if (shouldUpdateBooking) {
@@ -34,10 +32,10 @@ export const BookingDetails = () => {
       getBooking(id);
     }
 
-    if (bookingStatus !== BookingStatus.PAID) {
+    if (booking?.bookingStatus !== BookingStatus.PAID) {
       hasUpdatedForPaidStatus.current = false;
     }
-  }, [bookingStatus, id, getBooking]);
+  }, [booking?.bookingStatus, id, getBooking]);
 
   return (
     <>
