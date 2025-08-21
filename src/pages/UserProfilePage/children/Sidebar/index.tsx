@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, matchPath } from 'react-router-dom';
-import { ConfigProvider, Menu } from 'antd';
+import { App, ConfigProvider, Menu } from 'antd';
 
 import { ROUTES } from 'src/router/routes';
 import { theme } from 'src/config/theme';
@@ -32,8 +32,10 @@ const items: MenuItemProps[] = [
 export const Sidebar = ({ onTabClick }: SidebarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+
   const { signOut } = useAuthStore();
   const { openNotification } = useNotification();
+  const { modal } = App.useApp();
 
   const handleMenuClick = (e: { key: string }) => {
     navigate(e.key);
@@ -44,24 +46,34 @@ export const Sidebar = ({ onTabClick }: SidebarProps) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
 
-  // Function to determine which menu item should be selected based on current route
   const getSelectedKeys = (): string[] => {
     const { pathname } = location;
 
-    // Check if current path matches notifications with ID parameter
     if (matchPath({ path: ROUTES.NOTIFICATIONS }, pathname)) {
       return [ROUTES.NOTIFICATIONS_BASE];
     }
 
-    // For other routes, use exact match
     const exactMatch = items.find((item) => item.key === pathname);
 
     if (exactMatch) {
       return [exactMatch.key];
     }
 
-    // Default to empty if no match
     return [];
+  };
+
+  const handleSignOut = () => {
+    modal.confirm({
+      title: 'Ви впевнені, що хочете завершити сеанс?',
+      className: styles.customModal,
+      centered: true,
+      okText: 'Вийти',
+      cancelText: 'Скасувати',
+      okType: 'danger',
+      onOk: async () => {
+        await signOut(showError);
+      },
+    });
   };
 
   return (
@@ -82,11 +94,7 @@ export const Sidebar = ({ onTabClick }: SidebarProps) => {
           ))}
         </Menu>
       </ConfigProvider>
-      <Button
-        label="Вийти"
-        type={ButtonTypes.link}
-        onClick={() => signOut(showError)}
-      />
+      <Button label="Вийти" type={ButtonTypes.link} onClick={handleSignOut} />
     </div>
   );
 };

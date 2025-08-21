@@ -12,7 +12,7 @@ interface MessageListProps {
   userId: string;
   participantsNames: Record<string, string>;
   showChat?: boolean;
-  bookingStatus: BookingStatus | null;
+  bookingStatus?: BookingStatus;
 }
 
 const alertMessages: Partial<Record<BookingStatus, string>> = {
