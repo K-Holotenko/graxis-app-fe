@@ -4,7 +4,6 @@ import { ConfigProvider, Rate } from 'antd';
 import { TextArea } from 'src/components/TextArea';
 import { theme } from 'src/config/theme';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { useBookingStatus } from 'src/hooks/useBookingStatus';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 import { useAuthStore } from 'src/stores/authStore';
 import {
@@ -15,9 +14,7 @@ import {
 import styles from './styles.module.scss';
 
 export const Feedback = () => {
-  const { setFeedback, setRating } = useBookingStore();
-  const { bookingStatus } = useBookingStatus();
-  const { booking } = useBookingStore();
+  const { booking, setFeedback, setRating } = useBookingStore();
 
   const { user } = useAuthStore();
   const userRole: UserRole = getUserRole(booking, user?.id);
@@ -25,11 +22,11 @@ export const Feedback = () => {
   const shouldShowGreeting = useMemo(
     () =>
       (userRole === UserRole.RENTER &&
-        bookingStatus === BookingStatus.RENTER_RATED) ||
+        booking?.bookingStatus === BookingStatus.RENTER_RATED) ||
       (userRole === UserRole.OWNER &&
-        bookingStatus === BookingStatus.OWNER_RATED) ||
-      bookingStatus === BookingStatus.RATED,
-    [bookingStatus, userRole]
+        booking?.bookingStatus === BookingStatus.OWNER_RATED) ||
+      booking?.bookingStatus === BookingStatus.RATED,
+    [booking?.bookingStatus, userRole]
   );
 
   if (shouldShowGreeting) {
