@@ -1,7 +1,6 @@
 import { Form, Spin } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import dayjs from 'dayjs';
-import { useParams } from 'react-router-dom';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { socket } from 'src/sockets';
@@ -14,25 +13,15 @@ import { ChatMessage, useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
 import { MessageList } from 'src/pages/BookingPage/children/MessageList';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
-import { useBookingStatus } from 'src/hooks/useBookingStatus';
 
 import styles from './styles.module.scss';
 
 export const Chat = () => {
   const [form] = Form.useForm();
 
-  const {
-    booking,
-    chat,
-    isChatLoading,
-    isBookingLoading,
-    getChat,
-    getBooking,
-  } = useBookingStore();
+  const { booking, chat, isChatLoading, isBookingLoading, getChat } =
+    useBookingStore();
   const { user, isLoading } = useAuthStore();
-  const { bookingStatus } = useBookingStatus();
-
-  const { id } = useParams();
 
   const [messages, setMessages] = useState<ChatMessage[]>(chat?.messages || []);
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
@@ -116,6 +105,8 @@ export const Chat = () => {
     };
 
     const onDisconnect = () => {
+      // eslint-disable-next-line no-console
+      console.log('onDisconnect');
       setIsConnected(false);
     };
 
@@ -130,26 +121,16 @@ export const Chat = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const shouldUpdateBooking =
-      id &&
-      booking &&
-      bookingStatus === BookingStatus.PAID &&
-      !booking.publicationAddressShow;
-
-    if (shouldUpdateBooking) {
-      getBooking(id);
-    }
-  }, [booking, bookingStatus, id]);
-
   const isChatDisabled = useMemo(
     () =>
       !booking?.chatShow ||
-      bookingStatus === BookingStatus.RETURNED ||
-      bookingStatus === BookingStatus.RATED ||
-      bookingStatus === BookingStatus.CANCELLED ||
-      bookingStatus === BookingStatus.COMPLETED,
-    [booking, bookingStatus]
+      booking.bookingStatus === BookingStatus.RETURNED ||
+      booking.bookingStatus === BookingStatus.RATED ||
+      booking.bookingStatus === BookingStatus.OWNER_RATED ||
+      booking.bookingStatus === BookingStatus.RENTER_RATED ||
+      booking.bookingStatus === BookingStatus.CANCELLED ||
+      booking.bookingStatus === BookingStatus.COMPLETED,
+    [booking]
   );
 
   if (isChatLoading || isBookingLoading || !chat || !user) {
@@ -184,7 +165,7 @@ export const Chat = () => {
           userId={user.id}
           participantsNames={participantsNames}
           showChat={booking?.chatShow}
-          bookingStatus={bookingStatus}
+          bookingStatus={booking?.bookingStatus}
         />
       </div>
       <div className={styles.formContainer}>

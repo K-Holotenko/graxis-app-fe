@@ -12,7 +12,7 @@ interface MessageListProps {
   userId: string;
   participantsNames: Record<string, string>;
   showChat?: boolean;
-  bookingStatus: BookingStatus | null;
+  bookingStatus?: BookingStatus;
 }
 
 const alertMessages: Partial<Record<BookingStatus, string>> = {
@@ -23,6 +23,8 @@ const alertMessages: Partial<Record<BookingStatus, string>> = {
   [BookingStatus.IN_PROGRESS]: 'Чат буде закрито після повернення товару.',
   [BookingStatus.RETURNED]: 'Ви більше не можете писати в чаті.',
   [BookingStatus.RATED]: 'Ви більше не можете писати в чаті.',
+  [BookingStatus.OWNER_RATED]: 'Ви більше не можете писати в чаті.',
+  [BookingStatus.RENTER_RATED]: 'Ви більше не можете писати в чаті.',
   [BookingStatus.COMPLETED]: 'Ви більше не можете писати в чаті.',
   [BookingStatus.CANCELLED]: 'Ви більше не можете писати в чаті.',
 };
@@ -40,6 +42,8 @@ export const MessageList = ({
       bookingStatus === BookingStatus.IN_PROGRESS ||
       bookingStatus === BookingStatus.RETURNED ||
       bookingStatus === BookingStatus.RATED ||
+      bookingStatus === BookingStatus.OWNER_RATED ||
+      bookingStatus === BookingStatus.RENTER_RATED ||
       bookingStatus === BookingStatus.COMPLETED ||
       bookingStatus === BookingStatus.CANCELLED,
     [showChat, bookingStatus]

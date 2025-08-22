@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Input, InputType } from 'src/components/Input';
 import { Button } from 'src/components/Button';
-import { FORMS, TEXT } from 'src/config/constants';
+import { FORMS } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { beforeUpload } from 'src/pages/PublicationFormPage/children/UploadItem/utils/utils';
@@ -40,8 +40,7 @@ export const AddUserInfoForm = () => {
   const location = useLocation();
   const stateParams = location.state;
 
-  const { isLoading, isAppInitializing, fetchUser, createUser } =
-    useAuthStore();
+  const { isLoading, createUser } = useAuthStore();
   const { openNotification } = useNotification();
 
   const allValues = Form.useWatch([], form);
@@ -66,8 +65,8 @@ export const AddUserInfoForm = () => {
     openNotification(NotificationType.ERROR, 'Помилка', err);
   };
 
-  const onFinish = () => {
-    createUser(
+  const onFinish = async () => {
+    await createUser(
       {
         name: allValues.name,
         surname: allValues.surname,
@@ -75,13 +74,8 @@ export const AddUserInfoForm = () => {
         city: allValues.city,
       },
       triggerNotification
-    )
-      .then(() => {
-        fetchUser();
-      })
-      .then(() => {
-        navigate(ROUTES.HOME);
-      });
+    );
+    navigate(ROUTES.HOME);
   };
 
   const onChange = () => {
@@ -179,8 +173,8 @@ export const AddUserInfoForm = () => {
             htmlType="submit"
             size="large"
             isDisabled={!isValid}
-            label={isLoading || isAppInitializing ? undefined : TEXT.SUBMIT}
-            isLoading={isLoading || isAppInitializing}
+            label={isLoading ? undefined : 'Продовжити'}
+            isLoading={isLoading}
           />
         </Form.Item>
       </Form>

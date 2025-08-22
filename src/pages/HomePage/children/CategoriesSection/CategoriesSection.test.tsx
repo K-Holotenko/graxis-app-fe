@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { TEXT } from 'src/config/constants';
 import { CATEGORIES_SECTION_CARD } from 'src/pages/HomePage/children/CategoriesSectionCard/utils/config';
 
 import { CategoriesSection } from '.';
@@ -25,7 +24,7 @@ describe('CategoriesSection', () => {
       </BrowserRouter>
     );
 
-    const categoriesSectionTitle = getByText(TEXT.CATEGORIES_SECTION_TITLE);
+    const categoriesSectionTitle = getByText('Категорії товарів');
 
     expect(categoriesSectionTitle).toBeInTheDocument();
   });

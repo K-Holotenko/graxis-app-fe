@@ -79,6 +79,10 @@ interface AuthState {
     showError: (err: string) => void
   ) => Promise<void>;
   confirmationResult: ConfirmationResult | null;
+  updateAuthTokenOnTheServer: (
+    token: string,
+    showError: (err: string) => void
+  ) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -101,6 +105,20 @@ export const useAuthStore = create<AuthState>((set) => ({
       });
     } else {
       set({ isLoading: false, user: null });
+    }
+  },
+
+  updateAuthTokenOnTheServer: async (
+    token: string,
+    showError: (err: string) => void
+  ) => {
+    set({ isLoading: true });
+    try {
+      await updateAuthTokenOnTheServer(token);
+    } catch {
+      showError('Не вдалося оновити токен. Спробуйте ще раз');
+    } finally {
+      set({ isLoading: false });
     }
   },
 
@@ -231,12 +249,14 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       await AuthService.signOut();
 
-      set({ isLoading: false, user: null });
+      set({ user: null });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError?.(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
         throw err;
       }
+    } finally {
+      set({ isLoading: false });
     }
   },
 }));

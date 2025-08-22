@@ -2,16 +2,17 @@ import { create } from 'zustand';
 
 import { getUserPublicProfile } from 'src/services/UserService';
 import { PublicationCard } from 'src/services/PublicationService';
+import { FirestoreTimestamp } from 'src/pages/PublicUserProfile/utils';
 
 export interface Feedback {
   id: string;
-  title: string;
-  image: string;
+  publicationTitle: string;
+  authorImage: string;
   authorName: string;
   authorSurname: string;
-  review: string;
-  rating: number;
-  createdAt: string;
+  text: string;
+  stars: number;
+  createdAt: FirestoreTimestamp;
 }
 
 interface PublicUserProfile {

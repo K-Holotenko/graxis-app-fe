@@ -7,7 +7,6 @@ import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
-import { useBookingStatus } from 'src/hooks/useBookingStatus';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 
 import styles from './styles.module.scss';
@@ -21,7 +20,6 @@ import {
 export const BookingDialog = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
-  const { bookingStatus } = useBookingStatus();
   const { booking, updateBookingStatus, rating, feedback } = useBookingStore();
 
   const navigate = useNavigate();
@@ -30,7 +28,9 @@ export const BookingDialog = () => {
 
   const userRole: UserRole = getUserRole(booking, user?.id);
   const actions: BookingAction[] = getCurrentActions(
-    bookingStatus === BookingStatus.BOOKED ? null : bookingStatus,
+    booking!.bookingStatus === BookingStatus.BOOKED
+      ? null
+      : booking!.bookingStatus,
     userRole,
     updateBookingStatus
   );
@@ -39,6 +39,9 @@ export const BookingDialog = () => {
     () => rating || (rating && feedback),
     [rating, feedback]
   );
+
+  // eslint-disable-next-line no-console
+  console.log(booking?.bookingStatus, booking);
 
   if (actions.length === 0) {
     return null;
@@ -63,7 +66,8 @@ export const BookingDialog = () => {
               )
             }
             isDisabled={
-              bookingStatus === BookingStatus.RETURNED && !isFeedbackValid
+              booking?.bookingStatus === BookingStatus.RETURNED &&
+              !isFeedbackValid
             }
           />
         ))}

@@ -19,25 +19,22 @@ interface CategoriesStore {
   ) => Promise<Category[] | undefined | null>;
 }
 
-export const useCategoriesStore = create<CategoriesStore>((set, get) => ({
+export const useCategoriesStore = create<CategoriesStore>((set) => ({
   categories: null,
   isLoading: false,
   getAllCategories: async (showError: (err: string) => void) => {
-    if (get().categories) {
-      return get().categories;
-    }
-
     set({ isLoading: true });
 
     try {
       const response = await getAllCategories();
 
-      set({ categories: response, isLoading: false });
+      set({ categories: response });
 
       return response;
     } catch {
-      set({ isLoading: false });
       showError('Категорії наразі недоступні. Спробуйте ще раз');
+    } finally {
+      set({ isLoading: false });
     }
   },
 }));

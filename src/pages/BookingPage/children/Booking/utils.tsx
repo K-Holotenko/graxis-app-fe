@@ -2,6 +2,7 @@ import { StepProps } from 'antd';
 
 import CheckIcon from 'src/assets/icons/check.svg?react';
 import CrossIcon from 'src/assets/icons/cross-icon.svg?react';
+import { UserRole } from 'src/pages/BookingPage/children/BookingDialog/utils';
 
 const statusToIconMap = {
   finish: <CheckIcon />,
@@ -18,6 +19,8 @@ export enum BookingStatus {
   COMPLETED = 'COMPLETED',
   RETURNED = 'RETURNED',
   RATED = 'RATED',
+  OWNER_RATED = 'OWNER_RATED',
+  RENTER_RATED = 'RENTER_RATED',
   PAID = 'PAID',
   //This status is not available in the backend, but it is used in the frontend
   BOOKED = 'BOOKED',
@@ -32,7 +35,12 @@ export enum PaymentStatus {
 }
 
 const statusToStepMap: Record<
-  Exclude<BookingStatus, BookingStatus.CANCELLED>,
+  Exclude<
+    BookingStatus,
+    | BookingStatus.CANCELLED
+    | BookingStatus.OWNER_RATED
+    | BookingStatus.RENTER_RATED
+  >,
   number
 > = {
   [BookingStatus.PENDING]: 0,
@@ -56,7 +64,12 @@ const getStepStatus = (
   // Get the current step number
   const currentStep =
     statusToStepMap[
-      displayStatus as Exclude<BookingStatus, BookingStatus.CANCELLED>
+      displayStatus as Exclude<
+        BookingStatus,
+        | BookingStatus.CANCELLED
+        | BookingStatus.OWNER_RATED
+        | BookingStatus.RENTER_RATED
+      >
     ] ?? -1;
 
   // Mark as finished if within current progress
@@ -69,7 +82,8 @@ const getStepStatus = (
 
 export const renderItems = (
   status: BookingStatus | null,
-  lastStatus: BookingStatus | undefined
+  lastStatus: BookingStatus | undefined,
+  userRole: UserRole
 ): StepProps[] => {
   const steps: StepProps[] = [
     { title: 'Надіслано' },
@@ -83,10 +97,33 @@ export const renderItems = (
 
   if (!status) return steps;
 
-  // Convert PAID to BOOKED for display purposes
-  const displayStatus =
-    status === BookingStatus.PAID ? BookingStatus.BOOKED : status;
+  // Convert status for display purposes based on user role
+  const getDisplayStatus = (
+    bookingStatus: BookingStatus,
+    role: UserRole
+  ): BookingStatus => {
+    if (bookingStatus === BookingStatus.PAID) {
+      return BookingStatus.BOOKED;
+    }
 
+    // Handle rating-based status transitions
+    const statusMap: Partial<
+      Record<BookingStatus, Record<UserRole, BookingStatus>>
+    > = {
+      [BookingStatus.RENTER_RATED]: {
+        [UserRole.OWNER]: BookingStatus.RETURNED,
+        [UserRole.RENTER]: BookingStatus.RATED,
+      },
+      [BookingStatus.OWNER_RATED]: {
+        [UserRole.OWNER]: BookingStatus.RATED,
+        [UserRole.RENTER]: BookingStatus.RETURNED,
+      },
+    };
+
+    return statusMap[bookingStatus]?.[role] || bookingStatus;
+  };
+
+  const displayStatus = getDisplayStatus(status, userRole);
   const processedSteps = steps.map((step, index) => {
     const statusToUse =
       displayStatus === BookingStatus.CANCELLED ? lastStatus : displayStatus;
@@ -106,7 +143,12 @@ export const renderItems = (
       statusToStepMap[
         lastStatus === BookingStatus.PAID
           ? BookingStatus.BOOKED
-          : (lastStatus as Exclude<BookingStatus, BookingStatus.CANCELLED>)
+          : (lastStatus as Exclude<
+              BookingStatus,
+              | BookingStatus.CANCELLED
+              | BookingStatus.OWNER_RATED
+              | BookingStatus.RENTER_RATED
+            >)
       ];
 
     const cancelledStep = {

@@ -9,6 +9,7 @@ import {
   MenuProps,
   Skeleton,
   ConfigProvider,
+  App,
 } from 'antd';
 import { generatePath, Link, useNavigate } from 'react-router-dom';
 
@@ -38,6 +39,7 @@ import styles from './styles.module.scss';
 
 export const AppHeader = () => {
   const navigate = useNavigate();
+  const { modal } = App.useApp();
 
   const { width } = useWindowSize();
   const { user, signOut, isAppInitializing } = useAuthStore();
@@ -62,6 +64,20 @@ export const AppHeader = () => {
     }
   }, [isDesktop]);
 
+  const handleSignOut = () => {
+    modal.confirm({
+      title: 'Ви впевнені, що хочете завершити сеанс?',
+      className: styles.customModal,
+      centered: true,
+      okText: 'Вийти',
+      cancelText: 'Скасувати',
+      okType: 'danger',
+      onOk: async () => {
+        await signOut(showError);
+      },
+    });
+  };
+
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
       1: () =>
@@ -71,7 +87,8 @@ export const AppHeader = () => {
           })
         ),
       2: () => navigate(ROUTES.USER_PROFILE),
-      3: () => signOut(showError),
+      4: () => navigate(ROUTES.BOOKINGS_HISTORY),
+      3: handleSignOut,
     };
 
     actions[e.key]();
@@ -141,15 +158,7 @@ export const AppHeader = () => {
           <Row gutter={30} align="middle" wrap={false}>
             {user && (
               <Col>
-                <ConfigProvider
-                  theme={{
-                    components: {
-                      Menu: {
-                        itemHoverBg: 'white',
-                      },
-                    },
-                  }}
-                >
+                <ConfigProvider theme={localTheme}>
                   <Dropdown
                     rootClassName={styles.notificationDropdown}
                     menu={notificationMenu}
@@ -234,4 +243,12 @@ export const AppHeader = () => {
       )}
     </>
   );
+};
+
+const localTheme = {
+  components: {
+    Menu: {
+      itemHoverBg: 'white',
+    },
+  },
 };

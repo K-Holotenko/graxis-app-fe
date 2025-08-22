@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { socket } from 'src/sockets';
 import {
   Booking,
   createBooking,
@@ -53,6 +54,7 @@ interface BookingStore {
     bookingId: string,
     status: BookingStatus
   ) => Promise<void>;
+  connectToBookingStatusUpdate: (bookingId: string) => () => void;
 }
 
 export const useBookingStore = create<BookingStore>((set, get) => ({
@@ -150,6 +152,28 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
     } catch (error) {
       throw error;
     }
+  },
+
+  connectToBookingStatusUpdate: (bookingId: string) => {
+    const handler = (data: {
+      bookingStatus: BookingStatus;
+      bookingId: string;
+    }): void => {
+      const currentBooking = get().booking;
+
+      if (currentBooking && data.bookingId === bookingId) {
+        set({
+          booking: {
+            ...currentBooking,
+            bookingStatus: data.bookingStatus,
+          },
+        });
+      }
+    };
+
+    socket.on('booking.status-update', handler);
+
+    return () => socket.off('booking.status-update', handler);
   },
 
   setRating: async (rating: number) => {

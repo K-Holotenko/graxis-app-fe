@@ -1,7 +1,6 @@
 import { render, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
-import { TEXT } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 
 import { RegistrationPage } from '.';
@@ -50,7 +49,7 @@ describe('RegistrationPage', () => {
         <RegistrationPage />
       </MemoryRouter>
     );
-    const emailTitle = getByText(TEXT.EMAIL);
+    const emailTitle = getByText('Пошта');
 
     expect(emailTitle).toBeInTheDocument();
   });
@@ -61,7 +60,7 @@ describe('RegistrationPage', () => {
         <RegistrationPage />
       </MemoryRouter>
     );
-    const passwordTitle = getByText(TEXT.PASSWORD);
+    const passwordTitle = getByText('Пароль');
 
     expect(passwordTitle).toBeInTheDocument();
   });
@@ -72,7 +71,7 @@ describe('RegistrationPage', () => {
         <RegistrationPage />
       </MemoryRouter>
     );
-    const confirmationPasswordTitle = getByText(TEXT.CONFIRMATION_PASSWORD);
+    const confirmationPasswordTitle = getByText('Повторіть пароль');
 
     expect(confirmationPasswordTitle).toBeInTheDocument();
   });
@@ -82,7 +81,9 @@ describe('RegistrationPage', () => {
         <RegistrationPage />
       </MemoryRouter>
     );
-    const checkboxText = getByText(TEXT.ALLOW_DATA_PROCESSING);
+    const checkboxText = getByText(
+      'Я даю згоду на обробку моїх персональних даних та підтверджую ознайомлення з угодою користувача'
+    );
 
     expect(checkboxText).toBeInTheDocument();
   });
@@ -93,7 +94,7 @@ describe('RegistrationPage', () => {
         <RegistrationPage />
       </MemoryRouter>
     );
-    const submitButtonText = getByText(TEXT.SUBMIT);
+    const submitButtonText = getByText('Продовжити');
 
     expect(submitButtonText).toBeInTheDocument();
   });
@@ -104,7 +105,7 @@ describe('RegistrationPage', () => {
         <RegistrationPage />
       </MemoryRouter>
     );
-    const orTitle = getByText(TEXT.OR);
+    const orTitle = getByText('Або');
 
     expect(orTitle).toBeInTheDocument();
   });
@@ -118,7 +119,7 @@ describe('RegistrationPage', () => {
       </MemoryRouter>
     );
 
-    const haveAccountText = getByText(TEXT.ALREADY_HAVE_ACCOUNT);
+    const haveAccountText = getByText('У вас є акаунт?');
 
     expect(haveAccountText).toBeInTheDocument();
   });

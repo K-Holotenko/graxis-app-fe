@@ -7,7 +7,6 @@ import logo from 'src/assets/images/google_on_white.png';
 import MapIcon from 'src/assets/icons/map-pin-icon-autocomplete.svg?react';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { theme } from 'src/config/theme';
-import { TEXT } from 'src/config/constants';
 
 import styles from './styles.module.scss';
 import { formatLocation, getLocationValue } from './utils/utils';
@@ -56,8 +55,8 @@ export const LocationAutocomplete = () => {
         return;
       }
 
-      // TODO This is Lviv bounds (not precise and must be updated)
-      const cityBounds: google.maps.LatLngBoundsLiteral = {
+      // TODO For test release only
+      const lvivCityBounds: google.maps.LatLngBoundsLiteral = {
         south: 49.7681,
         west: 23.8978,
         north: 49.9036,
@@ -69,14 +68,19 @@ export const LocationAutocomplete = () => {
         sessionToken: sessionToken.current || undefined,
         componentRestrictions: { country: 'ua' },
         language: 'uk',
-        locationRestriction: cityBounds,
+        locationRestriction: lvivCityBounds,
+        types: ['(regions)'],
       };
 
       try {
         const response =
           await autocompleteService.current.getPlacePredictions(request);
 
-        setPredictions(response?.predictions || []);
+        const filteredPredictions = (response?.predictions || []).filter((p) =>
+          (p.types || []).some((t) => t === 'sublocality')
+        );
+
+        setPredictions(filteredPredictions);
       } catch {
         setPredictions([]);
       }
@@ -142,7 +146,7 @@ export const LocationAutocomplete = () => {
         popupClassName={styles.popUp}
         value={getLocationValue(searchValue, form, isEdit)}
         showSearch
-        placeholder={TEXT.ENTER_LOCATION}
+        placeholder="Введіть назву району вашого міста"
         suffixIcon={<MapIcon />}
         onSearch={handleSearch}
         onSelect={handleSelect}
