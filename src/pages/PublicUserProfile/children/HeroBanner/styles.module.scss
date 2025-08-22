@@ -7,8 +7,15 @@
   justify-content: center;
   width: 100%;
   height: 342px;
-  background-color: variables.$N2;
   border-radius: 8px;
+  background-color: variables.$N1;
+  background-image:
+    radial-gradient(#003342 1.25px, transparent 1.25px),
+    radial-gradient(#003342 1.25px, #fcfcfc 1.25px);
+  background-size: 50px 50px;
+  background-position:
+    0 0,
+    25px 25px;
 }
 
 .avatar {

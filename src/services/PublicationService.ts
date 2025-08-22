@@ -1,7 +1,6 @@
 import { UploadFile } from 'antd';
 import axios from 'axios';
 
-import { GRAXIS_API_URL } from 'src/config/constants';
 import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
 import { PricingPeriod } from 'src/pages/PublicationPage/children/Price/utils/count';
 
@@ -41,8 +40,9 @@ export interface Publication {
   location: {
     country: string;
     city: string;
+    locality: string;
     staticMapImage: string;
-  };
+  } & Location;
   reviewsCount: number;
   feedbackCount: number;
   rate: number;
@@ -103,7 +103,7 @@ export const getAllPublications = async (
   search: string = ''
 ): Promise<PublicationPage> => {
   const response = await axios.get(
-    `${GRAXIS_API_URL}${PUBLICATIONS_API_URL}/search${search}`
+    `${import.meta.env.VITE_APP_GRAXIS_API_URL}${PUBLICATIONS_API_URL}/search${search}`
   );
 
   return response.data;
@@ -119,7 +119,7 @@ export const getAllMyPublications = async (
 
 export const getPublicationById = async (id: string): Promise<Publication> => {
   const response = await axios.get(
-    `${GRAXIS_API_URL}${PUBLICATIONS_API_URL}/${id}`
+    `${import.meta.env.VITE_APP_GRAXIS_API_URL}${PUBLICATIONS_API_URL}/${id}`
   );
 
   return response.data;

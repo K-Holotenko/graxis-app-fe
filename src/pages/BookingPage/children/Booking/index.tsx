@@ -4,9 +4,13 @@ import { ConfigProvider, Steps } from 'antd';
 import { theme } from 'src/config/theme';
 import { Container } from 'src/pages/BookingPage/children/Container';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { useBookingStatus } from 'src/hooks/useBookingStatus';
 import { Loadable } from 'src/components/Loadable';
 import { StepsSkeleton } from 'src/pages/BookingPage/skeletons';
+import {
+  getUserRole,
+  UserRole,
+} from 'src/pages/BookingPage/children/BookingDialog/utils';
+import { useAuthStore } from 'src/stores/authStore';
 
 import styles from './styles.module.scss';
 import { BookingDetails } from './BookingDetails';
@@ -15,13 +19,17 @@ import { BookingStatus, renderItems } from './utils';
 
 export const Booking = () => {
   const { booking, isBookingLoading } = useBookingStore();
-  const { bookingStatus } = useBookingStatus();
+
+  const { user } = useAuthStore();
+  const userRole: UserRole = getUserRole(booking, user?.id);
 
   const isFeedbackStep = useMemo(
     () =>
-      bookingStatus === BookingStatus.RETURNED ||
-      bookingStatus === BookingStatus.RATED,
-    [bookingStatus]
+      booking?.bookingStatus === BookingStatus.RETURNED ||
+      booking?.bookingStatus === BookingStatus.RATED ||
+      booking?.bookingStatus === BookingStatus.OWNER_RATED ||
+      booking?.bookingStatus === BookingStatus.RENTER_RATED,
+    [booking?.bookingStatus]
   );
 
   return (
@@ -38,9 +46,10 @@ export const Booking = () => {
                 responsive={false}
                 labelPlacement="vertical"
                 items={renderItems(
-                  bookingStatus,
+                  booking?.bookingStatus || null,
                   booking?.lastStatusBeforeCancellation ||
-                    booking?.bookingStatus
+                    booking?.bookingStatus,
+                  userRole
                 )}
               />
             )}

@@ -13,9 +13,8 @@ export interface Category {
 
 export const useCategories = (): {
   categoriesTree: Category[];
-  isLoading: boolean;
 } => {
-  const { categories, isLoading, getAllCategories } = useCategoriesStore();
+  const { categories, getAllCategories } = useCategoriesStore();
   const { openNotification } = useNotification();
 
   const showError = (description: string): void => {
@@ -30,5 +29,5 @@ export const useCategories = (): {
 
   const categoriesTree = buildCategoriesTree(categories ?? []);
 
-  return { categoriesTree, isLoading };
+  return { categoriesTree };
 };

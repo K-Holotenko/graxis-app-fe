@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { Form } from 'antd';
 
-import { TEXT } from 'src/config/constants';
 import { NumberInput } from 'src/pages/PublicationFormPage/children/NumberInput';
 
 import type { RuleRender } from 'rc-field-form/lib/interface';
 import styles from './styles.module.scss';
 
 export const inputs = [
-  { label: TEXT.HRYVNIAS_PER_DAY, name: 'priceDay' },
-  { label: TEXT.HRYVNIAS_PER_WEEK, name: 'priceWeek' },
-  { label: TEXT.HRYVNIAS_PER_MONTH, name: 'priceMonth' },
+  { label: 'грн/день', name: 'priceDay' },
+  { label: 'грн/тиждень', name: 'priceWeek' },
+  { label: 'грн/місяць', name: 'priceMonth' },
 ];
 
 export const PriceInputs = () => {
@@ -41,7 +40,7 @@ export const PriceInputs = () => {
       setShowRequiredErr(false);
 
       if (value && +value < minValue) {
-        return Promise.reject(new Error(TEXT.MIN_VALUE(minValue)));
+        return Promise.reject(new Error(`Мін. значення ${minValue}`));
       }
 
       const isModified = form.isFieldsTouched(

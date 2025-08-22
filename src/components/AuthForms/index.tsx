@@ -2,9 +2,10 @@ import { AxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Divider, Row, Col, Typography, ConfigProvider } from 'antd';
 import { ReactNode } from 'react';
+import { User as FirebaseUser } from 'firebase/auth';
 
 import { ROUTES } from 'src/router/routes';
-import { ButtonTypes, SCREEN_WIDTH, TEXT } from 'src/config/constants';
+import { ButtonTypes, SCREEN_WIDTH } from 'src/config/constants';
 import GoogleIcon from 'src/assets/icons/google-icon.svg?react';
 import { useAuthStore } from 'src/stores/authStore';
 import { Button } from 'src/components/Button';
@@ -24,13 +25,9 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.SM;
   const navigate = useNavigate();
-  const {
-    isLoading: isAuthLoading,
-    loginWithGoogle,
-    fetchUser,
-  } = useAuthStore();
+  const { isLoading, loginWithGoogle, fetchUser, updateAuthTokenOnTheServer } =
+    useAuthStore();
 
-  const { isLoading } = useAuthStore();
   const { openNotification } = useNotification();
 
   const triggerNotification = (description: string) => {
@@ -40,9 +37,11 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
   const onGoogleClick = async () => {
     try {
       const firebaseUser = await loginWithGoogle(triggerNotification);
+      const token = await (firebaseUser as FirebaseUser).getIdToken();
 
       if (firebaseUser) {
         try {
+          await updateAuthTokenOnTheServer(token, triggerNotification);
           await fetchUser();
 
           navigate(ROUTES.HOME);
@@ -58,6 +57,10 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
                 surname,
               },
             });
+          } else {
+            triggerNotification(
+              'Не вдалося завершити авторизацію. Спробуйте, будь ласка, пізніше'
+            );
           }
         }
       }
@@ -79,31 +82,31 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
           Забули пароль?
         </Link>
       </Row>
-      <Divider plain>{TEXT.OR}</Divider>
+      <Divider plain>Або</Divider>
       <Row justify="space-between" className={styles.buttonMargins} gutter={40}>
         <Col span={24}>
           <Button
             label="Увійти через Google"
-            icon={isLoading || isAuthLoading ? undefined : <GoogleIcon />}
+            icon={isLoading || isLoading ? undefined : <GoogleIcon />}
             type={ButtonTypes.default}
             className={styles.socialMediaButton}
             onClick={onGoogleClick}
-            isDisabled={isLoading || isAuthLoading}
-            isLoading={isLoading || isAuthLoading}
+            isDisabled={isLoading || isLoading}
+            isLoading={isLoading || isLoading}
           />
         </Col>
       </Row>
       <Row justify="center">
         {location.pathname === ROUTES.LOGIN ? (
           <span className={styles.authorizeLink}>
-            {TEXT.NO_ACCOUNT}{' '}
+            Немає акаунту?
             <Link to={ROUTES.REGISTRATION} className={styles.registerStyle}>
-              {TEXT.REGISTER}
+              Зареєструватися
             </Link>
           </span>
         ) : (
           <span className={styles.authorizeLink}>
-            {TEXT.ALREADY_HAVE_ACCOUNT}{' '}
+            У вас є акаунт?{' '}
             <Link to={ROUTES.LOGIN} className={styles.authorizeStyle}>
               Авторизуватися
             </Link>

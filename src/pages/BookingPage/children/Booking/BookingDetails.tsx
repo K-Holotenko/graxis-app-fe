@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Shelf } from 'src/pages/BookingPage/children/Shelf';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { useBookingStatus } from 'src/hooks/useBookingStatus';
 import { CardSkeleton, DetailsSkeleton } from 'src/pages/BookingPage/skeletons';
 import { Loadable } from 'src/components/Loadable';
 
@@ -13,9 +12,9 @@ import { BookingStatus } from './utils';
 
 export const BookingDetails = () => {
   const { booking, isBookingLoading, getBooking } = useBookingStore();
-  const { bookingStatus } = useBookingStatus();
 
   const { id } = useParams();
+  const hasUpdatedForPaidStatus = useRef(false);
 
   const startDate = dayjs(booking?.startDate);
   const endDate = dayjs(booking?.endDate);
@@ -25,13 +24,18 @@ export const BookingDetails = () => {
     const shouldUpdateBooking =
       id &&
       booking &&
-      bookingStatus === BookingStatus.PAID &&
-      !booking.publicationAddressShow;
+      booking.bookingStatus === BookingStatus.PAID &&
+      !hasUpdatedForPaidStatus.current;
 
     if (shouldUpdateBooking) {
+      hasUpdatedForPaidStatus.current = true;
       getBooking(id);
     }
-  }, [booking, bookingStatus, id]);
+
+    if (booking?.bookingStatus !== BookingStatus.PAID) {
+      hasUpdatedForPaidStatus.current = false;
+    }
+  }, [booking?.bookingStatus, id, getBooking]);
 
   return (
     <>
@@ -72,23 +76,11 @@ export const BookingDetails = () => {
         skeleton={<DetailsSkeleton />}
         component={() => (
           <Shelf
-            to={
-              booking?.publicationAddressShow
-                ? `https://www.google.com/maps?q=${booking?.publicationAddress?.lat},${booking?.publicationAddress?.lng}`
-                : undefined
-            }
+            to={`https://www.google.com/maps?q=${booking?.publicationAddress?.lat},${booking?.publicationAddress?.lng}`}
             target="_blank"
           >
             <span className={styles.shelfItem}>
-              {booking?.publicationAddressShow
-                ? [
-                    booking?.publicationAddress?.country,
-                    booking?.publicationAddress?.city,
-                    booking?.publicationAddress?.address,
-                  ]
-                    .filter(Boolean)
-                    .join(', ')
-                : 'Детальна адреса буде доступна після підтвердження оплати'}
+              {`${booking?.publicationAddress?.country}, ${booking?.publicationAddress?.city}, ${booking?.publicationAddress?.locality}`}
             </span>
           </Shelf>
         )}

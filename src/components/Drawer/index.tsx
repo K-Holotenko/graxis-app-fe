@@ -8,6 +8,7 @@ import {
   Avatar,
   MenuProps,
   Skeleton,
+  App,
 } from 'antd';
 import { generatePath, useNavigate } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ import UserIconDark from 'src/assets/icons/user-icon-dark.svg?react';
 import { theme } from 'src/config/theme';
 import { useAuthStore } from 'src/stores/authStore';
 import { SelectLocation } from 'src/components/SelectLocation';
-import { ButtonTypes, TEXT } from 'src/config/constants';
+import { ButtonTypes } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
@@ -50,6 +51,7 @@ export const menuItems = [
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { user, isLoading, signOut } = useAuthStore();
+  const { modal } = App.useApp();
 
   const { requireAuth } = useRequireAuth();
   const { openNotification } = useNotification();
@@ -79,6 +81,20 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
   };
 
+  const handleSignOut = () => {
+    modal.confirm({
+      title: 'Ви впевнені, що хочете завершити сеанс?',
+      className: styles.customModal,
+      centered: true,
+      okText: 'Вийти',
+      cancelText: 'Скасувати',
+      okType: 'danger',
+      onOk: async () => {
+        await signOut(showError);
+      },
+    });
+  };
+
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     const actions: { [key: string]: () => void } = {
       1: () =>
@@ -88,7 +104,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
           })
         ),
       2: () => navigate(ROUTES.USER_PROFILE),
-      3: () => signOut(showError),
+      3: handleSignOut,
     };
 
     actions[e.key]();
@@ -192,7 +208,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
       <Row className={styles.verticalPadding}>
         <Col span={24}>
           <Typography className={styles.locationTitle}>
-            {TEXT.CHOOSE_LOCATION}
+            Виберіть локацію
           </Typography>
         </Col>
       </Row>

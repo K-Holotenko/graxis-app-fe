@@ -8,14 +8,14 @@ interface MapProps {
 }
 
 export const Map = ({
-  location: { city, country, staticMapImage },
+  location: { city, country, locality, staticMapImage },
 }: MapProps) => (
   <div>
     <Heading level={4} className={styles.heading}>
       Локація
     </Heading>
     <p className={styles.location}>
-      {country}, {city}
+      {country}, {city}, {locality}
     </p>
     <div className={styles.mapContainer}>
       <img className={styles.mapImage} src={staticMapImage} />
