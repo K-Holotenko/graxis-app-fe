@@ -7,7 +7,7 @@
     letter-spacing: -0.02em;
     font-size: 12px !important;
     line-height: 1.5;
-    padding-right: 14px !important;
+    padding-right: variables.$space-200 !important;
   }
 
   :global {
@@ -42,16 +42,17 @@
 
 .googleLogo {
   min-height: 14px !important;
-  padding: 0 !important;
+  padding: variables.$space-0 !important;
 }
 
 .googleAttribution {
   display: flex;
   align-items: center;
   justify-content: end;
-  gap: 8px;
+  gap: variables.$space-100;
   height: 19px;
-  padding: 0 12px 5px 0;
+  padding: variables.$space-0 variables.$space-150 variables.$space-050
+    variables.$space-0;
   font-size: 12px;
 }
 
@@ -60,7 +61,7 @@
 }
 
 .helperText {
-  padding-top: 8px;
+  padding-top: variables.$space-150;
   font-size: 14px;
   color: variables.$N4;
   font-family: variables.$font-body;

@@ -295,12 +295,13 @@ const formTheme = {
   components: {
     Form: {
       labelColor: theme.N6,
-      itemMarginBottom: 40,
+      // 16 -> mobile, 40 -> tablet&desktop
+      itemMarginBottom: theme.space500,
       labelFontSize: 26,
-      verticalLabelPadding: 0,
+      verticalLabelPadding: theme.space0,
     },
     Input: {
-      paddingInline: 12,
+      paddingInline: theme.space150,
     },
   },
 };
@@ -308,7 +309,7 @@ const formTheme = {
 const textAreaTheme = {
   components: {
     Input: {
-      paddingBlock: 12,
+      paddingBlock: theme.space150,
     },
   },
 };

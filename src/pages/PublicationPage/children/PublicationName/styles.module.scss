@@ -3,18 +3,18 @@
 .itemNameWrapper {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: variables.$space-150;
 }
 
 .editIcon {
-  margin-right: 12px;
+  margin-right: variables.$space-150;
 }
 
 .editWrapper {
   display: flex;
   width: fit-content;
   margin-left: auto;
-  margin-bottom: 12px;
+  margin-bottom: variables.$space-150;
   cursor: pointer;
 }
 
@@ -29,7 +29,7 @@
 .itemName {
   color: variables.$N6;
   font-weight: 600;
-  margin-bottom: 0;
+  margin-bottom: variables.$space-0;
   text-align: start;
 }
 
@@ -56,7 +56,7 @@
 .descriptionWrapper {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: variables.$space-250;
 }
 
 .description {
@@ -82,6 +82,6 @@
 
 @media (min-width: variables.$media-xl) {
   .itemNameWrapper {
-    margin-bottom: 24px;
+    margin-bottom: variables.$space-300;
   }
 }

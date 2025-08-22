@@ -5,12 +5,12 @@
   justify-content: flex-end;
   flex-wrap: wrap;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: variables.$space-250;
 }
 
 .button {
   width: 110px !important;
-  margin-left: 24px;
+  margin-left: variables.$space-300;
 }
 
 .cascader {
@@ -63,11 +63,11 @@
 }
 
 .expandIcon {
-  margin-top: 7px;
+  margin-top: variables.$space-100;
 }
 
 @media (min-width: variables.$media-md) {
   .cascader {
-    margin-bottom: 0;
+    margin-bottom: variables.$space-0;
   }
 }
