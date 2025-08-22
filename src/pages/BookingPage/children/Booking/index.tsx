@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { ConfigProvider, Steps } from 'antd';
 
 import { theme } from 'src/config/theme';
@@ -23,14 +23,44 @@ export const Booking = () => {
   const { user } = useAuthStore();
   const userRole: UserRole = getUserRole(booking, user?.id);
 
+  const [showGreetingAfterSubmit, setShowGreetingAfterSubmit] = useState(false);
+
   const isFeedbackStep = useMemo(
     () =>
       booking?.bookingStatus === BookingStatus.RETURNED ||
-      booking?.bookingStatus === BookingStatus.RATED ||
       booking?.bookingStatus === BookingStatus.OWNER_RATED ||
       booking?.bookingStatus === BookingStatus.RENTER_RATED,
     [booking?.bookingStatus]
   );
+
+  // eslint-disable-next-line no-console
+  console.log(booking?.bookingStatus);
+
+  useEffect(() => {
+    const isRatedStatus =
+      booking?.bookingStatus === BookingStatus.RATED ||
+      booking?.bookingStatus === BookingStatus.OWNER_RATED ||
+      booking?.bookingStatus === BookingStatus.RENTER_RATED;
+
+    if (!isRatedStatus) {
+      return;
+    }
+
+    const greetingKey = `greeting_shown_${booking.id}`;
+    const greetingShown = localStorage.getItem(greetingKey);
+
+    if (!greetingShown) {
+      // Show greeting for 3 seconds after feedback submission
+      setShowGreetingAfterSubmit(true);
+      localStorage.setItem(greetingKey, 'true');
+
+      const timer = setTimeout(() => {
+        setShowGreetingAfterSubmit(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [booking?.bookingStatus, booking?.id]);
 
   return (
     <Container>
@@ -56,7 +86,16 @@ export const Booking = () => {
           />
         </div>
       </ConfigProvider>
-      {isFeedbackStep ? <Feedback /> : <BookingDetails />}
+      {showGreetingAfterSubmit ? (
+        <div className={styles.feedbackContainer}>
+          <p className={styles.feedbackTitle}>Дякуємо за відгук!</p>
+          <p className={styles.feedbackSuccess}>Відгук успішно надіслано</p>
+        </div>
+      ) : isFeedbackStep ? (
+        <Feedback />
+      ) : (
+        <BookingDetails />
+      )}
     </Container>
   );
 };
