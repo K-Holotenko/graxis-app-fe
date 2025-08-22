@@ -4,7 +4,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: variables.$space-250;
 }
 
 .space {
@@ -38,12 +38,12 @@
     width: 738px;
   }
   .searchBarWrapper {
-    margin-bottom: 24px;
+    margin-bottom: variables.$space-400;
   }
 }
 
 @media (min-width: variables.$media-lg) {
   .searchBarWrapper {
-    margin-bottom: 40px;
+    margin-bottom: variables.$space-500;
   }
 }

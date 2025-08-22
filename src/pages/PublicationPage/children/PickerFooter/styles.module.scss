@@ -3,9 +3,9 @@
 .periodWrapper {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-  margin-bottom: 32px;
+  gap: variables.$space-100;
+  margin-top: variables.$space-200;
+  margin-bottom: variables.$space-400;
 }
 
 .price {

@@ -150,7 +150,7 @@ const setLocalTheme = (treeValue: string | null, locationValue: boolean) => ({
       controlItemBgHover: theme.N2,
       titleHeight: 48,
       controlItemBgActive: theme.secondary,
-      paddingXS: 16,
+      paddingXS: theme.space200,
       colorBgTextHover: 'transparent',
     },
   },

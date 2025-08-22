@@ -2,7 +2,7 @@
 
 .cardsGridLayout {
   display: grid;
-  gap: 20px;
+  gap: variables.$space-250;
   justify-content: center;
   grid-template-columns: repeat(1, 1fr);
 }
@@ -28,6 +28,6 @@
 @media (min-width: variables.$media-lg) {
   .cardsGridLayout {
     grid-template-columns: repeat(5, 1fr);
-    gap: 24px 20px;
+    gap: variables.$space-300 variables.$space-250;
   }
 }

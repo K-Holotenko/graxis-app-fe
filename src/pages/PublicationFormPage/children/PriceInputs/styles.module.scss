@@ -3,11 +3,11 @@
 .priceInputsRow {
   position: relative;
   display: flex;
-  column-gap: 8px;
+  column-gap: variables.$space-100;
 }
 
 .priceLabel {
-  margin-bottom: 0;
+  margin-bottom: variables.$space-0;
 
   label {
     color: variables.$N5 !important;
@@ -39,7 +39,7 @@
 
 @media (min-width: variables.$media-md) {
   .priceInputsRow {
-    column-gap: 19px;
+    column-gap: variables.$space-550;
   }
 
   .priceInput {
@@ -49,6 +49,6 @@
 
 @media (min-width: variables.$media-xl) {
   .priceInputsRow {
-    column-gap: 24px;
+    column-gap: variables.$space-300;
   }
 }

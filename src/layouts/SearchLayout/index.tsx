@@ -47,7 +47,7 @@ export const SearchLayout = ({
 const localTheme = {
   token: {
     controlHeightLG: 48,
-    margin: 0,
+    margin: theme.space0,
     fontSizeIcon: 24,
     colorFillContent: theme.N2,
     boxShadowSecondary: `

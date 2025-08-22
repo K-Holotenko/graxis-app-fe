@@ -6,11 +6,11 @@
 }
 
 .breadcrumbsSkeleton {
-  margin-block-start: 0 !important;
+  margin-block-start: variables.$space-0 !important;
 }
 
 .priceSkeletonWrapper {
-  margin-top: 60px;
+  margin-top: variables.$space-750;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +23,7 @@
 }
 
 .calendarSkeltonWrapper {
-  margin-top: 40px;
+  margin-top: variables.$space-500;
   display: flex;
   justify-content: center;
   align-items: center;
