@@ -20,7 +20,7 @@ import {
 export const BookingDialog = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
-  const { booking, updateBookingStatus, rating, feedback } = useBookingStore();
+  const { booking, rating, feedback, updateBookingStatus } = useBookingStore();
 
   const navigate = useNavigate();
 
@@ -28,9 +28,9 @@ export const BookingDialog = () => {
 
   const userRole: UserRole = getUserRole(booking, user?.id);
   const actions: BookingAction[] = getCurrentActions(
-    booking!.bookingStatus === BookingStatus.BOOKED
+    booking?.bookingStatus === BookingStatus.BOOKED
       ? null
-      : booking!.bookingStatus,
+      : booking?.bookingStatus || null,
     userRole,
     updateBookingStatus
   );
@@ -39,9 +39,6 @@ export const BookingDialog = () => {
     () => rating || (rating && feedback),
     [rating, feedback]
   );
-
-  // eslint-disable-next-line no-console
-  console.log(booking?.bookingStatus, booking);
 
   if (actions.length === 0) {
     return null;
