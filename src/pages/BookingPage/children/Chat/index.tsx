@@ -105,8 +105,6 @@ export const Chat = () => {
     };
 
     const onDisconnect = () => {
-      // eslint-disable-next-line no-console
-      console.log('onDisconnect');
       setIsConnected(false);
     };
 
