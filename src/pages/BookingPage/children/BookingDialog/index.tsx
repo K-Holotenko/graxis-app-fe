@@ -8,6 +8,7 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 import {
@@ -21,6 +22,7 @@ export const BookingDialog = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
   const { booking, rating, feedback, updateBookingStatus } = useBookingStore();
+  const { openNotification } = useNotification();
 
   const navigate = useNavigate();
 
@@ -35,10 +37,7 @@ export const BookingDialog = () => {
     updateBookingStatus
   );
 
-  const isFeedbackValid = useMemo(
-    () => rating || (rating && feedback),
-    [rating, feedback]
-  );
+  const isFeedbackValid = useMemo(() => rating && feedback, [rating, feedback]);
 
   if (actions.length === 0) {
     return null;
@@ -59,7 +58,8 @@ export const BookingDialog = () => {
                 navigate,
                 rating,
                 feedback,
-                booking?.publication.title
+                booking?.publication.title,
+                openNotification
               )
             }
             isDisabled={
