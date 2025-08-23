@@ -1,4 +1,5 @@
 import { ButtonTypes } from 'src/config/constants';
+import { NotificationType } from 'src/hooks/useNotification';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
 import { ROUTES } from 'src/router/routes';
 import { paymentTransaction, submitFeedback } from 'src/services/Booking';
@@ -17,8 +18,13 @@ export interface BookingAction {
     navigate?: (path: string) => void,
     rating?: number,
     feedback?: string,
-    publicationTitle?: string
-  ) => void;
+    publicationTitle?: string,
+    openNotification?: (
+      type: NotificationType,
+      title: string,
+      message: string
+    ) => void
+  ) => Promise<void>;
 }
 
 export type BookingDialogConfig = {
@@ -39,8 +45,32 @@ export const bookingDialogConfig = (
         id: 'cancel',
         label: 'Скасувати запит',
         type: ButtonTypes.default,
-        action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Запит скасовано',
+              'Бронювання було скасовано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
     ],
@@ -49,16 +79,64 @@ export const bookingDialogConfig = (
         id: 'cancel',
         label: 'Відхилити запит',
         type: ButtonTypes.default,
-        action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Запит відхилено',
+              'Запит на бронювання відхилено'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
       {
         id: 'confirm',
         label: 'Підтвердити запит',
         type: ButtonTypes.primary,
-        action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.CONFIRMED);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.CONFIRMED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Запит підтверджено',
+              'Бронювання підтверджено'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
     ],
@@ -69,17 +147,65 @@ export const bookingDialogConfig = (
         id: 'cancel',
         label: 'Скасувати',
         type: ButtonTypes.default,
-        action: async (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Бронювання скасовано',
+              'Бронювання було скасовано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
       {
         id: 'pay',
         label: 'Оплатити',
         type: ButtonTypes.primary,
-        action: (bookingId: string) => {
-          paymentTransaction(bookingId);
-          updateBookingStatus(bookingId, BookingStatus.PAID);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await paymentTransaction(bookingId);
+            await updateBookingStatus(bookingId, BookingStatus.PAID);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Оплату проведено',
+              'Статус бронювання оновлено на «Оплачено»'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося провести оплату'
+            );
+          }
         },
       },
     ],
@@ -88,8 +214,32 @@ export const bookingDialogConfig = (
         id: 'cancel',
         label: 'Скасувати',
         type: ButtonTypes.default,
-        action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Бронювання скасовано',
+              'Бронювання було скасовано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
     ],
@@ -100,16 +250,64 @@ export const bookingDialogConfig = (
         id: 'cancel',
         label: 'Скасувати',
         type: ButtonTypes.default,
-        action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Бронювання скасовано',
+              'Бронювання було скасовано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
       {
         id: 'confirm-return',
         label: 'Підтвердити отримання',
         type: ButtonTypes.primary,
-        action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.IN_PROGRESS);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.IN_PROGRESS);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Отримання підтверджено',
+              'Статус бронювання оновлено'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
     ],
@@ -118,8 +316,32 @@ export const bookingDialogConfig = (
         id: 'cancel',
         label: 'Скасувати',
         type: ButtonTypes.default,
-        action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.CANCELLED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Бронювання скасовано',
+              'Бронювання було скасовано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
     ],
@@ -131,8 +353,32 @@ export const bookingDialogConfig = (
         id: 'confirm-return',
         label: 'Підтвердити повернення',
         type: ButtonTypes.primary,
-        action: (bookingId: string) => {
-          updateBookingStatus(bookingId, BookingStatus.RETURNED);
+        action: async (
+          bookingId: string,
+          _navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
+          try {
+            await updateBookingStatus(bookingId, BookingStatus.RETURNED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Повернення підтверджено',
+              'Статус бронювання оновлено'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося оновити статус бронювання'
+            );
+          }
         },
       },
     ],
@@ -148,15 +394,33 @@ export const bookingDialogConfig = (
           _navigate?: (path: string) => void,
           rating?: number,
           feedback?: string,
-          publicationTitle?: string
+          publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
         ) => {
-          await submitFeedback(
-            bookingId,
-            publicationTitle!,
-            rating!,
-            feedback!
-          );
-          await updateBookingStatus(bookingId, BookingStatus.RENTER_RATED);
+          try {
+            await submitFeedback(
+              bookingId,
+              publicationTitle!,
+              rating!,
+              feedback!
+            );
+            await updateBookingStatus(bookingId, BookingStatus.RENTER_RATED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Дякуємо за відгук!',
+              'Відгук успішно надіслано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося надіслати відгук'
+            );
+          }
         },
       },
     ],
@@ -170,15 +434,33 @@ export const bookingDialogConfig = (
           _navigate?: (path: string) => void,
           rating?: number,
           feedback?: string,
-          publicationTitle?: string
+          publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
         ) => {
-          await submitFeedback(
-            bookingId,
-            publicationTitle!,
-            rating!,
-            feedback!
-          );
-          await updateBookingStatus(bookingId, BookingStatus.OWNER_RATED);
+          try {
+            await submitFeedback(
+              bookingId,
+              publicationTitle!,
+              rating!,
+              feedback!
+            );
+            await updateBookingStatus(bookingId, BookingStatus.OWNER_RATED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Дякуємо за відгук!',
+              'Відгук успішно надіслано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося надіслати відгук'
+            );
+          }
         },
       },
     ],
@@ -194,15 +476,33 @@ export const bookingDialogConfig = (
           _navigate?: (path: string) => void,
           rating?: number,
           feedback?: string,
-          publicationTitle?: string
+          publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
         ) => {
-          await submitFeedback(
-            bookingId,
-            publicationTitle!,
-            rating!,
-            feedback!
-          );
-          await updateBookingStatus(bookingId, BookingStatus.RATED);
+          try {
+            await submitFeedback(
+              bookingId,
+              publicationTitle!,
+              rating!,
+              feedback!
+            );
+            await updateBookingStatus(bookingId, BookingStatus.RATED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Дякуємо за відгук!',
+              'Відгук успішно надіслано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося надіслати відгук'
+            );
+          }
         },
       },
     ],
@@ -211,7 +511,10 @@ export const bookingDialogConfig = (
         id: 'return-to-publications',
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
-        action: (_bookingId: string, navigate?: (path: string) => void) => {
+        action: async (
+          _bookingId: string,
+          navigate?: (path: string) => void
+        ) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
       },
@@ -223,7 +526,10 @@ export const bookingDialogConfig = (
         id: 'return-to-publications',
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
-        action: (_bookingId: string, navigate?: (path: string) => void) => {
+        action: async (
+          _bookingId: string,
+          navigate?: (path: string) => void
+        ) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
         },
       },
@@ -238,15 +544,33 @@ export const bookingDialogConfig = (
           _navigate?: (path: string) => void,
           rating?: number,
           feedback?: string,
-          publicationTitle?: string
+          publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
         ) => {
-          await submitFeedback(
-            bookingId,
-            publicationTitle!,
-            rating!,
-            feedback!
-          );
-          await updateBookingStatus(bookingId, BookingStatus.RATED);
+          try {
+            await submitFeedback(
+              bookingId,
+              publicationTitle!,
+              rating!,
+              feedback!
+            );
+            await updateBookingStatus(bookingId, BookingStatus.RATED);
+            openNotification?.(
+              NotificationType.SUCCESS,
+              'Дякуємо за відгук!',
+              'Відгук успішно надіслано'
+            );
+          } catch {
+            openNotification?.(
+              NotificationType.ERROR,
+              'Помилка',
+              'Не вдалося надіслати відгук'
+            );
+          }
         },
       },
     ],
@@ -257,8 +581,24 @@ export const bookingDialogConfig = (
         id: 'return-to-publications',
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
-        action: (_bookingId: string, navigate?: (path: string) => void) => {
+        action: async (
+          _bookingId: string,
+          navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
+          openNotification?.(
+            NotificationType.SUCCESS,
+            'Бронювання успішно скасовано',
+            'Щоб створити нове бронювання, перейдіть на сторінку публікації'
+          );
         },
       },
     ],
@@ -267,8 +607,24 @@ export const bookingDialogConfig = (
         id: 'return-to-publications',
         label: 'Повернутися до публікацій',
         type: ButtonTypes.primary,
-        action: (_bookingId: string, navigate?: (path: string) => void) => {
+        action: async (
+          _bookingId: string,
+          navigate?: (path: string) => void,
+          _rating?: number,
+          _feedback?: string,
+          _publicationTitle?: string,
+          openNotification?: (
+            type: NotificationType,
+            title: string,
+            message: string
+          ) => void
+        ) => {
           navigate?.(ROUTES.SEARCH_RESULTS);
+          openNotification?.(
+            NotificationType.SUCCESS,
+            'Бронювання успішно скасовано',
+            'Щоб створити нове бронювання, перейдіть на сторінку публікації'
+          );
         },
       },
     ],
