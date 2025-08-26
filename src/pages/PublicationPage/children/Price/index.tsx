@@ -13,6 +13,7 @@ import { Publication } from 'src/services/PublicationService';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
 import { PickerFooter } from 'src/pages/PublicationPage/children/PickerFooter';
 import { useBookingStore } from 'src/stores/bookingStore';
+import { useAuthStore } from 'src/stores/authStore';
 
 import styles from './styles.module.scss';
 
@@ -26,6 +27,7 @@ export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { user } = useAuthStore();
   const { requireAuth } = useRequireAuth();
   const { createBooking } = useBookingStore();
 
@@ -52,7 +54,11 @@ export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
       const startDate = selectedRange[0]?.format('YYYY-MM-DD');
       const endDate = selectedRange[1]?.format('YYYY-MM-DD');
 
-      requireAuth(pathWithDate);
+      if (!user) {
+        requireAuth(pathWithDate);
+
+        return;
+      }
 
       const booking = await createBooking(startDate, endDate, publicationId);
 

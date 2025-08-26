@@ -58,7 +58,7 @@ export const BookingPage = () => {
     if (id) {
       getBooking(id);
     }
-  }, [id, getBooking]);
+  }, [id]);
 
   useEffect(() => {
     if (user) {

@@ -8,6 +8,7 @@ import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
 import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 import {
@@ -20,7 +21,8 @@ import {
 export const BookingDialog = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
-  const { booking, updateBookingStatus, rating, feedback } = useBookingStore();
+  const { booking, rating, feedback, updateBookingStatus } = useBookingStore();
+  const { openNotification } = useNotification();
 
   const navigate = useNavigate();
 
@@ -28,20 +30,14 @@ export const BookingDialog = () => {
 
   const userRole: UserRole = getUserRole(booking, user?.id);
   const actions: BookingAction[] = getCurrentActions(
-    booking!.bookingStatus === BookingStatus.BOOKED
+    booking?.bookingStatus === BookingStatus.BOOKED
       ? null
-      : booking!.bookingStatus,
+      : booking?.bookingStatus || null,
     userRole,
     updateBookingStatus
   );
 
-  const isFeedbackValid = useMemo(
-    () => rating || (rating && feedback),
-    [rating, feedback]
-  );
-
-  // eslint-disable-next-line no-console
-  console.log(booking?.bookingStatus, booking);
+  const isFeedbackValid = useMemo(() => rating && feedback, [rating, feedback]);
 
   if (actions.length === 0) {
     return null;
@@ -62,7 +58,8 @@ export const BookingDialog = () => {
                 navigate,
                 rating,
                 feedback,
-                booking?.publication.title
+                booking?.publication.title,
+                openNotification
               )
             }
             isDisabled={
