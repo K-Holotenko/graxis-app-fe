@@ -26,10 +26,11 @@ export const Booking = () => {
   const isFeedbackStep = useMemo(
     () =>
       booking?.bookingStatus === BookingStatus.RETURNED ||
-      booking?.bookingStatus === BookingStatus.RATED ||
-      booking?.bookingStatus === BookingStatus.OWNER_RATED ||
-      booking?.bookingStatus === BookingStatus.RENTER_RATED,
-    [booking?.bookingStatus]
+      (userRole === UserRole.OWNER &&
+        booking?.bookingStatus === BookingStatus.RENTER_RATED) ||
+      (userRole === UserRole.RENTER &&
+        booking?.bookingStatus === BookingStatus.OWNER_RATED),
+    [booking?.bookingStatus, userRole]
   );
 
   return (

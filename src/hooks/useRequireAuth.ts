@@ -30,8 +30,6 @@ export const useRequireAuth = (): UseRequireAuthReturn => {
   }, [timer, user, navigate]);
 
   const requireAuth = (route: string): void => {
-    // eslint-disable-next-line no-console
-    console.log(user, route);
     if (user) {
       navigate(route);
 

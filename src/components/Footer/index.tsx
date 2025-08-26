@@ -39,10 +39,6 @@ export const Footer = () => (
             <Text>Пошта:</Text>
             <Link className={styles.link}>{APP_CONTACT_DATA.email}</Link>
           </div>
-          <Text className={styles.link}>
-            Номер телефону:{' '}
-            <Link className={styles.link}>{APP_CONTACT_DATA.phone}</Link>
-          </Text>
           <div className={styles.footerMediaSection}>
             {SOCIAL_MEDIA_LIST.map(({ key, icon, href }) => (
               <Link key={key} href={href} target="_blank">
