@@ -112,12 +112,12 @@ export const Chat = () => {
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-    socket.on('chat.new-message', onNewMessageEvent);
+    socket.on(SocketEvent.CHAT_NEW_MASSAGE, onNewMessageEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
-      socket.off('chat.new-message', onNewMessageEvent);
+      socket.off(SocketEvent.CHAT_NEW_MASSAGE, onNewMessageEvent);
     };
   }, []);
 

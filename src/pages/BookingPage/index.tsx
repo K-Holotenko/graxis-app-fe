@@ -4,7 +4,6 @@ import { useParams, useNavigate, generatePath } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { socket } from 'src/sockets';
 import { BookingLayout } from 'src/layouts/BookingLayout';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { PageContainer } from 'src/layouts/PageContainer';
@@ -12,7 +11,6 @@ import { BookingDialog } from 'src/pages/BookingPage/children/BookingDialog';
 import ArrowLeft from 'src/assets/icons/arrow-left.svg?react';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { SCREEN_WIDTH } from 'src/config/constants';
-import { useAuthStore } from 'src/stores/authStore';
 
 import { Booking } from './children/Booking';
 import { Chat } from './children/Chat';
@@ -38,7 +36,6 @@ const items = [
 
 export const BookingPage = () => {
   const { width } = useWindowSize();
-  const { user } = useAuthStore();
   const { booking, getBooking, connectToBookingStatusUpdate } =
     useBookingStore();
 
@@ -64,18 +61,6 @@ export const BookingPage = () => {
       }
     });
   }, [id]);
-
-  useEffect(() => {
-    if (user) {
-      socket.connect();
-    } else {
-      socket.disconnect();
-    }
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
 
   useEffect(() => {
     if (booking) {

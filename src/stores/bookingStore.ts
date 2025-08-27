@@ -149,9 +149,9 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
       }
     };
 
-    socket.on('booking.status-update', handler);
+    socket.on(SocketEvent.BOOKING_STATUS_UPDATE, handler);
 
-    return () => socket.off('booking.status-update', handler);
+    return () => socket.off(SocketEvent.BOOKING_STATUS_UPDATE, handler);
   },
 
   setRating: async (rating: number) => {

@@ -21,7 +21,7 @@ export const useBookingStatus = (): {
 
   useEffect(() => {
     socket.on(
-      'booking.status-update',
+      SocketEvent.BOOKING_STATUS_UPDATE,
       (data: { bookingStatus: BookingStatus; bookingId: string }) => {
         // Only update if this is for the current booking
         if (booking?.id && data.bookingId === booking.id) {
@@ -31,7 +31,7 @@ export const useBookingStatus = (): {
     );
 
     return () => {
-      socket.off('booking.status-update');
+      socket.off(SocketEvent.BOOKING_STATUS_UPDATE);
     };
   }, [booking?.id]);
 
