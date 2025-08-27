@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Row,
   Col,
@@ -10,7 +10,9 @@ import {
   Skeleton,
   ConfigProvider,
   App,
+  Spin,
 } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import { generatePath, Link, useNavigate } from 'react-router-dom';
 
 import notificationIconSrc from 'src/assets/icons/notification-icon.svg';
@@ -34,6 +36,8 @@ import { Loadable } from 'src/components/Loadable';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
 import { Notification } from 'src/components/Notification';
 import { PublicationFilters } from 'src/stores/myPublicationStore';
+import { useNotificationStore } from 'src/stores/notificationStore';
+import { formatDateToDDMMYYYY, formatTimeToHHMM } from 'src/utils/formatDate';
 
 import styles from './styles.module.scss';
 
@@ -43,16 +47,26 @@ export const AppHeader = () => {
 
   const { width } = useWindowSize();
   const { user, signOut, isAppInitializing } = useAuthStore();
+  const {
+    notifications,
+    isLoading,
+    getAllUnreadNotifications,
+    connectToNotificationUpdate,
+    markNotificationAsRead,
+  } = useNotificationStore();
   const { openNotification } = useNotification();
+
   const { requireAuth } = useRequireAuth();
 
   const [hasNotifications] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
 
-  const shouldShowAddPublicationButton =
-    window.location.pathname !== ROUTES.ADD_PUBLICATION;
+  const shouldShowAddPublicationButton = useMemo(
+    () => window.location.pathname !== ROUTES.ADD_PUBLICATION,
+    [window.location.pathname]
+  );
 
-  const isDesktop = width > SCREEN_WIDTH.MD;
+  const isDesktop = useMemo(() => width > SCREEN_WIDTH.MD, [width]);
 
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
@@ -63,6 +77,20 @@ export const AppHeader = () => {
       setShowDrawer(false);
     }
   }, [isDesktop]);
+
+  useEffect(() => {
+    if (user) {
+      getAllUnreadNotifications(showError);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      const unsubscribe = connectToNotificationUpdate();
+
+      return () => unsubscribe();
+    }
+  }, [user]);
 
   const handleSignOut = () => {
     modal.confirm({
@@ -99,36 +127,49 @@ export const AppHeader = () => {
     onClick: handleMenuClick,
   };
 
-  // TODO: Fetch notifications from backend
-  const notificationMenu = {
-    items: [
-      {
-        key: '1',
+  const handleNotificationClick: MenuProps['onClick'] = async (e) => {
+    await markNotificationAsRead(e.key, showError);
+  };
+
+  const getNotificationMenu = (isNotificationsLoading: boolean) => {
+    if (isNotificationsLoading) {
+      return {
+        items: [
+          {
+            key: 'loading',
+            label: (
+              <div className={styles.spinnerContainer}>
+                <Spin
+                  indicator={
+                    <LoadingOutlined
+                      style={{ fontSize: 36, color: '#003342' }}
+                      spin
+                    />
+                  }
+                />
+              </div>
+            ),
+          },
+        ],
+      };
+    }
+
+    return {
+      items: notifications?.map((notification) => ({
+        key: notification?.id,
         label: (
           <Notification
-            title="Нова нотифікація з довгим заголовком"
-            description="Детальний опис нотифікації нотифікації"
-            time="00:00"
-            date="12.07.2025"
-            seen={false}
-            id="1"
+            title={notification.message}
+            description={notification.type}
+            time={formatTimeToHHMM(notification.createdAt)}
+            date={formatDateToDDMMYYYY(notification.createdAt)}
+            seen={notification.read}
+            id={notification.id}
           />
         ),
-      },
-      {
-        key: '2',
-        label: (
-          <Notification
-            title="Нова нотифікація"
-            description="Детальний опис нотифікації нотифікації"
-            time="00:00"
-            date="12.07.2025"
-            seen={false}
-            id="1"
-          />
-        ),
-      },
-    ],
+      })),
+      onClick: handleNotificationClick,
+    };
   };
 
   return (
@@ -161,7 +202,7 @@ export const AppHeader = () => {
                 <ConfigProvider theme={localTheme}>
                   <Dropdown
                     rootClassName={styles.notificationDropdown}
-                    menu={notificationMenu}
+                    menu={getNotificationMenu(isLoading)}
                     placement="bottomRight"
                     trigger={['click']}
                   >

@@ -140,3 +140,10 @@ export const PROFILE_PARAMS = {
   PRIVACY_POLICY: 'privacy-policy',
   FAQ: 'faq',
 };
+
+export enum SocketEvent {
+  CHAT_NEW_MASSAGE = 'chat.new-message',
+  BOOKING_STATUS_UPDATE = 'booking.status-update',
+  USER_REGISTRATION = 'user.registration',
+  PUBLICATION_NEW = 'publication.new-added',
+}
