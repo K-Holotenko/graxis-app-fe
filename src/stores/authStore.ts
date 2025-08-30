@@ -1,6 +1,5 @@
 import {
   ConfirmationResult,
-  User as FirebaseUser,
   AuthErrorCodes,
   onAuthStateChanged,
 } from 'firebase/auth';
@@ -13,13 +12,8 @@ import {
   updateAuthTokenOnTheServer,
 } from 'src/services/AuthService';
 import { firebaseAuth } from 'src/config/firebase';
-import {
-  fetchUser,
-  signUp,
-  SignUpUser,
-  updateUser,
-  UpdateUserData,
-} from 'src/services/UserService';
+import { fetchUser, signUp, updateUser } from 'src/services/UserService';
+import { SignUpUser, UpdateUserData, User, AuthUser } from 'src/types';
 
 // List of errors visit https://firebase.google.com/docs/auth/admin/errors
 const firebaseAuthErrorCodes: { [key: string]: string } = {
@@ -31,24 +25,6 @@ const firebaseAuthErrorCodes: { [key: string]: string } = {
 
 const DEFAULT_ERROR_MESSAGE = 'Щось пішло не так. Спробуйте ще раз';
 
-export type AuthUser = (FirebaseUser & { displayName?: string }) | unknown;
-
-export interface User {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-  phoneNumber: string;
-  registrationDate: string;
-  activeAt: string;
-  avatarUrl: string;
-  email_verified: boolean;
-}
-
-export interface ContactInfoForm {
-  email: string;
-  phoneNumber: string;
-}
 interface AuthState {
   user: User | null;
   emailToVerify: string | null;

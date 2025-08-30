@@ -14,7 +14,7 @@ import { generateBreadcrumbs } from 'src/components/BreadCrumbs/utils/generateBr
 import { Breadcrumbs } from 'src/components/BreadCrumbs';
 import { Loadable } from 'src/components/Loadable';
 import { useCategories } from 'src/hooks/useCategories';
-import { Publication } from 'src/services/PublicationService';
+import { Publication } from 'src/types';
 import { useAuthStore } from 'src/stores/authStore';
 import { ROUTES } from 'src/router/routes';
 

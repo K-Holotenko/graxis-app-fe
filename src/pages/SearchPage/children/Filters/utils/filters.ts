@@ -1,9 +1,9 @@
-import { type Category } from 'src/hooks/useCategories';
+import { type CategoryTree } from 'src/types';
 
 export const findCategoryByValue = (
-  nodes: Category[],
+  nodes: CategoryTree[],
   val: string
-): Category | undefined => {
+): CategoryTree | undefined => {
   for (const node of nodes) {
     if (node.value === val) return node;
     if (node.children) {
@@ -14,7 +14,7 @@ export const findCategoryByValue = (
   }
 };
 
-export const getAllDescendantsValues = (node: Category): string[] => {
+export const getAllDescendantsValues = (node: CategoryTree): string[] => {
   if (!node.children?.length) return [];
   let results: string[] = [];
 
@@ -27,7 +27,7 @@ export const getAllDescendantsValues = (node: Category): string[] => {
 };
 
 export const findPathByValue = (
-  nodes: Category[],
+  nodes: CategoryTree[],
   val: string,
   path: string[] = []
 ): string[] => {
@@ -47,7 +47,7 @@ export const findPathByValue = (
 
 export const handleCategoriesChange = (
   value: string[][],
-  categoriesTree: Category[],
+  categoriesTree: CategoryTree[],
   searchParams: URLSearchParams
 ): URLSearchParams => {
   const flattenedAll: string[] = [];

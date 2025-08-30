@@ -6,7 +6,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 import 'dayjs/locale/uk';
 import ukUA from 'antd/es/date-picker/locale/uk_UA';
 
-import { Publication } from 'src/services/PublicationService';
+import { Publication } from 'src/types';
 import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';

@@ -11,11 +11,12 @@ import {
   UserRole,
 } from 'src/pages/BookingPage/children/BookingDialog/utils';
 import { useAuthStore } from 'src/stores/authStore';
+import { BookingStatus } from 'src/types';
 
 import styles from './styles.module.scss';
 import { BookingDetails } from './BookingDetails';
 import { Feedback } from './Feedback';
-import { BookingStatus, renderItems } from './utils';
+import { renderItems } from './utils';
 
 export const Booking = () => {
   const { booking, isBookingLoading } = useBookingStore();

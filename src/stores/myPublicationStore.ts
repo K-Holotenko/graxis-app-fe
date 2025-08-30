@@ -1,9 +1,7 @@
 import { create } from 'zustand';
 
-import {
-  getAllMyPublications,
-  PublicationCard,
-} from 'src/services/PublicationService';
+import { getAllMyPublications } from 'src/services/PublicationService';
+import { PublicationCard } from 'src/types';
 
 export enum PublicationFilters {
   LISTED = 'listed',

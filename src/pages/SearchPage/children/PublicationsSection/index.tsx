@@ -1,7 +1,7 @@
 import { CardsGridLayout } from 'src/layouts/CardsGridLayout';
 import { PublicationCard } from 'src/components/PublicationCard';
 import { SearchEmptyState } from 'src/pages/SearchPage/children/SearchEmptyState/index';
-import { PublicationCard as PublicationCardType } from 'src/services/PublicationService';
+import { PublicationCard as PublicationCardType } from 'src/types';
 import { PublicationsGridSkeleton } from 'src/pages/SearchPage/skeletons';
 
 interface PublicationsSectionProps {
