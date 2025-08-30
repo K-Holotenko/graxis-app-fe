@@ -6,9 +6,9 @@ import { Shelf } from 'src/pages/BookingPage/children/Shelf';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { CardSkeleton, DetailsSkeleton } from 'src/pages/BookingPage/skeletons';
 import { Loadable } from 'src/components/Loadable';
+import { BookingStatus } from 'src/types';
 
 import styles from './styles.module.scss';
-import { BookingStatus } from './utils';
 
 export const BookingDetails = () => {
   const { booking, isBookingLoading, getBooking } = useBookingStore();

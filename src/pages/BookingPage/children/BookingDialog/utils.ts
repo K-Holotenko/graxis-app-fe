@@ -1,6 +1,6 @@
 import { ButtonTypes } from 'src/config/constants';
 import { NotificationType } from 'src/hooks/useNotification';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { BookingStatus } from 'src/types';
 import { ROUTES } from 'src/router/routes';
 import { paymentTransaction, submitFeedback } from 'src/services/Booking';
 

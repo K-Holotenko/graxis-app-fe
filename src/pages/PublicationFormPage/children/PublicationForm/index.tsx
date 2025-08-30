@@ -24,22 +24,14 @@ import { LocationAutocomplete } from 'src/pages/PublicationFormPage/children/Loc
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import {
   createPublication,
-  MyPublication,
   updatePublication,
 } from 'src/services/PublicationService';
+import { MyPublication, Location } from 'src/types';
 import { usePublication } from 'src/hooks/usePublication';
 import { UploadList } from 'src/pages/PublicationFormPage/children/UploadList';
 
 import styles from './styles.module.scss';
 import { formatPrices, mapPublicationToFormFields } from './utils/utils';
-
-export interface Location {
-  country: string;
-  city: string;
-  locality: string;
-  lat: number;
-  lng: number;
-}
 
 interface PublicationInputs {
   category: string;

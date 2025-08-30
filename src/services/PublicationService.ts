@@ -1,81 +1,14 @@
 import { UploadFile } from 'antd';
 import axios from 'axios';
 
-import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
-import { PricingPeriod } from 'src/pages/PublicationPage/children/Price/utils/count';
+import {
+  Publication,
+  MyPublication,
+  CreatePublicationData,
+  PublicationPage,
+} from 'src/types';
 
 import { api } from './api';
-
-interface Price {
-  price: number;
-  pricingPeriod: PricingPeriod;
-}
-
-export enum PublicationStatus {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
-  RENTED_OUT = 'RENTED_OUT',
-  DELETED = 'DELETED',
-  UNDER_REVIEW = 'UNDER_REVIEW',
-}
-
-export interface Publication {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  status: PublicationStatus;
-  bookedDates: { startDate: string | null; endDate: string | null }[];
-  createdAt: string;
-  price: Price[];
-  ownerInfo: {
-    id: string;
-    avatarUrl: string;
-    name: string;
-    surname: string;
-    reviewCount: number;
-    joinedAt: string;
-    rate: number;
-  };
-  location: {
-    country: string;
-    city: string;
-    locality: string;
-    staticMapImage: string;
-  } & Location;
-  reviewsCount: number;
-  feedbackCount: number;
-  rate: number;
-  pictures: { url: string; id?: string }[];
-}
-
-export type MyPublication = Omit<Publication, 'location'> & {
-  location: Location;
-};
-
-interface CreatePublicationData {
-  categoryName: string;
-  title: string;
-  description: string;
-  prices: Price[];
-  location: Location;
-  files: UploadFile[];
-}
-
-export interface PublicationCard {
-  id: string;
-  rate: number;
-  reviewCount: number;
-  thumbnailUrl: string;
-  title: string;
-  price: { price: number; pricingPeriod: string };
-}
-
-export interface PublicationPage {
-  publications: PublicationCard[];
-  nextPage: number | null;
-  total: number;
-}
 
 const PUBLICATIONS_API_URL = '/publications';
 
@@ -90,7 +23,7 @@ export const createPublication = async (
   formData.append('prices', JSON.stringify(publicationData.prices));
   formData.append('location', JSON.stringify(publicationData.location));
 
-  publicationData.files?.forEach(({ originFileObj }) => {
+  publicationData.files?.forEach(({ originFileObj }: UploadFile) => {
     if (originFileObj) formData.append('files', originFileObj);
   });
 
@@ -137,7 +70,7 @@ export const updatePublication = async (
   formData.append('prices', JSON.stringify(publicationData.prices));
   formData.append('location', JSON.stringify(publicationData.location));
 
-  publicationData.files?.forEach(({ originFileObj }) => {
+  publicationData.files?.forEach(({ originFileObj }: UploadFile) => {
     if (originFileObj) formData.append('files', originFileObj);
   });
 

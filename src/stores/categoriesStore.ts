@@ -1,15 +1,7 @@
 import { create } from 'zustand';
 
 import { getAllCategories } from 'src/services/CategoriesService';
-
-export interface Category {
-  id: string;
-  createdAt: string;
-  name: string;
-  ukr: string;
-  parentId: string | null;
-  updatedAt: string;
-}
+import { Category } from 'src/types';
 
 interface CategoriesStore {
   categories: Category[] | null;

@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-import { Publication } from 'src/services/PublicationService';
+import { Publication } from 'src/types';
 
 export enum PricingPeriod {
   DAY = 'day',

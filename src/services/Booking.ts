@@ -1,37 +1,8 @@
 import axios from 'axios';
 
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
-import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
+import { Booking, BookingStatus } from 'src/types';
 
 import { api } from './api';
-
-export interface Booking {
-  id: string;
-  bookingStatus: BookingStatus;
-  chatId: string;
-  chatShow: boolean;
-  startDate: string;
-  endDate: string;
-  publication: {
-    id: string;
-    title: string;
-    thumbnailUrl: string;
-  };
-  paymentStatus: 'UNPAID';
-  renterId: string;
-  publicationAddressShow: boolean;
-  publicationAddress: Location;
-  lastStatusBeforeCancellation: BookingStatus | null;
-  owner: {
-    id: string;
-    name: string;
-    surname: string;
-    avatarUrl: string;
-  };
-  price: number;
-  createdAt: string;
-  updatedAt: string;
-}
 
 export const createBooking = async (
   startDate: string | undefined,

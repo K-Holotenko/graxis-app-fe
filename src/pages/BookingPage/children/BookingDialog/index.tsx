@@ -7,7 +7,7 @@ import { SCREEN_WIDTH } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { BookingStatus } from 'src/types';
 import { useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';

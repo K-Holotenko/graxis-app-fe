@@ -1,6 +1,6 @@
 import { FormInstance } from 'antd';
 
-import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
+import { Location } from 'src/types';
 
 export const formatLocation = (
   place: google.maps.places.PlaceResult

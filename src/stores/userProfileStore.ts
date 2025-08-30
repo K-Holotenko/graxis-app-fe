@@ -1,40 +1,7 @@
 import { create } from 'zustand';
 
 import { getUserPublicProfile } from 'src/services/UserService';
-import { PublicationCard } from 'src/services/PublicationService';
-import { FirestoreTimestamp } from 'src/pages/PublicUserProfile/utils';
-
-export interface Feedback {
-  id: string;
-  publicationTitle: string;
-  authorImage: string;
-  authorName: string;
-  authorSurname: string;
-  text: string;
-  stars: number;
-  createdAt: FirestoreTimestamp;
-}
-
-interface PublicUserProfile {
-  id: string;
-  name: string;
-  avatarUrl: string;
-  surname: string;
-  feedbacks: Feedback[];
-  activeAt: string;
-  rate: number;
-  reviewCount: number;
-  registrationDate: string;
-  location: {
-    country: string;
-    city: string;
-  };
-}
-
-export interface UserProfileData {
-  author: PublicUserProfile;
-  publications: PublicationCard[];
-}
+import { UserProfileData } from 'src/types';
 
 interface UserProfileStore {
   profile: UserProfileData | null;
@@ -49,7 +16,7 @@ export const useUserProfileStore = create<UserProfileStore>((set) => ({
     set({ isLoading: true });
 
     try {
-      const profile: UserProfileData | null = await getUserPublicProfile(id);
+      const profile = await getUserPublicProfile(id);
 
       const profileWithAddedReviewCount = {
         author: {

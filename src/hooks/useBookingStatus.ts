@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { socket } from 'src/sockets';
 import { useBookingStore } from 'src/stores/bookingStore';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { BookingStatus } from 'src/types';
 
 export const useBookingStatus = (): {
   bookingStatus: BookingStatus | null;
