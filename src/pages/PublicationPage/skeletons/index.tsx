@@ -6,9 +6,9 @@ import styles from './styles.module.scss';
 const PriceSkeletonComponent = () => (
   <>
     <div className={styles.priceSkeletonWrapper}>
-      {[...Array(3)].map(() => (
+      {Array.from({ length: 3 }, (_, index) => (
         <Skeleton.Node
-          key={new Date().getTime()}
+          key={`price-skeleton-${index + 1}`}
           active
           className={styles.priceSkeleton}
         />

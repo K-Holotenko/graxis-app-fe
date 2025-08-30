@@ -1,6 +1,6 @@
 import { Tabs } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useParams, useNavigate, generatePath } from 'react-router-dom';
 
 import { ROUTES } from 'src/router/routes';
 import { useBookingStore } from 'src/stores/bookingStore';
@@ -39,25 +39,30 @@ const items = [
 export const BookingPage = () => {
   const { width } = useWindowSize();
   const { user } = useAuthStore();
-  const {
-    booking,
-    isBookingLoading,
-    getBooking,
-    connectToBookingStatusUpdate,
-  } = useBookingStore();
+  const { booking, getBooking, connectToBookingStatusUpdate } =
+    useBookingStore();
 
   const navigate = useNavigate();
   const { id, tab } = useParams<{ id: string; tab?: string }>();
 
   const [activeTab, setActiveTab] = useState<string>(tab || TABS.DETAILS);
+  const [bookingNotFound, setBookingNotFound] = useState<boolean>(false);
 
   const isTablet = useMemo(() => width < SCREEN_WIDTH.LG, [width]);
   const isMobile = useMemo(() => width < SCREEN_WIDTH.SM, [width]);
 
   useEffect(() => {
-    if (id) {
-      getBooking(id);
+    if (!id) {
+      setBookingNotFound(true);
+
+      return;
     }
+
+    getBooking(id).then((result) => {
+      if (result === null) {
+        setBookingNotFound(true);
+      }
+    });
   }, [id]);
 
   useEffect(() => {
@@ -80,21 +85,32 @@ export const BookingPage = () => {
     }
   }, [booking]);
 
-  const handleTabChange = (newTab: string) => {
-    setActiveTab(newTab as (typeof TABS)[keyof typeof TABS]);
-    navigate(`/booking/${id}/${newTab}`, { replace: true });
-  };
+  useEffect(() => {
+    if (bookingNotFound) {
+      navigate(ROUTES.NOT_FOUND);
+    }
+  }, [bookingNotFound, navigate]);
 
-  if (!booking && !isBookingLoading) {
-    navigate(ROUTES.NOT_FOUND);
-  }
+  const handleTabChange = useCallback(
+    (newTab: string) => {
+      setActiveTab(newTab as (typeof TABS)[keyof typeof TABS]);
+      navigate(`/booking/${id}/${newTab}`, { replace: true });
+    },
+    [id, navigate]
+  );
 
   return (
     <PageContainer pageTitle={booking?.publication.title || 'Букінг'}>
       <AppLayout>
         <ArrowLeft
           className={styles.arrowLeft}
-          onClick={() => window.history.back()}
+          onClick={() =>
+            navigate(
+              generatePath(ROUTES.PUBLICATION, {
+                id: booking?.publication.id,
+              })
+            )
+          }
         />
         {isTablet ? (
           <Tabs
