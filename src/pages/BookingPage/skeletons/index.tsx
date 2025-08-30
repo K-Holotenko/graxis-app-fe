@@ -1,19 +1,19 @@
 import { Skeleton } from 'antd';
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 
 import styles from './styles.module.scss';
 
 const StepsSkeletonComponent = () => (
   <div className={styles.stepContainer}>
-    {Array.from({ length: 7 }, (_, index) => (
-      <div key={`skeleton-step-${index + 1}`}>
+    {[...Array(7)].map((_, index) => (
+      <Fragment key={`${index + 1}-skeleton`}>
         <Skeleton.Node active className={styles.step} />
         {index < 6 && (
           <div className={styles.connectionContainer}>
             <Skeleton.Node active className={styles.connection} />
           </div>
         )}
-      </div>
+      </Fragment>
     ))}
   </div>
 );
