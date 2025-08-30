@@ -25,7 +25,7 @@ export interface Publication {
   category: string;
   description: string;
   status: PublicationStatus;
-  bookedDates: [];
+  bookedDates: { startDate: string | null; endDate: string | null }[];
   createdAt: string;
   price: Price[];
   ownerInfo: {

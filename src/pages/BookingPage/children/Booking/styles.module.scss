@@ -46,12 +46,18 @@
   }
 }
 
-.feedbackContainer {
+.taxonomyContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  gap: 16px;
+}
+
+.feedbackContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .feedbackTitle {
@@ -147,9 +153,10 @@
   font-weight: 600;
 }
 
-.rentPeriodCard {
+.taxonomy {
   font-family: variables.$font-body;
   font-size: 16px;
+  text-align: center;
 }
 
 .cardLabel {
@@ -167,5 +174,32 @@
 
   .cardContainer {
     max-width: 220px;
+  }
+
+  .taxonomyContainer {
+    gap: 16px;
+    flex-direction: row;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .taxonomyContainer {
+    gap: 32px;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .taxonomyContainer {
+    gap: 16px;
+  }
+}
+
+@media (min-width: variables.$media-xl) {
+  .taxonomyContainer {
+    gap: 32px;
+  }
+
+  .steps {
+    overflow-x: hidden;
   }
 }

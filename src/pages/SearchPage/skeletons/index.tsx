@@ -12,8 +12,8 @@ export const PublicationsGridSkeleton = ({
   numberOfCards,
 }: PublicationsGridSkeletonProps) => (
   <CardsGridLayout>
-    {[...Array(numberOfCards)].map(() => (
-      <div key={new Date().toString()} className={styles.cardSkeleton}>
+    {Array.from({ length: numberOfCards }, (_, index) => (
+      <div key={`card-skeleton-${index + 1}`} className={styles.cardSkeleton}>
         <Skeleton.Image active className={styles.picturesSkeleton} />
         <Skeleton active paragraph={{ rows: 1 }} />
       </div>
