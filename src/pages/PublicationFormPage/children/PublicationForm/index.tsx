@@ -10,7 +10,7 @@ import { APIProvider } from '@vis.gl/react-google-maps';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { ROUTES } from 'src/router/routes';
-import { FORMS } from 'src/config/constants';
+import { FORMS, SCREEN_WIDTH } from 'src/config/constants';
 import { TextArea } from 'src/components/TextArea';
 import {
   VALIDATION_CONDITION,
@@ -29,6 +29,7 @@ import {
 } from 'src/services/PublicationService';
 import { usePublication } from 'src/hooks/usePublication';
 import { UploadList } from 'src/pages/PublicationFormPage/children/UploadList';
+import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import styles from './styles.module.scss';
 import { formatPrices, mapPublicationToFormFields } from './utils/utils';
@@ -69,6 +70,9 @@ export const PublicationForm = () => {
   const { openNotification } = useNotification();
 
   const { publication, isPublicationLoading } = usePublication();
+
+  const { width } = useWindowSize();
+  const isMobile = width < SCREEN_WIDTH.SM;
 
   useEffect(() => {
     if (!isEdit || !publication || isPublicationLoading) {
@@ -169,7 +173,7 @@ export const PublicationForm = () => {
   };
 
   return (
-    <ConfigProvider theme={formTheme}>
+    <ConfigProvider theme={formTheme(isMobile)}>
       <Form
         form={form}
         name={FORMS.ADD_PUBLICATION_FORM}
@@ -291,12 +295,11 @@ export const PublicationForm = () => {
   );
 };
 
-const formTheme = {
+const formTheme = (isMobile: boolean) => ({
   components: {
     Form: {
       labelColor: theme.N6,
-      // 16 -> mobile, 40 -> tablet&desktop
-      itemMarginBottom: theme.space500,
+      itemMarginBottom: isMobile ? theme.space200 : theme.space500,
       labelFontSize: 26,
       verticalLabelPadding: theme.space0,
     },
@@ -304,7 +307,7 @@ const formTheme = {
       paddingInline: theme.space150,
     },
   },
-};
+});
 
 const textAreaTheme = {
   components: {

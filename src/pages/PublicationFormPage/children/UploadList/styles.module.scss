@@ -14,12 +14,6 @@
   padding-right: variables.$space-100;
 }
 
-.customModal {
-  :global(.ant-modal-body) {
-    padding: variables.$space-250 !important;
-  }
-}
-
 @media (min-width: variables.$media-sm) {
   .addPublicationLabel {
     font-size: 26px;
