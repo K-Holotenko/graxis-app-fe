@@ -1,7 +1,4 @@
-export interface FirestoreTimestamp {
-  _seconds: number;
-  _nanoseconds: number;
-}
+import { FirestoreTimestamp } from 'src/types';
 
 export const transformTimestampToDate = (
   timestamp: FirestoreTimestamp

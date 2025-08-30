@@ -7,11 +7,9 @@ import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { PageContainer } from 'src/layouts/PageContainer';
 import { AppLayout } from 'src/layouts/AppLayout';
 import { SearchLayout } from 'src/layouts/SearchLayout';
-import {
-  getAllPublications,
-  PublicationPage,
-} from 'src/services/PublicationService';
+import { getAllPublications } from 'src/services/PublicationService';
 import { theme } from 'src/config/theme';
+import { PublicationPage } from 'src/types';
 
 import { PublicationsSection } from './children/PublicationsSection';
 import { SEARCH_RESULTS_CONFIG } from './utils/config';

@@ -9,10 +9,10 @@ import { Container } from 'src/pages/BookingPage/children/Container';
 import { Button } from 'src/components/Button';
 import SendIcon from 'src/assets/icons/send.svg?react';
 import { sendMessage } from 'src/services/Chat';
-import { ChatMessage, useBookingStore } from 'src/stores/bookingStore';
+import { useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
 import { MessageList } from 'src/pages/BookingPage/children/MessageList';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { ChatMessage, BookingStatus } from 'src/types';
 
 import styles from './styles.module.scss';
 

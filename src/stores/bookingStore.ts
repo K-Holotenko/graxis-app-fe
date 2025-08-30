@@ -2,35 +2,13 @@ import { create } from 'zustand';
 
 import { socket } from 'src/sockets';
 import {
-  Booking,
   createBooking,
   getAllMyBookings,
   getBooking,
   changeBookingStatus,
 } from 'src/services/Booking';
 import { getChat } from 'src/services/Chat';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
-
-export interface ChatMessage {
-  id: string;
-  text: string;
-  senderId: string;
-  sentAt: string;
-}
-
-export interface Chat {
-  id: string;
-  bookingId: string;
-  messages: ChatMessage[];
-  updatedAt: string;
-  participants: {
-    id: string;
-    avatarUrl: string;
-    name: string;
-    surname: string;
-    hasNewMessages: boolean;
-  }[];
-}
+import { Booking, BookingStatus, Chat } from 'src/types';
 
 interface BookingStore {
   booking: Booking | null;

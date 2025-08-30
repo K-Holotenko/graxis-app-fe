@@ -2,8 +2,7 @@ import dayjs from 'dayjs';
 import { Alert } from 'antd';
 import { useMemo } from 'react';
 
-import { ChatMessage } from 'src/stores/bookingStore';
-import { BookingStatus } from 'src/pages/BookingPage/children/Booking/utils';
+import { ChatMessage, BookingStatus } from 'src/types';
 
 import styles from './styles.module.scss';
 

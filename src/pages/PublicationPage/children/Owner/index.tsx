@@ -6,7 +6,7 @@ import Star from 'src/assets/icons/star-icon.svg?react';
 import Circle from 'src/assets/icons/yellow-circle-icon.svg?react';
 import Smiley from 'src/assets/icons/smiley-icon.svg?react';
 import { IMAGE_DESCRIPTION } from 'src/config/constants';
-import { Publication } from 'src/services/PublicationService';
+import { Publication } from 'src/types';
 import { theme } from 'src/config/theme';
 import { formatRegistrationDate } from 'src/utils/formatDate';
 

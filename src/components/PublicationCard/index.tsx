@@ -3,10 +3,8 @@ import { Card, Dropdown, MenuProps } from 'antd';
 import { EyeOutlined, MoreOutlined, StarOutlined } from '@ant-design/icons';
 import { useNavigate, generatePath } from 'react-router-dom';
 
-import {
-  deletePublicationById,
-  PublicationCard as PublicationCardType,
-} from 'src/services/PublicationService';
+import { deletePublicationById } from 'src/services/PublicationService';
+import { PublicationCard as PublicationCardType } from 'src/types';
 import { Button } from 'src/components/Button';
 import { ROUTES } from 'src/router/routes';
 import { ButtonTypes } from 'src/config/constants';

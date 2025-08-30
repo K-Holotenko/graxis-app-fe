@@ -3,6 +3,7 @@ import { StepProps } from 'antd';
 import CheckIcon from 'src/assets/icons/check.svg?react';
 import CrossIcon from 'src/assets/icons/cross-icon.svg?react';
 import { UserRole } from 'src/pages/BookingPage/children/BookingDialog/utils';
+import { BookingStatus } from 'src/types';
 
 const statusToIconMap = {
   finish: <CheckIcon />,
@@ -10,29 +11,6 @@ const statusToIconMap = {
   wait: <CheckIcon />,
   error: <CrossIcon />,
 };
-
-export enum BookingStatus {
-  PENDING = 'PENDING',
-  CONFIRMED = 'CONFIRMED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  CANCELLED = 'CANCELLED',
-  COMPLETED = 'COMPLETED',
-  RETURNED = 'RETURNED',
-  RATED = 'RATED',
-  OWNER_RATED = 'OWNER_RATED',
-  RENTER_RATED = 'RENTER_RATED',
-  PAID = 'PAID',
-  //This status is not available in the backend, but it is used in the frontend
-  BOOKED = 'BOOKED',
-}
-
-export enum PaymentStatus {
-  UNPAID = 'UNPAID',
-  PAID = 'PAID',
-  FAIL = 'FAIL',
-  REFUNDED = 'REFUNDED',
-  REFUNDED_IN_PROGRESS = 'REFUNDED_IN_PROGRESS',
-}
 
 const statusToStepMap: Record<
   Exclude<

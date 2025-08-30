@@ -1,24 +1,8 @@
 import axios from 'axios';
 
-import { User } from 'src/stores/authStore';
-import { UserProfileData } from 'src/stores/userProfileStore';
+import { User, SignUpUser, UpdateUserData, UserProfileData } from 'src/types';
 
 import { api } from './api';
-
-export interface SignUpUser {
-  name: string;
-  surname: string;
-  avatar?: File;
-  city?: string;
-}
-
-export interface UpdateUserData {
-  name?: string;
-  surname?: string;
-  email?: string;
-  phoneNumber?: string;
-  avatar?: File;
-}
 
 export const signUp = async (user: SignUpUser): Promise<User> => {
   const formData = new FormData();

@@ -5,9 +5,8 @@ import { useAuthStore } from 'src/stores/authStore';
 import {
   getMyPublicationById,
   getPublicationById,
-  MyPublication,
-  Publication,
 } from 'src/services/PublicationService';
+import { Publication, MyPublication } from 'src/types';
 
 interface UsePublication {
   publication: Publication | MyPublication | null;

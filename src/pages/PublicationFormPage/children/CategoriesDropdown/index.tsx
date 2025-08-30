@@ -6,7 +6,8 @@ import { SafeKey } from 'antd/es/table/interface';
 import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import { theme } from 'src/config/theme';
 import ClearIcon from 'src/assets/icons/clear-icon.svg?react';
-import { Category, useCategories } from 'src/hooks/useCategories';
+import { useCategories } from 'src/hooks/useCategories';
+import { CategoryTree } from 'src/types';
 
 import styles from './styles.module.scss';
 
@@ -23,7 +24,7 @@ export const CategoriesDropdown = ({
   const { categoriesTree } = useCategories();
   const form = Form.useFormInstance();
 
-  const findParentPath = (value: string, tree: Category[]): string[] => {
+  const findParentPath = (value: string, tree: CategoryTree[]): string[] => {
     for (const category of tree) {
       if (category.value === value) {
         return [category.value];
@@ -51,7 +52,7 @@ export const CategoriesDropdown = ({
     }
   };
 
-  const treeTitleRender = (category: string | null | Category) => {
+  const treeTitleRender = (category: string | null | CategoryTree) => {
     if (typeof category === 'string' || category === null) {
       return <span>{category}</span>;
     }

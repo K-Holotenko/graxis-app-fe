@@ -6,10 +6,11 @@ import { Heading } from 'src/components/Heading';
 import { Picker } from 'src/pages/PublicationPage/children/Picker';
 import {
   calculatePrice,
+  PricingPeriod,
   getErrorIfRangeIsInvalid,
   pricingPeriodEngToUkrMap,
 } from 'src/pages/PublicationPage/children/Price/utils/count';
-import { Publication } from 'src/services/PublicationService';
+import { Publication } from 'src/types';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
 import { PickerFooter } from 'src/pages/PublicationPage/children/PickerFooter';
 import { useBookingStore } from 'src/stores/bookingStore';
@@ -87,7 +88,7 @@ export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
           >
             <dt className={styles.priceAmount}>₴{price}</dt>
             <dd className={styles.pricePeriod}>
-              {pricingPeriodEngToUkrMap[pricingPeriod]}
+              {pricingPeriodEngToUkrMap[pricingPeriod as PricingPeriod]}
             </dd>
           </div>
         ))}

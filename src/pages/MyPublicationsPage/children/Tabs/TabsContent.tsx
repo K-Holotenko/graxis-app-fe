@@ -5,7 +5,7 @@ import { PublicationCard } from 'src/components/PublicationCard';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { CardsGridLayout } from 'src/layouts/CardsGridLayout';
 import { PublicationsGridSkeleton } from 'src/pages/SearchPage/skeletons';
-import { PublicationCard as PublicationCardType } from 'src/services/PublicationService';
+import { PublicationCard as PublicationCardType } from 'src/types';
 import {
   PublicationFilters,
   useMyPublicationStore,
