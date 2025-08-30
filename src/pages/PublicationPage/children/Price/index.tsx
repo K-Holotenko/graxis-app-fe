@@ -101,15 +101,16 @@ export const Price = ({ prices, isOwner, bookedDates }: PriceProps) => {
           isOwner={isOwner}
           bookedDates={bookedDates}
         />
-        <PickerFooter
-          isOwner={isOwner}
-          isRangeSelected={isRangeSelected}
-          totalPrice={totalPrice}
-          days={days}
-          commission={commission}
-          rangeError={rangeError}
-          onClick={handleButtonClick}
-        />
+        {!isOwner && (
+          <PickerFooter
+            isRangeSelected={isRangeSelected}
+            totalPrice={totalPrice}
+            days={days}
+            commission={commission}
+            rangeError={rangeError}
+            onClick={handleButtonClick}
+          />
+        )}
       </div>
     </section>
   );
