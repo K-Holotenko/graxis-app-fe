@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Shelf } from 'src/pages/BookingPage/children/Shelf';
@@ -36,6 +36,27 @@ export const BookingDetails = () => {
       hasUpdatedForPaidStatus.current = false;
     }
   }, [booking?.bookingStatus, id, getBooking]);
+
+  const taxonomy = useMemo(
+    () => [
+      {
+        label: 'Період',
+        value: `З ${startDate.format('DD.MM.YY')} по ${endDate.format('DD.MM.YY')}`,
+        style: styles.taxonomy,
+      },
+      {
+        label: 'Тривалість',
+        value: `${days} днів`,
+        style: styles.taxonomy,
+      },
+      {
+        label: 'Ціна',
+        value: `₴${booking?.price}`,
+        style: styles.priceCard,
+      },
+    ],
+    [startDate, endDate, days, booking?.price]
+  );
 
   return (
     <>
@@ -85,31 +106,20 @@ export const BookingDetails = () => {
           </Shelf>
         )}
       />
-      <div className={styles.cardsContainer}>
-        <Loadable
-          isLoading={isBookingLoading}
-          skeleton={<CardSkeleton />}
-          component={() => (
-            <div className={styles.cardContainer}>
-              <div className={`${styles.card} ${styles.priceCard}`}>
-                ₴{booking?.price}
+      <div className={styles.taxonomyContainer}>
+        {taxonomy.map(({ label, value, style }) => (
+          <Loadable
+            key={label}
+            isLoading={isBookingLoading}
+            skeleton={<CardSkeleton />}
+            component={() => (
+              <div className={styles.cardContainer}>
+                <div className={`${styles.card} ${style}`}>{value}</div>
+                <span className={styles.cardLabel}>{label}</span>
               </div>
-              <span className={styles.cardLabel}>Ціна</span>
-            </div>
-          )}
-        />
-        <Loadable
-          isLoading={isBookingLoading}
-          skeleton={<CardSkeleton />}
-          component={() => (
-            <div className={styles.cardContainer}>
-              <div className={`${styles.card} ${styles.rentPeriodCard}`}>
-                {days} днів
-              </div>
-              <span className={styles.cardLabel}>Період оренди</span>
-            </div>
-          )}
-        />
+            )}
+          />
+        ))}
       </div>
     </>
   );
