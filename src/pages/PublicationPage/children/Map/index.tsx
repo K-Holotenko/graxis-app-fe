@@ -1,5 +1,5 @@
 import { Heading } from 'src/components/Heading';
-import { Publication } from 'src/services/PublicationService';
+import { Publication } from 'src/types';
 
 import styles from './styles.module.scss';
 

@@ -1,8 +1,7 @@
 import { UploadFile } from 'antd';
 
 import { PricingPeriod } from 'src/pages/PublicationPage/children/Price/utils/count';
-import { Location } from 'src/pages/PublicationFormPage/children/PublicationForm';
-import { MyPublication } from 'src/services/PublicationService';
+import { MyPublication, Location } from 'src/types';
 
 interface PriceInputs {
   priceDay?: number;

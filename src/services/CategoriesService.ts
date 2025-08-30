@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Category } from 'src/stores/categoriesStore';
+import { Category } from 'src/types';
 
 export const getAllCategories = async (): Promise<Category[]> => {
   const response = await axios.get(

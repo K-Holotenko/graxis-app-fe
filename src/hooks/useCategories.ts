@@ -2,17 +2,12 @@ import { useEffect } from 'react';
 
 import { useCategoriesStore } from 'src/stores/categoriesStore';
 import { buildCategoriesTree } from 'src/utils/buildCategoriesTree';
+import { CategoryTree } from 'src/types';
 
 import { NotificationType, useNotification } from './useNotification';
 
-export interface Category {
-  title: string;
-  value: string;
-  children?: Category[];
-}
-
 export const useCategories = (): {
-  categoriesTree: Category[];
+  categoriesTree: CategoryTree[];
 } => {
   const { categories, getAllCategories } = useCategoriesStore();
   const { openNotification } = useNotification();
