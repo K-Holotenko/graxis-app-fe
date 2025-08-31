@@ -14,14 +14,14 @@
 .priceList {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin: 16px auto 40px auto;
+  gap: variables.$space-100;
+  margin: variables.$space-200 auto variables.$space-500 auto;
 }
 
 .priceItem {
   border: 1px solid variables.$N4;
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: variables.$space-150 variables.$space-200;
 }
 
 .singlePrice {
@@ -59,28 +59,27 @@
   display: flex;
   align-items: center;
   flex-direction: column-reverse;
-  padding-top: 9px;
-  padding-bottom: 16px;
+  padding-top: variables.$space-150;
+  padding-bottom: variables.$space-200;
   box-shadow:
     0 6px 8px 0 rgba(80, 86, 94, 0.12),
     0 3px 25px 0 rgba(80, 86, 94, 0.12),
     0 9px 14px 0 rgba(80, 86, 94, 0.02);
   border-radius: 12px;
-  margin: 24px auto 0 auto;
+  margin: variables.$space-300 auto variables.$space-0 auto;
   width: 298px;
 }
 
 @media (min-width: variables.$media-sm) {
   .title {
     font-size: 32px;
-    margin-bottom: 24px;
   }
 
   .priceList {
     gap: 15px;
     max-width: 522px;
     width: 100%;
-    margin-top: 24px;
+    margin-top: variables.$space-300;
   }
 
   .priceAmount {

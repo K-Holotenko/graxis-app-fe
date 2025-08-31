@@ -10,8 +10,8 @@
 
 .uploadItem {
   height: 88px;
-  padding-top: 3px;
-  padding-right: 10px;
+  padding-top: variables.$space-050;
+  padding-right: variables.$space-100;
 }
 
 @media (min-width: variables.$media-sm) {
@@ -25,19 +25,19 @@
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    gap: variables.$space-400;
   }
 
   .uploadItem {
     height: 154px;
-    padding: 0;
+    padding: variables.$space-0;
   }
 }
 
 @media (min-width: variables.$media-lg) {
   .uploadListDesktop {
     max-width: 742px;
-    margin: 0 auto;
+    margin: variables.$space-0 auto;
     grid-template-columns: repeat(3, 1fr);
   }
 }

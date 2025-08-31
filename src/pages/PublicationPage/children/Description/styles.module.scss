@@ -3,7 +3,7 @@
 .descriptionContainer {
   display: flex;
   flex-direction: column;
-  margin-bottom: 40px;
+  margin-bottom: variables.$space-300;
 }
 
 .description {
@@ -11,7 +11,7 @@
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: -0.02em;
-  margin-top: 12px;
+  margin-top: variables.$space-150;
   white-space: pre-line;
 }
 
@@ -29,12 +29,16 @@
   border: none;
   background-color: transparent;
   line-height: 1.5;
-  margin-right: 0;
+  margin-right: variables.$space-0;
   margin-left: auto;
-  margin-top: 20px;
+  margin-top: variables.$space-250;
 }
 
 @media (min-width: variables.$media-sm) {
+  .descriptionContainer {
+    margin-bottom: variables.$space-400;
+  }
+
   .description {
     font-size: 18px;
     line-height: 1.25;

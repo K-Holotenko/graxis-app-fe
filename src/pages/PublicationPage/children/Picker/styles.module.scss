@@ -76,10 +76,10 @@
   font-weight: 500;
   color: variables.$primary;
   line-height: 1.5;
-  margin: 0 auto;
+  margin: variables.$space-0 auto;
   display: block;
-  padding-top: 22px;
-  padding-bottom: 22px;
+  padding-top: variables.$space-200;
+  padding-bottom: variables.$space-200;
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -102,7 +102,7 @@
   letter-spacing: -0.02em;
   text-align: center;
   color: variables.$N6;
-  margin-top: 16px;
+  margin-top: variables.$space-200;
 }
 
 .renterBookedColor {

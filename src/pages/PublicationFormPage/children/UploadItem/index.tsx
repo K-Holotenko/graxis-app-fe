@@ -96,7 +96,7 @@ const localTheme = {
       colorPrimary: 'transparent',
       colorBorder: 'transparent',
       colorFillAlter: theme.N1,
-      paddingXS: 0,
+      paddingXS: theme.space0,
     },
   },
 };

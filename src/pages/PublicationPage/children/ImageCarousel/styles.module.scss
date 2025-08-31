@@ -31,7 +31,7 @@
   .carouselPreviewImages {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: variables.$space-200;
     margin-top: 26px;
   }
 }
@@ -47,6 +47,6 @@
 
   .carouselPreviewImages {
     justify-content: flex-start;
-    gap: 20px;
+    gap: variables.$space-250;
   }
 }

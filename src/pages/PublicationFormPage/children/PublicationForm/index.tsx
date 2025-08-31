@@ -4,13 +4,13 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Form, Col, Row, ConfigProvider, UploadFile, Tooltip } from 'antd';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { ROUTES } from 'src/router/routes';
-import { FORMS } from 'src/config/constants';
+import { FORMS, SCREEN_WIDTH } from 'src/config/constants';
 import { TextArea } from 'src/components/TextArea';
 import {
   VALIDATION_CONDITION,
@@ -29,6 +29,7 @@ import {
 import { MyPublication, Location } from 'src/types';
 import { usePublication } from 'src/hooks/usePublication';
 import { UploadList } from 'src/pages/PublicationFormPage/children/UploadList';
+import { useWindowSize } from 'src/hooks/useWindowSize';
 
 import styles from './styles.module.scss';
 import { formatPrices, mapPublicationToFormFields } from './utils/utils';
@@ -61,6 +62,9 @@ export const PublicationForm = () => {
   const { openNotification } = useNotification();
 
   const { publication, isPublicationLoading } = usePublication();
+
+  const { width } = useWindowSize();
+  const isMobile = useMemo(() => width < SCREEN_WIDTH.SM, [width]);
 
   useEffect(() => {
     if (!isEdit || !publication || isPublicationLoading) {
@@ -161,7 +165,7 @@ export const PublicationForm = () => {
   };
 
   return (
-    <ConfigProvider theme={formTheme}>
+    <ConfigProvider theme={formTheme(isMobile)}>
       <Form
         form={form}
         name={FORMS.ADD_PUBLICATION_FORM}
@@ -283,24 +287,24 @@ export const PublicationForm = () => {
   );
 };
 
-const formTheme = {
+const formTheme = (isMobile: boolean) => ({
   components: {
     Form: {
       labelColor: theme.N6,
-      itemMarginBottom: 40,
+      itemMarginBottom: isMobile ? theme.space200 : theme.space500,
       labelFontSize: 26,
-      verticalLabelPadding: 0,
+      verticalLabelPadding: theme.space0,
     },
     Input: {
-      paddingInline: 12,
+      paddingInline: theme.space150,
     },
   },
-};
+});
 
 const textAreaTheme = {
   components: {
     Input: {
-      paddingBlock: 12,
+      paddingBlock: theme.space150,
     },
   },
 };

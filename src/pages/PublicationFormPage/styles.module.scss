@@ -1,16 +1,14 @@
 @use 'src/styles/variables';
 
 .section {
-  padding: 0;
-  margin-top: 40px;
-  margin-bottom: 80px;
+  margin-top: variables.$space-500;
+  margin-bottom: variables.$space-500;
   box-shadow: none;
   border-radius: 0;
 }
 
 .header {
-  margin: 0;
-  padding-bottom: 32px;
+  margin-bottom: variables.$space-400;
   font-family: variables.$font-heading;
   font-weight: 500;
   font-size: 22px;
@@ -20,23 +18,31 @@
 }
 
 @media (min-width: variables.$media-sm) {
+  .section {
+    background-color: variables.$N1;
+    margin-top: variables.$space-1000;
+    margin-bottom: variables.$space-1000;
+    padding: variables.$space-500 variables.$space-1000;
+    border-radius: 12px;
+    box-shadow: 0 0 6px rgba(variables.$primary, 0.2);
+  }
+
   .header {
     font-size: 28px;
     line-height: 125%;
     font-family: variables.$font-heading;
     font-weight: 500;
-    margin-bottom: 40px;
+    margin-bottom: variables.$space-500;
   }
 }
 
 @media (min-width: variables.$media-md) {
   .section {
-    background-color: variables.$N1;
     margin-top: 140px;
     margin-bottom: 140px;
-    padding: 80px 100px;
+    padding-top: variables.$space-1000;
+    padding-bottom: variables.$space-1000;
     border-radius: 12px;
-    box-shadow: 0 0 6px rgba(variables.$primary, 0.2);
   }
 
   .header {

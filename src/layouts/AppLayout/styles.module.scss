@@ -14,17 +14,15 @@
 .mainContainer {
   max-width: 1440px;
   width: 100%;
-  padding: 0 16px;
-  margin: 0 auto;
+  padding: variables.$space-0 variables.$space-200;
+  margin: variables.$space-0 auto;
 }
 
 @media (min-width: variables.$media-sm) {
   .mainContainer {
-    padding: 0 24px;
+    padding: variables.$space-0 variables.$space-300;
   }
-}
 
-@media (min-width: variables.$media-md) {
   .greyBackground {
     background-color: variables.$N2;
   }

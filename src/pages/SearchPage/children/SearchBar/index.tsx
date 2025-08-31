@@ -109,7 +109,7 @@ const localTheme = {
       optionFontSize: 16,
       optionHeight: 32,
       optionLineHeight: 2,
-      paddingXXS: 8,
+      paddingXXS: theme.space100,
       hoverBorderColor: theme.N4,
       activeBorderColor: theme.N5,
       activeOutlineColor: 'none',
