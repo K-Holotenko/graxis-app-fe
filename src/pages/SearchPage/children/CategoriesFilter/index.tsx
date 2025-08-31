@@ -108,7 +108,7 @@ const setLocalTheme = (isFocused?: boolean, isCategorySelected?: boolean) => ({
       multipleItemHeight: 31,
       activeBorderColor: theme.N5,
       hoverBorderColor: theme.N4,
-      paddingXXS: 8,
+      paddingXXS: theme.space100,
       colorBorder: !isFocused || !isCategorySelected ? theme.N3 : theme.success,
     },
   },

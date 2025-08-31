@@ -63,7 +63,7 @@ const desktopLocalTheme = {
       dotOffset: -14,
       dotHeight: 6,
       dotWidth: 32,
-      dotGap: 12,
+      dotGap: theme.space150,
       dotActiveWidth: 48,
       colorBgContainer: theme.primary,
     },
@@ -74,7 +74,7 @@ const mobileLocalTheme = {
   components: {
     Carousel: {
       dotOffset: -14,
-      dotGap: 12,
+      dotGap: theme.space150,
       dotHeight: 4,
       dotWidth: 32,
       dotActiveWidth: 48,

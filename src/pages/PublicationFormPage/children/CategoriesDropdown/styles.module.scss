@@ -3,13 +3,13 @@
 .categoriesDropdownTree {
   width: 100%;
   font-size: 12px;
-  padding: 0;
+  padding: variables.$space-0;
   color: variables.$N6;
 
   .highlightedCategory {
     background-color: variables.$N2;
     width: inherit;
-    padding-left: 16px;
+    padding-left: variables.$space-200;
     margin-left: -16px;
     margin-right: -16px;
   }
@@ -22,10 +22,10 @@
     .popUp {
       border: 1px solid variables.$N3;
       border-radius: 12px;
-      padding: 0 8px 0 8px;
+      padding: variables.$space-0 variables.$space-100;
 
       .ant-select-tree-switcher {
-        right: 0px;
+        right: variables.$space-0;
         position: absolute;
         z-index: 1;
       }
@@ -52,12 +52,12 @@
 }
 
 .suffixIcon {
-  padding-right: 16px;
+  padding-right: variables.$space-200;
   pointer-events: inherit !important;
 }
 
 .clearIcon {
-  right: 16px;
+  right: variables.$space-200;
   position: absolute;
 }
 
