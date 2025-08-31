@@ -72,9 +72,7 @@ export const PublicationForm = () => {
   const { publication, isPublicationLoading } = usePublication();
 
   const { width } = useWindowSize();
-  const isMobile = width < SCREEN_WIDTH.SM;
-
-  const memoizedFormTheme = useMemo(() => formTheme(isMobile), [isMobile]);
+  const isMobile = useMemo(() => width < SCREEN_WIDTH.SM, [width]);
 
   useEffect(() => {
     if (!isEdit || !publication || isPublicationLoading) {
@@ -175,7 +173,7 @@ export const PublicationForm = () => {
   };
 
   return (
-    <ConfigProvider theme={memoizedFormTheme}>
+    <ConfigProvider theme={formTheme(isMobile)}>
       <Form
         form={form}
         name={FORMS.ADD_PUBLICATION_FORM}
