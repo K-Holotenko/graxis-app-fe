@@ -4,7 +4,7 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Form, Col, Row, ConfigProvider, UploadFile, Tooltip } from 'antd';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -73,6 +73,8 @@ export const PublicationForm = () => {
 
   const { width } = useWindowSize();
   const isMobile = width < SCREEN_WIDTH.SM;
+
+  const memoizedFormTheme = useMemo(() => formTheme(isMobile), [isMobile]);
 
   useEffect(() => {
     if (!isEdit || !publication || isPublicationLoading) {
@@ -173,7 +175,7 @@ export const PublicationForm = () => {
   };
 
   return (
-    <ConfigProvider theme={formTheme(isMobile)}>
+    <ConfigProvider theme={memoizedFormTheme}>
       <Form
         form={form}
         name={FORMS.ADD_PUBLICATION_FORM}
