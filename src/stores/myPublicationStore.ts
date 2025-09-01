@@ -18,18 +18,23 @@ const filterToState: Partial<Record<PublicationFilters, string>> = {
   [PublicationFilters.RENTING]: 'rentingPublications',
 };
 
-interface MyPublicationStore {
+interface MyPublicationState {
   isLoading: boolean;
   listedPublications: PublicationCard[];
   rentedOutPublications: PublicationCard[];
   rentingPublications: PublicationCard[];
+}
+
+interface MyPublicationActions {
   getAllMyPublications: (
     filter: PublicationFilters,
     showError: (err: string) => void
   ) => Promise<void>;
 }
 
-export const useMyPublicationStore = create<MyPublicationStore>((set) => ({
+export const useMyPublicationStore = create<
+  MyPublicationState & MyPublicationActions
+>((set) => ({
   isLoading: false,
   listedPublications: [],
   rentedOutPublications: [],

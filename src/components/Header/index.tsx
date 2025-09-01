@@ -10,9 +10,7 @@ import {
   Skeleton,
   ConfigProvider,
   App,
-  Spin,
 } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 import { generatePath, Link, useNavigate } from 'react-router-dom';
 
 import notificationIconSrc from 'src/assets/icons/notification-icon.svg';
@@ -34,10 +32,9 @@ import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { Loadable } from 'src/components/Loadable';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
-import { Notification } from 'src/components/Notification';
 import { PublicationFilters } from 'src/stores/myPublicationStore';
 import { useNotificationStore } from 'src/stores/notificationStore';
-import { formatDateToDDMMYYYY, formatTimeToHHMM } from 'src/utils/formatDate';
+import { getNotificationMenu } from 'src/utils/notificationsUtils';
 
 import styles from './styles.module.scss';
 
@@ -48,17 +45,17 @@ export const AppHeader = () => {
   const { width } = useWindowSize();
   const { user, signOut, isAppInitializing } = useAuthStore();
   const {
-    notifications,
-    isLoading,
+    unreadNotifications,
+    isUnreadNotificationsLoading,
+    showBadge,
     getAllUnreadNotifications,
-    connectToNotificationUpdate,
+    subscribeToNotificationUpdate,
     markNotificationAsRead,
   } = useNotificationStore();
   const { openNotification } = useNotification();
 
   const { requireAuth } = useRequireAuth();
 
-  const [hasNotifications] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
 
   const shouldShowAddPublicationButton = useMemo(
@@ -70,6 +67,12 @@ export const AppHeader = () => {
 
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
+
+  const handleNotificationOpenChange = (open: boolean) => {
+    if (open) {
+      getAllUnreadNotifications(showError);
+    }
   };
 
   useEffect(() => {
@@ -86,7 +89,7 @@ export const AppHeader = () => {
 
   useEffect(() => {
     if (user) {
-      const unsubscribe = connectToNotificationUpdate();
+      const unsubscribe = subscribeToNotificationUpdate();
 
       return () => unsubscribe();
     }
@@ -131,47 +134,6 @@ export const AppHeader = () => {
     await markNotificationAsRead(e.key, showError);
   };
 
-  const getNotificationMenu = (isNotificationsLoading: boolean) => {
-    if (isNotificationsLoading) {
-      return {
-        items: [
-          {
-            key: 'loading',
-            label: (
-              <div className={styles.spinnerContainer}>
-                <Spin
-                  indicator={
-                    <LoadingOutlined
-                      style={{ fontSize: 36, color: '#003342' }}
-                      spin
-                    />
-                  }
-                />
-              </div>
-            ),
-          },
-        ],
-      };
-    }
-
-    return {
-      items: notifications?.map((notification) => ({
-        key: notification?.id,
-        label: (
-          <Notification
-            title={notification.message}
-            description={notification.type}
-            time={formatTimeToHHMM(notification.createdAt)}
-            date={formatDateToDDMMYYYY(notification.createdAt)}
-            seen={notification.read}
-            id={notification.id}
-          />
-        ),
-      })),
-      onClick: handleNotificationClick,
-    };
-  };
-
   return (
     <>
       <header className={`container ${styles.headerContainer}`}>
@@ -202,14 +164,16 @@ export const AppHeader = () => {
                 <ConfigProvider theme={localTheme}>
                   <Dropdown
                     rootClassName={styles.notificationDropdown}
-                    menu={getNotificationMenu(isLoading)}
+                    menu={getNotificationMenu(
+                      unreadNotifications || [],
+                      handleNotificationClick,
+                      isUnreadNotificationsLoading
+                    )}
                     placement="bottomRight"
                     trigger={['click']}
+                    onOpenChange={handleNotificationOpenChange}
                   >
-                    <Badge
-                      dot={hasNotifications}
-                      className={styles.notificationIcon}
-                    >
+                    <Badge dot={showBadge} className={styles.notificationIcon}>
                       <Image
                         src={notificationIconSrc}
                         alt={IMAGE_DESCRIPTION.LOGO}

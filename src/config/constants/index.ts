@@ -146,4 +146,5 @@ export enum SocketEvent {
   BOOKING_STATUS_UPDATE = 'booking.status-update',
   USER_REGISTRATION = 'user.registration',
   PUBLICATION_NEW = 'publication.new-added',
+  NOTIFICATION_NEW = 'notification.new',
 }
