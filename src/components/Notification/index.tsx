@@ -1,7 +1,6 @@
 import { Badge } from 'antd';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { ROUTES } from 'src/router/routes';
 import ChevronRight from 'src/assets/icons/chevron-right.svg?react';
 
 import styles from './styles.module.scss';
@@ -12,8 +11,8 @@ interface NotificationProps {
   time: string;
   date: string;
   seen: boolean;
-  id: string;
   isOpen?: boolean;
+  link: string;
 }
 
 export const Notification = ({
@@ -22,14 +21,10 @@ export const Notification = ({
   time,
   date,
   isOpen,
+  link,
   seen,
-  id,
 }: NotificationProps) => (
-  <Link
-    to={generatePath(ROUTES.NOTIFICATIONS, { id })}
-    replace={isOpen}
-    className={styles.link}
-  >
+  <Link to={link} replace={isOpen} className={styles.link}>
     <div
       className={`${styles.notificationItem} ${isOpen ? styles.notificationItemOpen : ''}`}
     >

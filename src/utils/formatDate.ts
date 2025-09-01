@@ -102,3 +102,15 @@ export const formatLastActiveTime = (lastActiveDate: string | Date): string => {
     return `${minutesToShow} ${minutesToShow === 1 ? 'хвилину' : minutesToShow < 5 ? 'хвилини' : 'хвилин'} тому`;
   }
 };
+
+export const formatDateToDDMMYYYY = (isoDateString: string): string => {
+  const date = dayjs(isoDateString);
+
+  return date.format('DD.MM.YYYY');
+};
+
+export const formatTimeToHHMM = (isoDateString: string): string => {
+  const date = dayjs(isoDateString);
+
+  return date.format('HH:mm');
+};
