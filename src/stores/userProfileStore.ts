@@ -3,13 +3,18 @@ import { create } from 'zustand';
 import { getUserPublicProfile } from 'src/services/UserService';
 import { UserProfileData } from 'src/types';
 
-interface UserProfileStore {
+interface UserProfileState {
   profile: UserProfileData | null;
   isLoading: boolean;
+}
+
+interface UserProfileActions {
   getUserPublicProfile: (id: string) => Promise<void>;
 }
 
-export const useUserProfileStore = create<UserProfileStore>((set) => ({
+export const useUserProfileStore = create<
+  UserProfileState & UserProfileActions
+>((set) => ({
   profile: null,
   isLoading: false,
   getUserPublicProfile: async (id: string) => {

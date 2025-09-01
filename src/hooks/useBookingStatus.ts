@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { socket } from 'src/sockets';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { BookingStatus } from 'src/types';
+import { SocketEvent } from 'src/config/constants';
 
 export const useBookingStatus = (): {
   bookingStatus: BookingStatus | null;

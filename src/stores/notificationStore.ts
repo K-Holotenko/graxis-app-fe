@@ -8,30 +8,19 @@ import {
 } from 'src/services/NotificationService';
 import { socket } from 'src/sockets';
 import { SocketEvent } from 'src/config/constants';
+import { Notification } from 'src/types/notifications';
+import { remapNotificationText } from 'src/utils/notificationsUtils';
 
-export enum NotificationType {
-  NEW_BOOKING = 'NEW_BOOKING',
-  NEW_MESSAGE = 'NEW_MESSAGE',
-  NEW_PUBLICATION = 'NEW_PUBLICATION',
-}
-
-export interface Notification {
-  id: string;
-  createdAt: string;
-  message: string;
-  read: boolean;
-  referenceBooking: boolean;
-  referenceId: string;
-  referencePublication: boolean;
-  type: NotificationType;
-  updatedAt: string;
-  userId: string;
-}
-
-interface NotificationStore {
+interface NotificationState {
   notifications: Notification[] | null;
-  isLoading: boolean;
-  connectToNotificationUpdate: () => () => void;
+  unreadNotifications: Notification[] | null;
+  isAllNotificationsLoading: boolean;
+  isUnreadNotificationsLoading: boolean;
+  showBadge: boolean;
+}
+
+interface NotificationActions {
+  subscribeToNotificationUpdate: () => () => void;
   getAllNotifications: (showError: (err: string) => void) => Promise<void>;
   getAllUnreadNotifications: (
     showError: (err: string) => void
@@ -45,73 +34,69 @@ interface NotificationStore {
   ) => Promise<void>;
 }
 
-export const useNotificationStore = create<NotificationStore>((set, get) => ({
+export const useNotificationStore = create<
+  NotificationState & NotificationActions
+>((set, get) => ({
   notifications: null,
-  isLoading: false,
+  unreadNotifications: null,
+  isAllNotificationsLoading: false,
+  isUnreadNotificationsLoading: false,
+  showBadge: false,
 
-  connectToNotificationUpdate: () => {
-    const handler = (data: { notification: Notification }): void => {
-      const notifications = get().notifications;
-
-      if (!notifications) {
-        return;
-      }
-      // TODO Ensure BE returns valid data shape
-      set({ notifications: [data.notification, ...notifications] });
+  subscribeToNotificationUpdate: () => {
+    const handler = (): void => {
+      set({ showBadge: true });
     };
 
-    const events = [
-      SocketEvent.BOOKING_STATUS_UPDATE,
-      SocketEvent.CHAT_NEW_MASSAGE,
-      SocketEvent.PUBLICATION_NEW,
-    ];
-
-    events.forEach((event) => socket.on(event, handler));
+    socket.on(SocketEvent.NOTIFICATION_NEW, handler);
 
     return () => {
-      events.forEach((event) => socket.off(event, handler));
+      socket.off(SocketEvent.NOTIFICATION_NEW, handler);
     };
   },
 
   getAllNotifications: async (showError: (err: string) => void) => {
-    set({ isLoading: true });
+    set({ isAllNotificationsLoading: true });
 
     try {
       const response = await getAllNotifications();
+      const notifications = remapNotificationText(response);
 
-      set({ notifications: response });
+      set({ notifications });
     } catch {
       showError('Нотифікації наразі недоступні. Спробуйте ще раз');
     } finally {
-      set({ isLoading: false });
+      set({ isAllNotificationsLoading: false });
     }
   },
 
   getAllUnreadNotifications: async (showError: (err: string) => void) => {
-    set({ isLoading: true });
+    set({ isUnreadNotificationsLoading: true });
 
     try {
       const response = await getAllUnreadNotifications();
+      const unreadNotifications = remapNotificationText(response);
 
-      set({ notifications: response });
+      set({ unreadNotifications, showBadge: response.length > 0 });
     } catch {
       showError('Нотифікації наразі недоступні. Спробуйте ще раз');
     } finally {
-      set({ isLoading: false });
+      set({ isUnreadNotificationsLoading: false });
     }
   },
 
   markAllNotificationsAsRead: async (showError: (err: string) => void) => {
-    set({ isLoading: true });
+    set({ isAllNotificationsLoading: true });
 
     try {
       const response = await markAllNotificationsAsRead();
+      const notifications = remapNotificationText(response);
 
-      set({ notifications: response });
+      set({ notifications });
     } catch {
       showError('Нотифікації наразі недоступні. Спробуйте ще раз');
     } finally {
-      set({ isLoading: false });
+      set({ isAllNotificationsLoading: false });
     }
   },
 
@@ -125,7 +110,7 @@ export const useNotificationStore = create<NotificationStore>((set, get) => ({
       return;
     }
 
-    set({ isLoading: true });
+    set({ isAllNotificationsLoading: true });
 
     try {
       await markNotificationAsRead(id);
@@ -144,7 +129,7 @@ export const useNotificationStore = create<NotificationStore>((set, get) => ({
     } catch {
       showError('Нотифікації наразі недоступні. Спробуйте ще раз');
     } finally {
-      set({ isLoading: false });
+      set({ isAllNotificationsLoading: false });
     }
   },
 }));

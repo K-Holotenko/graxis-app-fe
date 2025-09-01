@@ -13,6 +13,7 @@ import { useBookingStore } from 'src/stores/bookingStore';
 import { useAuthStore } from 'src/stores/authStore';
 import { MessageList } from 'src/pages/BookingPage/children/MessageList';
 import { ChatMessage, BookingStatus } from 'src/types';
+import { SocketEvent } from 'src/config/constants';
 
 import styles from './styles.module.scss';
 
