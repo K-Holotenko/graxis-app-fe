@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 
 import { socket } from 'src/sockets';
-import { useAuthStore, User } from 'src/stores/authStore';
+import { useAuthStore } from 'src/stores/authStore';
+import { User } from 'src/types';
 
 interface UseSocketConnection {
   socket: Socket;
