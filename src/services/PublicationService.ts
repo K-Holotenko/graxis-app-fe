@@ -58,6 +58,16 @@ export const getPublicationById = async (id: string): Promise<Publication> => {
   return response.data;
 };
 
+export const getLiveSearchOptions = async (
+  value: string
+): Promise<{ title: string; id: string }[]> => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_APP_GRAXIS_API_URL}${PUBLICATIONS_API_URL}/simple-search?title=${value}`
+  );
+
+  return response.data;
+};
+
 export const updatePublication = async (
   publicationData: CreatePublicationData,
   id?: string
