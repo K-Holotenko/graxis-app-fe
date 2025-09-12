@@ -118,3 +118,10 @@ export const getNotificationMenu = (
     onClick: handleNotificationClick,
   };
 };
+
+export const sortByDate = <T extends { date: string }>(
+  notifications: T[]
+): T[] =>
+  notifications.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );

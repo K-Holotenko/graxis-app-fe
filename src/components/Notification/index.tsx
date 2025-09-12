@@ -13,6 +13,7 @@ interface NotificationProps {
   seen: boolean;
   isOpen?: boolean;
   link: string;
+  onMarkAsRead?: () => void;
 }
 
 export const Notification = ({
@@ -23,8 +24,14 @@ export const Notification = ({
   isOpen,
   link,
   seen,
+  onMarkAsRead,
 }: NotificationProps) => (
-  <Link to={link} replace={isOpen} className={styles.link}>
+  <Link
+    to={link}
+    replace={isOpen}
+    className={styles.link}
+    onClick={onMarkAsRead}
+  >
     <div
       className={`${styles.notificationItem} ${isOpen ? styles.notificationItemOpen : ''}`}
     >

@@ -10,13 +10,22 @@ import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import styles from './styles.module.scss';
 
 export const NotificationTab = () => {
-  const { notifications, isAllNotificationsLoading, getAllNotifications } =
-    useNotificationStore();
+  const {
+    notifications,
+    isAllNotificationsLoading,
+    isUnreadNotificationsLoading,
+    getAllNotifications,
+    markNotificationAsRead,
+  } = useNotificationStore();
 
   const { openNotification } = useNotification();
 
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
+
+  const handleMarkAllNotificationsAsRead = (id: string) => {
+    markNotificationAsRead(id, showError);
   };
 
   useEffect(() => {
@@ -25,7 +34,7 @@ export const NotificationTab = () => {
 
   return (
     <Card>
-      {isAllNotificationsLoading ? (
+      {isAllNotificationsLoading || isUnreadNotificationsLoading ? (
         <div className={styles.spinnerContainer}>
           <Spin
             indicator={
@@ -47,6 +56,10 @@ export const NotificationTab = () => {
               seen={notification.read}
               title={notification.title}
               link={notification.link}
+              onMarkAsRead={handleMarkAllNotificationsAsRead.bind(
+                null,
+                notification.id
+              )}
             />
           ))}
         </div>
