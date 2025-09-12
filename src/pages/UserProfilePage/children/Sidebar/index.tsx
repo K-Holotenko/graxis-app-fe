@@ -20,7 +20,6 @@ interface MenuItemProps {
 const items: MenuItemProps[] = [
   { key: ROUTES.USER_PROFILE, label: 'Профіль' },
   { key: ROUTES.NOTIFICATIONS_BASE, label: 'Повідомлення' },
-  { key: ROUTES.PAYMENT, label: 'Платіжна інформація', isTwoLines: true },
   {
     key: ROUTES.PRIVACY_POLICY,
     label: 'Політика конфіденційності',

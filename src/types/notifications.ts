@@ -13,7 +13,7 @@ export const NotificationTypeToTitle: Record<NotificationType, string> = {
 };
 
 export const NotificationTypeToMessage: Record<NotificationType, string> = {
-  [NotificationType.NEW_BOOKING]: 'Переглянути запит на публікацію',
+  [NotificationType.NEW_BOOKING]: 'Переглянути запит на оренду',
   [NotificationType.NEW_MESSAGE]: 'Перегляньте чат бронювання',
   [NotificationType.STATUS_UPDATE]: 'Перегляньте статус бронювання',
   [NotificationType.NEW_PUBLICATION]: 'Переглянути публікацію',
