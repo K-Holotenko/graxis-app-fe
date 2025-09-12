@@ -16,7 +16,6 @@ import { generatePath, Link, useNavigate } from 'react-router-dom';
 import notificationIconSrc from 'src/assets/icons/notification-icon.svg';
 import PlusIcon from 'src/assets/icons/plus-icon.svg?react';
 import UserIcon from 'src/assets/icons/user-icon.svg?react';
-import { SelectLocation } from 'src/components/SelectLocation';
 import { Logo } from 'src/components/Logo';
 import { useAuthStore } from 'src/stores/authStore';
 import DrawerIcon from 'src/assets/icons/drawer-icon.svg?react';
@@ -152,11 +151,6 @@ export const AppHeader = () => {
                 <Logo className={styles.logo} />
               </Link>
             </Col>
-            {isDesktop && (
-              <Col>
-                <SelectLocation />
-              </Col>
-            )}
           </Row>
           <Row gutter={30} align="middle" wrap={false}>
             {user && (

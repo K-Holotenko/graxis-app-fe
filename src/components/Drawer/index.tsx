@@ -19,7 +19,6 @@ import PlusIconDark from 'src/assets/icons/plus-icon-dark.svg?react';
 import UserIconDark from 'src/assets/icons/user-icon-dark.svg?react';
 import { theme } from 'src/config/theme';
 import { useAuthStore } from 'src/stores/authStore';
-import { SelectLocation } from 'src/components/SelectLocation';
 import { ButtonTypes } from 'src/config/constants';
 import { ROUTES } from 'src/router/routes';
 import { Button } from 'src/components/Button';
@@ -210,11 +209,6 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
           <Typography className={styles.locationTitle}>
             Виберіть локацію
           </Typography>
-        </Col>
-      </Row>
-      <Row className={styles.drawerVerticalPadding}>
-        <Col span={24}>
-          <SelectLocation />
         </Col>
       </Row>
     </AntDrawer>

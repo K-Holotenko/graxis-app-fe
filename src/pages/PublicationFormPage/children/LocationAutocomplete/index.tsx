@@ -55,20 +55,11 @@ export const LocationAutocomplete = () => {
         return;
       }
 
-      // TODO For test release only
-      const lvivCityBounds: google.maps.LatLngBoundsLiteral = {
-        south: 49.7681,
-        west: 23.8978,
-        north: 49.9036,
-        east: 24.1333,
-      };
-
       const request: google.maps.places.AutocompletionRequest = {
         input: debouncedSearch,
         sessionToken: sessionToken.current || undefined,
         componentRestrictions: { country: 'ua' },
         language: 'uk',
-        locationRestriction: lvivCityBounds,
         types: ['(regions)'],
       };
 
