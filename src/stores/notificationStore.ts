@@ -9,7 +9,10 @@ import {
 import { socket } from 'src/sockets';
 import { SocketEvent } from 'src/config/constants';
 import { Notification } from 'src/types/notifications';
-import { remapNotificationText } from 'src/utils/notificationsUtils';
+import {
+  remapNotificationText,
+  sortByDate,
+} from 'src/utils/notificationsUtils';
 
 interface NotificationState {
   notifications: Notification[] | null;
@@ -60,7 +63,7 @@ export const useNotificationStore = create<
 
     try {
       const response = await getAllNotifications();
-      const notifications = remapNotificationText(response);
+      const notifications = sortByDate(remapNotificationText(response));
 
       set({ notifications });
     } catch {
@@ -75,7 +78,7 @@ export const useNotificationStore = create<
 
     try {
       const response = await getAllUnreadNotifications();
-      const unreadNotifications = remapNotificationText(response);
+      const unreadNotifications = sortByDate(remapNotificationText(response));
 
       set({ unreadNotifications, showBadge: response.length > 0 });
     } catch {
@@ -104,32 +107,23 @@ export const useNotificationStore = create<
     id: string,
     showError: (err: string) => void
   ) => {
-    const notifications = get().notifications;
+    const unreadNotifications = get().unreadNotifications || [];
 
-    if (!notifications) {
-      return;
-    }
-
-    set({ isAllNotificationsLoading: true });
+    set({ isUnreadNotificationsLoading: true });
 
     try {
       await markNotificationAsRead(id);
-      const index = notifications.findIndex(
-        (notification) => notification.id === id
-      );
 
-      const updatedNotifications = [...notifications];
-
-      updatedNotifications.splice(index, 1, {
-        ...notifications[index],
-        read: true,
+      set({
+        unreadNotifications: unreadNotifications.filter(
+          (notification) => notification.id !== id
+        ),
+        showBadge: unreadNotifications.length > 0,
       });
-
-      set({ notifications: updatedNotifications });
     } catch {
       showError('Нотифікації наразі недоступні. Спробуйте ще раз');
     } finally {
-      set({ isAllNotificationsLoading: false });
+      set({ isUnreadNotificationsLoading: false });
     }
   },
 }));

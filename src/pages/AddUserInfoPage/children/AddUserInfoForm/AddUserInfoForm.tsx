@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Input, InputType } from 'src/components/Input';
 import { Button } from 'src/components/Button';
-import { FORMS } from 'src/config/constants';
+import { CITY_LIST, FORMS } from 'src/config/constants';
 import { theme } from 'src/config/theme';
 import { VALIDATION_CONDITION } from 'src/config/validation';
 import { beforeUpload } from 'src/pages/PublicationFormPage/children/UploadItem/utils/utils';
@@ -22,13 +22,6 @@ import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
 
 import styles from './styles.module.scss';
-
-const cities = [
-  {
-    label: 'Львів',
-    value: 'Львів',
-  },
-];
 
 export const AddUserInfoForm = () => {
   const [form] = Form.useForm();
@@ -158,7 +151,7 @@ export const AddUserInfoForm = () => {
             validateTrigger="onChange"
             validateStatus={isValid ? 'success' : undefined}
           >
-            <Select options={cities} className={styles.citySelect} />
+            <Select options={CITY_LIST} className={styles.citySelect} />
           </Form.Item>
           <Tooltip
             color={theme.primary}

@@ -12,7 +12,6 @@ import { UpdateProfileDialog } from './children/PersonalInfoTab/UpdateProfileDia
 import { PersonalInfoTab } from './children/PersonalInfoTab';
 import { Sidebar } from './children/Sidebar';
 import { NotificationTab } from './children/NotificationsTab';
-import { PaymentTab } from './children/PaymentTab';
 import { PrivacyPolicyTab } from './children/PrivacyPolicyTab';
 import { FaqTab } from './children/FaqTab';
 
@@ -70,11 +69,6 @@ export const UserProfilePage = () => {
     // Check for notifications base route
     if (matchPath({ path: ROUTES.NOTIFICATIONS_BASE }, pathname)) {
       return <NotificationTab />;
-    }
-
-    // Check for other routes
-    if (pathname === ROUTES.PAYMENT) {
-      return <PaymentTab />;
     }
 
     if (pathname === ROUTES.PRIVACY_POLICY) {
