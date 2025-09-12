@@ -91,14 +91,6 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: ROUTES.PAYMENT,
-        element: (
-          <PrivateRoute>
-            <UserProfilePage />
-          </PrivateRoute>
-        ),
-      },
-      {
         path: ROUTES.PRIVACY_POLICY,
         element: (
           <PrivateRoute>
