@@ -1,11 +1,12 @@
 @use 'src/styles/variables';
 
 .container {
-  margin-bottom: 40px;
+  margin-bottom: variables.$space-500;
 }
 
 @media (min-width: variables.$media-md) {
+  // different margin bottom for larger screens 80px & 140px
   .container {
-    margin-bottom: 80px;
+    margin-bottom: variables.$space-1000;
   }
 }

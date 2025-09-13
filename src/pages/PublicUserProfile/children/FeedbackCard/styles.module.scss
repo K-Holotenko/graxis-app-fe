@@ -5,13 +5,13 @@
   flex-direction: column;
   background-color: variables.$primary;
   border-radius: 20px;
-  padding: 16px 24px;
-  gap: 10px;
+  padding: variables.$space-150 variables.$space-200;
 }
 
 .cardHeader {
   display: flex;
   justify-content: space-between;
+  margin-bottom: variables.$space-200;
 }
 
 .rate {
@@ -32,7 +32,7 @@
   font-family: variables.$font-body;
   font-weight: 600;
   line-height: 150%;
-  margin-bottom: 8px;
+  margin-bottom: variables.$space-100;
 }
 
 .description {
@@ -46,6 +46,7 @@
 .cardFooter {
   display: flex;
   align-items: center;
+  margin-top: variables.$space-300;
 }
 
 .name {
@@ -54,5 +55,5 @@
   font-family: variables.$font-body;
   font-weight: 400;
   line-height: 125%;
-  margin-left: 20px;
+  margin-left: variables.$space-250;
 }

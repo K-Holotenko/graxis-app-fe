@@ -1,7 +1,15 @@
+@use 'src/styles/variables';
+
 .notificationsWrapper {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: variables.$space-050;
   width: 100%;
   overflow-y: auto;
+}
+
+@media (min-width: variables.$media-lg) {
+  .notificationsWrapper {
+    gap: variables.$space-150;
+  }
 }
