@@ -6,7 +6,7 @@
   font-weight: 600;
   color: variables.$N6;
   line-height: 125%;
-  margin-bottom: 20px;
+  margin-bottom: variables.$space-250;
 }
 
 .feedbackContainer {
@@ -29,6 +29,6 @@
 @media (min-width: variables.$media-md) {
   .title {
     font-size: 32px;
-    margin-bottom: 40px;
+    margin-bottom: variables.$space-500;
   }
 }
