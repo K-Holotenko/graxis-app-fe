@@ -8,6 +8,14 @@
   overflow-y: auto;
 }
 
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+
 @media (min-width: variables.$media-lg) {
   .notificationsWrapper {
     gap: variables.$space-150;

@@ -13,7 +13,6 @@ export const ROUTES = {
   SEARCH_RESULTS: '/search-results',
   NOTIFICATIONS_BASE: '/notifications',
   NOTIFICATIONS: '/notifications/:id',
-  PAYMENT: '/payment',
   PRIVACY_POLICY: '/privacy-policy',
   FAQ: '/faq',
   USER_PROFILE: '/profile',

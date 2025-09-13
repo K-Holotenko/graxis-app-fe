@@ -36,6 +36,8 @@
 
     .ant-dropdown-menu {
       padding: 12px 10px !important;
+      max-height: 472px;
+      overflow-y: auto;
     }
   }
 }
@@ -65,6 +67,14 @@
 .notificationButtonPadding {
   padding: 0 10px;
   height: 20px;
+}
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
 }
 
 @media (min-width: variables.$media-sm) {

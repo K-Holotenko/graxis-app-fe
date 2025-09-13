@@ -9,8 +9,9 @@ import {
 } from 'src/services/Booking';
 import { getChat } from 'src/services/Chat';
 import { Booking, BookingStatus, Chat } from 'src/types';
+import { SocketEvent } from 'src/config/constants';
 
-interface BookingStore {
+interface BookingState {
   booking: Booking | null;
   bookings: Booking[] | null;
   isBookingLoading: boolean;
@@ -18,6 +19,9 @@ interface BookingStore {
   isChatLoading: boolean;
   rating: number | undefined;
   feedback: string | undefined;
+}
+
+interface BookingActions {
   setFeedback: (feedback: string) => void;
   setRating: (rating: number) => void;
   createBooking: (
@@ -35,130 +39,132 @@ interface BookingStore {
   connectToBookingStatusUpdate: (bookingId: string) => () => void;
 }
 
-export const useBookingStore = create<BookingStore>((set, get) => ({
-  booking: null,
-  bookings: null,
-  isBookingLoading: false,
-  chat: null,
-  isChatLoading: false,
-  rating: undefined,
-  feedback: undefined,
-  createBooking: async (
-    startDate: string | undefined,
-    endDate: string | undefined,
-    publicationId: string
-  ) => {
-    set({ isBookingLoading: true });
+export const useBookingStore = create<BookingState & BookingActions>(
+  (set, get) => ({
+    booking: null,
+    bookings: null,
+    isBookingLoading: false,
+    chat: null,
+    isChatLoading: false,
+    rating: undefined,
+    feedback: undefined,
+    createBooking: async (
+      startDate: string | undefined,
+      endDate: string | undefined,
+      publicationId: string
+    ) => {
+      set({ isBookingLoading: true });
 
-    try {
-      const response = await createBooking(startDate, endDate, publicationId);
+      try {
+        const response = await createBooking(startDate, endDate, publicationId);
 
-      set({ booking: response });
+        set({ booking: response });
 
-      return response;
-    } catch {
-      return null;
-    } finally {
-      set({ isBookingLoading: false });
-    }
-  },
-
-  getBooking: async (id: string) => {
-    set({ isBookingLoading: true });
-
-    try {
-      const response = await getBooking(id);
-
-      set({ booking: response });
-
-      return response;
-    } catch {
-      return null;
-    } finally {
-      set({ isBookingLoading: false });
-    }
-  },
-
-  getAllMyBookings: async () => {
-    set({ isBookingLoading: true });
-
-    try {
-      const response = await getAllMyBookings();
-
-      set({ bookings: response });
-
-      return response;
-    } catch {
-      return null;
-    } finally {
-      set({ isBookingLoading: false });
-    }
-  },
-
-  getChat: async (id: string) => {
-    set({ isChatLoading: true });
-
-    try {
-      const response = await getChat(id);
-
-      set({ chat: response as Chat });
-
-      return response as Chat;
-    } catch {
-      return null;
-    } finally {
-      set({ isChatLoading: false });
-    }
-  },
-
-  updateBookingStatus: async (bookingId: string, status: BookingStatus) => {
-    try {
-      await changeBookingStatus(bookingId, status);
-
-      // Update local state immediately for better UX
-      const currentBooking = get().booking;
-
-      if (currentBooking && currentBooking.id === bookingId) {
-        set({
-          booking: {
-            ...currentBooking,
-            lastStatusBeforeCancellation: currentBooking.bookingStatus,
-            bookingStatus: status,
-          },
-        });
+        return response;
+      } catch {
+        return null;
+      } finally {
+        set({ isBookingLoading: false });
       }
-    } catch (error) {
-      throw error;
-    }
-  },
+    },
 
-  connectToBookingStatusUpdate: (bookingId: string) => {
-    const handler = (data: {
-      bookingStatus: BookingStatus;
-      bookingId: string;
-    }): void => {
-      const currentBooking = get().booking;
+    getBooking: async (id: string) => {
+      set({ isBookingLoading: true });
 
-      if (currentBooking && data.bookingId === bookingId) {
-        set({
-          booking: {
-            ...currentBooking,
-            bookingStatus: data.bookingStatus,
-          },
-        });
+      try {
+        const response = await getBooking(id);
+
+        set({ booking: response });
+
+        return response;
+      } catch {
+        return null;
+      } finally {
+        set({ isBookingLoading: false });
       }
-    };
+    },
 
-    socket.on('booking.status-update', handler);
+    getAllMyBookings: async () => {
+      set({ isBookingLoading: true });
 
-    return () => socket.off('booking.status-update', handler);
-  },
+      try {
+        const response = await getAllMyBookings();
 
-  setRating: async (rating: number) => {
-    set({ rating });
-  },
+        set({ bookings: response });
 
-  setFeedback: async (feedback: string) => {
-    set({ feedback });
-  },
-}));
+        return response;
+      } catch {
+        return null;
+      } finally {
+        set({ isBookingLoading: false });
+      }
+    },
+
+    getChat: async (id: string) => {
+      set({ isChatLoading: true });
+
+      try {
+        const response = await getChat(id);
+
+        set({ chat: response as Chat });
+
+        return response as Chat;
+      } catch {
+        return null;
+      } finally {
+        set({ isChatLoading: false });
+      }
+    },
+
+    updateBookingStatus: async (bookingId: string, status: BookingStatus) => {
+      try {
+        await changeBookingStatus(bookingId, status);
+
+        // Update local state immediately for better UX
+        const currentBooking = get().booking;
+
+        if (currentBooking && currentBooking.id === bookingId) {
+          set({
+            booking: {
+              ...currentBooking,
+              lastStatusBeforeCancellation: currentBooking.bookingStatus,
+              bookingStatus: status,
+            },
+          });
+        }
+      } catch (error) {
+        throw error;
+      }
+    },
+
+    connectToBookingStatusUpdate: (bookingId: string) => {
+      const handler = (data: {
+        bookingStatus: BookingStatus;
+        bookingId: string;
+      }): void => {
+        const currentBooking = get().booking;
+
+        if (currentBooking && data.bookingId === bookingId) {
+          set({
+            booking: {
+              ...currentBooking,
+              bookingStatus: data.bookingStatus,
+            },
+          });
+        }
+      };
+
+      socket.on(SocketEvent.BOOKING_STATUS_UPDATE, handler);
+
+      return () => socket.off(SocketEvent.BOOKING_STATUS_UPDATE, handler);
+    },
+
+    setRating: async (rating: number) => {
+      set({ rating });
+    },
+
+    setFeedback: async (feedback: string) => {
+      set({ feedback });
+    },
+  })
+);

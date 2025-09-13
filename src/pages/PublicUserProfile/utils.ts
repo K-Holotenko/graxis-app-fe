@@ -1,12 +1,18 @@
 import { FirestoreTimestamp } from 'src/types';
 
 export const transformTimestampToDate = (
-  timestamp: FirestoreTimestamp
+  timestamp: FirestoreTimestamp | string
 ): string => {
-  const date = new Date(timestamp._seconds * 1000);
+  let date: Date;
+
+  if (typeof timestamp === 'string') {
+    date = new Date(timestamp);
+  } else {
+    date = new Date(timestamp._seconds * 1000);
+  }
 
   const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-based
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const year = date.getFullYear();
 
   return `${day}.${month}.${year}`;

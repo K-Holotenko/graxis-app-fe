@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { useAuthStore } from 'src/stores/authStore';
+import { useSocketConnection } from 'src/hooks/useSocketConnection';
 
 import { ScrollRestorationConfig } from './components/ScrollRestorationConfig';
 import { ROUTES } from './router/routes';
@@ -10,6 +11,8 @@ import { ROUTES } from './router/routes';
 const App = () => {
   const { initializeAuthListener } = useAuthStore();
   const location = useLocation();
+
+  useSocketConnection();
 
   const skipInit = [
     ROUTES.LOGIN,
