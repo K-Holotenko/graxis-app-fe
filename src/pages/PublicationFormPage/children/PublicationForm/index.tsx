@@ -5,9 +5,8 @@ import {
   useParams,
 } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
-import { Form, Col, Row, ConfigProvider, UploadFile, Tooltip } from 'antd';
+import { Form, Col, Row, ConfigProvider, UploadFile } from 'antd';
 import { APIProvider } from '@vis.gl/react-google-maps';
-import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { ROUTES } from 'src/router/routes';
 import { FORMS, SCREEN_WIDTH } from 'src/config/constants';
@@ -252,18 +251,7 @@ export const PublicationForm = () => {
         <Row>
           <Col span={24}>
             <Form.Item
-              label={
-                <span className={styles.formItemLabel}>
-                  <Tooltip
-                    color={theme.primary}
-                    title={`Кількість міст тимчасово обмежена, ми працюємо над розширенням можливостей. Доступні міста: Львів`}
-                    className={styles.cityTooltip}
-                  >
-                    Локація
-                    <InfoCircleOutlined className={styles.infoIcon} />
-                  </Tooltip>
-                </span>
-              }
+              label={<span className={styles.formItemLabel}>Локація</span>}
               name="location"
               rules={[{ required: true }]}
             >

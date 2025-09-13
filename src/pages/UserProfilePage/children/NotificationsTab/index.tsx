@@ -1,68 +1,69 @@
-import { useParams } from 'react-router-dom';
+import { Spin } from 'antd';
+import { useEffect } from 'react';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { Notification } from 'src/components/Notification';
 import { Card } from 'src/pages/UserProfilePage/children/Card';
+import { useNotificationStore } from 'src/stores/notificationStore';
+import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
 import styles from './styles.module.scss';
 
-// TODO: Fetch notifications from backend
-const notifications = [
-  {
-    id: '1',
-    title: 'Нова нотифікація',
-    description: `Детальний опис нотифікації Детальний опис нотифікації Детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, детальний опис нотифікації, дета`,
-    time: '00:00',
-    date: '12.07.2025',
-    seen: false,
-  },
-  {
-    id: '2',
-    title: 'Нова нотифікація',
-    description: 'Детальний опис нотифікації',
-    time: '00:00',
-    date: '12.07.2025',
-    seen: false,
-  },
-  {
-    id: '3',
-    title: 'Нова нотифікація',
-    description: 'Детальний опис нотифікації',
-    time: '00:00',
-    date: '12.07.2025',
-    seen: true,
-  },
-  {
-    id: '4',
-    title: 'Нова нотифікація',
-    description: 'Детальний опис нотифікації',
-    time: '00:00',
-    date: '12.07.2025',
-    seen: true,
-  },
-  {
-    id: '5',
-    title: 'Нова нотифікація',
-    description: 'Детальний опис нотифікації',
-    time: '00:00',
-    date: '12.07.2025',
-    seen: true,
-  },
-];
-
 export const NotificationTab = () => {
-  const { id } = useParams();
+  const {
+    notifications,
+    isAllNotificationsLoading,
+    isUnreadNotificationsLoading,
+    getAllNotifications,
+    markNotificationAsRead,
+  } = useNotificationStore();
+
+  const { openNotification } = useNotification();
+
+  const showError = (description: string) => {
+    openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
+
+  const handleMarkAllNotificationsAsRead = (id: string) => {
+    markNotificationAsRead(id, showError);
+  };
+
+  useEffect(() => {
+    getAllNotifications(showError);
+  }, []);
 
   return (
     <Card>
-      <div className={styles.notificationsWrapper}>
-        {notifications.map((notification) => (
-          <Notification
-            key={notification.id}
-            {...notification}
-            isOpen={id === notification.id}
+      {isAllNotificationsLoading || isUnreadNotificationsLoading ? (
+        <div className={styles.spinnerContainer}>
+          <Spin
+            indicator={
+              <LoadingOutlined
+                style={{ fontSize: 56, color: '#003342' }}
+                spin
+              />
+            }
           />
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className={styles.notificationsWrapper}>
+          {notifications?.map((notification) => (
+            <Notification
+              key={notification.id}
+              description={notification.message}
+              time={notification.time}
+              date={notification.date}
+              seen={notification.read}
+              title={notification.title}
+              link={notification.link}
+              onMarkAsRead={handleMarkAllNotificationsAsRead.bind(
+                null,
+                notification.id
+              )}
+            />
+          ))}
+        </div>
+      )}
     </Card>
   );
 };

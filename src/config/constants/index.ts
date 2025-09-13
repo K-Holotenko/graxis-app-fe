@@ -8,7 +8,6 @@ export const FORMS = {
   EMAIL_LOGIN_FORM: 'emailLoginForm',
   PHONE_AUTH_FORM: 'phoneAuthForm',
   EMAIL_REGISTRATION_FORM: 'emailRegistrationForm',
-  SELECT_LOCATION_FORM: 'selectLocationForm',
   VERIFICATION_FORM: 'verificationForm',
   ADD_PUBLICATION_FORM: 'addPublicationForm',
   ADD_USER_INFO_FORM: 'addUserInfoForm',
@@ -26,8 +25,46 @@ export const IMAGE_DESCRIPTION = {
 };
 
 export const CITY_LIST = [
+  { value: 'Бердянськ', label: 'Бердянськ' },
+  { value: 'Біла Церква', label: 'Біла Церква' },
+  { value: 'Бровари', label: 'Бровари' },
+  { value: 'Вінниця', label: 'Вінниця' },
+  { value: 'Дніпро', label: 'Дніпро' },
+  { value: 'Дрогобич', label: 'Дрогобич' },
+  { value: 'Житомир', label: 'Житомир' },
+  { value: 'Запоріжжя', label: 'Запоріжжя' },
+  { value: 'Івано-Франківськ', label: 'Івано-Франківськ' },
+  { value: "Кам'янець-Подільський", label: "Кам'янець-Подільський" },
   { value: 'Київ', label: 'Київ' },
+  { value: 'Коломия', label: 'Коломия' },
+  { value: 'Кременчук', label: 'Кременчук' },
+  { value: 'Кропивницький', label: 'Кропивницький' },
+  { value: 'Луцьк', label: 'Луцьк' },
   { value: 'Львів', label: 'Львів' },
+  { value: 'Миколаїв', label: 'Миколаїв' },
+  { value: 'Мукачево', label: 'Мукачево' },
+  { value: 'Нікополь', label: 'Нікополь' },
+  { value: 'Одеса', label: 'Одеса' },
+  { value: 'Павлоград', label: 'Павлоград' },
+  { value: 'Полтава', label: 'Полтава' },
+  { value: 'Рівне', label: 'Рівне' },
+  { value: "Слов'янськ", label: "Слов'янськ" },
+  { value: 'Стрий', label: 'Стрий' },
+  { value: 'Суми', label: 'Суми' },
+  { value: 'Тернопіль', label: 'Тернопіль' },
+  { value: 'Трускавець', label: 'Трускавець' },
+  { value: 'Ужгород', label: 'Ужгород' },
+  { value: 'Умань', label: 'Умань' },
+  { value: 'Фастів', label: 'Фастів' },
+  { value: 'Харків', label: 'Харків' },
+  { value: 'Херсон', label: 'Херсон' },
+  { value: 'Хмельницький', label: 'Хмельницький' },
+  { value: 'Черкаси', label: 'Черкаси' },
+  { value: 'Чернівці', label: 'Чернівці' },
+  { value: 'Чернігів', label: 'Чернігів' },
+  { value: 'Чортків', label: 'Чортків' },
+  { value: 'Шостка', label: 'Шостка' },
+  { value: 'Яремче', label: 'Яремче' },
 ];
 
 export enum ButtonTypes {
@@ -140,3 +177,11 @@ export const PROFILE_PARAMS = {
   PRIVACY_POLICY: 'privacy-policy',
   FAQ: 'faq',
 };
+
+export enum SocketEvent {
+  CHAT_NEW_MASSAGE = 'chat.new-message',
+  BOOKING_STATUS_UPDATE = 'booking.status-update',
+  USER_REGISTRATION = 'user.registration',
+  PUBLICATION_NEW = 'publication.new-added',
+  NOTIFICATION_NEW = 'notification.new',
+}

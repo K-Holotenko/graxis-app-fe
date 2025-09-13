@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Row,
   Col,
@@ -16,7 +16,6 @@ import { generatePath, Link, useNavigate } from 'react-router-dom';
 import notificationIconSrc from 'src/assets/icons/notification-icon.svg';
 import PlusIcon from 'src/assets/icons/plus-icon.svg?react';
 import UserIcon from 'src/assets/icons/user-icon.svg?react';
-import { SelectLocation } from 'src/components/SelectLocation';
 import { Logo } from 'src/components/Logo';
 import { useAuthStore } from 'src/stores/authStore';
 import DrawerIcon from 'src/assets/icons/drawer-icon.svg?react';
@@ -32,8 +31,9 @@ import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { Loadable } from 'src/components/Loadable';
 import { useRequireAuth } from 'src/hooks/useRequireAuth';
-import { Notification } from 'src/components/Notification';
 import { PublicationFilters } from 'src/stores/myPublicationStore';
+import { useNotificationStore } from 'src/stores/notificationStore';
+import { getNotificationMenu } from 'src/utils/notificationsUtils';
 
 import styles from './styles.module.scss';
 
@@ -43,19 +43,35 @@ export const AppHeader = () => {
 
   const { width } = useWindowSize();
   const { user, signOut, isAppInitializing } = useAuthStore();
+  const {
+    unreadNotifications,
+    isUnreadNotificationsLoading,
+    showBadge,
+    getAllUnreadNotifications,
+    subscribeToNotificationUpdate,
+    markNotificationAsRead,
+  } = useNotificationStore();
   const { openNotification } = useNotification();
+
   const { requireAuth } = useRequireAuth();
 
-  const [hasNotifications] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
 
-  const shouldShowAddPublicationButton =
-    window.location.pathname !== ROUTES.ADD_PUBLICATION;
+  const shouldShowAddPublicationButton = useMemo(
+    () => window.location.pathname !== ROUTES.ADD_PUBLICATION,
+    [window.location.pathname]
+  );
 
-  const isDesktop = width > SCREEN_WIDTH.MD;
+  const isDesktop = useMemo(() => width > SCREEN_WIDTH.MD, [width]);
 
   const showError = (description: string) => {
     openNotification(NotificationType.ERROR, 'Помилка', description);
+  };
+
+  const handleNotificationOpenChange = (open: boolean) => {
+    if (open) {
+      getAllUnreadNotifications(showError);
+    }
   };
 
   useEffect(() => {
@@ -63,6 +79,20 @@ export const AppHeader = () => {
       setShowDrawer(false);
     }
   }, [isDesktop]);
+
+  useEffect(() => {
+    if (user) {
+      getAllUnreadNotifications(showError);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      const unsubscribe = subscribeToNotificationUpdate();
+
+      return () => unsubscribe();
+    }
+  }, [user]);
 
   const handleSignOut = () => {
     modal.confirm({
@@ -99,36 +129,8 @@ export const AppHeader = () => {
     onClick: handleMenuClick,
   };
 
-  // TODO: Fetch notifications from backend
-  const notificationMenu = {
-    items: [
-      {
-        key: '1',
-        label: (
-          <Notification
-            title="Нова нотифікація з довгим заголовком"
-            description="Детальний опис нотифікації нотифікації"
-            time="00:00"
-            date="12.07.2025"
-            seen={false}
-            id="1"
-          />
-        ),
-      },
-      {
-        key: '2',
-        label: (
-          <Notification
-            title="Нова нотифікація"
-            description="Детальний опис нотифікації нотифікації"
-            time="00:00"
-            date="12.07.2025"
-            seen={false}
-            id="1"
-          />
-        ),
-      },
-    ],
+  const handleNotificationClick: MenuProps['onClick'] = async (e) => {
+    await markNotificationAsRead(e.key, showError);
   };
 
   return (
@@ -149,11 +151,6 @@ export const AppHeader = () => {
                 <Logo className={styles.logo} />
               </Link>
             </Col>
-            {isDesktop && (
-              <Col>
-                <SelectLocation />
-              </Col>
-            )}
           </Row>
           <Row gutter={30} align="middle" wrap={false}>
             {user && (
@@ -161,14 +158,16 @@ export const AppHeader = () => {
                 <ConfigProvider theme={localTheme}>
                   <Dropdown
                     rootClassName={styles.notificationDropdown}
-                    menu={notificationMenu}
+                    menu={getNotificationMenu(
+                      unreadNotifications || [],
+                      handleNotificationClick,
+                      isUnreadNotificationsLoading
+                    )}
                     placement="bottomRight"
                     trigger={['click']}
+                    onOpenChange={handleNotificationOpenChange}
                   >
-                    <Badge
-                      dot={hasNotifications}
-                      className={styles.notificationIcon}
-                    >
+                    <Badge dot={showBadge} className={styles.notificationIcon}>
                       <Image
                         src={notificationIconSrc}
                         alt={IMAGE_DESCRIPTION.LOGO}

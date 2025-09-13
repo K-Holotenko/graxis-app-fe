@@ -30,6 +30,10 @@ interface AuthState {
   emailToVerify: string | null;
   isLoading: boolean;
   isAppInitializing: boolean;
+  confirmationResult: ConfirmationResult | null;
+}
+
+interface AuthActions {
   fetchUser: () => Promise<void>;
   initializeAuthListener: () => () => void;
   loginWithEmail: (
@@ -54,14 +58,13 @@ interface AuthState {
     data: UpdateUserData,
     showError: (err: string) => void
   ) => Promise<void>;
-  confirmationResult: ConfirmationResult | null;
   updateAuthTokenOnTheServer: (
     token: string,
     showError: (err: string) => void
   ) => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState & AuthActions>((set) => ({
   isLoading: false,
   isAppInitializing: true,
   user: null,

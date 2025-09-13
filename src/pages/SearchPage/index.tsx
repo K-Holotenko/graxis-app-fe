@@ -12,7 +12,6 @@ import { theme } from 'src/config/theme';
 import { PublicationPage } from 'src/types';
 
 import { PublicationsSection } from './children/PublicationsSection';
-import { SEARCH_RESULTS_CONFIG } from './utils/config';
 import { Filters } from './children/Filters';
 import { LoadMore } from './children/LoadMore';
 
@@ -128,7 +127,7 @@ export const SearchPage = () => {
   }, [searchParams]);
 
   return (
-    <PageContainer pageTitle={SEARCH_RESULTS_CONFIG.PAGE_TITLE}>
+    <PageContainer pageTitle="Пошук">
       <AppLayout>
         <SearchLayout
           filters={<Filters />}
