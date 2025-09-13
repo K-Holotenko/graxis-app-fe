@@ -144,7 +144,7 @@ export const PersonalInfoEditMode = ({
 const localTheme = {
   components: {
     Upload: {
-      paddingXS: 0,
+      paddingXS: theme.space0,
       colorPrimary: theme.primary,
     },
   },

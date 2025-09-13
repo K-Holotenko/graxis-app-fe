@@ -6,7 +6,7 @@
 
 .formItemEmail {
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: variables.$space-200;
 }
 
 .formItemPhone {
@@ -16,7 +16,7 @@
 
 @media (min-width: variables.$media-md) {
   .formItemEmail {
-    margin-bottom: 20px;
+    margin-bottom: variables.$space-250;
   }
 }
 

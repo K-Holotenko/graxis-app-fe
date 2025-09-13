@@ -8,6 +8,7 @@ import {
   formatLastActiveTime,
   formatRegistrationDate,
 } from 'src/utils/formatDate';
+import { theme } from 'src/config/theme';
 
 import styles from './styles.module.scss';
 
@@ -36,7 +37,9 @@ export const HeroBanner = () => {
       <div className={styles.info}>
         <Star style={{ width: '27px', height: '25px' }} />
         <span className={styles.summary}>{profile?.author.rate || 0}</span>
-        <Circle style={{ width: '16px', height: '16px', marginLeft: '12px' }} />
+        <Circle
+          style={{ width: '16px', height: '16px', marginLeft: theme.space150 }}
+        />
         <span className={styles.summary}>
           {profile?.author.reviewCount || 0} Відгуків
         </span>
