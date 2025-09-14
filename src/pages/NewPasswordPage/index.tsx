@@ -9,7 +9,7 @@ import { useAuthStore } from 'src/stores/authStore';
 import { ROUTES } from 'src/router/routes';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { Button } from 'src/components/Button';
-import { Input } from 'src/components/Input';
+import { Input, InputType } from 'src/components/Input';
 import { FORMS, REGEXS } from 'src/config/constants';
 
 import styles from './styles.module.scss';
@@ -30,9 +30,12 @@ export const NewPasswordPage = () => {
 
   const passwordValues = Form.useWatch(['password'], form);
 
-  const triggerNotification = (description: string) => {
-    openNotification(NotificationType.ERROR, 'Помилка', description);
-  };
+  const triggerNotification = useCallback(
+    (description: string) => {
+      openNotification(NotificationType.ERROR, 'Помилка', description);
+    },
+    [openNotification]
+  );
 
   useEffect(() => {
     if (actionCode) {
@@ -41,7 +44,7 @@ export const NewPasswordPage = () => {
       triggerNotification('Код відновлення паролю не знайдено');
       navigate(ROUTES.RESET_PASSWORD);
     }
-  }, [actionCode, verifyPasswordResetCode, triggerNotification, navigate]);
+  }, [actionCode]);
 
   useEffect(() => {
     form
@@ -65,7 +68,7 @@ export const NewPasswordPage = () => {
       return;
     }
 
-    newPassword(values.password, actionCode, triggerNotification)
+    newPassword(actionCode, values.password, triggerNotification)
       .then(() => {
         navigate(ROUTES.LOGIN);
         openNotification(
@@ -99,7 +102,12 @@ export const NewPasswordPage = () => {
             validateTrigger="onBlur"
             validateStatus={isValid ? 'success' : undefined}
           >
-            <Input placeholder="Введіть новий пароль" onChange={onChange} />
+            <Input
+              type={InputType.PASSWORD}
+              placeholder="Введіть новий пароль"
+              onChange={onChange}
+              id="password"
+            />
           </Form.Item>
           <Form.Item>
             <Button

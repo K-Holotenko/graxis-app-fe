@@ -88,7 +88,7 @@ export const ResetPasswordPage = () => {
               htmlType="submit"
               isDisabled={!isValid}
               label="Отримати посилання"
-              className={styles.buttonMargin}
+              className={styles.buttonMargins}
             />
           </Form.Item>
         </Form>
