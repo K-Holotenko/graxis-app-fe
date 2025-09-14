@@ -1,5 +1,7 @@
+import { REGEXS } from 'src/config/constants';
+
 export const VALIDATION_MESSAGE = {
-  ALREADY_REGISTERED_EMAIL: 'Ця електронна пошта вже зареєстрована',
+  ALREADY_REGISTERED_EMAIL: 'Цей email вже зареєстрований',
   AUTH_MESSAGE_ERROR: 'Виникла помилка. Спробуйте ще раз',
 
   CODE_VERIFY_ERR: 'Невірний код верифікації',
@@ -33,6 +35,29 @@ export const VALIDATION_CONDITION = {
     message: VALIDATION_MESSAGE.EMAIL,
     pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
   },
+  PASSWORD: [
+    { required: true, message: VALIDATION_MESSAGE.REQUIRED },
+    {
+      pattern: REGEXS.upperCaseLetter,
+      message: 'Пароль має містити принаймні одну велику латинську літеру',
+    },
+    {
+      pattern: REGEXS.lowerCaseLetter,
+      message: 'Пароль має містити принаймні одну малу латинську літеру',
+    },
+    {
+      pattern: REGEXS.digit,
+      message: 'Пароль має містити принаймні одну цифру',
+    },
+    {
+      pattern: REGEXS.specialChars,
+      message: 'Пароль має містити принаймні один спеціальний символ',
+    },
+    {
+      min: 8,
+      message: 'Довжина принаймі 8 символів',
+    },
+  ],
   PHONE_INPUT: {
     pattern: /^\d{9}$/,
   },

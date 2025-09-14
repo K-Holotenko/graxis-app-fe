@@ -11,6 +11,8 @@ export const FORMS = {
   VERIFICATION_FORM: 'verificationForm',
   ADD_PUBLICATION_FORM: 'addPublicationForm',
   ADD_USER_INFO_FORM: 'addUserInfoForm',
+  EMAIL_RESET_PASSWORD_FORM: 'emailResetPasswordForm',
+  NEW_PASSWORD_FORM: 'newPasswordForm',
 };
 
 export const SCREEN_WIDTH = { XXL: 1600, XL: 1200, LG: 992, MD: 768, SM: 576 };

@@ -49,7 +49,7 @@ describe('RegistrationPage', () => {
         <RegistrationPage />
       </MemoryRouter>
     );
-    const emailTitle = getByText('Пошта');
+    const emailTitle = getByText('Email');
 
     expect(emailTitle).toBeInTheDocument();
   });

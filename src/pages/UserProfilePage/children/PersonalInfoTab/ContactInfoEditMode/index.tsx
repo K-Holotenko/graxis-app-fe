@@ -81,14 +81,14 @@ export const ContactInfoEditMode = ({
       requiredMark={false}
     >
       <Form.Item
-        label="Пошта"
+        label="Email"
         className={styles.formItemEmail}
         name="email"
         rules={[{ ...VALIDATION_CONDITION.EMAIL, required: false }]}
         validateTrigger="onChange"
         validateStatus={isValid ? 'success' : undefined}
       >
-        <Input placeholder="Введіть пошту" onChange={handleEmailChange} />
+        <Input placeholder="Введіть email" onChange={handleEmailChange} />
       </Form.Item>
       <Form.Item
         label="Номер телефону"
