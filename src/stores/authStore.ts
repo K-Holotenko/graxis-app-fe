@@ -21,6 +21,11 @@ const firebaseAuthErrorCodes: { [key: string]: string } = {
   [AuthErrorCodes.EMAIL_EXISTS]: 'Акаунт з таким email вже зареєстровано',
   [AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER]:
     'Забагато спроб. Спробуйте пізніше',
+  [AuthErrorCodes.MISSING_CODE]: 'Неправильний код верифікації',
+  [AuthErrorCodes.INVALID_OOB_CODE]: 'Неправильний код верифікації',
+  [AuthErrorCodes.INVALID_CODE]: 'Неправильний код верифікації',
+  [AuthErrorCodes.EXPIRED_OOB_CODE]: 'Код верифікації застарів',
+  [AuthErrorCodes.CODE_EXPIRED]: 'Код верифікації застарів',
 };
 
 const DEFAULT_ERROR_MESSAGE = 'Щось пішло не так. Спробуйте ще раз';
@@ -49,7 +54,6 @@ interface AuthActions {
   loginWithGoogle: (
     showError: (err: string) => void
   ) => Promise<AuthUser | void>;
-  signOut: (showError?: (err: string) => void) => Promise<void>;
   createUser: (
     user: SignUpUser,
     showError: (err: string) => void
@@ -62,6 +66,20 @@ interface AuthActions {
     token: string,
     showError: (err: string) => void
   ) => Promise<void>;
+  resetPassword: (
+    email: string,
+    showError: (err: string) => void
+  ) => Promise<void>;
+  verifyPasswordResetCode: (
+    code: string,
+    showError: (err: string) => void
+  ) => Promise<void>;
+  newPassword: (
+    code: string,
+    password: string,
+    showError: (err: string) => void
+  ) => Promise<void>;
+  signOut: (showError?: (err: string) => void) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState & AuthActions>((set) => ({
@@ -165,12 +183,15 @@ export const useAuthStore = create<AuthState & AuthActions>((set) => ({
   },
 
   updateUser: async (data, showError) => {
+    set({ isLoading: true });
     try {
       const updatedUser: User = await updateUser(data);
 
       set({ user: updatedUser });
     } catch {
       showError('Щось пішло не так. Спробуйте ще раз');
+    } finally {
+      set({ isLoading: false });
     }
   },
 
@@ -178,13 +199,12 @@ export const useAuthStore = create<AuthState & AuthActions>((set) => ({
     set({ isLoading: true });
     try {
       await AuthService.loginWithEmail(email, password);
-
-      set({ isLoading: false });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
         throw err;
       }
+    } finally {
       set({ isLoading: false });
     }
   },
@@ -194,16 +214,15 @@ export const useAuthStore = create<AuthState & AuthActions>((set) => ({
     try {
       await AuthService.registerWithEmail(email, password);
 
-      set({
-        emailToVerify: email,
-        isLoading: false,
-      });
+      set({ emailToVerify: email });
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
       }
-      set({ isLoading: false, isAppInitializing: false });
+      set({ isAppInitializing: false });
       throw err;
+    } finally {
+      set({ isLoading: false });
     }
   },
 
@@ -212,15 +231,57 @@ export const useAuthStore = create<AuthState & AuthActions>((set) => ({
     try {
       const user = await AuthService.loginWithGoogle();
 
-      set({ isLoading: false });
-
       return user;
     } catch (err) {
       if (err instanceof FirebaseError) {
         showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
       }
-      set({ isLoading: false, isAppInitializing: false });
+      set({ isAppInitializing: false });
       throw err;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  resetPassword: async (email, showError) => {
+    set({ isLoading: true });
+    try {
+      await AuthService.resetPassword(email);
+    } catch (err) {
+      if (err instanceof FirebaseError) {
+        showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
+      }
+      set({ isAppInitializing: false });
+      throw err;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  verifyPasswordResetCode: async (code, showError) => {
+    set({ isLoading: true });
+    try {
+      await AuthService.verifyPasswordResetCode(code);
+    } catch (err) {
+      if (err instanceof FirebaseError) {
+        showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
+      }
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  newPassword: async (code, password, showError) => {
+    set({ isLoading: true });
+    try {
+      await AuthService.newPassword(code, password);
+    } catch (err) {
+      if (err instanceof FirebaseError) {
+        showError(firebaseAuthErrorCodes[err.code] || DEFAULT_ERROR_MESSAGE);
+      }
+      throw err;
+    } finally {
+      set({ isLoading: false });
     }
   },
 

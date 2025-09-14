@@ -147,7 +147,7 @@ export const AppHeader = () => {
               </Col>
             )}
             <Col>
-              <Link to={ROUTES.HOME}>
+              <Link to="https://graxis.net">
                 <Logo className={styles.logo} />
               </Link>
             </Col>

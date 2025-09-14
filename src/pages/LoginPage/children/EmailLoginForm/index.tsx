@@ -83,7 +83,7 @@ export const EmailLoginForm = () => {
         requiredMark={false}
       >
         <Form.Item
-          label="Пошта"
+          label="Email"
           name="email"
           rules={[VALIDATION_CONDITION.EMAIL]}
           validateTrigger="onBlur"
@@ -92,7 +92,7 @@ export const EmailLoginForm = () => {
           <Input
             onChange={onChange}
             type={InputType.EMAIL}
-            placeholder="Введіть пошту"
+            placeholder="Введіть email"
           />
         </Form.Item>
         <Form.Item

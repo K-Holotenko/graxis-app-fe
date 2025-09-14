@@ -36,7 +36,7 @@ export const Footer = () => (
         >
           <Text className={styles.title}>Звʼяжіться з нами</Text>
           <div className={styles.footerEmailBlock}>
-            <Text>Пошта:</Text>
+            <Text>Email:</Text>
             <Link className={styles.link}>{APP_CONTACT_DATA.email}</Link>
           </div>
           <div className={styles.footerMediaSection}>

@@ -1,9 +1,8 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
-import { HomePage } from 'src/pages/HomePage';
 import { LoginPage } from 'src/pages/LoginPage';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
-import { VerifyEmailPage } from 'src/pages/VerifyEmailPage';
+import { CheckEmailPage } from 'src/pages/CheckEmailPage';
 import { PublicationFormPage } from 'src/pages/PublicationFormPage';
 import { PublicationPage } from 'src/pages/PublicationPage';
 import { SearchPage } from 'src/pages/SearchPage';
@@ -13,7 +12,9 @@ import { MyPublicationsPage } from 'src/pages/MyPublicationsPage';
 import { NotFoundPage } from 'src/pages/NotFoundPage';
 import { ErrorPage } from 'src/pages/ErrorPage';
 import { PublicUserProfile } from 'src/pages/PublicUserProfile';
+import { ResetPasswordPage } from 'src/pages/ResetPassword';
 import { BookingPage } from 'src/pages/BookingPage';
+import { AuthActionHandler } from 'src/components/AuthActionHandler';
 import App from 'src/App';
 
 import { PrivateRoute } from './PrivateRoute';
@@ -25,10 +26,13 @@ export const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <Navigate to={ROUTES.SEARCH_RESULTS} /> },
+      { path: ROUTES.SEARCH_RESULTS, element: <SearchPage /> },
       { path: ROUTES.LOGIN, element: <LoginPage /> },
-      { path: ROUTES.VERIFY_EMAIL, element: <VerifyEmailPage /> },
+      { path: ROUTES.CHECK_EMAIL, element: <CheckEmailPage /> },
       { path: ROUTES.REGISTRATION, element: <RegistrationPage /> },
+      { path: ROUTES.RESET_PASSWORD, element: <ResetPasswordPage /> },
+      { path: ROUTES.ACTION, element: <AuthActionHandler /> },
       {
         path: ROUTES.ADD_PUBLICATION,
         element: (
@@ -65,7 +69,6 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      { path: ROUTES.SEARCH_RESULTS, element: <SearchPage /> },
       {
         path: ROUTES.USER_PROFILE,
         element: (

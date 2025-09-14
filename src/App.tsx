@@ -18,6 +18,7 @@ const App = () => {
     ROUTES.LOGIN,
     ROUTES.REGISTRATION,
     ROUTES.ADD_USER_INFO,
+    ROUTES.ACTION,
   ].includes(location.pathname);
 
   useEffect(() => {

@@ -78,7 +78,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
       </Title>
       <ConfigProvider theme={localTheme(isMobile)}>{children}</ConfigProvider>
       <Row justify="end">
-        <Link to={ROUTES.LOGIN} className={styles.link}>
+        <Link to={ROUTES.RESET_PASSWORD} className={styles.link}>
           Забули пароль?
         </Link>
       </Row>
