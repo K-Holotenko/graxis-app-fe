@@ -3,10 +3,13 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   sendEmailVerification,
+  sendPasswordResetEmail,
+  verifyPasswordResetCode,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   User,
+  confirmPasswordReset,
 } from 'firebase/auth';
 
 import { EMAIL_VERIFICATION_REDIRECT_LINK } from 'src/config/constants';
@@ -64,6 +67,20 @@ export const AuthService = {
     const user = userCredential.user;
 
     return user;
+  },
+
+  resetPassword: async (email: string) => {
+    await sendPasswordResetEmail(firebaseAuth, email);
+
+    return true;
+  },
+
+  verifyPasswordResetCode: async (code: string) => {
+    await verifyPasswordResetCode(firebaseAuth, code);
+  },
+
+  newPassword: async (code: string, password: string) => {
+    await confirmPasswordReset(firebaseAuth, code, password);
   },
 
   signOut: async () => {

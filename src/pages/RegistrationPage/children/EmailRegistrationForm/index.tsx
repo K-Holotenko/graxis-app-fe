@@ -10,12 +10,11 @@ import {
 } from 'src/config/validation';
 import { ROUTES } from 'src/router/routes';
 import { useAuthStore } from 'src/stores/authStore';
-import { Button } from 'src/components/Button/index';
+import { Button } from 'src/components/Button';
 import { Input, InputType } from 'src/components/Input';
 import { theme } from 'src/config/theme';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 
-import { CREATE_PASSWORD_VALIDATION_CONDITIONS } from './utils';
 import styles from './styles.module.scss';
 
 interface EmailRegistrationFormValues {
@@ -57,7 +56,11 @@ export const EmailRegistrationForm = () => {
 
   const onFinish = (values: EmailRegistrationFormValues) => {
     registerWithEmail(values.email, values.password, triggerNotification)
-      .then(() => navigate(ROUTES.VERIFY_EMAIL))
+      .then(() =>
+        navigate(ROUTES.CHECK_EMAIL, {
+          state: { email: values.email, isRegistration: false },
+        })
+      )
       .catch(() => {
         form.resetFields(['email']);
       });
@@ -73,23 +76,23 @@ export const EmailRegistrationForm = () => {
         requiredMark={false}
       >
         <Form.Item
-          label="Пошта"
+          label="Email"
           name="email"
           rules={[VALIDATION_CONDITION.EMAIL]}
           validateTrigger="onBlur"
           validateStatus={isValid ? 'success' : undefined}
         >
-          <Input placeholder="Введіть пошту" onChange={onChange} />
+          <Input placeholder="Введіть email" onChange={onChange} />
         </Form.Item>
         <Form.Item
           name="password"
           label="Пароль"
-          rules={CREATE_PASSWORD_VALIDATION_CONDITIONS}
+          rules={VALIDATION_CONDITION.PASSWORD}
           validateTrigger="onBlur"
           validateStatus={isValid ? 'success' : undefined}
         >
           <Input
-            placeholder="Введіть парольS"
+            placeholder="Введіть пароль"
             type={InputType.PASSWORD}
             id="password"
           />

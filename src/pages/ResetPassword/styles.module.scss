@@ -1,0 +1,33 @@
+@use 'src/styles/variables';
+
+.authPageTitle {
+  text-align: center;
+  color: variables.$N6 !important;
+  font-size: 24px !important;
+  margin-bottom: 20px !important;
+}
+
+.buttonMargins {
+  margin-bottom: 34px;
+  margin-top: 34px;
+}
+
+.authPageDescription {
+  color: variables.$N6;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: variables.$media-sm) {
+  .authPageTitle {
+    font-size: 30px !important;
+    margin-bottom: 24px !important;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .authPageTitle {
+    font-size: 32px !important;
+    margin-bottom: 40px !important;
+  }
+}
