@@ -23,9 +23,9 @@ export const CheckEmailPage = () => {
           <Col xs={{ span: 20, offset: 2 }}>
             <Typography.Text className={styles.firstPartMes}>
               На ваш email{' '}
-              <Typography.Link href={`mailto:${email}`} className={styles.link}>
+              <Typography.Text strong className={styles.emailText}>
                 {email}
-              </Typography.Link>
+              </Typography.Text>
               {` відправлено лист. Перейдіть за посиланням в листі для ${
                 isResetPassword
                   ? 'відновлення паролю'

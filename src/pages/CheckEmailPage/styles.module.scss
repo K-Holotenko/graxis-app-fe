@@ -1,8 +1,8 @@
 @use 'src/styles/variables';
 
-.link {
-  text-decoration: 'underline';
+.emailText {
   font-size: 18px;
+  color: variables.$primary;
 }
 
 .firstPartMes {
