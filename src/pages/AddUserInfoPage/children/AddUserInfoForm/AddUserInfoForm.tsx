@@ -6,7 +6,6 @@ import {
   UploadFile,
   UploadProps,
   Select,
-  Tooltip,
 } from 'antd';
 import { InfoCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -153,13 +152,7 @@ export const AddUserInfoForm = () => {
           >
             <Select options={CITY_LIST} className={styles.citySelect} />
           </Form.Item>
-          <Tooltip
-            color={theme.primary}
-            title="Кількість міст тимчасово обмежена, ми працюємо над розширенням можливостей"
-            className={styles.cityTooltip}
-          >
-            <InfoCircleOutlined className={styles.infoIcon} />
-          </Tooltip>
+          <InfoCircleOutlined className={styles.infoIcon} />
         </div>
         <Form.Item>
           <Button
