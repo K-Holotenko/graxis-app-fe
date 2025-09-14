@@ -10,7 +10,7 @@ export const AuthActionHandler = () => {
 
   const mapModeToPage = {
     resetPassword: <NewPasswordPage />,
-    verifyEmail: <Navigate to={ROUTES.HOME} />,
+    verifyEmail: <Navigate to={ROUTES.ADD_USER_INFO} />,
     default: <Navigate to={ROUTES.HOME} />,
   };
 
