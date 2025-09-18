@@ -1,5 +1,10 @@
 import { Location } from './common';
 
+export enum UserRole {
+  RENTER = 'RENTER',
+  OWNER = 'OWNER',
+}
+
 export enum BookingStatus {
   PENDING = 'PENDING',
   CONFIRMED = 'CONFIRMED',
@@ -40,6 +45,12 @@ export interface Booking {
   publicationAddress: Location;
   lastStatusBeforeCancellation: BookingStatus | null;
   owner: {
+    id: string;
+    name: string;
+    surname: string;
+    avatarUrl: string;
+  };
+  renter: {
     id: string;
     name: string;
     surname: string;

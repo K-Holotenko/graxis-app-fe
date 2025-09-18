@@ -19,6 +19,10 @@ interface BookingState {
   isChatLoading: boolean;
   rating: number | undefined;
   feedback: string | undefined;
+  myBookings: {
+    owner: Booking[];
+    renter: Booking[];
+  } | null;
 }
 
 interface BookingActions {
@@ -30,7 +34,10 @@ interface BookingActions {
     publicationId: string
   ) => Promise<Booking | null>;
   getBooking: (id: string) => Promise<Booking | null>;
-  getAllMyBookings: () => Promise<Booking[] | null>;
+  getAllMyBookings: () => Promise<{
+    owner: Booking[];
+    renter: Booking[];
+  } | null>;
   getChat: (id: string) => Promise<Chat | null>;
   updateBookingStatus: (
     bookingId: string,
@@ -48,6 +55,7 @@ export const useBookingStore = create<BookingState & BookingActions>(
     isChatLoading: false,
     rating: undefined,
     feedback: undefined,
+    myBookings: null,
     createBooking: async (
       startDate: string | undefined,
       endDate: string | undefined,
@@ -90,7 +98,7 @@ export const useBookingStore = create<BookingState & BookingActions>(
       try {
         const response = await getAllMyBookings();
 
-        set({ bookings: response });
+        set({ myBookings: response });
 
         return response;
       } catch {

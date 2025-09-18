@@ -1,0 +1,211 @@
+@use 'src/styles/variables';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px;
+  border-radius: 8px;
+  border: 1px solid variables.$N3;
+  text-decoration: none;
+  color: variables.$N6;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    color: variables.$N6;
+    background-color: variables.$N2;
+  }
+}
+
+.cardBody {
+  width: 100%;
+  display: flex;
+}
+
+.infoContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cardHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.periodMobile {
+  font-size: 12px !important;
+  line-height: 1 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusTagMobile {
+  margin-inline-end: 0;
+  font-size: 10px;
+}
+
+.infoContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  margin-left: 22px;
+}
+
+.title {
+  font-family: variables.$font-body;
+  font-size: 14px;
+  font-weight: 500;
+  color: variables.$N6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 0;
+  min-width: 100%;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 0;
+  min-width: 100%;
+}
+
+.status {
+  display: none;
+}
+
+.duration {
+  display: block;
+  color: variables.$N5;
+}
+
+.price {
+  display: block;
+  color: variables.$N6;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.image {
+  width: 96px;
+  height: 88px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.itemsContainer {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.itemContainer:nth-child(1) {
+  width: 150px;
+}
+
+.itemContainer {
+  height: 54px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.itemContainer {
+  .price {
+    color: variables.$N6;
+  }
+}
+
+.label {
+  font-size: 12px;
+  color: variables.$N6;
+  font-family: variables.$font-body;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.value {
+  font-size: 16px;
+  color: variables.$N5;
+  font-family: variables.$font-body;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+@media (min-width: variables.$media-sm) {
+  .statusTagMobile {
+    font-size: 12px !important;
+  }
+
+  .periodMobile {
+    font-size: 14px !important;
+  }
+}
+
+@media (min-width: variables.$media-md) {
+  .statusTag {
+    font-size: 10px !important;
+  }
+
+  .value {
+    flex-direction: row;
+  }
+
+  .itemsContainer {
+    display: flex;
+  }
+
+  .status {
+    display: block;
+  }
+
+  .duration {
+    display: none;
+  }
+
+  .price {
+    display: none;
+  }
+
+  .cardHeader {
+    display: none;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: variables.$media-lg) {
+  .statusTag {
+    font-size: 12px !important;
+  }
+
+  .contact {
+    font-size: 14px;
+  }
+}

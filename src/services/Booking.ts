@@ -24,7 +24,10 @@ export const getBooking = async (id: string): Promise<Booking> => {
   return response.data;
 };
 
-export const getAllMyBookings = async (): Promise<Booking[]> => {
+export const getAllMyBookings = async (): Promise<{
+  owner: Booking[];
+  renter: Booking[];
+}> => {
   const response = await api.get(`/booking/all`);
 
   return response.data;
