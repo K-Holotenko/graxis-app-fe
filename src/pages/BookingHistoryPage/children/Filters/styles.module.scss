@@ -1,0 +1,55 @@
+@use 'src/styles/variables';
+
+.container {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.containerMobile {
+  display: flex;
+}
+
+.filter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+}
+
+.label {
+  font-size: 14px;
+  color: variables.$N5;
+  font-family: variables.$font-body;
+  font-weight: 400;
+}
+
+.select {
+  width: 100%;
+}
+
+@media (min-width: variables.$media-md) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .select {
+    width: inherit;
+  }
+
+  .filter {
+    width: inherit;
+  }
+
+  .containerMobile {
+    display: none;
+  }
+}

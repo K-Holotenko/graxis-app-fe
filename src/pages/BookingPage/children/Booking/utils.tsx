@@ -2,8 +2,7 @@ import { StepProps } from 'antd';
 
 import CheckIcon from 'src/assets/icons/check.svg?react';
 import CrossIcon from 'src/assets/icons/cross-icon.svg?react';
-import { UserRole } from 'src/pages/BookingPage/children/BookingDialog/utils';
-import { BookingStatus } from 'src/types';
+import { BookingStatus, UserRole } from 'src/types';
 
 const statusToIconMap = {
   finish: <CheckIcon />,

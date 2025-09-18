@@ -3,6 +3,7 @@ import InstagramIcon from 'src/assets/icons/instagram-icon-dark.svg';
 import LinkedInIcon from 'src/assets/icons/linkedin-icon-dark.svg';
 import TikTokIcon from 'src/assets/icons/tiktok-icon-dark.svg';
 import TelegramIcon from 'src/assets/icons/telegram-icon-dark.svg';
+import { BookingStatus } from 'src/types';
 
 export const FORMS = {
   EMAIL_LOGIN_FORM: 'emailLoginForm',
@@ -69,6 +70,35 @@ export const CITY_LIST = [
   { value: 'Яремче', label: 'Яремче' },
 ];
 
+export type Status = Exclude<
+  BookingStatus,
+  BookingStatus.PAID | BookingStatus.COMPLETED
+>;
+
+export const statusToLabelMap: Record<Status, string> = {
+  [BookingStatus.PENDING]: 'Очікує на підтвердження',
+  [BookingStatus.CONFIRMED]: 'Підтверджено',
+  [BookingStatus.IN_PROGRESS]: 'В оренді',
+  [BookingStatus.BOOKED]: 'Заброньовано',
+  [BookingStatus.OWNER_RATED]: 'Оцінено власником',
+  [BookingStatus.RENTER_RATED]: 'Оцінено орендарем',
+  [BookingStatus.RATED]: 'Оцінено обома',
+  [BookingStatus.RETURNED]: 'Повернено власнику',
+  [BookingStatus.CANCELLED]: 'Скасовано',
+};
+
+export const statusToColorMap: Record<Status, string> = {
+  [BookingStatus.PENDING]: 'gold',
+  [BookingStatus.CONFIRMED]: 'blue',
+  [BookingStatus.BOOKED]: 'purple',
+  [BookingStatus.IN_PROGRESS]: 'geekblue',
+  [BookingStatus.OWNER_RATED]: 'cyan',
+  [BookingStatus.RENTER_RATED]: 'cyan',
+  [BookingStatus.RATED]: 'cyan',
+  [BookingStatus.RETURNED]: 'green',
+  [BookingStatus.CANCELLED]: 'red',
+};
+
 export enum ButtonTypes {
   primary = 'primary',
   default = 'default',
@@ -115,7 +145,6 @@ export const SOCIAL_MEDIA_LIST = [
 
 export const APP_CONTACT_DATA = {
   email: 'info@graxis.net',
-  phone: '555-555-5555',
 };
 
 export const REGEXS = {
