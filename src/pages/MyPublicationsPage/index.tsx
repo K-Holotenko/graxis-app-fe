@@ -9,25 +9,6 @@ import { NotFoundPage } from 'src/pages/NotFoundPage';
 
 import { MyTabs } from './children/Tabs';
 
-// export const MyPublicationsPage = () => {
-//   const { tab } = useParams<{ tab: PublicationFilters }>();
-//   const validTabs = Object.values(PublicationFilters);
-
-//   if (!tab || !validTabs.includes(tab as PublicationFilters)) {
-//     return <NotFoundPage />;
-//   }
-
-//   return (
-//     <PageContainer pageTitle="Мої оголошення">
-//       <AppLayout>
-//         <MyPublicationsLayout
-//           title={<Heading level={2}>Мої оголошення</Heading>}
-//           tabs={<MyTabs />}
-//         />
-//       </AppLayout>
-//     </PageContainer>
-//   );
-// };
 export const MyPublicationsPage = () => {
   const { tab } = useParams<{ tab: PublicationFilters }>();
   const validTabs = Object.values(PublicationFilters);
