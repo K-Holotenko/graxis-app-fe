@@ -59,12 +59,14 @@ export const BookingCard = ({ booking, role }: BookingCardProps) => (
             >
               {role === UserRole.RENTER
                 ? booking.owner.name?.charAt(0)
-                : booking.owner.name?.charAt(0)}
+                : booking.renter.name?.charAt(0)}
               {role === UserRole.OWNER
                 ? booking.renter.surname?.charAt(0)
-                : booking.renter.surname?.charAt(0)}
+                : booking.owner.surname?.charAt(0)}
             </Avatar>
-            {booking.owner.name} {booking.owner.surname}
+            {role === UserRole.RENTER
+              ? `${booking.owner.name} ${booking.owner.surname}`
+              : `${booking.renter.name} ${booking.renter.surname}`}
           </div>
           <div className={styles.status}>
             <Tag
