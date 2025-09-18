@@ -6,12 +6,9 @@ import { Container } from 'src/pages/BookingPage/children/Container';
 import { useBookingStore } from 'src/stores/bookingStore';
 import { Loadable } from 'src/components/Loadable';
 import { StepsSkeleton } from 'src/pages/BookingPage/skeletons';
-import {
-  getUserRole,
-  UserRole,
-} from 'src/pages/BookingPage/children/BookingDialog/utils';
+import { getUserRole } from 'src/pages/BookingPage/children/BookingDialog/utils';
 import { useAuthStore } from 'src/stores/authStore';
-import { BookingStatus } from 'src/types';
+import { BookingStatus, UserRole } from 'src/types';
 
 import styles from './styles.module.scss';
 import { BookingDetails } from './BookingDetails';

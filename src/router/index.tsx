@@ -16,6 +16,7 @@ import { ResetPasswordPage } from 'src/pages/ResetPassword';
 import { BookingPage } from 'src/pages/BookingPage';
 import { AuthActionHandler } from 'src/components/AuthActionHandler';
 import App from 'src/App';
+import { BookingHistoryPage } from 'src/pages/BookingHistoryPage';
 
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './routes';
@@ -66,6 +67,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BookingPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: ROUTES.BOOKINGS_HISTORY,
+        element: (
+          <PrivateRoute>
+            <BookingHistoryPage />
           </PrivateRoute>
         ),
       },

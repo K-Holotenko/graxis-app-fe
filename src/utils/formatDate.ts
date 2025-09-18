@@ -6,7 +6,7 @@ dayjs.extend(relativeTime);
 dayjs.extend(duration);
 
 export const getDaysDifference = (
-  startDate: string | Date,
+  startDate?: string | Date,
   endDate?: string | Date
 ): number => {
   const start = dayjs(startDate);

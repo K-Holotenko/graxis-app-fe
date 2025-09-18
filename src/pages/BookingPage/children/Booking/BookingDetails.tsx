@@ -7,6 +7,7 @@ import { useBookingStore } from 'src/stores/bookingStore';
 import { CardSkeleton, DetailsSkeleton } from 'src/pages/BookingPage/skeletons';
 import { Loadable } from 'src/components/Loadable';
 import { BookingStatus } from 'src/types';
+import { getDaysDifference } from 'src/utils/formatDate';
 
 import styles from './styles.module.scss';
 
@@ -18,7 +19,6 @@ export const BookingDetails = () => {
 
   const startDate = dayjs(booking?.startDate);
   const endDate = dayjs(booking?.endDate);
-  const days = endDate.diff(startDate, 'day') + 1;
 
   useEffect(() => {
     const shouldUpdateBooking =
@@ -46,7 +46,7 @@ export const BookingDetails = () => {
       },
       {
         label: 'Тривалість',
-        value: `${days} днів`,
+        value: `${getDaysDifference(booking?.startDate, booking?.endDate)} днів`,
         style: styles.taxonomy,
       },
       {
@@ -55,7 +55,7 @@ export const BookingDetails = () => {
         style: styles.priceCard,
       },
     ],
-    [startDate, endDate, days, booking?.price]
+    [startDate, endDate, booking?.price]
   );
 
   return (
