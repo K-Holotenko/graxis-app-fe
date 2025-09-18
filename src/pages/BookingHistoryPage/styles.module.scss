@@ -1,0 +1,33 @@
+@use 'src/styles/variables';
+
+.container {
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(70, 68, 88, 0.08);
+}
+
+.bookings {
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+  overflow-y: auto;
+  gap: 16px;
+}
+
+.floatBtn {
+  position: sticky;
+  left: 100%;
+}
+
+.drawer {
+  height: 100% !important;
+}
+
+@media (min-width: variables.$media-md) {
+  .container {
+    padding: 20px;
+  }
+
+  .bookings {
+    gap: 20px;
+  }
+}

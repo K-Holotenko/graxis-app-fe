@@ -26,7 +26,7 @@ import {
 } from 'src/config/constants';
 import { useWindowSize } from 'src/hooks/useWindowSize';
 import { ROUTES } from 'src/router/routes';
-import { Drawer, menuItems } from 'src/components/Drawer';
+import { Sidebar, menuItems } from 'src/components/Sidebar';
 import { Button } from 'src/components/Button';
 import { NotificationType, useNotification } from 'src/hooks/useNotification';
 import { Loadable } from 'src/components/Loadable';
@@ -117,8 +117,8 @@ export const AppHeader = () => {
           })
         ),
       2: () => navigate(ROUTES.USER_PROFILE),
-      4: () => navigate(ROUTES.BOOKINGS_HISTORY),
-      3: handleSignOut,
+      3: () => navigate(ROUTES.BOOKINGS_HISTORY),
+      4: handleSignOut,
     };
 
     actions[e.key]();
@@ -238,7 +238,7 @@ export const AppHeader = () => {
         </Row>
       </header>
       {showDrawer && (
-        <Drawer open={showDrawer} onClose={() => setShowDrawer(false)} />
+        <Sidebar open={showDrawer} onClose={() => setShowDrawer(false)} />
       )}
     </>
   );

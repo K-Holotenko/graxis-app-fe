@@ -3,21 +3,21 @@ import { ReactNode } from 'react';
 
 import styles from './styles.module.scss';
 
-interface MyPublicationsLayoutProps {
+interface SingleColumnLayoutProps {
   title: ReactNode;
-  tabs: ReactNode;
+  children: ReactNode;
 }
 
-export const MyPublicationsLayout = ({
+export const SingleColumnLayout = ({
   title,
-  tabs,
-}: MyPublicationsLayoutProps) => (
+  children,
+}: SingleColumnLayoutProps) => (
   <section>
     <Row className={styles.titleContainer}>
       <Col span={24}>{title}</Col>
     </Row>
     <Row className={styles.tabsContainer}>
-      <Col span={24}>{tabs}</Col>
+      <Col span={24}>{children}</Col>
     </Row>
   </section>
 );
