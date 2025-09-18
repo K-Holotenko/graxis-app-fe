@@ -10,9 +10,10 @@ import styles from './styles.module.scss';
 
 interface MyPublicationsEmptyStateProps {
   message: string;
-  buttonLabel: string;
-  route: string;
+  buttonLabel?: string;
+  route?: string;
   showIcon?: boolean;
+  showButton?: boolean;
 }
 
 export const statusToEmptyStatePropsMap: Partial<
@@ -23,12 +24,16 @@ export const statusToEmptyStatePropsMap: Partial<
     buttonLabel: 'Додати оголошення',
     route: ROUTES.ADD_PUBLICATION,
     showIcon: true,
+    showButton: true,
+  },
+  [PublicationFilters.RENTED_OUT]: {
+    message: 'Наразі жоден із ваших товарів не орендовано',
   },
   [PublicationFilters.RENTING]: {
     message: 'Зараз у вас немає орендованих товарів. Додати перший?',
     buttonLabel: 'Переглянути оголошення',
     route: ROUTES.SEARCH_RESULTS,
-    showIcon: true,
+    showButton: true,
   },
 };
 
@@ -36,7 +41,8 @@ export const MyPublicationsEmptyState = ({
   message,
   buttonLabel,
   route,
-  showIcon = false,
+  showIcon,
+  showButton,
 }: MyPublicationsEmptyStateProps) => {
   const navigate = useNavigate();
 
@@ -44,13 +50,15 @@ export const MyPublicationsEmptyState = ({
     <div className={styles.container}>
       <NoMyPublicationsImg className={styles.noMyPublicationsImg} />
       <p className={styles.message}>{message}</p>
-      <Button
-        className={styles.button}
-        label={buttonLabel}
-        icon={showIcon ? <PlusIcon /> : undefined}
-        iconPosition="end"
-        onClick={() => navigate(route)}
-      />
+      {showButton && route && (
+        <Button
+          className={styles.button}
+          label={buttonLabel}
+          icon={showIcon ? <PlusIcon /> : undefined}
+          iconPosition="end"
+          onClick={() => navigate(route)}
+        />
+      )}
     </div>
   );
 };
