@@ -21,7 +21,6 @@ export const filterAndSortBookings = (
 
   const { role, status, sorting } = params;
 
-  // Determine which bookings to include based on role filter
   let bookingsToProcess: Booking[] = [];
 
   if (!role) {
@@ -32,7 +31,6 @@ export const filterAndSortBookings = (
     bookingsToProcess = [...myBookings.renter];
   }
 
-  // Filter by status if specified
   let filteredBookings = bookingsToProcess;
 
   if (
@@ -44,7 +42,6 @@ export const filterAndSortBookings = (
     );
   }
 
-  // Sort bookings based on sorting parameter
   const sortedBookings = [...filteredBookings];
 
   if (sorting) {
@@ -68,7 +65,6 @@ export const filterAndSortBookings = (
         sortedBookings.sort((a, b) => b.price - a.price);
         break;
       default:
-        // No sorting or unknown sorting option
         break;
     }
   }
