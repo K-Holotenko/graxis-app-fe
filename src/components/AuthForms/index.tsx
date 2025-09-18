@@ -99,7 +99,7 @@ export const AuthForms = ({ title, children }: AuthFormsProps) => {
       <Row justify="center">
         {location.pathname === ROUTES.LOGIN ? (
           <span className={styles.authorizeLink}>
-            Немає акаунту?
+            Немає акаунту?{' '}
             <Link to={ROUTES.REGISTRATION} className={styles.registerStyle}>
               Зареєструватися
             </Link>

@@ -1,16 +1,15 @@
 import {
   Col,
   ConfigProvider,
-  Drawer as AntDrawer,
+  Drawer,
   Row,
-  Typography,
   Dropdown,
   Avatar,
   MenuProps,
   Skeleton,
   App,
 } from 'antd';
-import { generatePath, useNavigate } from 'react-router-dom';
+import { generatePath, useLocation, useNavigate } from 'react-router-dom';
 
 import { PublicationFilters } from 'src/stores/myPublicationStore';
 import CloseIcon from 'src/assets/icons/close-icon.svg?react';
@@ -44,13 +43,18 @@ export const menuItems = [
   },
   {
     key: 3,
+    label: 'Історія бронювань',
+  },
+  {
+    key: 4,
     label: 'Вийти',
   },
 ];
 
-export const Drawer = ({ open, onClose }: DrawerProps) => {
+export const Sidebar = ({ open, onClose }: DrawerProps) => {
   const { user, isLoading, signOut } = useAuthStore();
   const { modal } = App.useApp();
+  const location = useLocation();
 
   const { requireAuth } = useRequireAuth();
   const { openNotification } = useNotification();
@@ -58,7 +62,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   const navigate = useNavigate();
 
   const shouldShowAddPublicationButton =
-    window.location.pathname !== ROUTES.ADD_PUBLICATION;
+    location.pathname !== ROUTES.ADD_PUBLICATION;
 
   const name = user?.name;
   const surname = user?.surname;
@@ -103,7 +107,8 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
           })
         ),
       2: () => navigate(ROUTES.USER_PROFILE),
-      3: handleSignOut,
+      3: () => navigate(ROUTES.BOOKINGS_HISTORY),
+      4: handleSignOut,
     };
 
     actions[e.key]();
@@ -121,7 +126,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
   };
 
   return (
-    <AntDrawer
+    <Drawer
       className={styles.headerDrawer}
       closeIcon={null}
       open={open}
@@ -204,14 +209,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
           </Col>
         </Row>
       )}
-      <Row className={styles.verticalPadding}>
-        <Col span={24}>
-          <Typography className={styles.locationTitle}>
-            Виберіть локацію
-          </Typography>
-        </Col>
-      </Row>
-    </AntDrawer>
+    </Drawer>
   );
 };
 

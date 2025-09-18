@@ -1,0 +1,13 @@
+@use 'src/styles/variables';
+
+.cardsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardSkeleton {
+  width: 100% !important;
+  height: 124px !important;
+  border-radius: 8px !important;
+}

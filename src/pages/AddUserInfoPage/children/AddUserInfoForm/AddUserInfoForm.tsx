@@ -7,7 +7,7 @@ import {
   UploadProps,
   Select,
 } from 'antd';
-import { InfoCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Input, InputType } from 'src/components/Input';
@@ -152,7 +152,6 @@ export const AddUserInfoForm = () => {
           >
             <Select options={CITY_LIST} className={styles.citySelect} />
           </Form.Item>
-          <InfoCircleOutlined className={styles.infoIcon} />
         </div>
         <Form.Item>
           <Button
