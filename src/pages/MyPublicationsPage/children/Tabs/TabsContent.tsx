@@ -45,7 +45,7 @@ export const TabsContent = () => {
 
   const publications = statusToPublications[tab!];
 
-  if (isLoading && !publications?.length) {
+  if (!isLoading && publications?.length === 0) {
     return <MyPublicationsEmptyState {...statusToEmptyStatePropsMap[tab!]!} />;
   }
 
