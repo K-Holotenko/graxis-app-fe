@@ -9,9 +9,9 @@ export enum PricingPeriod {
 }
 
 export const pricingPeriodEngToUkrMap: Record<PricingPeriod, string> = {
-  [PricingPeriod.DAY]: 'день',
-  [PricingPeriod.WEEK]: 'тиждень',
-  [PricingPeriod.MONTH]: 'місяць',
+  [PricingPeriod.DAY]: '24 год.',
+  [PricingPeriod.WEEK]: '7 д.',
+  [PricingPeriod.MONTH]: '30 д.',
 };
 
 const FEE_PERCENT = 20;
@@ -86,10 +86,10 @@ export const getErrorIfRangeIsInvalid = (
   if (monthPrice && (days + MONTH) % MONTH === 0) return '';
 
   if (weekPrice) {
-    return 'Мінімальний термін оренди - тиждень. Крок - тиждень';
+    return 'Мінімальний термін оренди - 7 днів. Крок - 7 днів';
   }
   if (monthPrice) {
-    return 'Мінімальний термін оренди - місяць. Крок - місяць';
+    return 'Мінімальний термін оренди - 30 днів. Крок - 30 днів';
   }
 
   return '';
