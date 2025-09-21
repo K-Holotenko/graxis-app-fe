@@ -86,10 +86,10 @@ export const getErrorIfRangeIsInvalid = (
   if (monthPrice && (days + MONTH) % MONTH === 0) return '';
 
   if (weekPrice) {
-    return 'Мінімальний термін оренди - 7 днів. Крок - 7 днів';
+    return `Мінімальний термін оренди - ${pricingPeriodEngToUkrMap[PricingPeriod.WEEK]} Крок - ${pricingPeriodEngToUkrMap[PricingPeriod.WEEK]}`;
   }
   if (monthPrice) {
-    return 'Мінімальний термін оренди - 30 днів. Крок - 30 днів';
+    return `Мінімальний термін оренди - ${pricingPeriodEngToUkrMap[PricingPeriod.MONTH]} Крок - ${pricingPeriodEngToUkrMap[PricingPeriod.MONTH]}`;
   }
 
   return '';
