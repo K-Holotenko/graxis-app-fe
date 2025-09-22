@@ -146,7 +146,7 @@ const localTheme = {
     Select: {
       singleItemHeightLG: 48,
       optionSelectedFontWeight: 'regular',
-      optionFontSize: 16,
+      optionFontSize: 14,
       optionHeight: 32,
       optionLineHeight: 2,
       paddingXXS: theme.space100,
@@ -154,6 +154,10 @@ const localTheme = {
       activeBorderColor: theme.N5,
       activeOutlineColor: 'none',
       optionSelectedBg: theme.N2,
+      colorText: theme.N6,
+      colorTextPlaceholder: theme.N6,
+      borderRadiusSM: 8,
+      optionPadding: '5.5px 8px',
     },
   },
 };

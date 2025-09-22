@@ -32,6 +32,10 @@
     display: flex;
     align-items: center;
   }
+
+  :global(.rc-virtual-list-holder-inner) {
+    gap: 2px !important;
+  }
 }
 
 .selectPopup {
