@@ -34,8 +34,7 @@ export interface Publication {
     locality: string;
     staticMapImage: string;
   } & Location;
-  reviewsCount: number;
-  feedbackCount: number;
+  reviewCount: number;
   rate: number;
   pictures: { url: string; id?: string }[];
 }
