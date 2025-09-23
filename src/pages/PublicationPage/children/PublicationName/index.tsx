@@ -19,7 +19,7 @@ interface ProductData {
   title: string;
   category: string;
   rate: number;
-  feedbackCount: number;
+  reviewCount: number;
   isEditable: boolean;
 }
 
@@ -28,7 +28,7 @@ export const PublicationName = ({
   title,
   category,
   rate,
-  feedbackCount,
+  reviewCount,
   isEditable,
 }: ProductData) => {
   const { width } = useWindowSize();
@@ -75,7 +75,7 @@ export const PublicationName = ({
         </div>
         <div className={styles.description}>
           <Circle />
-          <span className={styles.feedback}>{feedbackCount || 0} відгуків</span>
+          <span className={styles.feedback}>{reviewCount || 0} відгуків</span>
         </div>
       </div>
     </section>

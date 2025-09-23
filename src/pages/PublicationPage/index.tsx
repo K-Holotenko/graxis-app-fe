@@ -102,7 +102,7 @@ export const PublicationPage = () => {
                         title={publication!.title}
                         category={publication!.category}
                         rate={publication!.rate}
-                        feedbackCount={publication!.feedbackCount}
+                        reviewCount={publication!.reviewCount}
                       />
                     )}
                   />
@@ -142,7 +142,7 @@ export const PublicationPage = () => {
                         title={publication!.title}
                         category={publication!.category}
                         rate={publication!.rate}
-                        feedbackCount={publication!.feedbackCount}
+                        reviewCount={publication!.reviewCount}
                       />
                     )}
                   />
