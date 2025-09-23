@@ -48,6 +48,12 @@
   height: 48px !important;
 }
 
+.cityDropdown {
+  :global(.rc-virtual-list-holder-inner) {
+    gap: 2px !important;
+  }
+}
+
 .cityTooltip {
   position: absolute;
   right: -25px;

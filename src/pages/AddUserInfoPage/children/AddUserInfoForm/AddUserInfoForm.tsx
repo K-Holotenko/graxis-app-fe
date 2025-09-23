@@ -11,6 +11,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Input, InputType } from 'src/components/Input';
+import ArrowDown from 'src/assets/icons/arrow-down.svg?react';
 import { Button } from 'src/components/Button';
 import { CITY_LIST, FORMS } from 'src/config/constants';
 import { theme } from 'src/config/theme';
@@ -150,7 +151,12 @@ export const AddUserInfoForm = () => {
             validateTrigger="onChange"
             validateStatus={isValid ? 'success' : undefined}
           >
-            <Select options={CITY_LIST} className={styles.citySelect} />
+            <Select
+              options={CITY_LIST}
+              className={styles.citySelect}
+              suffixIcon={<ArrowDown />}
+              rootClassName={styles.cityDropdown}
+            />
           </Form.Item>
         </div>
         <Form.Item>
@@ -177,12 +183,26 @@ const localTheme = {
       paddingXS: 0,
       colorPrimary: theme.primary,
     },
+    Input: {
+      colorBorder: theme.N3,
+    },
     Select: {
       colorPrimary: theme.N5,
       hoverBorderColor: theme.N4,
       activeBorderColor: theme.N5,
       activeOutlineColor: 'none',
       optionSelectedBg: theme.N2,
+      optionPadding: '5.5px 8px',
+      colorBorder: theme.N3,
+      borderRadiusSM: 8,
+      colorTextPlaceholder: theme.N6,
+      colorText: theme.N6,
+      singleItemHeightLG: 48,
+      optionSelectedFontWeight: 'regular',
+      optionFontSize: 14,
+      optionHeight: 32,
+      optionLineHeight: 2,
+      paddingXXS: theme.space100,
     },
   },
 };
